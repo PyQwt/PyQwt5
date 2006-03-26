@@ -1,0 +1,152 @@
+// The SIP interface specification for:
+//      QwtPlot.
+//
+// Copyright (C) 2001-2006 Gerard Vermeulen
+// Copyright (C) 2000 Mark Colclough
+//
+// This file is part of PyQwt.
+//
+// PyQwt is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// PyQwt is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with PyQwt; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+// In addition, as a special exception, Gerard Vermeulen gives permission
+// to link PyQwt dynamically with non-free versions of Qt and PyQt,
+// and to distribute PyQwt in this form, provided that equally powerful
+// versions of Qt and PyQt have been released under the terms of the GNU
+// General Public License.
+//
+// If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+// PyQwt becomes a free plug-in for a non-free program.
+
+
+class QwtPlot: QFrame, QwtPlotDict
+{
+%TypeHeaderCode
+#include <qwt_plot.h>
+%End // %TypeHeaderCode
+
+public:
+    enum Axis {
+        yLeft,
+        yRight,
+        xBottom,
+        xTop,
+        axisCnt
+    }; // enum Axis
+
+    enum LegendPosition {
+        LeftLegend,
+        RightLegend,
+        BottomLegend,
+        TopLegend
+    }; // enum LegendPosition
+
+    QwtPlot(QWidget* /TransferThis/ = 0);
+    QwtPlot(const QwtText&, QWidget* /TransferThis/ = 0);
+    virtual ~QwtPlot();
+    void enableXBottomAxis(bool);
+    bool xBottomAxisEnabled() const;
+    void enableXTopAxis(bool);
+    bool xTopAxisEnabled() const;
+    void enableYRightAxis(bool);
+    bool yRightAxisEnabled() const;
+    void enableYLeftAxis(bool);
+    bool yLeftAxisEnabled() const;
+    void setAutoReplot(bool = true);
+    bool autoReplot() const;
+    void print(QPaintDevice&, const QwtPlotPrintFilter& = QwtPlotPrintFilter()) const /PyName=print_/;
+    virtual void print(QPainter*, const QRect&, const QwtPlotPrintFilter& = QwtPlotPrintFilter()) const /PyName=print_/;
+    QwtPlotLayout* plotLayout();
+    // dead code: const QwtPlotLayout* plotLayout() const;
+    void setMargin(int);
+    int margin() const;
+    void setTitle(const QString&);
+    void setTitle(const QwtText&);
+    QwtText title() const;
+    QwtTextLabel* titleLabel();
+    // dead code: const QwtTextLabel* titleLabel() const;
+    QwtPlotCanvas* canvas();
+    // dead code: const QwtPlotCanvas* canvas() const;
+    void setCanvasBackground(const QColor&);
+    const QColor& canvasBackground() const;
+    void setCanvasLineWidth(int);
+    int canvasLineWidth() const;
+    virtual QwtScaleMap canvasMap(int) const;
+    double invTransform(int, int) const;
+    int transform(int, double) const;
+    QwtScaleEngine* axisScaleEngine(int);
+    // dead code: const QwtScaleEngine* axisScaleEngine(int) const;
+    void setAxisScaleEngine(int, QwtScaleEngine* /Transfer/);
+    void setAxisAutoScale(int);
+    bool axisAutoScale(int) const;
+    void enableAxis(int, bool = true);
+    bool axisEnabled(int) const;
+    void setAxisFont(int, const QFont&);
+    QFont axisFont(int) const;
+    void setAxisScale(int, double, double, double = 0);
+    void setAxisScaleDiv(int, const QwtScaleDiv&);
+    void setAxisScaleDraw(int, QwtScaleDraw* /Transfer/);
+    // dead code: const QwtScaleDiv* axisScaleDiv(int) const;
+    QwtScaleDiv* axisScaleDiv(int);
+    // dead code: const QwtScaleDraw* axisScaleDraw(int) const;
+    QwtScaleDraw* axisScaleDraw(int);
+    // dead code: const QwtScaleWidget* axisWidget(int) const;
+    QwtScaleWidget* axisWidget(int);
+    void setAxisLabelAlignment(int, Qt::Alignment);
+    void setAxisLabelRotation(int, double);
+    void setAxisTitle(int, const QString&);
+    void setAxisTitle(int, const QwtText&);
+    QwtText axisTitle(int) const;
+    void setAxisMaxMinor(int, int);
+    int axisMaxMajor(int) const;
+    void setAxisMaxMajor(int, int);
+    int axisMaxMinor(int) const;
+    void insertLegend(QwtLegend* /Transfer/, QwtPlot::LegendPosition = QwtPlot::RightLegend, double = -1);
+    QwtLegend* legend();
+    // dead code: const QwtLegend* legend() const;
+    virtual void polish();
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
+    void updateLayout();
+    virtual bool event(QEvent*);
+signals:
+    void legendClicked(QwtPlotItem*);
+    void legendChecked(QwtPlotItem*, bool);
+public slots:
+    void clear();
+    virtual void replot();
+    void autoRefresh();
+protected slots:
+    virtual void legendItemClicked();
+    virtual void legendItemChecked(bool);
+protected:
+    static bool axisValid(int);
+    virtual void drawCanvas(QPainter*);
+    virtual void drawItems(QPainter*, const QRect&, const QVector<QwtScaleMap>&, const QwtPlotPrintFilter&) const;
+    virtual void updateTabOrder();
+    void updateAxes();
+    virtual void resizeEvent(QResizeEvent*);
+    virtual void printLegendItem(QPainter*, const QWidget*, const QRect&) const;
+    virtual void printTitle(QPainter*, const QRect&) const;
+    virtual void printScale(QPainter*, int, int, int, int, const QRect&) const;
+    virtual void printCanvas(QPainter*, const QRect&, const QVector<QwtScaleMap>&, const QwtPlotPrintFilter&) const;
+    virtual void printLegend(QPainter*, const QRect&) const;
+}; // class QwtPlot
+
+
+// Local Variables:
+// mode: C++
+// c-file-style: "stroustrup"
+// indent-tabs-mode: nil
+// End:
