@@ -515,7 +515,7 @@ def setup_iqt_build(configuration, options, package):
          '-b', build_file,
          '-c', tmp_dir,
          options.jobs,
-         options.tracing,
+         options.trace,
          ]
         # SIP assumes POSIX style path separators
         + [options.iqt_sipfile.replace('\\', '/')]
@@ -637,7 +637,7 @@ def setup_qwt5_build(configuration, options, package):
          '-b', build_file,
          '-c', tmp_dir,
          options.jobs,
-         options.tracing,
+         options.trace,
          pyqt_sip_flags,
          ]
         + options.sip_include_dirs
@@ -826,8 +826,8 @@ def parse_args():
         action='append', type='string', metavar='SIP_INCLUDE_DIR',
         help='add an extra directory for SIP to search')
     sip_options.add_option(
-        '--tracing', default=False, action='store_true',
-        help=('enable tracing of the execution of the bindings'
+        '--trace', default=False, action='store_true',
+        help=('enable trace of the execution of the bindings'
               ' [default disabled]'))
     parser.add_option_group(sip_options)
     
@@ -873,11 +873,11 @@ def parse_args():
         ('-t %s' % t) for t in options.timelines
         ]
 
-    if options.tracing:
-        options.tracing = '-r'
+    if options.trace:
+        options.trace = '-r'
         options.extra_defines.append('TRACE_PYQWT')
     else:
-        options.tracing = ''
+        options.trace = ''
 
     options.modules = []
     options.subdirs = []
