@@ -55,7 +55,7 @@ public:
     QwtKnob::Symbol symbol() const;
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
-    void setScaleDraw(QwtRoundScaleDraw*);
+    void setScaleDraw(QwtRoundScaleDraw* /Transfer/);
     // dead code: const QwtRoundScaleDraw* scaleDraw() const;
     QwtRoundScaleDraw* scaleDraw();
 protected:

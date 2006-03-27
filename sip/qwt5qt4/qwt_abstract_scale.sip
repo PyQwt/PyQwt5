@@ -53,7 +53,7 @@ public:
     QwtScaleEngine* scaleEngine();
 protected:
     void rescale(double, double, double = 0.0);
-    void setAbstractScaleDraw(QwtAbstractScaleDraw*);
+    void setAbstractScaleDraw(QwtAbstractScaleDraw* /Transfer/);
     // dead code: const QwtAbstractScaleDraw* abstractScaleDraw() const;
     QwtAbstractScaleDraw* abstractScaleDraw();
     virtual void scaleChange();

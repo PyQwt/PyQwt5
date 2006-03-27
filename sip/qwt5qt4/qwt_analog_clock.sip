@@ -57,7 +57,7 @@ protected:
     virtual void drawNeedle(QPainter*, const QPoint&, int, double, QPalette::ColorGroup) const;
     virtual void drawHand(QPainter*, QwtAnalogClock::Hand, const QPoint&, int, double, QPalette::ColorGroup) const;
 private:
-    virtual void setNeedle(QwtDialNeedle*);
+    virtual void setNeedle(QwtDialNeedle* /Transfer/);
 }; // class QwtAnalogClock
 
 

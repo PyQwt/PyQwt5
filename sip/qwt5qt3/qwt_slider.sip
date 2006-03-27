@@ -68,7 +68,7 @@ public:
     void setMargins(int, int);
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
-    void setScaleDraw(QwtScaleDraw*);
+    void setScaleDraw(QwtScaleDraw* /Transfer/);
     // dead code: const QwtScaleDraw* scaleDraw() const;
 protected:
     virtual double getValue(const QPoint&);
