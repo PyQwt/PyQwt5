@@ -44,7 +44,7 @@ public:
     size_t size() const;
     const QwtDoubleInterval& interval(size_t) const;
     double y(size_t) const;
-    QwtDoubleRect boundingRect() const;
+    QRectF boundingRect() const;
 }; // class QwtIntervalData
 
 

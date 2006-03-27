@@ -43,10 +43,6 @@
 %Feature HAS_QWT4
 
 %Include QwtTypes.sip
-typedef QPointF QwtDoublePoint;
-typedef QPolygon QwtPolygon;
-typedef QSizeF QwtDoubleSize;
-typedef QRectF QwtDoubleRect;
 
 %ModuleHeaderCode
 #include <qwt_math.h>

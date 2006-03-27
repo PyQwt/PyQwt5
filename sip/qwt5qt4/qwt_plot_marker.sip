@@ -51,11 +51,11 @@ public:
     virtual int rtti() const;
     double xValue() const;
     double yValue() const;
-    QwtDoublePoint value() const;
+    QPointF value() const;
     void setXValue(double);
     void setYValue(double);
     void setValue(double, double);
-    void setValue(const QwtDoublePoint&);
+    void setValue(const QPointF&);
     void setLineStyle(QwtPlotMarker::LineStyle);
     QwtPlotMarker::LineStyle lineStyle() const;
     void setLinePen(const QPen&);
@@ -67,7 +67,7 @@ public:
     void setLabelAlignment(Qt::Alignment);
     Qt::Alignment labelAlignment() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QwtDoubleRect boundingRect() const;
+    virtual QRectF boundingRect() const;
 }; // class QwtPlotMarker
 
 

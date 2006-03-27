@@ -49,19 +49,19 @@ public:
     QwtPlotCanvas* canvas();
     // dead code: const QwtPlotCanvas* canvas() const;
 signals:
-    void selected(const QwtDoublePoint&);
-    void selected(const QwtDoubleRect&);
+    void selected(const QPointF&);
+    void selected(const QRectF&);
     void selected(const QwtArrayQwtDoublePoint&);
-    void appended(const QwtDoublePoint&);
-    void moved(const QwtDoublePoint&);
+    void appended(const QPointF&);
+    void moved(const QPointF&);
 protected:
-    QwtDoubleRect scaleRect() const;
-    QwtDoubleRect invTransform(const QRect&) const;
-    QRect transform(const QwtDoubleRect&) const;
-    QwtDoublePoint invTransform(const QPoint&) const;
-    QPoint transform(const QwtDoublePoint&) const;
+    QRectF scaleRect() const;
+    QRectF invTransform(const QRect&) const;
+    QRect transform(const QRectF&) const;
+    QPointF invTransform(const QPoint&) const;
+    QPoint transform(const QPointF&) const;
     virtual QwtText trackerText(const QPoint&) const;
-    virtual QwtText trackerText(const QwtDoublePoint&) const;
+    virtual QwtText trackerText(const QPointF&) const;
     virtual void move(const QPoint&);
     virtual void append(const QPoint&);
     virtual bool end(bool = true);

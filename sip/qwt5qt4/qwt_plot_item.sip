@@ -84,14 +84,14 @@ sipTransferBack(sipSelf);
     int yAxis() const;
     virtual void itemChanged();
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const = 0;
-    virtual QwtDoubleRect boundingRect() const;
+    virtual QRectF boundingRect() const;
     virtual void updateLegend(QwtLegend*) const;
     virtual void updateScaleDiv(const QwtScaleDiv&, const QwtScaleDiv&);
     virtual QWidget* legendItem() const;
-    QwtDoubleRect scaleRect(const QwtScaleMap&, const QwtScaleMap&) const;
+    QRectF scaleRect(const QwtScaleMap&, const QwtScaleMap&) const;
     QRect paintRect(const QwtScaleMap&, const QwtScaleMap&) const;
-    QRect transform(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const;
-    QwtDoubleRect invTransform(const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    QRect transform(const QwtScaleMap&, const QwtScaleMap&, const QRectF&) const;
+    QRectF invTransform(const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
 
 %If (HAS_QWT5)
 %ConvertToSubClassCode

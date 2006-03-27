@@ -39,7 +39,7 @@ class QwtRect: QRect
 public:
     QwtRect();
     QwtRect(const QRect&);
-    QwtPolygon clip(const QwtPolygon&) const;
+    QPolygon clip(const QPolygon&) const;
 }; // class QwtRect
 
 

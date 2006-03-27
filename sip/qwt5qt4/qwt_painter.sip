@@ -55,13 +55,13 @@ public:
     static void drawEllipse(QPainter*, const QRect&);
     static void drawLine(QPainter*, int, int, int, int);
     static void drawLine(QPainter*, const QPoint&, const QPoint&);
-    static void drawPolygon(QPainter*, const QwtPolygon&);
-    static void drawPolyline(QPainter*, const QwtPolygon&);
+    static void drawPolygon(QPainter*, const QPolygon&);
+    static void drawPolyline(QPainter*, const QPolygon&);
     static void drawPoint(QPainter*, int, int);
     static void drawRoundFrame(QPainter*, const QRect&, int, const QPalette&, bool);
     static void drawFocusRect(QPainter*, QWidget*);
     static void drawFocusRect(QPainter*, QWidget*, const QRect&);
-    static QwtPolygon clip(const QwtPolygon&);
+    static QPolygon clip(const QPolygon&);
 }; // class QwtPainter
 
 
