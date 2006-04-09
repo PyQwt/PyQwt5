@@ -48,7 +48,7 @@ public:
     QwtAnalogClock(QWidget*, const char*);
     virtual ~QwtAnalogClock();
     virtual void setHand(QwtAnalogClock::Hand, QwtDialNeedle* /Transfer/);
-    // dead code: const QwtDialNeedle* hand(QwtAnalogClock::Hand) const;
+    // signature: const QwtDialNeedle* hand(QwtAnalogClock::Hand) const;
     QwtDialNeedle* hand(QwtAnalogClock::Hand);
 public slots:
     void setCurrentTime();

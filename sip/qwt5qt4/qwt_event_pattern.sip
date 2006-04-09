@@ -93,8 +93,8 @@ public:
     void setKeyPattern(uint, int, int = Qt::NoButton);
     void setMousePattern(const QVector<QwtEventPattern::MousePattern>&);
     void setKeyPattern(const QVector<QwtEventPattern::KeyPattern>&);
-    const QVector<QwtEventPattern::MousePattern>& mousePattern() const;
-    const QVector<QwtEventPattern::KeyPattern>& keyPattern() const;
+    // signature: const QVector<QwtEventPattern::MousePattern>& mousePattern() const;
+    // signature: const QVector<QwtEventPattern::KeyPattern>& keyPattern() const;
     QVector<QwtEventPattern::MousePattern>& mousePattern();
     QVector<QwtEventPattern::KeyPattern>& keyPattern();
     bool mouseMatch(uint, const QMouseEvent*) const;

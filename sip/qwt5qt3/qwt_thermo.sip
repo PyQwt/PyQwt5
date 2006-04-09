@@ -77,7 +77,7 @@ public:
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
     void setScaleDraw(QwtScaleDraw* /Transfer/);
-    // dead code: const QwtScaleDraw* scaleDraw() const;
+    // signature: const QwtScaleDraw* scaleDraw() const;
 public slots:
     void setValue(double);
 protected:

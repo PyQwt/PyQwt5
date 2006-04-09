@@ -40,9 +40,9 @@ public:
     QwtCompass(QWidget* /TransferThis/ = 0);
     virtual ~QwtCompass();
     void setRose(QwtCompassRose* /Transfer/);
-    // dead code: const QwtCompassRose* rose() const;
+    // signature: const QwtCompassRose* rose() const;
     QwtCompassRose* rose();
-    const QMap<double,QString>& labelMap() const;
+    // signature: const QMap<double,QString>& labelMap() const;
     QMap<double,QString>& labelMap();
     void setLabelMap(const QMap<double,QString>&);
 protected:

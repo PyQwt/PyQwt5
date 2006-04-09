@@ -55,7 +55,7 @@ public:
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
     void setScaleDraw(QwtRoundScaleDraw* /Transfer/);
-    // dead code: const QwtRoundScaleDraw* scaleDraw() const;
+    // signature: const QwtRoundScaleDraw* scaleDraw() const;
     QwtRoundScaleDraw* scaleDraw();
 protected:
     virtual void paintEvent(QPaintEvent*);

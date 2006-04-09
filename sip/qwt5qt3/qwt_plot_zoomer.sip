@@ -48,7 +48,7 @@ public:
     virtual void setAxis(int, int);
     void setMaxStackDepth(int);
     int maxStackDepth() const;
-    // dead code: const QValueStack<QwtDoubleRect>& zoomStack() const;
+    const QValueStack<QwtDoubleRect>& zoomStack() const;
     uint zoomRectIndex() const;
     virtual void setSelectionFlags(int);
 public slots:

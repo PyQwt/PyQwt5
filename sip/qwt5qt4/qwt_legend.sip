@@ -57,7 +57,7 @@ public:
     QwtLegend::LegendItemMode itemMode() const;
     int identifierMode() const;
     QWidget* contentsWidget();
-    // dead code: const QWidget* contentsWidget() const;
+    // signature: const QWidget* contentsWidget() const;
     void insert(const QwtPlotItem*, QWidget* /Transfer/);
     void remove(const QwtPlotItem*);
     QWidget* find(const QwtPlotItem*) const;

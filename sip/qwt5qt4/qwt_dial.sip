@@ -76,7 +76,7 @@ public:
     virtual void setOrigin(double);
     double origin() const;
     virtual void setNeedle(QwtDialNeedle* /Transfer/);
-    // dead code: const QwtDialNeedle* needle() const;
+    // signature: const QwtDialNeedle* needle() const;
     QwtDialNeedle* needle();
     QRect boundingRect() const;
     QRect contentsRect() const;
@@ -85,7 +85,7 @@ public:
     virtual QSize minimumSizeHint() const;
     virtual void setScaleDraw(QwtDialScaleDraw* /Transfer/);
     QwtDialScaleDraw* scaleDraw();
-    // dead code: const QwtDialScaleDraw* scaleDraw() const;
+    // signature: const QwtDialScaleDraw* scaleDraw() const;
 protected:
     virtual void paintEvent(QPaintEvent*);
     virtual void resizeEvent(QResizeEvent*);

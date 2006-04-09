@@ -55,7 +55,7 @@ public:
     int spacing() const;
     void setScaleDiv(const QwtScaleTransformation&, const QwtScaleDiv&);
     void setScaleDraw(QwtScaleDraw*);
-    // dead code: const QwtScaleDraw* scaleDraw() const;
+    // signature: const QwtScaleDraw* scaleDraw() const;
     QwtScaleDraw* scaleDraw();
     void setLabelAlignment(Qt::Alignment);
     void setLabelRotation(double);

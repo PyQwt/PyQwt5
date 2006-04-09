@@ -99,7 +99,7 @@ public:
     bool isActive() const;
     virtual bool eventFilter(QObject*, QEvent*);
     QWidget* parentWidget();
-    // dead code: const QWidget* parentWidget() const;
+    // signature: const QWidget* parentWidget() const;
     virtual QRect pickRect() const;
     const QwtPolygon& selection() const;
     virtual void drawRubberBand(QPainter*) const;

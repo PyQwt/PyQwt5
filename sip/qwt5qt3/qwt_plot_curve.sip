@@ -89,7 +89,7 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
     void setData(const QwtData&);
     int closestPoint(const QPoint&, double* = 0) const;
     QwtData& data();
-    const QwtData& data() const;
+    // signature: const QwtData& data() const;
     int dataSize() const;
     double x(int) const;
     double y(int) const;

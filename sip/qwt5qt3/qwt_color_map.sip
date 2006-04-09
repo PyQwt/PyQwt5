@@ -50,7 +50,7 @@ public:
     virtual QRgb rgb(const QwtDoubleInterval&, double) const = 0;
     virtual unsigned char colorIndex(const QwtDoubleInterval&, double) const = 0;
     QColor color(const QwtDoubleInterval&, double) const;
-    virtual const QValueVector<unsigned int> colorTable(const QwtDoubleInterval&) const;
+    virtual QValueVector<unsigned int> colorTable(const QwtDoubleInterval&) const;
 }; // class QwtColorMap
 
 

@@ -45,9 +45,9 @@ public:
     int xAxis() const;
     int yAxis() const;
     QwtPlot* plot();
-    // dead code: const QwtPlot* plot() const;
+    // signature: const QwtPlot* plot() const;
     QwtPlotCanvas* canvas();
-    // dead code: const QwtPlotCanvas* canvas() const;
+    // signature: const QwtPlotCanvas* canvas() const;
 signals:
     void selected(const QwtDoublePoint&);
     void selected(const QwtDoubleRect&);

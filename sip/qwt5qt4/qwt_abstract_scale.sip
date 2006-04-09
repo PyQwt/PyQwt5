@@ -49,12 +49,12 @@ public:
     void setScaleMaxMinor(int);
     int scaleMaxMajor() const;
     void setScaleEngine(QwtScaleEngine* /Transfer/);
-    // dead code: const QwtScaleEngine* scaleEngine() const;
+    // signature: const QwtScaleEngine* scaleEngine() const;
     QwtScaleEngine* scaleEngine();
 protected:
     void rescale(double, double, double = 0.0);
     void setAbstractScaleDraw(QwtAbstractScaleDraw* /Transfer/);
-    // dead code: const QwtAbstractScaleDraw* abstractScaleDraw() const;
+    // signature: const QwtAbstractScaleDraw* abstractScaleDraw() const;
     QwtAbstractScaleDraw* abstractScaleDraw();
     virtual void scaleChange();
 }; // class QwtAbstractScale

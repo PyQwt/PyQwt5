@@ -53,7 +53,7 @@ public:
     void setPaintAttribute(QwtPlotCanvas::PaintAttribute, bool = true);
     bool testPaintAttribute(QwtPlotCanvas::PaintAttribute) const;
     QPixmap* paintCache();
-    // dead code: const QPixmap* paintCache() const;
+    // signature: const QPixmap* paintCache() const;
     void invalidatePaintCache();
 protected:
     QwtPlotCanvas(QwtPlot* /TransferThis/);
