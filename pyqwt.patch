@@ -1,18 +1,18 @@
---- qwt-cvs/include/qwt_color_map.h.pyqwt	2006-03-25 14:21:11.000000000 +0100
-+++ qwt-cvs/include/qwt_color_map.h	2006-03-25 14:22:27.000000000 +0100
-@@ -19,7 +19,7 @@
- #endif
- #include "qwt_double_interval.h"
+--- qwt-cvs/include/qwt_color_map.h.pyqwt	2006-04-01 08:41:30.000000000 +0200
++++ qwt-cvs/include/qwt_color_map.h	2006-04-09 20:02:54.000000000 +0200
+@@ -31,7 +31,7 @@
+   \sa QwtPlotSpectrogram, QwtScaleWidget
+ */
  
 -class QwtColorMap
 +class QWT_EXPORT QwtColorMap
  {
  public:
-     enum Format
-@@ -54,7 +54,7 @@
- };
- 
- 
+     /*! 
+@@ -80,7 +80,7 @@
+ /*!
+   QwtContinousColorMap builds a color map from 2 colors
+ */
 -class QwtContinousColorMap: public QwtColorMap
 +class QWT_EXPORT QwtContinousColorMap: public QwtColorMap
  {
