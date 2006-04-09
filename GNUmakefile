@@ -64,7 +64,7 @@ qwt-cvs:
 	rm -rf qwt-old; mv qwt-cvs qwt-old
 	rm -rf qwt-cvs; cp -pr tmp/qwt-cvs qwt-cvs
 	python untabify.py -t 4 qwt-cvs .cpp .h .pro
-	patch -p0 -b -z .pyqwt <pyqwt.patch
+	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt.patch
 	(cd qwt-cvs; doxygen -u Doxyfile; doxygen Doxyfile)
 
 # build a distribution tarball
