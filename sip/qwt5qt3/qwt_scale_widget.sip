@@ -74,6 +74,7 @@ public:
     void drawTitle(QPainter*, QwtScaleDraw::Alignment, const QRect&) const;
     void setAlignment(QwtScaleDraw::Alignment);
     QwtScaleDraw::Alignment alignment() const;
+    QRect colorBarRect(const QRect&) const;
 protected:
     virtual void paintEvent(QPaintEvent*);
     virtual void resizeEvent(QResizeEvent*);

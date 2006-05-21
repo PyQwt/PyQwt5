@@ -62,6 +62,7 @@ public:
     static void drawFocusRect(QPainter*, QWidget*);
     static void drawFocusRect(QPainter*, QWidget*, const QRect&);
     static QPolygon clip(const QPolygon&);
+    static void drawColorBar(QPainter*, const QwtColorMap&, const QwtDoubleInterval&, const QwtScaleMap&, Qt::Orientation, const QRect&);
 }; // class QwtPainter
 
 

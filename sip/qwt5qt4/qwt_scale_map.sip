@@ -49,8 +49,6 @@ public:
     void setPaintInterval(int, int);
     void setPaintXInterval(double, double);
     void setScaleInterval(double, double);
-    // FIXME: void setTransformationData(void*);
-    // FIXME: void* transformationData() const;
     int transform(double) const;
     double invTransform(double) const;
     double xTransform(double) const;
@@ -77,6 +75,8 @@ public:
     // FIXME: static double linearXForm(double, double, double, double, double, void*);
     // FIXME: static double log10XForm(double, double, double, double, double, void*);
     // FIXME: static double log10InvXForm(double, double, double, double, double, void*);
+    // FIXME: void setData(void*);
+    // FIXME: void* data() const;
 }; // class QwtScaleTransformation
 
 

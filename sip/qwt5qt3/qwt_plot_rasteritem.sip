@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPlotZoomer.
+//      QwtPlotRasterItem.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +30,44 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotZoomer: QwtPlotPicker
+class QwtPlotRasterItem: QwtPlotItem
 {
 %TypeHeaderCode
-#include <qwt_plot_zoomer.h>
+#include <qwt_plot_rasteritem.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotZoomer(QwtPlotCanvas* /TransferThis/, bool = true);
-    QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
-    QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
-    virtual ~QwtPlotZoomer();
-    virtual void setZoomBase();
-    virtual void setZoomBase(const QRectF&);
-    QRectF zoomBase() const;
-    QRectF zoomRect() const;
-    virtual void setAxis(int, int);
-    void setMaxStackDepth(int);
-    int maxStackDepth() const;
-    const QStack<QRectF>& zoomStack() const;
-    uint zoomRectIndex() const;
-    virtual void setSelectionFlags(int);
-public slots:
-    void moveBy(double, double);
-    virtual void move(double, double);
-    virtual void zoom(const QRectF&);
-    virtual void zoom(int);
-signals:
-    void zoomed(const QRectF&);
+    enum CachePolicy {
+        NoCache,
+        PaintCache,
+        ScreenCache
+    }; // enum CachePolicy
+
 protected:
-    virtual void rescale();
-    virtual QSizeF minZoomSize() const;
-    virtual void widgetMouseReleaseEvent(QMouseEvent*);
-    virtual void widgetKeyPressEvent(QKeyEvent*);
-    virtual void begin();
-    virtual bool end(bool = true);
-    virtual bool accept(QPolygon&) const;
-}; // class QwtPlotZoomer
+    enum RenderHint {
+        OptimizeMemory,
+        QptimizeQuality
+    }; // enum RenderHint
+
+public:
+    QwtPlotRasterItem(const QString& = QString::null);
+    virtual ~QwtPlotRasterItem();
+    void setTitle(const QString&);
+    const QString& title() const;
+    void setAlpha(int);
+    int alpha() const;
+    void setCachePolicy(QwtPlotRasterItem::CachePolicy);
+    QwtPlotRasterItem::CachePolicy cachePolicy() const;
+    void invalidateCache();
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    virtual void updateLegend(QwtLegend*) const;
+    static QImage mapImage(const QImage&, const QSize&, int = 255);
+    static QImage mapImage(const QImage&, const QRect&, const QSize&, int = 255);
+    static void fillImage(int, const QRegion&, QImage&);
+    virtual QSize resolution(const QwtDoubleRect&) const;
+protected:
+    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&, QwtPlotRasterItem::RenderHint) const = 0;
+}; // class QwtPlotRasterItem
 
 
 // Local Variables:

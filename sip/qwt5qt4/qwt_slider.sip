@@ -93,17 +93,17 @@ protected:
         int yes, no;
     } graph[] = {
         {sipName_QwtArrowButton, &sipClass_QwtArrowButton, -1, 1},
-        {sipName_QwtPicker, &sipClass_QwtPicker, 12, 2},
-        {sipName_QwtLegendLabel, &sipClass_QwtLegendLabel, -1, 3},
-        {sipName_QwtPushButton, &sipClass_QwtPushButton, 14, 4},
-        {sipName_QwtThermo, &sipClass_QwtThermo, -1, 5},
-        {sipName_QwtPlot, &sipClass_QwtPlot, -1, 6},
-        {sipName_QwtDynGridLayout, &sipClass_QwtDynGridLayout, -1, 7},
-        {sipName_QwtCounter, &sipClass_QwtCounter, -1, 8},
-        {sipName_QwtSliderBase, &sipClass_QwtSliderBase, 15, 9},
+        {sipName_QwtLegend, &sipClass_QwtLegend, -1, 2},
+        {sipName_QwtPicker, &sipClass_QwtPicker, 12, 3},
+        {sipName_QwtDynGridLayout, &sipClass_QwtDynGridLayout, -1, 4},
+        {sipName_QwtPlot, &sipClass_QwtPlot, -1, 5},
+        {sipName_QwtThermo, &sipClass_QwtThermo, -1, 6},
+        {sipName_QwtPushButton, &sipClass_QwtPushButton, 14, 7},
+        {sipName_QwtSliderBase, &sipClass_QwtSliderBase, 15, 8},
+        {sipName_QwtPlotCanvas, &sipClass_QwtPlotCanvas, -1, 9},
         {sipName_QwtScale, &sipClass_QwtScale, -1, 10},
-        {sipName_QwtLegend, &sipClass_QwtLegend, -1, 11},
-        {sipName_QwtPlotCanvas, &sipClass_QwtPlotCanvas, -1, -1},
+        {sipName_QwtCounter, &sipClass_QwtCounter, -1, 11},
+        {sipName_QwtLegendLabel, &sipClass_QwtLegendLabel, -1, -1},
         {sipName_QwtPlotPicker, &sipClass_QwtPlotPicker, 13, -1},
         {sipName_QwtPlotZoomer, &sipClass_QwtPlotZoomer, -1, -1},
         {sipName_QwtLegendButton, &sipClass_QwtLegendButton, -1, -1},
@@ -111,8 +111,8 @@ protected:
         {sipName_QwtDial, &sipClass_QwtDial, 19, 17},
         {sipName_QwtKnob, &sipClass_QwtKnob, -1, 18},
         {sipName_QwtSlider, &sipClass_QwtSlider, -1, -1},
-        {sipName_QwtCompass, &sipClass_QwtCompass, -1, 20},
-        {sipName_QwtAnalogClock, &sipClass_QwtAnalogClock, -1, -1},
+        {sipName_QwtAnalogClock, &sipClass_QwtAnalogClock, -1, 20},
+        {sipName_QwtCompass, &sipClass_QwtCompass, -1, -1},
     };
     int i = 0;
     sipClass = NULL;
@@ -127,6 +127,50 @@ protected:
     } while (i >= 0);
 %End // %ConvertToSubClassCode
 %End // HAS_QWT4
+
+%If (HAS_QWT5)
+%ConvertToSubClassCode
+    static struct class_graph {
+        char *name;
+        sipWrapperType **type;
+        int yes, no;
+    } graph[] = {
+        {sipName_QwtAbstractSlider, &sipClass_QwtAbstractSlider, 12, 1},
+        {sipName_QwtPanner, &sipClass_QwtPanner, 18, 2},
+        {sipName_QwtLegend, &sipClass_QwtLegend, -1, 3},
+        {sipName_QwtCounter, &sipClass_QwtCounter, -1, 4},
+        {sipName_QwtPicker, &sipClass_QwtPicker, 19, 5},
+        {sipName_QwtScaleWidget, &sipClass_QwtScaleWidget, -1, 6},
+        {sipName_QwtPlot, &sipClass_QwtPlot, -1, 7},
+        {sipName_QwtThermo, &sipClass_QwtThermo, -1, 8},
+        {sipName_QwtDynGridLayout, &sipClass_QwtDynGridLayout, -1, 9},
+        {sipName_QwtTextLabel, &sipClass_QwtTextLabel, 21, 10},
+        {sipName_QwtPlotCanvas, &sipClass_QwtPlotCanvas, -1, 11},
+        {sipName_QwtArrowButton, &sipClass_QwtArrowButton, -1, -1},
+        {sipName_QwtDial, &sipClass_QwtDial, 16, 13},
+        {sipName_QwtSlider, &sipClass_QwtSlider, -1, 14},
+        {sipName_QwtWheel, &sipClass_QwtWheel, -1, 15},
+        {sipName_QwtKnob, &sipClass_QwtKnob, -1, -1},
+        {sipName_QwtCompass, &sipClass_QwtCompass, -1, 17},
+        {sipName_QwtAnalogClock, &sipClass_QwtAnalogClock, -1, -1},
+        {sipName_QwtPlotPanner, &sipClass_QwtPlotPanner, -1, -1},
+        {sipName_QwtPlotPicker, &sipClass_QwtPlotPicker, 20, -1},
+        {sipName_QwtPlotZoomer, &sipClass_QwtPlotZoomer, -1, -1},
+        {sipName_QwtLegendItem, &sipClass_QwtLegendItem, -1, -1},
+    };
+    int i = 0;
+    sipClass = NULL;
+    do {
+        struct class_graph *cg = &graph[i];
+        if (cg->name != NULL && sipCpp->inherits(cg->name)) {
+            sipClass = *cg->type;
+            i = cg->yes;
+        } else {
+            i = cg->no;
+        }
+    } while (i >= 0);
+%End // %ConvertToSubClassCode
+%End // HAS_QWT5
 
 }; // class QwtSlider
 

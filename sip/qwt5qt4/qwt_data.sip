@@ -115,13 +115,13 @@ class QwtDoublePointData: QwtData
 
 public:
     virtual ~QwtDoublePointData();
-    QwtDoublePointData(const QwtArrayQwtDoublePoint&);
+    QwtDoublePointData(const QPolygonF&);
     // Not Pythonic: QwtDoublePointData& operator=(const QwtDoublePointData&);
     virtual QwtData* copy() const /Factory/;
     virtual size_t size() const;
     virtual double x(size_t) const;
     virtual double y(size_t) const;
-    const QwtArrayQwtDoublePoint data() const;
+    const QPolygonF& data() const;
 }; // class QwtDoublePointData
 
 

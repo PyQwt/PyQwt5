@@ -1,6 +1,6 @@
 // The SIP interface specification for:
 //      QwtColorMap,
-//      QwtContinousColorMap.
+//      QwtLinearColorMap.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -54,25 +54,33 @@ public:
 }; // class QwtColorMap
 
 
-class QwtContinousColorMap: QwtColorMap
+class QwtLinearColorMap: QwtColorMap
 {
 %TypeHeaderCode
 #include <qwt_color_map.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtContinousColorMap(QwtColorMap::Format = QwtColorMap::RGB);
-    QwtContinousColorMap(const QColor&, const QColor&, QwtColorMap::Format = QwtColorMap::RGB);
-    QwtContinousColorMap(const QwtContinousColorMap&);
-    virtual ~QwtContinousColorMap();
-    // Not Pythonic: QwtContinousColorMap& operator=(const QwtContinousColorMap&);
-    virtual QwtContinousColorMap* copy() const;
+    enum Mode {
+        FixedColors,
+        ScaledColors
+    }; // enum Mode
+
+    QwtLinearColorMap(QwtColorMap::Format = QwtColorMap::RGB);
+    QwtLinearColorMap(const QColor&, const QColor&, QwtColorMap::Format = QwtColorMap::RGB);
+    QwtLinearColorMap(const QwtLinearColorMap&);
+    virtual ~QwtLinearColorMap();
+    // Not Pythonic: QwtLinearColorMap& operator=(const QwtLinearColorMap&);
+    virtual QwtColorMap* copy() const;
+    void setMode(QwtLinearColorMap::Mode);
+    QwtLinearColorMap::Mode mode() const;
     void setColorInterval(const QColor&, const QColor&);
+    void addColorStop(double, const QColor&);
     QColor color1() const;
     QColor color2() const;
     virtual QRgb rgb(const QwtDoubleInterval&, double) const;
     virtual unsigned char colorIndex(const QwtDoubleInterval&, double) const;
-}; // class QwtContinousColorMap
+}; // class QwtLinearColorMap
 
 
 // Local Variables:

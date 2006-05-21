@@ -102,7 +102,7 @@ sipTransferBack(sipSelf);
     case QwtPlotItem::Rtti_PlotMarker: sipClass = sipClass_QwtPlotMarker; break; 
     case QwtPlotItem::Rtti_PlotCurve: sipClass = sipClass_QwtPlotCurve; break;
     // MISSING case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
-    // QWT_EXPORT case QwtPlotItem::Rtti_PlotSpectogram: sipClass = sipClass_QwtPlotSpectrogram; break;
+    case QwtPlotItem::Rtti_PlotSpectrogram: sipClass = sipClass_QwtPlotSpectrogram; break;
     default: sipClass = 0;
     }
     Py_END_ALLOW_THREADS

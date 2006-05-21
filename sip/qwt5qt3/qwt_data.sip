@@ -121,7 +121,7 @@ public:
     virtual size_t size() const;
     virtual double x(size_t) const;
     virtual double y(size_t) const;
-    const QwtArrayQwtDoublePoint data() const;
+    const QwtArrayQwtDoublePoint& data() const;
 }; // class QwtDoublePointData
 
 

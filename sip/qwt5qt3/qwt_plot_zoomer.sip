@@ -37,9 +37,9 @@ class QwtPlotZoomer: QwtPlotPicker
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotZoomer(QwtPlotCanvas* /TransferThis/);
-    QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/);
-    QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/);
+    QwtPlotZoomer(QwtPlotCanvas* /TransferThis/, bool = true);
+    QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
+    QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
     virtual ~QwtPlotZoomer();
     virtual void setZoomBase();
     virtual void setZoomBase(const QwtDoubleRect&);

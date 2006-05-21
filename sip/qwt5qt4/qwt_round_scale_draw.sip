@@ -49,9 +49,6 @@ public:
     void setAngleRange(double, double);
     virtual int extent(const QPen&, const QFont&) const;
 protected:
-    QPoint labelCenter(const QFont&, double, const QwtText&) const;
-    QSize labelSize(const QFont&, double) const;
-    QRect labelRect(const QFont&, double) const;
     virtual void drawTick(QPainter*, double, int) const;
     virtual void drawBackbone(QPainter*) const;
     virtual void drawLabel(QPainter*, double) const;

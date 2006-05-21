@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPlotZoomer.
+//      QwtPlotSvgItem.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +30,28 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotZoomer: QwtPlotPicker
+class QwtPlotSvgItem: QwtPlotItem
 {
 %TypeHeaderCode
-#include <qwt_plot_zoomer.h>
+#include <qwt_plot_svgitem.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotZoomer(QwtPlotCanvas* /TransferThis/, bool = true);
-    QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
-    QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
-    virtual ~QwtPlotZoomer();
-    virtual void setZoomBase();
-    virtual void setZoomBase(const QRectF&);
-    QRectF zoomBase() const;
-    QRectF zoomRect() const;
-    virtual void setAxis(int, int);
-    void setMaxStackDepth(int);
-    int maxStackDepth() const;
-    const QStack<QRectF>& zoomStack() const;
-    uint zoomRectIndex() const;
-    virtual void setSelectionFlags(int);
-public slots:
-    void moveBy(double, double);
-    virtual void move(double, double);
-    virtual void zoom(const QRectF&);
-    virtual void zoom(int);
-signals:
-    void zoomed(const QRectF&);
+    QwtPlotSvgItem(const QString& = QString::null);
+    virtual ~QwtPlotSvgItem();
+    void setTitle(const QString&);
+    const QString& title() const;
+    bool loadFile(const QRectF&, const QString&);
+    bool loadData(const QRectF&, const QByteArray&);
+    virtual QRectF boundingRect() const;
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    virtual void updateLegend(QwtLegend*) const;
 protected:
-    virtual void rescale();
-    virtual QSizeF minZoomSize() const;
-    virtual void widgetMouseReleaseEvent(QMouseEvent*);
-    virtual void widgetKeyPressEvent(QKeyEvent*);
-    virtual void begin();
-    virtual bool end(bool = true);
-    virtual bool accept(QPolygon&) const;
-}; // class QwtPlotZoomer
+    // signature: const QSvgRenderer& renderer() const;
+    QSvgRenderer& renderer();
+    void render(QPainter*, const QRect&, const QRect&) const;
+    QRect viewBox(const QRectF&) const;
+}; // class QwtPlotSvgItem
 
 
 // Local Variables:

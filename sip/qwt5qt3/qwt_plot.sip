@@ -56,14 +56,8 @@ public:
     QwtPlot(const QwtText&, QWidget* /TransferThis/ = 0);
     QwtPlot(QWidget*, const char*);
     virtual ~QwtPlot();
-    void enableXBottomAxis(bool);
-    bool xBottomAxisEnabled() const;
-    void enableXTopAxis(bool);
-    bool xTopAxisEnabled() const;
-    void enableYRightAxis(bool);
-    bool yRightAxisEnabled() const;
-    void enableYLeftAxis(bool);
-    bool yLeftAxisEnabled() const;
+    void applyProperties(const QString&);
+    QString grabProperties() const;
     void setAutoReplot(bool = true);
     bool autoReplot() const;
     void print(QPaintDevice&, const QwtPlotPrintFilter& = QwtPlotPrintFilter()) const /PyName=print_/;
@@ -119,7 +113,7 @@ public:
     virtual void polish();
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
-    void updateLayout();
+    virtual void updateLayout();
     virtual bool event(QEvent*);
 signals:
     void legendClicked(QwtPlotItem*);

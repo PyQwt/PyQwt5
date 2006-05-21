@@ -43,7 +43,7 @@ public:
     void setData(const QMemArray<QwtDoubleInterval>&, const QwtArrayDouble&);
     size_t size() const;
     const QwtDoubleInterval& interval(size_t) const;
-    double y(size_t) const;
+    double value(size_t) const;
     QwtDoubleRect boundingRect() const;
 }; // class QwtIntervalData
 
