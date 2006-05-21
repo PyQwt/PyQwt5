@@ -321,7 +321,8 @@ def check_compiler(configuration, options):
         '// Uncomment one of the following four lines',
         ]
 
-    for ctype in ('int', 'long', 'unsigned int', 'unsigned long'):
+    for ctype in ('int', 'long', 'long long',
+                  'unsigned int', 'unsigned long', 'unsigned long long'):
         open(name, "w").write(program % ctype)
         print "Check if 'size_t' and '%s' are the same type:" % ctype
         if compile_qt_program(name, configuration):

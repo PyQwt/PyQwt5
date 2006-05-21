@@ -3,8 +3,10 @@
 // Uncomment one of the following four lines
 //typedef int size_t;
 //typedef long size_t;
+//typedef long long size_t;
 typedef unsigned int size_t;
 //typedef unsigned long size_t;
+//typedef unsigned long long size_t;
 
 // Local Variables:
 // mode: C++
