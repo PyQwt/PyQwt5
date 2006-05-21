@@ -70,7 +70,7 @@ qwt-cvs:
 # build a distribution tarball
 dist: all distclean all
 	(cd Doc; rm doc; make)
-	sed "s|@VERSION@|$(date '+%Y%m%d')|g" <PyQwt.spec.in >PyQwt.spec
+	sed "s|@VERSION@|$$(date '+%Y%m%d')|g" <PyQwt5.spec.in >PyQwt5.spec
 	python setup.py sdist --formats=gztar
 
 clean:

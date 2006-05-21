@@ -12,7 +12,7 @@
 %{expand: %%define qtver %(python -c 'import qt; print qt.QT_VERSION_STR')}
 %{expand: %%define sipver %(rpm -q sip --qf "%{VERSION}")}
 
-%define name	PyQwt
+%define name	PyQwt5
 %define version	@VERSION@
 %define release	1
 %define qtdir   /usr/lib/qt3

@@ -35,9 +35,9 @@ try:
 except ImportError:
     pass
 
-# Tries to import qt, PyQt4.Qwt5.iqt, PyQt4.Qwt5.Qwt and PyQt4.Qwt5.qplt
+# Tries to import PyQt4.Qt, PyQt4.Qwt5.iqt, PyQt4.Qwt5.Qwt and PyQt4.Qwt5.qplt
 try:
-    import qt
+    import PyQt4.Qt as qt
     import PyQt4.Qwt5.iqt
     import PyQt4.Qwt5.Qwt as qwt
     import PyQt4.Qwt5.qplt as qplt

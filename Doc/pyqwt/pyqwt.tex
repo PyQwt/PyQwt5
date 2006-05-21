@@ -12,16 +12,14 @@
 % Source code
 \newcommand{\Download}{\ulink{download}
   {http://pyqwt.sourceforge.net/download.html}}
-\newcommand{\Snapshot}{\ulink{snapshot}
-  {http://pyqwt.sourceforge.net/snapshot}}
-\newcommand{\Sip}{\ulink{sip-4.4.tar.gz}
+\newcommand{\Sip}{\ulink{sip-4.4.3.tar.gz}
   {http://pyqwt.sourceforge.net/support/sip-4.4.tar.gz}}
 \newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.16.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.16-gpl.tar.gz}}
 \newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.16.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.16.tar.gz}}
-\newcommand{\PyQtFourGpl}{\ulink{PyQt4.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt4.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt4-gpl-4.0.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-gpl-4.0.tar.gz}}
 \newcommand{\NumPy}{\ulink{NumPy}
   {http://numpy.scipy.org}}
 \newcommand{\NumPyTarGz}{\ulink{NumPy-0.9.8.tar.gz}
@@ -34,8 +32,8 @@
   {http://www.numpy.org}}
 \newcommand{\NumericTarGz}{\ulink{Numeric-23.8.tar.gz}
   {http://prdownloads.sourceforge.net/numpy/Numeric-23.8.tar.gz?download}}
-\newcommand{\PyQwtTarGz}{\ulink{PyQwt5-\version.tar.gz}
-  {http://prdownloads.sourceforge.net/pyqwt/PyQwt5-\version.tar.gz?download}}
+\newcommand{\PyQwtTarGz}{\ulink{PyQwt5-\cvs.tar.gz}
+  {http://prdownloads.sourceforge.net/pyqwt5/PyQwt5-\cvs.tar.gz?download}}
 \newcommand{\ReadMePatches}{\ulink{README}
   {http://pyqwt.sourceforge.net/patches/README}}
 
@@ -69,7 +67,7 @@
 \newcommand{\Future}{
   \begin{notice}[warning]
     The documentation is for the future PyQwt-5.0 which is only available from
-    CVS. The \Download{} page has links for the latest releases.
+    CVS or as a snapshot: \PyQwtTarGz{}.
   \end{notice}
 }
 
@@ -225,7 +223,7 @@ programs as well as from the Command Line Interpreter (CLI).
 This section addresses:
 \begin{itemize}
 \item
-  the CLI facilities (iqt, PyCute, qwt.qplt),
+  the CLI facilities (iqt, qwt.qplt),
 \item
   the functions to convert \class{QImage} instances to Numeric and numarray
   arrays and vice versa.
@@ -293,7 +291,7 @@ while setting up the help system for \module{scipy}:
 
 The module \module{qwt.qplt} defines a tiny data-directed programming
 language to simplify the use of \class{QwtPlot} from the Python command
-line interpreter or from an embedded Python shell like in \program{PyCute}.
+line interpreter.
 Here follows a small example:
 
 \verbatiminput{qplt.example}
@@ -568,7 +566,7 @@ Build prerequisites for \PyQwtTarGz{}:
     Supported versions: sip-4.4.x,
   \item
     Either \PyQtGpl{}, or \PyQtMac{}, or \PyQtFourGpl{}.\\
-    Supported versions: PyQt4, and PyQt-3.16.
+    Supported versions: PyQt4-4.0, and PyQt-3.16.
   \item
     \ReadMePatches{} for bug fixes and upgrades.
 \end{enumerate}
@@ -585,7 +583,7 @@ Build prerequisites for \PyQwtTarGz{}:
 \item
   Unpack \PyQwtTarGz{} and read this \ReadMePatches{} to check for patches.
 \item
-  Invoke the commands:
+  Invoke the commands to build PyQwt5 for Qt-4:
 \begin{verbatim}
 cd PyQwt-5.0
 cd configure
@@ -598,9 +596,27 @@ make install
   The commands build PyQwt against the included Qwt CVS snapshot and install
   PyQwt.
   Test the installation by playing with the example programs.
+\item
+  Invoke the commands to build PyQwt5 for Qt-3:
+\begin{verbatim}
+cd PyQwt-5.0
+cd configure
+python configure.py -3 -Q ../qwt-cvs
+make
+make install
+\end{verbatim}
 \end{enumerate}
 
-Contact the \mailinglist{}, if you run into problems.
+See the last note below for all configuration options. 
+
+\begin{notice}[note]
+If you run into problems, create two log files
+\begin{verbatim}
+python configure.py --your --options > configure.log
+make > make.log
+\end{verbatim}
+and send the log files to the \mailinglist{}.
+\end{notice}
 
 \begin{notice}[note]
   Check if all development packages have been installed when make produces
@@ -674,7 +690,7 @@ sequence of items convertable to a C++ double and a C++ long:
 \item
   \code{array = QwtArrayDouble(Numeric.array([0.0, 1.0]))}
 \item
-  \code{array = QwtArrayLong(Numeric.array([0, 1]))}
+  \code{array = QwtArrayInt(Numeric.array([0, 1]))}
 \end{itemize}
 
 All those classes have 16 member functions -- taking QwtArrayDouble as example:
@@ -746,8 +762,24 @@ is fully implemented.
 FIXME.
 \end{classdesc*}
 
+\begin{classdesc*}{QwtArrayDouble}
+FIXME.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtArrayInt}
+FIXME.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtArrayQwtDoublePoint}
+FIXME.
+\end{classdesc*}
+
 \begin{classdesc*}{QwtArrowButton}
 is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtColorMap}
+FIXME.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCompass}
@@ -788,6 +820,10 @@ is fully implemented.
 
 \begin{classdesc*}{QwtDialSimpleNeedle}
 is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoubleInterval}
+FIXME.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoublePoint}
@@ -835,6 +871,10 @@ is fully implemented.
 
 \begin{classdesc*}{QwtLegendItem}
 is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLinearColorMap}
+FIXME.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtLinearScaleEngine}
@@ -965,12 +1005,28 @@ is fully implemented.
 is fully implemented.
 \end{classdesc*}
 
+\begin{classdesc*}{QwtPlotPanner}
+FIXME.
+\end{classdesc*}
+
 \begin{classdesc*}{QwtPlotPicker}
 is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotPrintFilter}
 is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotRasterItem}
+FIXME.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotSpectrogram}
+FIXME.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotSvgItem}
+FIXME.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotZoomer}
