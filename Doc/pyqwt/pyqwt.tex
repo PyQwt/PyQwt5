@@ -1,0 +1,1092 @@
+\documentclass{manual}
+
+% Links
+\newcommand{\mailinglist}{\ulink{mailing list}
+  {mailto:pyqwt-users@lists.sourceforge.net}}
+\newcommand{\Qwt}{\ulink{Qwt}
+  {http://qwt.sourceforge.net}}
+\newcommand{\Grace}{\ulink{Grace}
+  {http://plasma-gate.weizmann.ac.il/Grace/}}
+\newcommand{\cvs}{20060521}
+
+% Source code
+\newcommand{\Download}{\ulink{download}
+  {http://pyqwt.sourceforge.net/download.html}}
+\newcommand{\Snapshot}{\ulink{snapshot}
+  {http://pyqwt.sourceforge.net/snapshot}}
+\newcommand{\Sip}{\ulink{sip-4.4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/sip-4.4.tar.gz}}
+\newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.16.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.16-gpl.tar.gz}}
+\newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.16.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.16.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt4.tar.gz}}
+\newcommand{\NumPy}{\ulink{NumPy}
+  {http://numpy.scipy.org}}
+\newcommand{\NumPyTarGz}{\ulink{NumPy-0.9.8.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numpy-0.9.8.tar.gz?download}}
+\newcommand{\numarray}{\ulink{numarray}
+  {http://www.stsci.edu/resources/software_hardware/numarray}}
+\newcommand{\numarrayTarGz}{\ulink{numarray-1.5.1.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numarray-1.5.1.tar.gz?download}}
+\newcommand{\Numeric}{\ulink{Numeric}
+  {http://www.numpy.org}}
+\newcommand{\NumericTarGz}{\ulink{Numeric-23.8.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/Numeric-23.8.tar.gz?download}}
+\newcommand{\PyQwtTarGz}{\ulink{PyQwt5-\version.tar.gz}
+  {http://prdownloads.sourceforge.net/pyqwt/PyQwt5-\version.tar.gz?download}}
+\newcommand{\ReadMePatches}{\ulink{README}
+  {http://pyqwt.sourceforge.net/patches/README}}
+
+% Installers for MS-Windows
+\newcommand{\PythonExe}{\ulink{Python-2.4.3.exe}
+  {http://www.python.org/ftp/python/2.4.3/Python-2.4.3.exe}}
+\newcommand{\NumericExe}{\ulink{Numeric-23.8.win32-py2.4.exe}
+  {http://prdownloads.sourceforge.net/numpy/Numeric-23.8.win32-py2.4.exe?download}}
+\newcommand{\numarrayExe}{\ulink{numarray-1.5.1.win32-py2.4.exe}
+  {http://prdownloads.sourceforge.net/numpy/numarray-1.5.1.win32-py2.4.exe?download}}
+\newcommand{\PyQtEdu}{\ulink{PyQt-win-edu-msvc-3.13.exe}
+  {http://pyqwt.sourceforge.net/support/PyQt-win-edu-msvc-3.13.exe}}
+\newcommand{\PyQwtExe}{\ulink{PyQwt\_Qt230-4.1.win32-py2.3.exe}
+  {http://prdownloads.sourceforge.net/pyqwt/PyQwt\_Qt230-4.1.win32-py2.3.exe?download}}
+
+\newcommand{\PrerequisitesEnd}{
+  The source package \PyQwtTarGz{} contains a CVS snapshot of the not yet
+  released \Qwt-5.0.0 library.
+  Since the API of the \Qwt-5.0.0 is still unstable, it is best to compile and
+  link those sources statically into PyQwt.
+
+  To exploit the full power of the QwtPlot widget, you should install at
+  least one the Numerical Python extensions:
+  \NumPy{}, \numarray{}, or \Numeric{}.
+
+  I am using \NumPyTarGz{}, \numarrayTarGz{}, and \NumericTarGz{}.
+  \NumPy{} is actively developed and recommended (although in a state of flux).
+  \numarray{} development is slowing and \Numeric{} development has stopped.
+}
+
+\newcommand{\Future}{
+  \begin{notice}[warning]
+    The documentation is for the future PyQwt-5.0 which is only available from
+    CVS. The \Download{} page has links for the latest releases.
+  \end{notice}
+}
+
+%\renewcommand{\Future}{}
+
+\newcommand{\Blurb}{
+PyQwt is a set of Python bindings for the \Qwt{} C++ class library which
+extends the Qt framework with widgets for scientific, engineering and financial
+applications.   It provides a widget to plot 2-dimensional data and various
+widgets to display and control bounded or unbounded floating point values.
+
+The main features of PyQwt are:
+\begin{itemize}
+\item
+  it really shines with the Numerical Python extension, \NumPy{}, \numarray{},
+  and \Numeric{}.  These extension modules add new data types to Python which
+  turn Python into an ideal system for numerical computing and experimentation,
+  better than MatLab and IDL.
+
+\item
+  it requires and extends PyQt, a set of Python bindings for Qt.
+
+\item
+  it supports the use of PyQt, Qt, Qwt, the Numerical Python extensions (either
+  NumPy, or numarray, or Numeric or any combination) and optionally SciPy in a
+  GUI Python application or in an interactive Python session.
+
+\item
+  it runs on POSIX, MacOS/X and Windows (any operating system supported by Qt
+  and Python).
+\end{itemize}
+}
+
+
+\title{PyQwt5 Manual}
+
+% boilerplate.tex?
+\author{Gerard Vermeulen}
+
+\date{\today}
+\release{\cvs}
+\setshortversion{\cvs}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+% This makes the contents more accessible from the front page of the HTML.
+\ifhtml
+\chapter*{Front Matter \label{front}}
+\fi
+
+
+\input{copyright}
+\begin{abstract}
+\noindent
+\Blurb{}
+\end{abstract}
+
+
+\tableofcontents
+
+
+\chapter{Introduction \label{introduction}}
+
+\Future{}
+
+PyQwt is a set of Python bindings for the \Qwt{} library featuring fast
+plotting of Python lists and tuples and the powerful array types provided
+by the Python extension modules \NumPy{}, \numarray{}, and \Numeric{}.
+
+ 
+\section{Qwt \label{qwt-intro}}
+
+\Future{}
+
+Qwt is a C++ library based on the Qt GUI framework from Troll Tech AS.
+The Qwt library contains widgets and components useful to write technical,
+scientific, and financial programs.
+It includes the following widgets:
+\begin{itemize}
+  \item
+    \class{QwtCompass}: a very fancy QDial-like widget to display and
+    control a direction.
+  \item
+    \class{QwtCounter}: a QSpinBox-like widget to display and control
+    a bounded floating point value.
+  \item
+    \class{QwtDial}: a QDial-like widget to display and control a
+    floating point value.
+  \item
+    \class{QwtKnob}: a potentiometer-like widget to display and control
+    a bounded floating point value.
+  \item
+    \class{QwtPlot}: a widget to plot two-dimensional data points.
+  \item
+    \class{QwtSlider}: a QSlider-like widget to display and control a
+    bounded floating point value.
+  \item
+    \class{QwtThermo}: a thermometer-like widget to display a floating
+    point value. 
+  \item
+    \class{QwtWheel}: a wheel-like widget with its axis parallel to
+    the computer screen to control a floating point value over a very
+    large range in very small steps.
+\end{itemize}
+The widgets are documented in the
+\ulink{Qwt manual}{qwt/index.html}
+on your hard disk or \Qwt{} on the web.
+
+\begin{notice}[note]
+  FIXME.
+  The designer plug-in for Qt-3.x.x of the \Qwt{} library works with PyQwt.
+  If you did built PyQwt against its slightly patched internal version of
+  \Qwt{}, you must install either the original or the internal \Qwt{} library.
+\end{notice}
+
+
+\section{The Python Numerical Extension modules \label{numeric-intro}}
+
+\Future{}
+
+The \NumPy{}, \numarray{}, and \Numeric{} modules extend Python with
+multi-dimensional array types and a complete set of 'standard' functions
+and operators to manipulate the arrays.
+
+Python together with at least one of those modules is an ideal language
+experimental numerical and scientific computing (as powerful as APL, MatLab,
+IDL and others, but much more elegant).
+
+If you do not have a mathematical background, you can think of those array
+types as columns in a spreadsheet.  The spreadsheet lets you do operations
+on whole columns at once.  Look at the following simple example:
+
+\verbatiminput{numeric.example}
+
+The function call \samp{arange(0.0, 10.0, 3.0)} returns a NumPy array of 4
+equidistant points from 0 to 9 inclusive: \samp{array([ 0., 3., 6., 9.])}.
+The function call \samp{sin(x)} and statement \samp{x*x} show that
+\samp{sin} and \samp{*} manipulate NumPy arrays element by element.
+All this in C, for a manifold speedup with respect to pure Python.
+
+
+\section{PyQwt
+  \label{pyqwt-intro}}
+
+\Future{}
+
+The PyQwt widgets can be used in Graphical User Interface (GUI)
+programs as well as from the Command Line Interpreter (CLI).
+This section addresses:
+\begin{itemize}
+\item
+  the CLI facilities (iqt, PyCute, qwt.qplt),
+\item
+  the functions to convert \class{QImage} instances to Numeric and numarray
+  arrays and vice versa.
+\end{itemize}
+
+The documentation for writing GUI programs consists of the
+\ulink{Qwt manual}{qwt/index.html} on your hard disk or the \Qwt{} manual on
+the web, supplemented by chapter \ref{reference} to document the differences
+between PyQwt and Qwt.
+
+
+\subsection{Qwt5.iqt
+  \label{iqt-intro}}
+
+\Future{}
+
+\begin{notice}[warning]
+  The module \module{iqt} will not work with a MSVC-compiled Python, because
+  it has no \module{readline} module.
+\end{notice}
+
+The programming style \emph{imposed} by PyQt (and other GUI toolkit wrappers)
+is to create an application instance with some widgets and to enter into an
+event loop that locks you from the Python command line interpreter.
+
+Module \module{Qwt5.iqt} enables you to:
+\begin{itemize}
+\item
+  create and control (Py)Qt widgets from the command line interpreter or an
+  enhanced interpreter like \ulink{ipython}{http://ipython.scipy.org}.
+\item
+  to interact with those widgets through (Py)Qt's GUI.
+\end{itemize}
+
+Module \module{iqt} works by hooking \cfunction{qApp->processEvents()} on the
+event hook of the readline module.
+The GNU readline library closes the event loop by calling 
+\cfunction{qApp->processEvent()} at a maximum rate of 10 times per second
+while reading your keyboard input.
+
+To see how \module{Qwt5.iqt} works, play with \file{ICompass.py} by running
+\begin{verbatim}
+python -i ICompass.py
+\end{verbatim}
+or
+\begin{verbatim}
+python ICompass.py
+\end{verbatim}
+or
+\begin{verbatim}
+ipython ICompass.py
+\end{verbatim}
+
+My \file{.pythonrc.py} file loads the modules \module{readline},
+\module{rlcompleter} and \module{iqt}.  Then, it configures \module{readline}
+for tab-completion and history saving and cleans up the global namespace.
+Finally, it loads the modules \module{scipy}, \module{qwt}, and \module{qt},
+while setting up the help system for \module{scipy}:
+\verbatiminput{pythonrc.py}
+
+
+\subsection{Qwt5.qplt \label{qwt-qplt}}
+
+\Future{}
+
+The module \module{qwt.qplt} defines a tiny data-directed programming
+language to simplify the use of \class{QwtPlot} from the Python command
+line interpreter or from an embedded Python shell like in \program{PyCute}.
+Here follows a small example:
+
+\verbatiminput{qplt.example}
+
+\subsubsection{Qwt5.qplt.Plot \label{intro-qplt-plot}}
+
+\Future{}
+
+\begin{classdesc}{Plot}{*arguments}
+  \class{Plot} takes any number of optional arguments.
+  The data-directed interpretation of each optional argument is:
+  \begin{itemize}
+  \item
+    \class{Axis}, to enable and redefine an axis.
+  \item
+    \class{Curve}, to add a curve to the plot.
+  \item
+    \class{QString} or a \class{string}, to set the title of the plot.
+  \item
+    \class{int}, to attach a set of mouse events to the zoomer actions.
+  \item
+    (\class{int}, \class{int}), to set the size of the plot.
+  \end{itemize}
+
+  \class{Plot} has an infinite deep stack of zoom regions. You can:
+  \begin{itemize}
+    \item
+      select a zoom region
+    \item
+      unzoom all
+    \item
+      walk down the stack
+    \item
+      walk up the stack.
+  \end{itemize}
+
+  \class{Plot} uses \method{__getattr__()} to inherit all methods of
+  \class{QwtPlot}.
+\end{classdesc}
+
+In addition, the class \class{Plot} defines the following methods:
+
+\begin{methoddesc}[Plot]{clearZoomStack}{self}
+Force autoscaling and clear the zoom stack.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{formatCoordinates}{self, x, y}
+Format mouse coordinates as real world plot coordinates.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{getZoomerMouseEventSet}{self}
+Return the index of the set of mouse events attached to the QwtPlotZoomer
+actions.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{gracePlot}{self, saveall="", pause=0.2}
+Clone the plot into \Grace{} for very high quality hard copy output.
+
+When \var{saveall} is not equal to \code{""}, the plot is saved to a file
+named by the variable \var{saveall}.
+The \Grace{} process gets killed after saving the plot.
+ 
+Know bug: Grace does not scale the data correctly when Grace cannot
+cannot keep up with gracePlot.  This happens when it takes too long
+to load Grace in memory (exit the Grace process and try again) or
+when 'pause' is too short.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{plot}{self, *curves}
+Plot a list of curves.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{plotAxis}{self, orientation, options, title}
+Plot and enables an axis.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{plotCurve}{self, curve}
+Plot a single curve.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{setZoomerMouseEventSet}{self, index}
+Attach the QwtPlotZoomer actions to set of mouse events.
+\end{methoddesc}
+
+\begin{methoddesc}[Plot]{toggleCurve}{self, key}
+Toggle a curve between hidden and shown.
+\end{methoddesc}
+
+\subsubsection{Qwt5.qplt.IPlot \label{intro-qplt-iplot}}
+
+\Future{}
+
+\begin{classdesc}{IPlot}{*arguments}
+  \class{IPlot} is a main window with a Plot widget as central widget.
+
+  The data-directed interpretation of each optional argument is the
+  same as for \class{Plot}:
+  \begin{itemize}
+  \item
+    \class{Axis}, to enable and redefine an axis.
+  \item
+    \class{Curve}, to add a curve to the plot.
+  \item
+    \class{QString} or a \class{string}, to set the title of the plot.
+  \item
+    \class{int}, to attach a set of mouse events to the zoomer actions.
+  \item
+    (\class{int}, \class{int}), to set the size of the plot.
+  \end{itemize}
+
+  The functionality of \class{Plot} is enhanced with a tool bar with
+  buttons for printing and cloning into \Grace{} and a combo box to attach
+  the zoomer actions to a set of mouse events.
+  In addition, the position of the cursor in the plot region is tracked
+  and displayed in a status bar. 
+
+  \class{IPlot} uses \method{__getattr__()} to inherit all methods of
+  \class{QMainWindow} and \class{IPlot}.
+
+
+In addition, the class \class{IPlot} defines the following methods:
+
+\begin{methoddesc}[Plot]{onMouseMoved}{self, event}
+Translate the mouse coordinates to plot coordinates for display in the status
+bar.
+\end{methoddesc}
+
+\begin{methoddesc}[IPlot]{printPlot}{self}
+Initialize a high resolution printer (if possible) for color output to file and
+print the plot.
+\end{methoddesc}
+
+\end{classdesc}
+
+\subsubsection{Qwt5.qplt.Curve \label{intro-qplt-curve}}
+
+\Future{}
+
+\begin{classdesc}{Curve}{x, y, *arguments}
+  \class{Curve} takes two obligatory arguments followed by any number of
+  optional arguments. The arguments \var{x} and \var{y} must be sequences
+  of \class{float} objects.
+  The data-directed interpretation of each optional argument is:
+  \begin{itemize}
+  \item
+    \class{Axis}, to attach an axis to the curve.
+  \item
+    \class{Pen}, to select a pen to connect the data points.
+  \item
+    \class{Symbol}, to select a symbol to the data points.
+  \item
+    \class{string} or \class{QString}, to set the title of the curve.
+  \end{itemize}
+\end{classdesc}
+
+\subsubsection{Qwt5.qplt.Axis \label{intro-qplt-axis}}
+
+\Future{}
+
+\begin{classdesc}{Axis}{*arguments}
+  \class{Axis} takes any number of optional arguments.
+  The data-directed interpretation of each optional argument is:
+  \begin{itemize}
+  \item
+    \class{AxisOrientation}, to set the orientation of the axis.  Predefined
+    instances of \class{AxisOrientation} are \constant{Left}, \constant{Right},
+    \constant{Bottom} and \constant{Top}.
+  \item
+    \class{int}, to set the options of the axis.
+  \item
+    \class{string} or \class{QString}, to set the title of the axis.
+  \end{itemize}
+\end{classdesc}
+
+\subsubsection{Qwt5.qplt.Pen \label{intro-qplt-pen}}
+
+\Future{}
+
+\begin{classdesc}{Pen}{*arguments}
+  \class{Pen} takes any number of optional arguments.
+  The data-directed interpretation of each optional argument is:
+  \begin{itemize}
+  \item
+    \class{PenStyle}, to set the style of the pen.
+  \item
+    \class{QColor}, to set the color of the pen.
+  \item
+    \class{int}, to set the width of the pen.
+  \end{itemize}
+\end{classdesc}
+
+\subsubsection{Qwt5.qplt.Symbol \label{intro-qplt-symbol}}
+
+\Future{}
+
+\begin{classdesc}{Symbol}{*arguments}
+  \class{Symbol} takes any number of optional arguments.
+  The data-directed interpretation of each optional argument is:
+  \begin{itemize}
+  \item
+    \class{QColor}, to set the fill color of the symbol.
+  \item
+    \class{SymbolStyle}, to set the style of the symbol. Predefined instances
+    of \class{SymbolStyle} are \constant{NoSymbol}, \constant{Circle},
+    \constant{Square} and \constant{Diamond}.
+  \item
+    \class{int}, to set the size of the symbol.
+  \end{itemize}
+\end{classdesc}
+
+\subsection{QImage and NumPy/numarray/Numeric arrays \label{qwt-qimage}}
+
+\Future{}
+
+\begin{funcdesc}{toImage}{array}
+  Convert \var{array} to a QImage, where \var{array} must be a two-dimensional
+  NumPy, numarray, or Numeric array of type UnsignedInt8 or UnsignedInt32.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumarray}{image}
+  Convert \var{image} of type \class{QImage} to a numarray array. This function
+  is only present if numarray has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumeric}{image}
+  Convert \var{image} of type \class{QImage} to a Numeric array. This function
+  is only present if Numeric has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumpy}{image}
+  Convert \var{image} of type \class{QImage} to a NumPy array. This function
+  is only present if NumPy has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{to_na_array}{image}
+  Convert \var{image} of type \class{QImage} to a Numarray array. This function
+  has been deprecated and is only present if Numarray has been detected when
+  building PyQwt.  Use \function{toNumarray(aQImage)}.
+\end{funcdesc}
+
+\begin{funcdesc}{to_np_array}{image}
+  Convert \var{image} of type \class{QImage} to a Numeric array. This function
+  has been deprecated and is is only present if Numeric has been detected when
+  building PyQwt. Use \function{toNumpy(aQImage)}
+\end{funcdesc}
+
+\begin{notice}[warning]
+Those functions ignore endianness and are untested on 64-bit platforms.
+Feedback, please.
+\end{notice}
+
+
+\chapter{Installation
+  \label{installation}}
+
+
+\section{Prerequisites
+  \label{prerequisites}}
+
+\Future{}
+
+Build prerequisites for \PyQwtTarGz{}:
+\begin{enumerate}
+  \item
+    \ulink{Python}{http://www.python.org}.\\
+    Supported versions: Python-2.4.x, and Python-2.3.x.
+  \item
+    \ulink{Qt}{http://www.trolltech.com}.\\
+    Supported versions: Qt-4.1.x, Qt-3.3.x, and Qt-3.2.x.
+  \item
+    \Sip{}.\\
+    Supported versions: sip-4.4.x,
+  \item
+    Either \PyQtGpl{}, or \PyQtMac{}, or \PyQtFourGpl{}.\\
+    Supported versions: PyQt4, and PyQt-3.16.
+  \item
+    \ReadMePatches{} for bug fixes and upgrades.
+\end{enumerate}
+
+\PrerequisitesEnd{}
+
+
+\section{Unpack, configure, build, and install
+  \label{install}}
+
+\Future{}
+
+\begin{enumerate}
+\item
+  Unpack \PyQwtTarGz{} and read this \ReadMePatches{} to check for patches.
+\item
+  Invoke the commands:
+\begin{verbatim}
+cd PyQwt-5.0
+cd configure
+python configure.py -Q ../qwt-cvs
+make
+make install
+\end{verbatim}
+  This assumes that the correct Python interpreter is on your path. Replace
+  \strong{make} by \strong{nmake}, if you use MSVC or MSVC.net.
+  The commands build PyQwt against the included Qwt CVS snapshot and install
+  PyQwt.
+  Test the installation by playing with the example programs.
+\end{enumerate}
+
+Contact the \mailinglist{}, if you run into problems.
+
+\begin{notice}[note]
+  Check if all development packages have been installed when make produces
+  lots of errors on Linux.
+\end{notice}
+
+\begin{notice}[note]
+  The configure.py script takes many options. The command
+\begin{verbatim}
+python configure.py -h
+\end{verbatim}
+  displays a full list of the available options:
+  \verbatiminput{configure.help}
+\end{notice}
+
+
+\chapter{PyQwt Module Reference \label{reference}}
+
+\Future{}
+
+The reference should be used in conjunction with the
+\ulink{Qwt manual}{qwt/index.html} on your hard disk or \Qwt{} on the web.
+Only the differences specific to the Python bindings are documented here.
+
+In this chapter, \emph{is not yet implemented} implies that the feature can
+be easily implemented if needed, \emph{is not implemented} implies that the
+feature is not easily implemented, and \emph{is not Pythonic} implies that
+the feature will not be implemented because it violates the Python philosophy
+(e.g. may use dangling pointers).
+
+If a class is described as being \emph{fully implemented} then all non-private
+member functions and all public class variables have been implemented.
+
+Undocumented classes have not yet been implemented or are still experimental.
+
+The classes in the Qwt library have quite a few protected attributes.
+They are not yet available in Python (as far as I know, sip wraps
+protected member function, but not protected attributes).
+I may try to implement protected attributes on demand.
+
+\section{Wrappers for \ctype{QwtArray<T>} \label{qwtarray}}
+
+\Future{}
+
+PyQwt has a partial interface to the following C++ QwtArray templates:
+\begin{enumerate}
+\item
+  \class{QwtArrayDouble} for \ctype{QwtArray<double>}
+\item
+  \class{QwtArrayInt} for \ctype{QwtArray<int>}
+\item
+  \class{QwtArrayQwtDoublePoint} for \ctype{QwtArray<QwtDoublePoint>} when
+  PyQwt has been built against PyQt3 or for \ctype{QwtArray<QPointF>} when
+  PyQwt has been built against PyQt4.
+\end{enumerate}
+
+Those classes have at least 3 constructors -- taking QwtArrayDouble as an
+example:
+\begin{enumerate}
+\item
+  \code{array = QwtArrayDouble()}
+\item
+  \code{array = QwtArrayDouble(int)}
+\item
+  \code{array = QwtArrayDouble(otherArray)}
+\end{enumerate}
+
+QwtArrayDouble and QwtArrayInt have also a constructor which takes a
+sequence of items convertable to a C++ double and a C++ long:
+\begin{itemize}
+\item
+  \code{array = QwtArrayDouble(Numeric.array([0.0, 1.0]))}
+\item
+  \code{array = QwtArrayLong(Numeric.array([0, 1]))}
+\end{itemize}
+
+All those classes have 16 member functions -- taking QwtArrayDouble as example:
+\begin{enumerate}
+\item
+  \code{array = array.assign(otherArray)}
+\item
+  \code{item = array.at(index)}
+\item
+  \code{index = array.bsearch(item)}
+\item
+  \code{index = contains(item)}
+\item
+  \code{array = otherArray.copy()}
+\item
+  \code{result = array.count()}
+\item
+  \code{array.detach()}
+\item
+  \code{array = array.duplicate(otherArray)}
+\item
+  \code{bool = array.fill(item, index=-1)}
+\item
+  \code{index = array.find(item, index=0)}
+\item
+  \code{bool = array.isEmpty()}
+\item
+  \code{bool = array.isNull()}
+\item
+  \code{bool = array.resize(index)}
+\item
+  \code{result = array.size()}
+\item
+  \code{array.sort()}
+\item
+  \code{bool = array.truncate(index)}
+\end{enumerate}
+
+Iterators are not yet implemented. However, the implementation of the
+Python slots \function{__getitem__}, \function{__len__} and
+\function{__setitem__} let you use those classes almost as a sequence.
+For instance:
+
+\verbatiminput{QwtArrayDoubleExample.txt}
+
+
+\section{Class reference \label{classes}}
+
+\Future{}
+
+
+\begin{classdesc*}{QwtAbstractScale}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtAbstractScaleDraw}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtAbstractSlider}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtAnalogClock}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtArrayData}
+FIXME.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtArrowButton}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCompass}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCompassMagnetNeedle}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCompassRose}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCompassWindArrow}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCounter}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtData}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDial}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDialNeedle}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDialScaleDraw}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDialSimpleNeedle}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoublePoint}
+is fully implemented, but only available when PyQwt has been built for Qt-3.
+When PyQwt has been built for Qt-4, this class is replaced by \class{QPointF}.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoublePointData}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoubleRange}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoubleRect}
+is fully implemented, but only available when PyQwt has been built for Qt-3.
+When PyQwt has been built for Qt-4, this class is replaced by \class{QRectF}.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDoubleSize}
+is fully implemented, but only available when PyQwt has been built for Qt-3.
+When PyQwt has been built for Qt-4, this class is replaced by \class{QSizeF}.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtDynGridLayout}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtEventPattern}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtIntervalData}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtKnob}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLegend}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLegendItem}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLinearScaleEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLog10ScaleEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtMetricsMap}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPaintBuffer}
+is fully implemented.
+This class does not exist when PyQwt has been built for  Qt-4.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPainter}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPicker}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerClickPointMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerClickRectMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerDragPointMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerDragRectMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPickerPolygonMachine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlainTextEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlot}
+
+  \begin{cfuncdesc}{void}{print}{
+      QPrinter \&printer, const QwtPlotPrintFilter \&filter}
+    is implemented as
+    \begin{verbatim}
+plot.print_(printer, filter)
+    \end{verbatim}
+  \end{cfuncdesc}
+
+  \begin{cfuncdesc}{void}{print}{
+      QPainter *painter,
+      const QRect \&rect,
+      const QwtPlotPrintFilter \&filter}
+    is implemented as
+    \begin{verbatim}
+plot.print_(painter, rect, filter)
+    \end{verbatim}
+  \end{cfuncdesc}
+
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotCanvas}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotCurve}
+
+  \begin{cfuncdesc}{void}{setData}{double *x, double *y, int size}
+    is implemented as
+    \begin{verbatim}
+curve.setData(x, y)
+    \end{verbatim}
+    where \var{x} and \var{y} can be any combination of lists, tuples and
+    Numerical Python arrays.  The data is copied to C++ data types.
+  \end{cfuncdesc}
+
+  \begin{cfuncdesc}{void}{setRawData}{double *x, double *y, int size}
+      is not Pythonic.
+  \end{cfuncdesc}
+
+  \begin{cfuncdesc}{int}{verifyRange}{int \&i1,int \&i2}
+    is implemented as:
+    \begin{verbatim}
+length, first, last = curve.verifyRange(i1, i2)
+    \end{verbatim}
+  \end{cfuncdesc}
+
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotDict}
+is fully implemented.
+FIXME: is the auto delete feature dangerous?
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotGrid}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotItem}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotItem}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotLayout}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotMarker}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotPicker}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotPrintFilter}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotZoomer}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtRect}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtRichTextEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtRoundScaleDraw}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleArithmic}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleDiv}
+
+  \begin{cfuncdesc}{}
+    {QwtScaleDiv}{
+      const QwtDoubleInterval\&,
+      QwtTickList[NTickList]}
+    FIXME
+  \end{cfuncdesc}
+
+  \begin{cfuncdesc}{}
+    {QwtScaleDiv}{
+      double,
+      double,
+      QwtTickList[NTickList]}
+    FIXME
+  \end{cfuncdesc}
+
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleDraw}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleMap}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleTransformation}
+FIXME
+\end{classdesc*}
+
+\begin{classdesc*}{QwtScaleWidget}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtSimpleCompassRose}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtSlider}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtSpline}
+  
+  \begin{cfuncdesc}{bool}{recalc}{
+      double *x, double *y, int n, bool periodic = false}
+    is implemented as
+    \begin{verbatim}
+success = spline.recalc(x, y, periodic)
+    \end{verbatim}
+    where \var{x} and \var{y} can be any combination of lists, tuples and
+    Numerical Python arrays and \var{periodic} is a boolean.
+    The data is copied to C++ data types.
+  \end{cfuncdesc}
+  
+  \begin{cfuncdesc}{void}{copyValues}{bool enable = true}
+    is not Pythonic, because PyQwt always copies the values.
+  \end{cfuncdesc}
+
+\end{classdesc*}
+ 
+\begin{classdesc*}{QwtSymbol}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtText}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtTextEngine}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtTextLabel}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtThermo}
+is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtWheel}
+is fully implemented.
+\end{classdesc*}
+
+\input{pyqwt.ind}
+
+\end{document}
+
+%% Local Variables:
+%% fill-column: 79
+%% End:

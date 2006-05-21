@@ -1,0 +1,25 @@
+>>> import PyQt4.Qwt5 as Qwt
+>>> import numpy as NP
+>>> a = Qwt.QwtArrayDouble(NP.arange(10, 20, 4))
+>>> for i in a:                                  # thanks to __getitem__
+...  print i
+...
+10.0
+14.0
+18.0
+>>> for i in range(len(a)):                      # thanks to __len__
+...  print a[i]                                  # thanks to __getitem__
+...
+10.0
+14.0
+18.0
+>>> for i in range(len(a)):                      # thanks to __len__
+...  a[i] = 10+3*i                               # thanks to __setitem__
+...
+>>> for i in a:                                  # thanks to __getitem__
+...  print i
+...
+10.0
+13.0
+16.0
+>>>

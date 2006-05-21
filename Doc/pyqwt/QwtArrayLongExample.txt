@@ -1,0 +1,24 @@
+>>> import Numeric as np
+>>> a = QwtArrayLong(np.arange(10, 20, 4))
+>>> for i in a:                                  # thanks to __getitem__
+...  print i
+...
+10
+14
+18
+>>> for i in range(len(a)):                      # thanks to __len__
+...  print a[i]                                  # thanks to __getitem__
+...
+10
+14
+18
+>>> for i in range(len(a)):                      # thanks to __len__
+...  a[i] = 10+3*i                               # thanks to __setitem__
+...
+>>> for i in a:                                  # thanks to __getitem__
+...  print i
+...
+10
+13
+16
+>>>
