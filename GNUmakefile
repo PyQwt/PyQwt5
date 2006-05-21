@@ -75,7 +75,6 @@ clean:
 	find . -name '*~' | xargs rm -f
 
 distclean: clean
-	find . -lname '*' | xargs rm -f
 	find . -name '*.pyc' | xargs rm -f
 	rm -rf configure/*qt{3,4}
 
