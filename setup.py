@@ -8,11 +8,11 @@ version = '5.0'
 version = '%04d%02d%02d' % (time.localtime()[:3])
 
 long_description = """
-PyQwt is a set of Python bindings for the Qwt C++ class library.
-The Qwt library extends the Qt framework with widgets for
-Scientific and Engineering applications.   It provides a widget
-to plot data points in two dimensions and various widgets to
-display and control bounded or unbounded floating point values.
+PyQwt is a set of Python bindings for the Qwt C++ class library
+which extends the Qt framework with widgets for scientific and
+engineering applications.  It provides a widget to plot data
+points in two dimensions and various widgets to display and
+control bounded or unbounded floating point values.
 """
 
 setup(

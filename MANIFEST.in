@@ -1,7 +1,7 @@
 # MANIFEST template file to make a distribution tarball
 
 # Package stuff
-include COPYING* MANIFEST.in GNUmakefile symlinks.py
+include COPYING* MANIFEST.in GNUmakefile THANKS *.patch *.spec
 
 # Documentation
 graft Doc/html/pyqwt
@@ -30,6 +30,8 @@ recursive-exclude suppport *cvsignore* *~
 # qwt-cvs
 graft qwt-cvs
 recursive-exclude qwt-cvs *~
+# remove qwt.spec, because it interferes with: rpm -ta PyQwt-RELEASE.tar.gz
+recursive-exclude qwt-cvs qwt.spec
 
 # sip files
 graft sip
