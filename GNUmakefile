@@ -10,10 +10,19 @@
 #       script -c 'make all' log.txt
 #     The script command appeared in 3.0BSD and is part of util-linux.
 
-JOBS := $(shell getconf _NPROCESSORS_ONLN)
-
 # To compile and link the Qwt sources statically into Pyqwt.
 QWT := ../qwt-cvs
+
+JOBS := 1
+UNAME := $(shell uname)
+
+ifeq ($(UNAME),Linux)
+JOBS := $(shell getconf _NPROCESSORS_ONLN)
+endif
+
+ifeq ($(UNAME),Darwin)
+JOBS := $(shell sysctl -n hw.ncpu)
+endif
 
 .PHONY: dist qwt-cvs
 
