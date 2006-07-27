@@ -4,6 +4,8 @@ for name in ('numpy', 'numarray', 'Numeric'):
     failed = False
     try:
          eval(compile('from %s import *' % name, 'eval', 'exec'))
+	 if name == 'numpy':
+	     from numpy.oldnumeric.compat import *
     except ImportError:
         failed = True
     if not failed:
