@@ -1,0 +1,20 @@
+--- qwt-cvs//include/qwt_raster_data.h.pyqwt	2006-07-25 07:40:38.000000000 +0200
++++ qwt-cvs//include/qwt_raster_data.h	2006-07-25 07:49:18.000000000 +0200
+@@ -20,13 +20,17 @@
+ #if QT_VERSION >= 0x040000
+ #include <qlist.h>
+ #include <QPolygonF>
++#if 0 // Collides with the typedef of ContourLines below on Mac OS X
+ template class QWT_EXPORT QMap<double, QPolygonF>;
++#endif // 0
+ #else
+ #include <qvaluelist.h>
+ #include "qwt_array.h"
+ #include "qwt_double_rect.h"
++#if 0 // Collides with the typedef of ContourLines below on Mac OS X
+ template class QWT_EXPORT QwtArray<QwtDoublePoint>;
+ template class QWT_EXPORT QMap<double, QwtArray<QwtDoublePoint> >;
++#endif // 0
+ #endif
+ 
+ class QwtScaleMap;
