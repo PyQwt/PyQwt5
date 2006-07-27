@@ -255,7 +255,7 @@ class BodePlot(Qwt.QwtPlot):
     def setDamp(self, d):
         self.damping = d
         # Numerical Python: f, g, a and p are numpy arrays!
-        f = exp(log(10.0)*arrayrange(-2, 2.02, 0.04))
+        f = exp(log(10.0)*arange(-2, 2.02, 0.04))
         g = 1.0/(1.0-f*f+2j*self.damping*f)
         a = 20.0*log10(abs(g))
         p = 180*arctan2(g.imag, g.real)/pi

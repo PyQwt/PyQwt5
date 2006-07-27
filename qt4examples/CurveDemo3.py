@@ -113,7 +113,7 @@ class CurveDemo(Qt.QFrame):
                             Qwt.QwtScaleMap(0, 100, -1.1, 5.0)))
         # data
         self.phase = 0.0
-        self.base = arrayrange(0.0, 2.01*pi, 2*pi/(USize-1))
+        self.base = arange(0.0, 2.01*pi, 2*pi/(USize-1))
         self.uval = cos(self.base)
         self.vval = sin(self.base)
         self.uval[1::2] *= 0.5
@@ -173,7 +173,7 @@ class CurveDemo(Qt.QFrame):
     def newValues(self):
         phase = self.phase
         
-        self.xval = arrayrange(0, 2.01*pi, 2*pi/(Size-1))
+        self.xval = arange(0, 2.01*pi, 2*pi/(Size-1))
         self.yval = sin(self.xval - phase)
         self.zval = cos(3*(self.xval + phase))
     

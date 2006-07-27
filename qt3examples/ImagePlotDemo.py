@@ -142,7 +142,7 @@ class ImagePlot(Qwt.QwtPlot):
 	self.setAxisTitle(Qwt.QwtPlot.xBottom, 'time (s)')
 	self.setAxisTitle(Qwt.QwtPlot.yLeft, 'frequency (Hz)')
 	# calculate 3 NumPy arrays
-        x = arrayrange(-2*pi, 2*pi, 0.01)
+        x = arange(-2*pi, 2*pi, 0.01)
         y = pi*sin(x)
         z = 4*pi*cos(x)*cos(x)*sin(x)
 	# attach a curve
