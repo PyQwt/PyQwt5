@@ -126,7 +126,6 @@
 %Include qwt_scale_map.sip
 %Include qwt_scale_widget.sip
 %Include qwt_slider.sip
-%Include qwt_spectrogram_data.sip
 %Include qwt_spline.sip
 %Include qwt_symbol.sip
 %Include qwt_text.sip
