@@ -189,6 +189,7 @@ template<TYPE>
 }; // template<TYPE> %MappedType QValueList<TYPE *>
 
 
+%If (HAS_QWT5)
 %MappedType QwtValueList
 {
 %TypeHeaderCode
@@ -226,7 +227,7 @@ template<TYPE>
 %End // %ConvertToTypeCode
 
 }; // QwtValueList
-
+%End // HAS_QWT5
 
 // Local Variables:
 // mode: C++
