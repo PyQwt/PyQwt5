@@ -40,12 +40,12 @@ trace: 3t 4t
 	&& python configure.py -4 -Q $(QWT) -j $(JOBS) \
 	&& $(MAKE) -j $(JOBS)
 
-3trace:
+3t:
 	cd configure \
 	&& python configure.py --trace -3 -Q $(QWT) \
 	&& $(MAKE)
 
-4trace:
+4t:
 	cd configure \
 	&& python configure.py --trace -4 -Q $(QWT) \
 	&& $(MAKE)
@@ -59,13 +59,13 @@ install-4: 4
 
 install: install-3 install-4
 
-install-3trace: 3trace
+install-3t: 3t
 	make -C configure install
 
-install-4trace: 4trace
+install-4t: 4t
 	make -C configure install
 
-install-trace: install-3trace install-4trace
+install-trace: install-3t install-4t
 
 # CVS
 qwt-cvs:
