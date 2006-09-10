@@ -550,7 +550,7 @@ def setup_iqt_build(configuration, options, package):
         configuration  = configuration,
         build_file = os.path.basename(build_file),
         dir = build_dir,
-        install_dir = options.package_install_path,
+        install_dir = options.module_install_path,
         qt = 1,
         warnings = 1,
         debug = options.debug
@@ -686,12 +686,12 @@ def setup_qwt5_build(configuration, options, package):
     print '%s file(s) lazily copied.' % lazy_copies
 
     # byte-compile the Python files
-    compileall.compile_dir(build_dir, 1, options.package_install_path)
+    compileall.compile_dir(build_dir, 1, options.module_install_path)
 
     # files to be installed
     installs = []
     installs.append([[os.path.basename(f) for f in glob.glob(
-        os.path.join(build_dir, '*.py*'))], options.package_install_path])
+        os.path.join(build_dir, '*.py*'))], options.module_install_path])
 
     pattern = os.path.join(os.pardir, 'sip', options.qwt, '*.sip')
     sip_files = [os.path.join(os.pardir, f) for f in glob.glob(pattern)]
@@ -706,7 +706,7 @@ def setup_qwt5_build(configuration, options, package):
             configuration = configuration,
             build_file = os.path.basename(build_file),
             dir = build_dir,
-            install_dir = options.package_install_path,
+            install_dir = options.module_install_path,
             installs = installs,
             qt = 1,
             warnings = 1,
@@ -717,7 +717,7 @@ def setup_qwt5_build(configuration, options, package):
             configuration = configuration,
             build_file = os.path.basename(build_file),
             dir = build_dir,
-            install_dir = options.package_install_path,
+            install_dir = options.module_install_path,
             installs = installs,
             qt = ['QtCore', 'QtGui', 'QtSvg'],
             warnings = 1,
@@ -842,24 +842,25 @@ def parse_args():
     
     detection_options = optparse.OptionGroup(parser, 'Detection options')
     detection_options.add_option(
-        '--disable-numarray',
-        default=False,
-        action='store_true',
+        '--disable-numarray', default=False, action='store_true',
         help='disable detection and use of numarray [default enabled]'
         )
     detection_options.add_option(
-        '--disable-numeric',
-        default=False,
-        action='store_true',
+        '--disable-numeric', default=False, action='store_true',
         help='disable detection and use of Numeric [default enabled]'
         )
     detection_options.add_option(
-        '--disable-numpy',
-        default=False,
-        action='store_true',
+        '--disable-numpy', default=False, action='store_true',
         help='disable detection and use of NumPy [default enabled]'
         )
     parser.add_option_group(detection_options)
+
+    install_options = optparse.OptionGroup(parser, 'Install options')
+    install_options.add_option(
+        '--module-install-path', default='', action='store',
+        help= 'specify the install directory for the Python modules'
+        )
+    parser.add_option_group(install_options)
 
     options, args =  parser.parse_args()
     
@@ -915,8 +916,9 @@ def main():
     options = check_numpy(configuration, options, 'PyQwt')
     options = check_iqt(configuration, options)
     options = check_qwt(configuration, options)
-    options.package_install_path = os.path.join(
-        configuration.pyqt_mod_dir, 'Qwt5')
+    if options.module_install_path is None:
+        options.module_install_path = os.path.join(
+            configuration.pyqt_mod_dir, 'Qwt5')
 
     print
     print 'Extended command line options:'
