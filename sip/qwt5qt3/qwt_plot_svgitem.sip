@@ -38,17 +38,16 @@ class QwtPlotSvgItem: QwtPlotItem
 
 public:
     QwtPlotSvgItem(const QString& = QString::null);
+    QwtPlotSvgItem(const QwtText&);
     virtual ~QwtPlotSvgItem();
-    void setTitle(const QString&);
-    const QString& title() const;
     bool loadFile(const QwtDoubleRect&, const QString&);
     bool loadData(const QwtDoubleRect&, const QByteArray&);
     virtual QwtDoubleRect boundingRect() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual void updateLegend(QwtLegend*) const;
+    virtual int rtti() const;
 protected:
-    void render(QPainter*, const QRect&, const QRect&) const;
-    QRect viewBox(const QwtDoubleRect&) const;
+    void render(QPainter*, const QwtDoubleRect&, const QRect&) const;
+    QwtDoubleRect viewBox(const QwtDoubleRect&) const;
 }; // class QwtPlotSvgItem
 
 

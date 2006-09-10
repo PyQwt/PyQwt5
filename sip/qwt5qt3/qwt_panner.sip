@@ -40,14 +40,24 @@ public:
     QwtPanner(QWidget* /TransferThis/);
     virtual ~QwtPanner();
     virtual void setEnabled(bool);
+    bool isEnabled() const;
     void setMouseButton(int, int = Qt::NoButton);
+    void getMouseButton(int&, int&) const;
+    void setAbortKey(int, int = Qt::NoButton);
+    void getAbortKey(int&, int&) const;
     virtual void setCursor(const QCursor&);
     const QCursor cursor() const;
-protected:
     virtual bool eventFilter(QObject*, QEvent*);
-    virtual void paintEvent(QPaintEvent*);
 signals:
     void panned(int, int);
+    void moved(int, int);
+protected:
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+    virtual void paintEvent(QPaintEvent*);
 }; // class QwtPanner
 
 

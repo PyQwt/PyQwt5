@@ -51,6 +51,7 @@ public:
     void setScaleEngine(QwtScaleEngine* /Transfer/);
     // signature: const QwtScaleEngine* scaleEngine() const;
     QwtScaleEngine* scaleEngine();
+    const QwtScaleMap& scaleMap() const;
 protected:
     void rescale(double, double, double = 0.0);
     void setAbstractScaleDraw(QwtAbstractScaleDraw* /Transfer/);

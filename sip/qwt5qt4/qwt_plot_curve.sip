@@ -37,23 +37,23 @@ class QwtPlotCurve: QwtPlotItem
 %End // %TypeHeaderCode
 
 public:
+    enum CurveType {
+        Yfx,
+        Xfy
+    }; // enum CurveType
+
     enum CurveStyle {
         NoCurve,
         Lines,
         Sticks,
         Steps,
         Dots,
-        Spline,
         UserCurve
     }; // enum CurveStyle
 
     enum CurveAttribute {
-        Auto,
-        Yfx,
-        Xfy,
-        Parametric,
-        Periodic,
-        Inverted
+        Inverted,
+        Fitted
     }; // enum CurveAttribute
 
     enum PaintAttribute {
@@ -64,10 +64,10 @@ public:
     QwtPlotCurve();
     QwtPlotCurve(const QwtText&);
     QwtPlotCurve(const QString&);
-    QwtPlotCurve(const QwtPlotCurve&);
     virtual ~QwtPlotCurve();
-    // Not Pythonic: const QwtPlotCurve& operator=(const QwtPlotCurve&);
     virtual int rtti() const;
+    void setCurveType(QwtPlotCurve::CurveType);
+    QwtPlotCurve::CurveType curveType() const;
     void setPaintAttribute(QwtPlotCurve::PaintAttribute, bool = true);
     bool testPaintAttribute(QwtPlotCurve::PaintAttribute) const;
     // Not Pythonic: void setRawData(const double*, const double*, int);
@@ -85,7 +85,7 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
 %End
 
     void setData(const QwtArrayDouble&, const QwtArrayDouble&);
-    void setData(const QwtArrayQwtDoublePoint&);
+    void setData(const QPolygonF&);
     void setData(const QwtData&);
     int closestPoint(const QPoint&, double* = 0) const;
     QwtData& data();
@@ -100,9 +100,6 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
     double maxYValue() const;
     void setCurveAttribute(QwtPlotCurve::CurveAttribute, bool = true);
     bool testCurveAttribute(QwtPlotCurve::CurveAttribute) const;
-    void setTitle(const QString&);
-    void setTitle(const QwtText&);
-    const QwtText& title() const;
     void setPen(const QPen&);
     const QPen& pen() const;
     void setBrush(const QBrush&);
@@ -113,25 +110,22 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
     QwtPlotCurve::CurveStyle style() const;
     void setSymbol(const QwtSymbol&);
     const QwtSymbol& symbol() const;
-    void setSplineSize(int);
-    int splineSize() const;
+    void setCurveFitter(QwtCurveFitter*);
+    QwtCurveFitter* curveFitter() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const /PyName=drawFromTo/;
     void draw(int, int) const;
     virtual void updateLegend(QwtLegend*) const;
 protected:
-    void init(const QwtText&);
-    void copy(const QwtPlotCurve&);
+    void init();
     virtual void drawCurve(QPainter*, int, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     virtual void drawSymbols(QPainter*, const QwtSymbol&, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawLines(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawSticks(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawDots(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawSteps(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
-    void drawSpline(QPainter*, const QwtScaleMap&, const QwtScaleMap&) const;
     void fillCurve(QPainter*, const QwtScaleMap&, const QwtScaleMap&, QPolygon&) const;
     void closePolyline(const QwtScaleMap&, const QwtScaleMap&, QPolygon&) const;
-    int verifyRange(int& /In,Out/, int& /In,Out/) const;
 }; // class QwtPlotCurve
 
 

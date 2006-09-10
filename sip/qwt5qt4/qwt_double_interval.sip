@@ -41,8 +41,8 @@ public:
     QwtDoubleInterval(double, double);
     void setInterval(double, double);
     QwtDoubleInterval normalized() const;
-    QwtDoubleInterval invert() const;
-    QwtDoubleInterval limit(double, double) const;
+    QwtDoubleInterval inverted() const;
+    QwtDoubleInterval limited(double, double) const;
     int operator==(const QwtDoubleInterval&) const;
     int operator!=(const QwtDoubleInterval&) const;
     double minValue() const;

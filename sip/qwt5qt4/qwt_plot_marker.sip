@@ -46,8 +46,6 @@ public:
 
     QwtPlotMarker();
     virtual ~QwtPlotMarker();
-    QwtPlotMarker(const QwtPlotMarker&);
-    // Not Pythonic: QwtPlotMarker& operator=(const QwtPlotMarker&);
     virtual int rtti() const;
     double xValue() const;
     double yValue() const;

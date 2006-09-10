@@ -41,11 +41,11 @@ public:
     static const double LogMin;
     static const double LogMax;
     QwtScaleMap();
-    QwtScaleMap(int, int, double, double);
+    QwtScaleMap(const QwtScaleMap&);
     ~QwtScaleMap();
-    void setTransformation(bool);
-    void setTransformation(const QwtScaleTransformation&);
-    const QwtScaleTransformation& transformation() const;
+    // Not Pythonic: QwtScaleMap& operator=(const QwtScaleMap&);
+    void setTransformation(QwtScaleTransformation*);
+    const QwtScaleTransformation* transformation() const;
     void setPaintInterval(int, int);
     void setPaintXInterval(double, double);
     void setScaleInterval(double, double);
@@ -68,15 +68,18 @@ class QwtScaleTransformation
 %End // %TypeHeaderCode
 
 public:
-    // FIXME: double (*)(double, double, double, double, double, void*) xForm;
-    // FIXME: double (*)(double, double, double, double, double, void*) invXForm;
-    QwtScaleTransformation();
-    // FIXME: QwtScaleTransformation(double (*)(double, double, double, double, double, void*), double (*)(double, double, double, double, double, void*));
-    // FIXME: static double linearXForm(double, double, double, double, double, void*);
-    // FIXME: static double log10XForm(double, double, double, double, double, void*);
-    // FIXME: static double log10InvXForm(double, double, double, double, double, void*);
-    // FIXME: void setData(void*);
-    // FIXME: void* data() const;
+    enum Type {
+        Linear,
+        Log10,
+        Other
+    }; // enum Type
+
+    QwtScaleTransformation(QwtScaleTransformation::Type);
+    virtual ~QwtScaleTransformation();
+    virtual double xForm(double, double, double, double, double) const;
+    virtual double invXForm(double, double, double, double, double) const;
+    QwtScaleTransformation::Type type() const;
+    virtual QwtScaleTransformation* copy() const;
 }; // class QwtScaleTransformation
 
 

@@ -1,5 +1,6 @@
 // The SIP interface specification for:
-//      QwtPlotMarker.
+//      QwtCurveFitter,
+//      QwtSplineCurveFitter.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +31,46 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotMarker: QwtPlotItem
+class QwtCurveFitter
 {
 %TypeHeaderCode
-#include <qwt_plot_marker.h>
+#include <qwt_curve_fitter.h>
 %End // %TypeHeaderCode
 
 public:
-    enum LineStyle {
-        NoLine,
-        HLine,
-        VLine,
-        Cross
-    }; // enum LineStyle
+    virtual ~QwtCurveFitter();
+    virtual QPolygonF fitCurve(const QPolygonF&) const = 0;
+protected:
+    QwtCurveFitter();
+private:
+    QwtCurveFitter(const QwtCurveFitter&);
+}; // class QwtCurveFitter
 
-    QwtPlotMarker();
-    virtual ~QwtPlotMarker();
-    virtual int rtti() const;
-    double xValue() const;
-    double yValue() const;
-    QwtDoublePoint value() const;
-    void setXValue(double);
-    void setYValue(double);
-    void setValue(double, double);
-    void setValue(const QwtDoublePoint&);
-    void setLineStyle(QwtPlotMarker::LineStyle);
-    QwtPlotMarker::LineStyle lineStyle() const;
-    void setLinePen(const QPen&);
-    const QPen& linePen() const;
-    void setSymbol(const QwtSymbol&);
-    const QwtSymbol& symbol() const;
-    void setLabel(const QwtText&);
-    QwtText label() const;
-    void setLabelAlignment(int);
-    int labelAlignment() const;
-    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QwtDoubleRect boundingRect() const;
-}; // class QwtPlotMarker
+
+class QwtSplineCurveFitter: QwtCurveFitter
+{
+%TypeHeaderCode
+#include <qwt_curve_fitter.h>
+%End // %TypeHeaderCode
+
+public:
+    enum FitMode {
+        Auto,
+        Spline,
+        ParametricSpline
+    }; // enum FitMode
+
+    QwtSplineCurveFitter();
+    virtual ~QwtSplineCurveFitter();
+    void setFitMode(QwtSplineCurveFitter::FitMode);
+    QwtSplineCurveFitter::FitMode fitMode() const;
+    void setSpline(const QwtSpline&);
+    // signature: const QwtSpline& spline() const;
+    QwtSpline& spline();
+    void setSplineSize(int);
+    int splineSize() const;
+    virtual QPolygonF fitCurve(const QPolygonF&) const;
+}; // class QwtSplineCurveFitter
 
 
 // Local Variables:

@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPlotMarker.
+//      QwtTextPlugin.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +30,17 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotMarker: QwtPlotItem
+class QwtTextPlugin
 {
 %TypeHeaderCode
-#include <qwt_plot_marker.h>
+#include <qwt_text_plugin.h>
 %End // %TypeHeaderCode
 
 public:
-    enum LineStyle {
-        NoLine,
-        HLine,
-        VLine,
-        Cross
-    }; // enum LineStyle
-
-    QwtPlotMarker();
-    virtual ~QwtPlotMarker();
-    virtual int rtti() const;
-    double xValue() const;
-    double yValue() const;
-    QwtDoublePoint value() const;
-    void setXValue(double);
-    void setYValue(double);
-    void setValue(double, double);
-    void setValue(const QwtDoublePoint&);
-    void setLineStyle(QwtPlotMarker::LineStyle);
-    QwtPlotMarker::LineStyle lineStyle() const;
-    void setLinePen(const QPen&);
-    const QPen& linePen() const;
-    void setSymbol(const QwtSymbol&);
-    const QwtSymbol& symbol() const;
-    void setLabel(const QwtText&);
-    QwtText label() const;
-    void setLabelAlignment(int);
-    int labelAlignment() const;
-    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QwtDoubleRect boundingRect() const;
-}; // class QwtPlotMarker
+    virtual ~QwtTextPlugin();
+    virtual int format() const = 0;
+    virtual QwtTextEngine* engine() const = 0;
+}; // class QwtTextPlugin
 
 
 // Local Variables:

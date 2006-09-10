@@ -100,10 +100,10 @@ public:
     virtual ~QwtPickerMachine();
     virtual QList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*) = 0;
     void reset();
-protected:
-    QwtPickerMachine();
     int state() const;
     void setState(int);
+protected:
+    QwtPickerMachine();
 
 %If (CXX_DYNAMIC_CAST)
 %ConvertToSubClassCode

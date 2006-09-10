@@ -38,19 +38,18 @@ class QwtPlotSvgItem: QwtPlotItem
 
 public:
     QwtPlotSvgItem(const QString& = QString::null);
+    QwtPlotSvgItem(const QwtText&);
     virtual ~QwtPlotSvgItem();
-    void setTitle(const QString&);
-    const QString& title() const;
     bool loadFile(const QRectF&, const QString&);
     bool loadData(const QRectF&, const QByteArray&);
     virtual QRectF boundingRect() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual void updateLegend(QwtLegend*) const;
+    virtual int rtti() const;
 protected:
     // signature: const QSvgRenderer& renderer() const;
     QSvgRenderer& renderer();
-    void render(QPainter*, const QRect&, const QRect&) const;
-    QRect viewBox(const QRectF&) const;
+    void render(QPainter*, const QRectF&, const QRect&) const;
+    QRectF viewBox(const QRectF&) const;
 }; // class QwtPlotSvgItem
 
 

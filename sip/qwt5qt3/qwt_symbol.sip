@@ -49,6 +49,11 @@ public:
         RTriangle,
         Cross,
         XCross,
+        HLine,
+        VLine,
+        Star1,
+        Star2,
+        Hexagon,
         StyleCnt
     }; // enum Style
 

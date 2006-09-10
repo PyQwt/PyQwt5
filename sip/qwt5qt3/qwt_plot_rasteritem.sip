@@ -43,30 +43,18 @@ public:
         ScreenCache
     }; // enum CachePolicy
 
-protected:
-    enum RenderHint {
-        OptimizeMemory,
-        QptimizeQuality
-    }; // enum RenderHint
-
-public:
     QwtPlotRasterItem(const QString& = QString::null);
+    QwtPlotRasterItem(const QwtText&);
     virtual ~QwtPlotRasterItem();
-    void setTitle(const QString&);
-    const QString& title() const;
     void setAlpha(int);
     int alpha() const;
     void setCachePolicy(QwtPlotRasterItem::CachePolicy);
     QwtPlotRasterItem::CachePolicy cachePolicy() const;
     void invalidateCache();
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual void updateLegend(QwtLegend*) const;
-    static QImage mapImage(const QImage&, const QSize&, int = 255);
-    static QImage mapImage(const QImage&, const QRect&, const QSize&, int = 255);
-    static void fillImage(int, const QRegion&, QImage&);
-    virtual QSize resolution(const QwtDoubleRect&) const;
+    virtual QSize rasterHint(const QwtDoubleRect&) const;
 protected:
-    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&, QwtPlotRasterItem::RenderHint) const = 0;
+    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const = 0;
 }; // class QwtPlotRasterItem
 
 

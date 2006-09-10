@@ -45,7 +45,7 @@ public:
     virtual QSize textSize(const QFont&, int, const QString&) const;
     virtual void draw(QPainter*, const QRect&, int, const QString&) const;
     virtual bool mightRender(const QString&) const;
-    virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&);
+    virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&) const;
 }; // class QwtPlainTextEngine
 
 
@@ -62,6 +62,7 @@ public:
     virtual QSize textSize(const QFont&, int, const QString&) const;
     virtual void draw(QPainter*, const QRect&, int, const QString&) const;
     virtual bool mightRender(const QString&) const;
+    virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&) const;
 }; // class QwtRichTextEngine
 
 
@@ -75,9 +76,9 @@ public:
     virtual ~QwtTextEngine();
     virtual int heightForWidth(const QFont&, int, const QString&, int) const = 0;
     virtual QSize textSize(const QFont&, int, const QString&) const = 0;
-    virtual void draw(QPainter*, const QRect&, int, const QString&) const = 0;
     virtual bool mightRender(const QString&) const = 0;
-    virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&);
+    virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&) const = 0;
+    virtual void draw(QPainter*, const QRect&, int, const QString&) const = 0;
 protected:
     QwtTextEngine();
 }; // class QwtTextEngine

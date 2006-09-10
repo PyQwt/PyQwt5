@@ -37,17 +37,35 @@ class QwtPlotSpectrogram: QwtPlotRasterItem
 %End // %TypeHeaderCode
 
 public:
+    enum DisplayMode {
+        ImageMode,
+        ContourMode
+    }; // enum DisplayMode
+
     QwtPlotSpectrogram(const QString& = QString::null);
     virtual ~QwtPlotSpectrogram();
-    void setData(const QwtSpectrogramData&);
-    const QwtSpectrogramData& data() const;
+    void setDisplayMode(QwtPlotSpectrogram::DisplayMode, bool = true);
+    bool testDisplayMode(QwtPlotSpectrogram::DisplayMode) const;
+    void setData(const QwtRasterData&);
+    const QwtRasterData& data() const;
     void setColorMap(const QwtColorMap&);
     const QwtColorMap& colorMap() const;
     virtual QwtDoubleRect boundingRect() const;
-    virtual QSize resolution(const QwtDoubleRect&) const;
+    virtual QSize rasterHint(const QwtDoubleRect&) const;
+    void setDefaultContourPen(const QPen&);
+    QPen defaultContourPen() const;
+    virtual QPen contourPen(double) const;
+    void setConrecAttribute(QwtRasterData::ConrecAttribute, bool);
+    bool testConrecAttribute(QwtRasterData::ConrecAttribute) const;
+    void setContourLevels(const QwtValueList&);
+    QwtValueList contourLevels() const;
     virtual int rtti() const;
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
 protected:
-    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&, QwtPlotRasterItem::RenderHint) const;
+    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const;
+    virtual QSize contourRasterSize(const QwtDoubleRect&, const QRect&) const;
+    // FIXME: virtual QMap<double,QwtArrayQwtDoublePoint > renderContourLines(const QwtDoubleRect&, const QSize&) const;
+    // FIXME: virtual void drawContourLines(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QMap<double,QwtArrayQwtDoublePoint >&) const;
 }; // class QwtPlotSpectrogram
 
 

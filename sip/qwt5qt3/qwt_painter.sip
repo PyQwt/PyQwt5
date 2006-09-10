@@ -53,6 +53,7 @@ public:
     static void drawRect(QPainter*, const QRect&);
     static void fillRect(QPainter*, const QRect&, const QBrush&);
     static void drawEllipse(QPainter*, const QRect&);
+    static void drawPie(QPainter*, const QRect&, int, int);
     static void drawLine(QPainter*, int, int, int, int);
     static void drawLine(QPainter*, const QPoint&, const QPoint&);
     static void drawPolygon(QPainter*, const QwtPolygon&);
@@ -63,6 +64,8 @@ public:
     static void drawFocusRect(QPainter*, QWidget*, const QRect&);
     static QwtPolygon clip(const QwtPolygon&);
     static void drawColorBar(QPainter*, const QwtColorMap&, const QwtDoubleInterval&, const QwtScaleMap&, Qt::Orientation, const QRect&);
+    static void setSVGMode(bool);
+    static bool isSVGMode();
 }; // class QwtPainter
 
 

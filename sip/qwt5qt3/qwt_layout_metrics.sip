@@ -51,12 +51,15 @@ public:
     QPoint layoutToDevice(const QPoint&, const QPainter* = 0) const;
     QPoint deviceToLayout(const QPoint&, const QPainter* = 0) const;
     QPoint screenToLayout(const QPoint&) const;
+    QPoint layoutToScreen(const QPoint&) const;
     QSize layoutToDevice(const QSize&) const;
     QSize deviceToLayout(const QSize&) const;
     QSize screenToLayout(const QSize&) const;
+    QSize layoutToScreen(const QSize&) const;
     QRect layoutToDevice(const QRect&, const QPainter* = 0) const;
     QRect deviceToLayout(const QRect&, const QPainter* = 0) const;
     QRect screenToLayout(const QRect&) const;
+    QRect layoutToScreen(const QRect&) const;
     QwtPolygon layoutToDevice(const QwtPolygon&, const QPainter* = 0) const;
     QwtPolygon deviceToLayout(const QwtPolygon&, const QPainter* = 0) const;
     static QwtPolygon translate(const QWMatrix&, const QwtPolygon&);

@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPlotMarker.
+//      QwtRasterData.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +30,31 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotMarker: QwtPlotItem
+class QwtRasterData
 {
 %TypeHeaderCode
-#include <qwt_plot_marker.h>
+#include <qwt_raster_data.h>
 %End // %TypeHeaderCode
 
 public:
-    enum LineStyle {
-        NoLine,
-        HLine,
-        VLine,
-        Cross
-    }; // enum LineStyle
+    enum ConrecAttribute {
+        IgnoreAllVerticesOnLevel,
+        IgnoreOutOfRange
+    }; // enum ConrecAttribute
 
-    QwtPlotMarker();
-    virtual ~QwtPlotMarker();
-    virtual int rtti() const;
-    double xValue() const;
-    double yValue() const;
-    QwtDoublePoint value() const;
-    void setXValue(double);
-    void setYValue(double);
-    void setValue(double, double);
-    void setValue(const QwtDoublePoint&);
-    void setLineStyle(QwtPlotMarker::LineStyle);
-    QwtPlotMarker::LineStyle lineStyle() const;
-    void setLinePen(const QPen&);
-    const QPen& linePen() const;
-    void setSymbol(const QwtSymbol&);
-    const QwtSymbol& symbol() const;
-    void setLabel(const QwtText&);
-    QwtText label() const;
-    void setLabelAlignment(int);
-    int labelAlignment() const;
-    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QwtDoubleRect boundingRect() const;
-}; // class QwtPlotMarker
+    QwtRasterData();
+    QwtRasterData(const QRectF&);
+    virtual ~QwtRasterData();
+    virtual QwtRasterData* copy() const = 0;
+    virtual void setBoundingRect(const QRectF&);
+    QRectF boundingRect() const;
+    virtual QSize rasterHint(const QRectF&) const;
+    virtual void initRaster(const QRectF&, const QSize&);
+    virtual void discardRaster();
+    virtual double value(double, double) const = 0;
+    virtual QwtDoubleInterval range() const = 0;
+    // FIXME: virtual QMap<double,QPolygonF> contourLines(const QRectF&, const QSize&, const QList<double>&, int) const;
+}; // class QwtRasterData
 
 
 // Local Variables:

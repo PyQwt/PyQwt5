@@ -40,20 +40,21 @@ public:
     enum TextFormat {
         AutoText,
         PlainText,
-        RichText
+        RichText,
+        MathMLText,
+        TeXText,
+        OtherFormat
     }; // enum TextFormat
 
-    enum PaintAttributes {
-        PaintUsingPainter,
+    enum PaintAttribute {
         PaintUsingTextFont,
         PaintUsingTextColor,
         PaintBackground
-    }; // enum PaintAttributes
+    }; // enum PaintAttribute
 
-    enum LayoutAttributes {
-        DefaultLayout,
+    enum LayoutAttribute {
         MinimumLayout
-    }; // enum LayoutAttributes
+    }; // enum LayoutAttribute
 
     QwtText(const QString& = QString::null, QwtText::TextFormat = AutoText);
     QwtText(const QwtText&);
@@ -68,8 +69,8 @@ public:
     void setFont(const QFont&);
     QFont font() const;
     QFont usedFont(const QFont&) const;
-    void setFlags(int);
-    int flags() const;
+    void setRenderFlags(int);
+    int renderFlags() const;
     void setColor(const QColor&);
     QColor color() const;
     QColor usedColor(const QColor&) const;
@@ -77,13 +78,15 @@ public:
     QPen backgroundPen() const;
     void setBackgroundBrush(const QBrush&);
     QBrush backgroundBrush() const;
-    void setPaintAttributes(int);
-    int paintAttributes() const;
-    void setLayoutAttributes(int);
-    int layoutAttributes() const;
+    void setPaintAttribute(QwtText::PaintAttribute, bool = true);
+    bool testPaintAttribute(QwtText::PaintAttribute) const;
+    void setLayoutAttribute(QwtText::LayoutAttribute, bool = true);
+    bool testLayoutAttribute(QwtText::LayoutAttribute) const;
     int heightForWidth(int, const QFont& = QFont()) const;
     QSize textSize(const QFont& = QFont()) const;
     void draw(QPainter*, const QRect&) const;
+protected:
+    const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = AutoText) const;
 }; // class QwtText
 
 

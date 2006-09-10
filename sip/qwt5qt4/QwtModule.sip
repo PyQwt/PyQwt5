@@ -85,6 +85,7 @@
 %Include qwt_compass.sip
 %Include qwt_compass_rose.sip
 %Include qwt_counter.sip
+%Include qwt_curve_fitter.sip
 %Include qwt_data.sip
 %Include qwt_dial.sip
 %Include qwt_dial_needle.sip
@@ -116,6 +117,7 @@
 %Include qwt_plot_spectrogram.sip
 %Include qwt_plot_svgitem.sip
 %Include qwt_plot_zoomer.sip
+%Include qwt_raster_data.sip
 %Include qwt_rect.sip
 %Include qwt_round_scale_draw.sip
 %Include qwt_scale_div.sip

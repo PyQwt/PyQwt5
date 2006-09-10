@@ -1,6 +1,6 @@
 // The SIP interface definition for:
 //      QList<QwtPickerMachine::Command>,
-//      QTickList.
+//      QwtValueList.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -71,11 +71,10 @@
 }; // QList<QwtPickerMachine::Command>
 
 
-%MappedType QwtTickList
+%MappedType QwtValueList
 {
 %TypeHeaderCode
-#include <qlist.h>
-#include <qwt_scale_div.h>
+#include <qwt_valuelist.h>
 %End
 
 %ConvertFromTypeCode
@@ -99,7 +98,7 @@
     if (0 == sipIsErr)
         return PyList_Check(sipPy);
 
-    QwtTickList *l = new QwtTickList;
+    QwtValueList *l = new QwtValueList;
 
     for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
         l->append(PyFloat_AsDouble(PyList_GET_ITEM(sipPy, i)));
@@ -108,7 +107,7 @@
     return sipGetState(sipTransferObj);
 %End // %ConvertToTypeCode
 
-}; // QwtTickList
+}; // QwtValueList
 
 
 // Local Variables:

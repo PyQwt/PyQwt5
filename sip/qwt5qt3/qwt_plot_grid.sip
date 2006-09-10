@@ -59,8 +59,6 @@ public:
     const QPen& minPen() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
     virtual void updateScaleDiv(const QwtScaleDiv&, const QwtScaleDiv&);
-protected:
-    virtual void gridChanged();
 }; // class QwtPlotGrid
 
 

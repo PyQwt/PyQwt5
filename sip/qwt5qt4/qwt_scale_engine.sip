@@ -43,7 +43,7 @@ public:
     virtual ~QwtLinearScaleEngine();
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation transformation() const;
+    virtual QwtScaleTransformation* transformation() const;
 protected:
     QwtDoubleInterval align(const QwtDoubleInterval&, double) const;
 }; // class QwtLinearScaleEngine
@@ -59,7 +59,7 @@ public:
     virtual ~QwtLog10ScaleEngine();
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation transformation() const;
+    virtual QwtScaleTransformation* transformation() const;
 protected:
     QwtDoubleInterval log10(const QwtDoubleInterval&) const;
     QwtDoubleInterval pow10(const QwtDoubleInterval&) const;
@@ -110,10 +110,10 @@ public:
     double hiMargin() const;
     virtual void autoScale(int, double&, double&, double&) const = 0;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const = 0;
-    virtual QwtScaleTransformation transformation() const = 0;
+    virtual QwtScaleTransformation* transformation() const = 0;
 protected:
     bool contains(const QwtDoubleInterval&, double) const;
-    QwtTickList strip(const QwtTickList&, const QwtDoubleInterval&) const;
+    QwtValueList strip(const QwtValueList&, const QwtDoubleInterval&) const;
     double divideInterval(double, int) const;
     QwtDoubleInterval buildInterval(double) const;
 }; // class QwtScaleEngine

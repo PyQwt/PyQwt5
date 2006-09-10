@@ -49,7 +49,7 @@ public:
     // Not Pythonic: QwtAbstractScaleDraw& operator=(const QwtAbstractScaleDraw&);
     void setScaleDiv(const QwtScaleDiv&);
     const QwtScaleDiv& scaleDiv() const;
-    void setTransformation(const QwtScaleTransformation&);
+    void setTransformation(QwtScaleTransformation*);
     const QwtScaleMap& map() const;
     void enableComponent(QwtAbstractScaleDraw::ScaleComponent, bool = true);
     bool hasComponent(QwtAbstractScaleDraw::ScaleComponent) const;
@@ -63,11 +63,11 @@ public:
     virtual int extent(const QPen&, const QFont&) const = 0;
     void setMinimumExtent(int);
     int minimumExtent() const;
+    QwtScaleMap& scaleMap();
 protected:
     virtual void drawTick(QPainter*, double, int) const = 0;
     virtual void drawBackbone(QPainter*) const = 0;
     virtual void drawLabel(QPainter*, double) const = 0;
-    QwtScaleMap& scaleMap();
     void invalidateCache();
     const QwtText& tickLabel(const QFont&, double) const;
 }; // class QwtAbstractScaleDraw

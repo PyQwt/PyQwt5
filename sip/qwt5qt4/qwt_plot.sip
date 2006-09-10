@@ -127,14 +127,14 @@ protected slots:
 protected:
     static bool axisValid(int);
     virtual void drawCanvas(QPainter*);
-    virtual void drawItems(QPainter*, const QRect&, const QVector<QwtScaleMap>&, const QwtPlotPrintFilter&) const;
+    virtual void drawItems(QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&) const;
     virtual void updateTabOrder();
     void updateAxes();
     virtual void resizeEvent(QResizeEvent*);
     virtual void printLegendItem(QPainter*, const QWidget*, const QRect&) const;
     virtual void printTitle(QPainter*, const QRect&) const;
     virtual void printScale(QPainter*, int, int, int, int, const QRect&) const;
-    virtual void printCanvas(QPainter*, const QRect&, const QVector<QwtScaleMap>&, const QwtPlotPrintFilter&) const;
+    virtual void printCanvas(QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&) const;
     virtual void printLegend(QPainter*, const QRect&) const;
 }; // class QwtPlot
 

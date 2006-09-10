@@ -37,34 +37,25 @@ class QwtSpline
 %End // %TypeHeaderCode
 
 public:
+    enum SplineType {
+        Natural,
+        Periodic
+    }; // enum SplineType
+
     QwtSpline();
+    QwtSpline(const QwtSpline&);
     ~QwtSpline();
+    // Not Pythonic: QwtSpline& operator=(const QwtSpline&);
+    void setSplineType(QwtSpline::SplineType);
+    QwtSpline::SplineType splineType() const;
+    bool setPoints(const QwtArrayQwtDoublePoint&);
+    QwtArrayQwtDoublePoint points() const;
+    void reset();
+    bool isValid() const;
     double value(double) const;
-    bool recalc(SIP_PYOBJECT, SIP_PYOBJECT, bool = false);
-%MethodCode
-PyObject *xOut, *yOut;
-double *x = 0;
-double *y = 0;
-int nx, ny;
-
-if (1 != try_Contiguous_1D_PyArray_of_double(a0, &xOut, &x, &nx)) {
-    return 0;
-}
-        
-if (1 != try_Contiguous_1D_PyArray_of_double(a1, &yOut, &y, &ny)) {
-    Py_DECREF(xOut);
-    return 0;
-}
-
-int n = nx < ny ? nx : ny;
-        
-sipRes = sipCpp->QwtSpline::recalc(x, y, n, a2);
-
-Py_DECREF(xOut);
-Py_DECREF(yOut);
-%End // recalc()
-
-    // Not Pythonic: void copyValues(bool = true);
+protected:
+    bool buildNaturalSpline(const QwtArrayQwtDoublePoint&);
+    bool buildPeriodicSpline(const QwtArrayQwtDoublePoint&);
 }; // class QwtSpline
 
 

@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtSpectrogramData.
+//      QwtPlotMagnifier.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,25 +30,47 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtSpectrogramData
+class QwtPlotMagnifier: QObject
 {
 %TypeHeaderCode
-#include <qwt_spectrogram_data.h>
+#include <qwt_plot_magnifier.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtSpectrogramData();
-    QwtSpectrogramData(const QwtDoubleRect&);
-    virtual ~QwtSpectrogramData();
-    virtual QwtSpectrogramData* copy() const = 0;
-    virtual void setBoundingRect(const QwtDoubleRect&);
-    QwtDoubleRect boundingRect() const;
-    virtual QSize resolution(const QwtDoubleRect&) const;
-    virtual void initRaster(const QwtDoubleRect&, const QSize&);
-    virtual void discardRaster();
-    virtual double value(double, double) const = 0;
-    virtual QwtDoubleInterval range() const = 0;
-}; // class QwtSpectrogramData
+    QwtPlotMagnifier(QwtPlotCanvas*);
+    virtual ~QwtPlotMagnifier();
+    void setEnabled(bool);
+    bool isEnabled() const;
+    void setAxisEnabled(int, bool);
+    bool isAxisEnabled(int) const;
+    void setMouseFactor(double);
+    double mouseFactor() const;
+    void setMouseButton(int, int = Qt::NoButton);
+    void getMouseButton(int&, int&) const;
+    void setWheelFactor(double);
+    double wheelFactor() const;
+    void setWheelButtonState(int);
+    int wheelButtonState() const;
+    void setKeyFactor(double);
+    double keyFactor() const;
+    void setZoomInKey(int, int);
+    void getZoomInKey(int&, int&);
+    void setZoomOutKey(int, int);
+    void getZoomOutKey(int&, int&);
+    QwtPlotCanvas* canvas();
+    // signature: const QwtPlotCanvas* canvas() const;
+    QwtPlot* plot();
+    // signature: const QwtPlot* plot() const;
+    virtual bool eventFilter(QObject*, QEvent*);
+protected:
+    virtual void rescale(double);
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetWheelEvent(QWheelEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+}; // class QwtPlotMagnifier
 
 
 // Local Variables:

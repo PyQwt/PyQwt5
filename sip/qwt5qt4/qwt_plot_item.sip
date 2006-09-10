@@ -44,6 +44,7 @@ public:
         Rtti_PlotCurve,
         Rtti_PlotHistogram,
         Rtti_PlotSpectrogram,
+        Rtti_PlotSVG,
         Rtti_PlotUserItem
     }; // enum RttiValues
 
@@ -56,7 +57,7 @@ public:
         RenderAntialiased
     }; // enum RenderHint
 
-    QwtPlotItem();
+    QwtPlotItem(const QwtText& = QwtText(QString::null, QwtText::AutoText));
     virtual ~QwtPlotItem();
     void attach(QwtPlot* /TransferThis/);
     void detach();
@@ -66,6 +67,9 @@ sipTransferBack(sipSelf);
 %End
 
     QwtPlot* plot() const;
+    void setTitle(const QString&);
+    void setTitle(const QwtText&);
+    const QwtText& title() const;
     virtual int rtti() const;
     void setItemAttribute(QwtPlotItem::ItemAttribute, bool = true);
     bool testItemAttribute(QwtPlotItem::ItemAttribute) const;
@@ -92,6 +96,8 @@ sipTransferBack(sipSelf);
     QRect paintRect(const QwtScaleMap&, const QwtScaleMap&) const;
     QRect transform(const QwtScaleMap&, const QwtScaleMap&, const QRectF&) const;
     QRectF invTransform(const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+private:
+    QwtPlotItem(const QwtPlotItem&);
 
 %If (HAS_QWT5)
 %ConvertToSubClassCode

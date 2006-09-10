@@ -1,8 +1,8 @@
 // The SIP interface definition for:
 //      QValueList<QwtPickerMachine::Command>,
-//      QTickList,
 //      QValueList<Type>,
-//      QValueList<Type*>.
+//      QValueList<Type*>,
+//      QwtValueList.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -72,47 +72,6 @@
 %End // %ConvertToTypeCode
 
 }; // QValueList<QwtPickerMachine::Command>
-
-%If (HAS_QWT5)
-%MappedType QwtTickList
-{
-%TypeHeaderCode
-#include <qvaluelist.h>
-#include <qwt_scale_div.h>
-%End
-
-%ConvertFromTypeCode
-    // Create the list.
-    PyObject *l = PyList_New(sipCpp->size());
-    if (0 == l)
-        return 0;
-    // Set the list elements.
-    for (int i = 0; i < int(sipCpp->size()); ++i) {
-	PyObject *o =  PyFloat_FromDouble((*sipCpp)[i]);
-	if (!o) {
-            Py_DECREF(l);            
-            return 0;
-        }
-        PyList_SetItem(l, i, o);
-    }
-    return l;
-%End // %ConvertFromTypeCode
-
-%ConvertToTypeCode
-    // Type checking if that is all that is required.
-    if (!sipIsErr)
-        return PyList_Check(sipPy);
-    // Create the list.
-    QwtTickList *l = new QwtTickList;
-    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
-        l->append(PyFloat_AsDouble(PyList_GET_ITEM(sipPy, i)));
-    }
-    *sipCppPtr = l;
-    return sipGetState(sipTransferObj);
-%End // %ConvertToTypeCode
-
-}; // QwtTickList
-%End // HAS_QWT5
 
 
 // QList<TYPE> is implemented as a Python list.
@@ -228,6 +187,45 @@ template<TYPE>
     return sipGetState(sipTransferObj);
 %End
 }; // template<TYPE> %MappedType QValueList<TYPE *>
+
+
+%MappedType QwtValueList
+{
+%TypeHeaderCode
+#include <qwt_valuelist.h>
+%End
+
+%ConvertFromTypeCode
+    // Create the list.
+    PyObject *l = PyList_New(sipCpp->size());
+    if (0 == l)
+        return 0;
+    // Set the list elements.
+    for (int i = 0; i < int(sipCpp->size()); ++i) {
+	PyObject *o =  PyFloat_FromDouble((*sipCpp)[i]);
+	if (!o) {
+            Py_DECREF(l);            
+            return 0;
+        }
+        PyList_SetItem(l, i, o);
+    }
+    return l;
+%End // %ConvertFromTypeCode
+
+%ConvertToTypeCode
+    // Type checking if that is all that is required.
+    if (!sipIsErr)
+        return PyList_Check(sipPy);
+    // Create the list.
+    QwtValueList *l = new QwtValueList;
+    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
+        l->append(PyFloat_AsDouble(PyList_GET_ITEM(sipPy, i)));
+    }
+    *sipCppPtr = l;
+    return sipGetState(sipTransferObj);
+%End // %ConvertToTypeCode
+
+}; // QwtValueList
 
 
 // Local Variables:

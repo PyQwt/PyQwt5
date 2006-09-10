@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPlotMarker.
+//      QwtPlotMagnifier.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,43 +30,47 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPlotMarker: QwtPlotItem
+class QwtPlotMagnifier: QObject
 {
 %TypeHeaderCode
-#include <qwt_plot_marker.h>
+#include <qwt_plot_magnifier.h>
 %End // %TypeHeaderCode
 
 public:
-    enum LineStyle {
-        NoLine,
-        HLine,
-        VLine,
-        Cross
-    }; // enum LineStyle
-
-    QwtPlotMarker();
-    virtual ~QwtPlotMarker();
-    virtual int rtti() const;
-    double xValue() const;
-    double yValue() const;
-    QwtDoublePoint value() const;
-    void setXValue(double);
-    void setYValue(double);
-    void setValue(double, double);
-    void setValue(const QwtDoublePoint&);
-    void setLineStyle(QwtPlotMarker::LineStyle);
-    QwtPlotMarker::LineStyle lineStyle() const;
-    void setLinePen(const QPen&);
-    const QPen& linePen() const;
-    void setSymbol(const QwtSymbol&);
-    const QwtSymbol& symbol() const;
-    void setLabel(const QwtText&);
-    QwtText label() const;
-    void setLabelAlignment(int);
-    int labelAlignment() const;
-    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QwtDoubleRect boundingRect() const;
-}; // class QwtPlotMarker
+    QwtPlotMagnifier(QwtPlotCanvas*);
+    virtual ~QwtPlotMagnifier();
+    void setEnabled(bool);
+    bool isEnabled() const;
+    void setAxisEnabled(int, bool);
+    bool isAxisEnabled(int) const;
+    void setMouseFactor(double);
+    double mouseFactor() const;
+    void setMouseButton(int, int = Qt::NoButton);
+    void getMouseButton(int&, int&) const;
+    void setWheelFactor(double);
+    double wheelFactor() const;
+    void setWheelButtonState(int);
+    int wheelButtonState() const;
+    void setKeyFactor(double);
+    double keyFactor() const;
+    void setZoomInKey(int, int);
+    void getZoomInKey(int&, int&);
+    void setZoomOutKey(int, int);
+    void getZoomOutKey(int&, int&);
+    QwtPlotCanvas* canvas();
+    // signature: const QwtPlotCanvas* canvas() const;
+    QwtPlot* plot();
+    // signature: const QwtPlot* plot() const;
+    virtual bool eventFilter(QObject*, QEvent*);
+protected:
+    virtual void rescale(double);
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetWheelEvent(QWheelEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+}; // class QwtPlotMagnifier
 
 
 // Local Variables:

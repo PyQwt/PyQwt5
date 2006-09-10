@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtArrayData,
 //      QwtData,
-//      QwtDoublePointData.
+//      QwtPolygonFData.
 //
 // Copyright (C) 2001-2006 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -107,22 +107,22 @@ protected:
 }; // class QwtData
 
 
-class QwtDoublePointData: QwtData
+class QwtPolygonFData: QwtData
 {
 %TypeHeaderCode
 #include <qwt_data.h>
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtDoublePointData();
-    QwtDoublePointData(const QPolygonF&);
-    // Not Pythonic: QwtDoublePointData& operator=(const QwtDoublePointData&);
-    virtual QwtData* copy() const /Factory/;
+    virtual ~QwtPolygonFData();
+    QwtPolygonFData(const QPolygonF&);
+    // Not Pythonic: QwtPolygonFData& operator=(const QwtPolygonFData&);
+    virtual QwtData* copy() const;
     virtual size_t size() const;
     virtual double x(size_t) const;
     virtual double y(size_t) const;
     const QPolygonF& data() const;
-}; // class QwtDoublePointData
+}; // class QwtPolygonFData
 
 
 // Local Variables:

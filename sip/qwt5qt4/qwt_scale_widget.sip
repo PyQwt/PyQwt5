@@ -40,6 +40,9 @@ public:
     QwtScaleWidget(QWidget* = 0);
     QwtScaleWidget(QwtScaleDraw::Alignment, QWidget* /TransferThis/ = 0);
     virtual ~QwtScaleWidget();
+signals:
+    void scaleDivChanged();
+public:
     void setTitle(const QString&);
     void setTitle(const QwtText&);
     QwtText title() const;
@@ -53,7 +56,9 @@ public:
     int margin() const;
     void setSpacing(int);
     int spacing() const;
-    void setScaleDiv(const QwtScaleTransformation&, const QwtScaleDiv&);
+    void setPenWidth(int);
+    int penWidth() const;
+    void setScaleDiv(QwtScaleTransformation*, const QwtScaleDiv&);
     void setScaleDraw(QwtScaleDraw*);
     // signature: const QwtScaleDraw* scaleDraw() const;
     QwtScaleDraw* scaleDraw();
@@ -63,7 +68,8 @@ public:
     bool isColorBarEnabled() const;
     void setColorBarWidth(int);
     int colorBarWidth() const;
-    void setColorMap(const QwtColorMap&);
+    void setColorMap(const QwtDoubleInterval&, const QwtColorMap&);
+    QwtDoubleInterval colorBarInterval() const;
     const QwtColorMap& colorMap() const;
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;

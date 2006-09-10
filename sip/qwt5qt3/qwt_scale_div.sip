@@ -47,29 +47,15 @@ public:
 
     ~QwtScaleDiv();
     QwtScaleDiv();
-    QwtScaleDiv(const QwtDoubleInterval&, QwtTickList, QwtTickList, QwtTickList) [(const QwtDoubleInterval&, QwtTickList*)];
-%MethodCode
-Py_BEGIN_ALLOW_THREADS
-QwtTickList ticks[QwtScaleDiv::NTickTypes] = {*a1, *a2, *a3};
-sipCpp = new QwtScaleDiv(*a0, ticks);
-Py_END_ALLOW_THREADS
-%End
-
-    QwtScaleDiv(double, double, QwtTickList, QwtTickList, QwtTickList) [(const QwtDoubleInterval&, QwtTickList*)];
-%MethodCode
-Py_BEGIN_ALLOW_THREADS
-QwtTickList ticks[QwtScaleDiv::NTickTypes] = {*a2, *a3, *a4};
-sipCpp = new QwtScaleDiv(a0, a1, ticks);
-Py_END_ALLOW_THREADS
-%End
-
+    QwtScaleDiv(const QwtDoubleInterval&, QwtValueList*);
+    QwtScaleDiv(double, double, QwtValueList*);
     int operator==(const QwtScaleDiv&) const;
     int operator!=(const QwtScaleDiv&) const;
     double lBound() const;
     double hBound() const;
     double range() const;
     bool contains(double) const;
-    const QwtTickList& ticks(int) const;
+    const QwtValueList& ticks(int) const;
     void invalidate();
     bool isValid() const;
     void invert();
