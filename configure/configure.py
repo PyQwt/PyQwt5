@@ -916,7 +916,7 @@ def main():
     options = check_numpy(configuration, options, 'PyQwt')
     options = check_iqt(configuration, options)
     options = check_qwt(configuration, options)
-    if options.module_install_path is None:
+    if not options.module_install_path:
         options.module_install_path = os.path.join(
             configuration.pyqt_mod_dir, 'Qwt5')
 
