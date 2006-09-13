@@ -16,6 +16,8 @@ QWT := ../qwt-cvs
 JOBS := 1
 UNAME := $(shell uname)
 
+DATE := 2006-09-10
+
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
 endif
@@ -69,7 +71,7 @@ install-trace: install-3t install-4t
 
 # CVS
 qwt-cvs:
-	(cd tmp/qwt-cvs; cvs up -dP)
+	(cd tmp/qwt-cvs; cvs up -dP -D $(DATE))
 	rm -rf qwt-old; mv qwt-cvs qwt-old
 	rm -rf qwt-cvs; cp -pr tmp/qwt-cvs qwt-cvs
 	python untabify.py -t 4 qwt-cvs .cpp .h .pro
