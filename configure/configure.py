@@ -300,7 +300,7 @@ def check_numpy(configuration, options, package):
 def check_compiler(configuration, options):
     """Check compiler specifics
     """
-    print 'Do not get upset by error messages in the next 4 compiler checks:'
+    print 'Do not get upset by error messages in the next 6 compiler checks:'
     
     makefile = sipconfig.Makefile(configuration)
     generator = makefile.optional_string('MAKEFILE_GENERATOR', 'UNIX')
@@ -341,8 +341,6 @@ def check_compiler(configuration, options):
                 '',
                 ])
 
-    # Warning: I have got two bug reports that SIP-4.4 does not parse \r\n on
-    # Windows (is this true?), so '\n'.join() instead of os.linesep.join().
     new = '\n'.join(new)
     types_sip = os.path.join(os.pardir, 'sip', options.qwt, 'QwtTypes.sip')
     if os.access(types_sip, os.R_OK):
@@ -744,7 +742,7 @@ def setup_parent_build(configuration, options):
     sipconfig.ParentMakefile(configuration = configuration,
                              subdirs = options.subdirs).generate()
 
-# setup_main_build
+# setup_parent_build()
 
 
 def parse_args():
