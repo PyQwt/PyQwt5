@@ -49,7 +49,8 @@ public:
         LeftLegend,
         RightLegend,
         BottomLegend,
-        TopLegend
+        TopLegend,
+        ExternalLegend
     }; // enum LegendPosition
 
     QwtPlot(QWidget* /TransferThis/ = 0);

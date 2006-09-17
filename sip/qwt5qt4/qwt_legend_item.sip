@@ -52,6 +52,10 @@ public:
     QwtLegend::LegendItemMode itemMode() const;
     void setIdentifierMode(int);
     int identifierMode() const;
+    void setIdentfierWidth(int);
+    int identifierWidth() const;
+    void setSpacing(int);
+    int spacing() const;
     void setSymbol(const QwtSymbol&);
     const QwtSymbol& symbol() const;
     void setCurvePen(const QPen&);

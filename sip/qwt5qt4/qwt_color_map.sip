@@ -1,4 +1,5 @@
 // The SIP interface specification for:
+//      QwtAlphaColorMap,
 //      QwtColorMap,
 //      QwtLinearColorMap.
 //
@@ -29,6 +30,26 @@
 //
 // If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
 // PyQwt becomes a free plug-in for a non-free program.
+
+
+class QwtAlphaColorMap: QwtColorMap
+{
+%TypeHeaderCode
+#include <qwt_color_map.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtAlphaColorMap(const QColor& = QColor(Qt::gray));
+    QwtAlphaColorMap(const QwtAlphaColorMap&);
+    virtual ~QwtAlphaColorMap();
+    // Not Pythonic: QwtAlphaColorMap& operator=(const QwtAlphaColorMap&);
+    virtual QwtColorMap* copy() const;
+    void setColor(const QColor&);
+    QColor color() const;
+    virtual QRgb rgb(const QwtDoubleInterval&, double) const;
+private:
+    virtual unsigned char colorIndex(const QwtDoubleInterval&, double) const;
+}; // class QwtAlphaColorMap
 
 
 class QwtColorMap
@@ -76,6 +97,7 @@ public:
     QwtLinearColorMap::Mode mode() const;
     void setColorInterval(const QColor&, const QColor&);
     void addColorStop(double, const QColor&);
+    QwtArrayDouble colorStops() const;
     QColor color1() const;
     QColor color2() const;
     virtual QRgb rgb(const QwtDoubleInterval&, double) const;

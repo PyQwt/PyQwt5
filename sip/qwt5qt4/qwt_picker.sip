@@ -127,7 +127,7 @@ protected:
     virtual void stretchSelection(const QSize&, const QSize&);
     virtual QwtText trackerText(const QPoint&) const;
     virtual QwtPickerMachine* stateMachine(int) const;
-    void updateDisplay();
+    virtual void updateDisplay();
 }; // class QwtPicker
 
 
