@@ -72,7 +72,7 @@
     QMap<double, QString> *map = new QMap<double, QString>;
 
     PyObject *key, *val;
-    int i = 0;
+    Py_ssize_t i = 0;
 
     while (PyDict_Next(sipPy, &i, &key, &val)) {
         double cKey = PyFloat_AS_DOUBLE(key);

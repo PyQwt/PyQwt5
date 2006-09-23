@@ -123,7 +123,7 @@ public:
     void __setitem__(SIP_PYSLICE, const QwtArrayQwtDoublePoint &);
 %MethodCode
     int len = sipCpp -> size();
-    int start, stop, step, slicelength;
+    Py_ssize_t start, stop, step, slicelength;
 
     if (0 > sipConvertFromSliceObject(a0, len,
                                       &start, &stop, &step, &slicelength))
@@ -138,7 +138,7 @@ public:
             QwtArrayQwtDoublePoint::ConstIterator it = a1 -> begin();
 
             for (int i = 0; i < slicelength; ++i) {
-                (*sipCpp)[start] = *it;
+                (*sipCpp)[int(start)] = *it;
                 start += step;
                 ++it;
             }
