@@ -70,8 +70,26 @@ public:
 protected:
     QRect layoutLegend(int, const QRect&) const;
     QRect alignLegend(const QRect&, const QRect&) const;
-    void expandLineBreaks(int, const QRect&, int&, int*) const;
-    void alignScales(int, QRect&, QRect*) const;
+    SIP_PYTUPLE expandLineBreaks(int, const QRect&) const [
+        void (int, const QRect&, int&, int*)];
+%MethodCode
+int title, axes[QwtPlot::axisCnt];
+sipCpp->sipProtect_expandLineBreaks(a0, *a1, title, axes);
+sipRes = Py_BuildValue("i(iiii)", title, axes[0], axes[1], axes[2], axes[3]);
+%End
+
+    SIP_PYTUPLE alignScales(int, QRect&) const [
+        void (int, QRect&, QRect*)];
+%MethodCode
+QRect scales[QwtPlot::axisCnt];
+sipCpp->sipProtect_alignScales(a0, *a1, scales);
+sipRes = sipBuildResult(0, "(BBBB)",
+                        new QRect(scales[0]), sipClass_QRect, 0,
+                        new QRect(scales[1]), sipClass_QRect, 0,
+                        new QRect(scales[2]), sipClass_QRect, 0,
+                        new QRect(scales[3]), sipClass_QRect, 0);
+%End
+
 }; // class QwtPlotLayout
 
 
