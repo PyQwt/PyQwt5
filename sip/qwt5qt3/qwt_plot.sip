@@ -129,14 +129,28 @@ protected slots:
 protected:
     static bool axisValid(int);
     virtual void drawCanvas(QPainter*);
-    virtual void drawItems(QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&) const;
+    virtual void drawItems(QPainter*, const QRect&, SIP_PYTUPLE, const QwtPlotPrintFilter&) const [
+        void (QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&)];
+%MethodCode
+QwtScaleMap maps[QwtPlot::axisCnt];
+// FIXME: fill in maps
+sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
+%End
+
     virtual void updateTabOrder();
     void updateAxes();
     virtual void resizeEvent(QResizeEvent*);
     virtual void printLegendItem(QPainter*, const QWidget*, const QRect&) const;
     virtual void printTitle(QPainter*, const QRect&) const;
     virtual void printScale(QPainter*, int, int, int, int, const QRect&) const;
-    virtual void printCanvas(QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&) const;
+    virtual void printCanvas(QPainter*, const QRect&, SIP_PYTUPLE, const QwtPlotPrintFilter&) const [
+     void (QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&)];
+%MethodCode
+QwtScaleMap maps[QwtPlot::axisCnt];
+// FIXME: fill in maps
+sipCpp->sipProtectVirt_printCanvas(sipSelfWasArg, a0, *a1, maps, *a3);
+%End
+
     virtual void printLegend(QPainter*, const QRect&) const;
 }; // class QwtPlot
 

@@ -58,6 +58,15 @@ public:
     double s2() const;
     double pDist() const;
     double sDist() const;
+
+public:
+    QwtScaleMap(int, int, double, double);
+%MethodCode
+sipCpp = new QwtScaleMap();
+sipCpp->setPaintInterval(a0, a1);
+sipCpp->setScaleInterval(a2, a3);
+%End
+
 }; // class QwtScaleMap
 
 

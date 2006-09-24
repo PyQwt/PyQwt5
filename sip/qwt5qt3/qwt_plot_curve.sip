@@ -110,7 +110,7 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
     QwtPlotCurve::CurveStyle style() const;
     void setSymbol(const QwtSymbol&);
     const QwtSymbol& symbol() const;
-    void setCurveFitter(QwtCurveFitter*);
+    void setCurveFitter(QwtCurveFitter* /Transfer/);
     QwtCurveFitter* curveFitter() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const /PyName=drawFromTo/;
