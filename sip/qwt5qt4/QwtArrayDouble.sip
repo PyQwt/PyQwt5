@@ -112,7 +112,7 @@ public:
             QwtArrayDouble::ConstIterator it = a1 -> begin();
 
             for (int i = 0; i < slicelength; ++i) {
-                (*sipCpp)[start] = *it;
+                (*sipCpp)[int(start)] = *it;
                 start += step;
                 ++it;
             }
