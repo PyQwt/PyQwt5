@@ -41,8 +41,9 @@ class MultiDemo(qt.QWidget):
             # import does_not_exist
             numpy_plot = Qwt.QwtPlot(self)
             numpy_plot.setTitle('numpy array')
+            numpy_plot.setCanvasBackground(qt.Qt.white)
             numpy_plot.plotLayout().setCanvasMargin(0)
-            numpy_plot.plotLayout().setAlignCanvasToScales(1)
+            numpy_plot.plotLayout().setAlignCanvasToScales(True)
             x = numpy.arange(0.0, 10.0, 0.01)
             y = lorentzian(x)
             # insert a curve, make it red and copy the arrays
@@ -62,8 +63,9 @@ class MultiDemo(qt.QWidget):
             # import does_not_exist
             numeric_plot = Qwt.QwtPlot(self)
             numeric_plot.setTitle('Numeric array')
+            numeric_plot.setCanvasBackground(qt.Qt.white)
             numeric_plot.plotLayout().setCanvasMargin(0)
-            numeric_plot.plotLayout().setAlignCanvasToScales(1)
+            numeric_plot.plotLayout().setAlignCanvasToScales(True)
             x = Numeric.arange(0.0, 10.0, 0.01)
             y = lorentzian(x)
             # insert a curve, make it red and copy the arrays
@@ -83,8 +85,9 @@ class MultiDemo(qt.QWidget):
             # import does_not_exist
             numarray_plot = Qwt.QwtPlot(self)
             numarray_plot.setTitle('numarray array')
+            numarray_plot.setCanvasBackground(qt.Qt.white)
             numarray_plot.plotLayout().setCanvasMargin(0)
-            numarray_plot.plotLayout().setAlignCanvasToScales(1)
+            numarray_plot.plotLayout().setAlignCanvasToScales(True)
             x = numarray.arange(0.0, 10.0, 0.01)
             y = lorentzian(x)
             # insert a curve, make it red and copy the arrays
@@ -102,8 +105,9 @@ class MultiDemo(qt.QWidget):
         # create a plot widget for lists of Python floats
         list_plot = Qwt.QwtPlot(self)
         list_plot.setTitle('Python list')
+        list_plot.setCanvasBackground(qt.Qt.white)
         list_plot.plotLayout().setCanvasMargin(0)
-        list_plot.plotLayout().setAlignCanvasToScales(1)
+        list_plot.plotLayout().setAlignCanvasToScales(True)
         x = drange(0.0, 10.0, 0.01)
         y = map(lorentzian, x)
         # insert a curve, make it red and copy the lists

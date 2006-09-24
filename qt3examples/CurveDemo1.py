@@ -32,10 +32,11 @@ class CurveDemo(Qt.QFrame):
         self.curves = []
         self.titles = []
         # curve 0
-        self.titles.append('Style: Spline, Symbol: Cross')
+        self.titles.append('Style: Lines/Fitted, Symbol: Cross')
         curve = Qwt.QwtPlotCurve()
         curve.setPen(Qt.QPen(Qt.Qt.darkGreen))
-        curve.setStyle(Qwt.QwtPlotCurve.Spline)
+        curve.setStyle(Qwt.QwtPlotCurve.Lines)
+        curve.setCurveAttribute(Qwt.QwtPlotCurve.Fitted)
         curve.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.Cross,
                                       Qt.QBrush(),
                                       Qt.QPen(Qt.Qt.black),

@@ -44,6 +44,7 @@ class MapDemo(qt.QMainWindow):
 
         self.plot = Qwt.QwtPlot(self)
         self.plot.setTitle("A Simple Map Demonstration")
+        self.plot.setCanvasBackground(qt.Qt.white)
         self.plot.setAxisTitle(Qwt.QwtPlot.xBottom, "x")
         self.plot.setAxisTitle(Qwt.QwtPlot.yLeft, "y")    
         self.plot.setAxisScale(Qwt.QwtPlot.xBottom, 0.0, 1.0)
