@@ -71,8 +71,11 @@ class CurveDemo(Qt.QFrame):
         curve = Qwt.QwtPlotCurve()
         curve.setPen(
             Qt.QPen(Qt.QColor(150, 150, 200), 2))
-        curve.setStyle(Qwt.QwtPlotCurve.Spline)
-        curve.setCurveAttribute(Qwt.QwtPlotCurve.Xfy)
+        curve.setCurveType(Qwt.QwtPlotCurve.Xfy)
+        curve.setStyle(Qwt.QwtPlotCurve.Lines)
+        curveFitter = Qwt.QwtSplineCurveFitter()
+        curveFitter.setSplineSize(150)
+        curve.setCurveFitter(curveFitter)
         curve.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.XCross,
                                       Qt.QBrush(),
                                       Qt.QPen(Qt.Qt.yellow, 2),
@@ -96,18 +99,23 @@ class CurveDemo(Qt.QFrame):
         # curve 3
         curve = Qwt.QwtPlotCurve()
         curve.setPen(Qt.QPen(Qt.QColor(100, 200, 150)))
-        curve.setStyle(Qwt.QwtPlotCurve.Spline)
-        curve.setCurveAttribute(Qwt.QwtPlotCurve.Periodic)
-        curve.setCurveAttribute(Qwt.QwtPlotCurve.Parametric)
-        curve.setSplineSize(200)
+        curve.setStyle(Qwt.QwtPlotCurve.Lines)
+        curve.setCurveAttribute(Qwt.QwtPlotCurve.Fitted)
+        curveFitter = Qwt.QwtSplineCurveFitter()
+        curveFitter.setFitMode(Qwt.QwtSplineCurveFitter.ParametricSpline)
+        curveFitter.setSplineSize(200)
+        curve.setCurveFitter(curveFitter)
         self.tuples.append((curve,
                             Qwt.QwtScaleMap(0, 100, -1.1, 3.0),
                             Qwt.QwtScaleMap(0, 100, -1.1, 3.0)))
         # curve 4
         curve = Qwt.QwtPlotCurve()
         curve.setPen(Qt.QPen(Qt.Qt.red))
-        curve.setStyle(Qwt.QwtPlotCurve.Spline)
-        curve.setSplineSize(200)
+        curve.setStyle(Qwt.QwtPlotCurve.Lines)
+        curve.setCurveAttribute(Qwt.QwtPlotCurve.Fitted)
+        curveFitter = Qwt.QwtSplineCurveFitter()
+        curveFitter.setSplineSize(200)
+        curve.setCurveFitter(curveFitter)
         self.tuples.append((curve,
                             Qwt.QwtScaleMap(0, 100, -5.0, 1.1),
                             Qwt.QwtScaleMap(0, 100, -1.1, 5.0)))
