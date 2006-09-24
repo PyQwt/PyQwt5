@@ -146,8 +146,6 @@ class ErrorBarPlotCurve(Qwt.QwtPlotCurve):
 
         if last < 0:
             last = self.dataSize() - 1
-# FIXME        if not self.verifyRange(first, last):
-# FIXME            return
 
         if self.errorOnTop:
             Qwt.QwtPlotCurve.drawFromTo(self, painter, xMap, yMap, first, last)
@@ -259,7 +257,6 @@ def make():
         dx = dx,
         dy = dy,
         curvePen = Qt.QPen(Qt.Qt.black, 2),
-# FIXME        curveStyle = Qwt.QwtPlotCurve.Spline,
         curveSymbol = Qwt.QwtSymbol(Qwt.QwtSymbol.Ellipse,
                                     Qt.QBrush(Qt.Qt.red),
                                     Qt.QPen(Qt.Qt.black, 2),
