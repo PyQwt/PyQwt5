@@ -1,4 +1,4 @@
-MKHOWTO := /home/packer/BUILD/Python-2.4.3/Doc/tools/mkhowto
+MKHOWTO := $(HOME)/CVS/PyQwt/BUILD/Python-2.5/Doc/tools/mkhowto
 
 SOURCES := \
 	pyqwt/configure.help \
