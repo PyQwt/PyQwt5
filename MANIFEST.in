@@ -17,11 +17,11 @@ include configure/configure.py
 
 # Qt3 examples
 graft qt3examples
-recursive-exclude qt3examples *.html *.png *.pyc *cvsignore* *~
+recursive-exclude qt3examples *.html *.png *.pyc *cvsignore* *~ typescript
 
 # Qt4 examples
 graft qt4examples
-recursive-exclude qt4examples *.html *.png *.pyc *cvsignore* *~
+recursive-exclude qt4examples *.html *.png *.pyc *cvsignore* *~ typescript
 
 # support code
 graft support
