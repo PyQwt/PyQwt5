@@ -36,6 +36,9 @@ class QwtArrayQwtDoublePoint
 %TypeHeaderCode
 #include <qwt_array.h>
 #include <qpoint.h>
+#if defined(_MSC_VER) && defined(QT_DLL)
+template class __declspec(dllimport) QVector<QPointF>;
+#endif
 typedef QwtArray<QPointF> QwtArrayQwtDoublePoint;
 %End // %TypeHeaderCode
 
