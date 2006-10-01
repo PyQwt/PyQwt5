@@ -16,7 +16,7 @@ QWT := ../qwt-cvs
 JOBS := 1
 UNAME := $(shell uname)
 
-DATE := 2006-09-18
+DATE := 2006-10-01
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
@@ -77,6 +77,14 @@ qwt-cvs:
 	python untabify.py -t 4 qwt-cvs .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt.patch
 	(cd qwt-cvs; doxygen -u Doxyfile; doxygen Doxyfile)
+	find qwt-cvs -name CVS \
+		-o -name admin \
+		-o -name images \
+		-o -name latex \
+		-o -name man \
+		-o -name .cvsignore \
+		-o -name '*.map' \
+		-o -name '*.md5' | xargs rm -rf
 
 # build a distribution tarball
 dist: all distclean all
