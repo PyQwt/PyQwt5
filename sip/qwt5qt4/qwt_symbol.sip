@@ -38,7 +38,7 @@ class QwtSymbol
 
 public:
     enum Style {
-        None,
+        NoSymbol,
         Ellipse,
         Rect,
         Diamond,

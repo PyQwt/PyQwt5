@@ -128,6 +128,8 @@ protected:
     virtual QwtText trackerText(const QPoint&) const;
     virtual QwtPickerMachine* stateMachine(int) const;
     virtual void updateDisplay();
+    const QWidget* rubberBandWidget() const;
+    const QWidget* trackerWidget() const;
 }; // class QwtPicker
 
 

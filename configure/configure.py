@@ -329,7 +329,7 @@ def check_compiler(configuration, options):
             print "YES"
         else:
             print "NO"
-            comment =  '//'
+            comment =  '// '
         new.append('%stypedef %s size_t;' % (comment, ctype))
 
     new.extend(['',

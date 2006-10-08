@@ -19,40 +19,50 @@ Provides a Command Line Interpreter friendly interface to QwtPlot.
 #
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# In addition, as a special exception, Gerard Vermeulen gives permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
+
 
 
 import sys
 import time
 
-from PyQt4 import QtCore, QtGui
+import PyQt4.Qt as Qt
 import PyQt4.Qwt5 as Qwt
 from anynumpy import *
 from grace import GracePlotter
 
 
 # colors
-Black       = QtGui.QColor(QtCore.Qt.black)
-Blue        = QtGui.QColor(QtCore.Qt.blue)
-Cyan        = QtGui.QColor(QtCore.Qt.cyan)
-DarkBlue    = QtGui.QColor(QtCore.Qt.darkBlue)
-DarkCyan    = QtGui.QColor(QtCore.Qt.darkCyan)
-DarkGray    = QtGui.QColor(QtCore.Qt.darkGray)
-DarkGreen   = QtGui.QColor(QtCore.Qt.darkGreen)
-DarkMagenta = QtGui.QColor(QtCore.Qt.darkMagenta)
-DarkRed     = QtGui.QColor(QtCore.Qt.darkRed)
-DarkYellow  = QtGui.QColor(QtCore.Qt.darkYellow)
-Gray        = QtGui.QColor(QtCore.Qt.gray)
-Green       = QtGui.QColor(QtCore.Qt.green)
-LightGray   = QtGui.QColor(QtCore.Qt.lightGray)
-Magenta     = QtGui.QColor(QtCore.Qt.magenta)
-Red         = QtGui.QColor(QtCore.Qt.red)
-White       = QtGui.QColor(QtCore.Qt.white)
-Yellow      = QtGui.QColor(QtCore.Qt.yellow)
+Black       = Qt.QColor(Qt.Qt.black)
+Blue        = Qt.QColor(Qt.Qt.blue)
+Cyan        = Qt.QColor(Qt.Qt.cyan)
+DarkBlue    = Qt.QColor(Qt.Qt.darkBlue)
+DarkCyan    = Qt.QColor(Qt.Qt.darkCyan)
+DarkGray    = Qt.QColor(Qt.Qt.darkGray)
+DarkGreen   = Qt.QColor(Qt.Qt.darkGreen)
+DarkMagenta = Qt.QColor(Qt.Qt.darkMagenta)
+DarkRed     = Qt.QColor(Qt.Qt.darkRed)
+DarkYellow  = Qt.QColor(Qt.Qt.darkYellow)
+Gray        = Qt.QColor(Qt.Qt.gray)
+Green       = Qt.QColor(Qt.Qt.green)
+LightGray   = Qt.QColor(Qt.Qt.lightGray)
+Magenta     = Qt.QColor(Qt.Qt.magenta)
+Red         = Qt.QColor(Qt.Qt.red)
+White       = Qt.QColor(Qt.Qt.white)
+Yellow      = Qt.QColor(Qt.Qt.yellow)
 
 
 # font
-Font = QtGui.QFont('Verdana')
+Font = Qt.QFont('Verdana')
 
 
 class Plot(Qwt.QwtPlot):
@@ -67,10 +77,10 @@ class Plot(Qwt.QwtPlot):
         of each optional argument depend on its data type:
         (1) Axis -- enables the axis.
         (2) Curve -- plots a curve.
-        (3) str or QtCore.QString -- sets the title.
+        (3) str or Qt.QString -- sets the title.
         (4) integer -- attaches a set of mouse events to the zoomer actions
         (5) tuples of 2 integer -- sets the size.
-        (6) QtGui.QWidget -- parent widget.
+        (6) Qt.QWidget -- parent widget.
         """
 
         self.size = (600, 400)
@@ -78,18 +88,18 @@ class Plot(Qwt.QwtPlot):
         # get an optional parent widget
         parent = None
         for arg in args:
-            if isinstance(arg, QtGui.QWidget):
+            if isinstance(arg, Qt.QWidget):
                 parent = arg
                 self.size = None
         Qwt.QwtPlot.__init__(self, parent)
 
         # look
-        self.setCanvasBackground(QtCore.Qt.white)
+        self.setCanvasBackground(Qt.Qt.white)
         self.plotLayout().setAlignCanvasToScales(True)
 
         grid = Qwt.QwtPlotGrid()
         grid.attach(self)
-        grid.setPen(QtGui.QPen(QtCore.Qt.black, 0, QtCore.Qt.DotLine))
+        grid.setPen(Qt.QPen(Qt.Qt.black, 0, Qt.Qt.DotLine))
         
         legend = Qwt.QwtLegend()
         legend.setItemMode(Qwt.QwtLegend.ClickableItem)
@@ -102,7 +112,7 @@ class Plot(Qwt.QwtPlot):
                                    Qwt.QwtPicker.DragSelection,
                                    Qwt.QwtPicker.AlwaysOff,
                                    self.canvas())
-        zoomer.setRubberBandPen(QtGui.QPen(Black))
+        zoomer.setRubberBandPen(Qt.QPen(Black))
         self.zoomers.append(zoomer)
         zoomer = Qwt.QwtPlotZoomer(Qwt.QwtPlot.xTop,
                                    Qwt.QwtPlot.yRight,
@@ -119,9 +129,9 @@ class Plot(Qwt.QwtPlot):
                 self.plotAxis(arg)
             elif isinstance(arg, Curve):
                 self.plotCurve(arg)
-            elif (isinstance(arg, str) or isinstance(arg, QtCore.QString)):
+            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
                 text = Qwt.QwtText(arg)
-                font = QtGui.QFont(Font)
+                font = Qt.QFont(Font)
                 font.setPointSize(14)
                 font.setBold(True)
                 text.setFont(font)
@@ -131,7 +141,7 @@ class Plot(Qwt.QwtPlot):
             elif (isinstance(arg, tuple) and len(tuple) == 2
                   and isinstance(arg[0], int) and isinstance(arg[1], int)):
                 self.size = arg
-            elif isinstance(arg, QtGui.QWidget): # accept a parent silently
+            elif isinstance(arg, Qt.QWidget): # accept a parent silently
                 pass
             else:
                 print "Plot() fails to accept %s." % arg
@@ -141,7 +151,7 @@ class Plot(Qwt.QwtPlot):
 
         # connections
         self.connect(self,
-                     QtCore.SIGNAL("legendClicked(QwtPlotItem*)"),
+                     Qt.SIGNAL("legendClicked(QwtPlotItem*)"),
                      self.toggleVisibility)
 
         # finalize
@@ -215,18 +225,18 @@ class Plot(Qwt.QwtPlot):
         """
         if index == 0:
             pattern = [
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.LeftButton,
-                                                 QtCore.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.MidButton,
-                                                 QtCore.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.RightButton,
-                                                 QtCore.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.LeftButton,
-                                                 QtCore.Qt.ShiftModifier),
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.MidButton,
-                                                 QtCore.Qt.ShiftModifier),
-                Qwt.QwtEventPattern.MousePattern(QtCore.Qt.RightButton,
-                                                 QtCore.Qt.ShiftModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.LeftButton,
+                                                 Qt.Qt.NoModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.MidButton,
+                                                 Qt.Qt.NoModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.RightButton,
+                                                 Qt.Qt.NoModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.LeftButton,
+                                                 Qt.Qt.ShiftModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.MidButton,
+                                                 Qt.Qt.ShiftModifier),
+                Qwt.QwtEventPattern.MousePattern(Qt.Qt.RightButton,
+                                                 Qt.Qt.ShiftModifier),
                 ]
             for zoomer in self.zoomers:
                 zoomer.setMousePattern(pattern)
@@ -395,7 +405,7 @@ class Curve:
         (1) Axis -- attaches an axis to the curve.
         (2) Pen -- sets the pen to connect the data points.
         (3) Symbol -- sets the symbol to draw the data points.
-        (4) string or QtCore.QString -- sets the title of the curve.
+        (4) string or Qt.QString -- sets the title of the curve.
         """
         self.x = x # must be sequence of floats, typecode()?
         self.y = y # must be sequence of floats
@@ -421,7 +431,7 @@ class Curve:
                     raise FIXME
             elif isinstance(arg, Pen):
                 self.pen = arg
-            elif (isinstance(arg, str) or isinstance(arg, QtCore.QString)):
+            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
                 self.name = arg
             elif isinstance(arg, Symbol):
                 self.symbol = arg
@@ -429,7 +439,7 @@ class Curve:
                 print "Curve fails to accept %s." % arg
 
         if not self.symbol and not self.pen:
-            self.pen = QtGui.QPen()
+            self.pen = Qt.QPen()
 
     # __init__()
 
@@ -466,12 +476,12 @@ class Axis:
         (1) AxisOrientation -- sets the orientation of the axis.
         (2) FIXME: Lin, Log
         (3) int -- sets the attributes of the axis.
-        (4) string or QtCore.QString -- sets the title of the axis.
+        (4) string or Qt.QString -- sets the title of the axis.
         """
         self.attributes = NoAttribute
         self.engine = Qwt.QwtLinearScaleEngine
         self.title = Qwt.QwtText('')
-        font = QtGui.QFont(Font)
+        font = Qt.QFont(Font)
         font.setPointSize(12)
         font.setBold(True)
         self.title.setFont(font)
@@ -483,7 +493,7 @@ class Axis:
                 self.engine = arg
             elif isinstance(arg, int):
                 self.attributes = arg
-            elif (isinstance(arg, str) or isinstance(arg, QtCore.QString)):
+            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
                 self.title.setText(arg)
             else:
                 print "Axis() fails to accept %s." % arg
@@ -502,7 +512,7 @@ class SymbolStyle:
 # class SymbolStyle
 
 
-NoSymbol = SymbolStyle(Qwt.QwtSymbol.None)
+NoSymbol = SymbolStyle(Qwt.QwtSymbol.NoSymbol)
 Circle   = SymbolStyle(Qwt.QwtSymbol.Ellipse)
 Square   = SymbolStyle(Qwt.QwtSymbol.Rect)
 Diamond  = SymbolStyle(Qwt.QwtSymbol.Diamond)
@@ -517,12 +527,12 @@ class PenStyle:
 # class PenStyle
 
 
-NoLine         = PenStyle(QtCore.Qt.NoPen) 
-SolidLine      = PenStyle(QtCore.Qt.SolidLine)
-DashLine       = PenStyle(QtCore.Qt.DashLine)
-DotLine        = PenStyle(QtCore.Qt.DotLine)
-DashDotLine    = PenStyle(QtCore.Qt.DashDotLine)
-DashDotDotLine = PenStyle(QtCore.Qt.DashDotDotLine)
+NoLine         = PenStyle(Qt.Qt.NoPen) 
+SolidLine      = PenStyle(Qt.Qt.SolidLine)
+DashLine       = PenStyle(Qt.Qt.DashLine)
+DotLine        = PenStyle(Qt.Qt.DotLine)
+DashDotLine    = PenStyle(Qt.Qt.DashDotLine)
+DashDotDotLine = PenStyle(Qt.Qt.DashDotDotLine)
 
 
 class Symbol(Qwt.QwtSymbol):
@@ -535,14 +545,14 @@ class Symbol(Qwt.QwtSymbol):
         
         Symbol takes any number of optional arguments. The interpretation
         of each optional argument depends on its data type:
-        (1) QtGui.QColor -- sets the fill color of the symbol.
+        (1) Qt.QColor -- sets the fill color of the symbol.
         (2) SymbolStyle -- sets the style of the symbol.
         (3) int -- sets the size of the symbol.
         """
         Qwt.QwtSymbol.__init__(self)
         self.setSize(5)
         for arg in args:
-            if isinstance(arg, QtGui.QColor):
+            if isinstance(arg, Qt.QColor):
                 brush = self.brush()
                 brush.setColor(arg)
                 self.setBrush(brush)
@@ -558,7 +568,7 @@ class Symbol(Qwt.QwtSymbol):
 # class Symbol
 
 
-class Pen(QtGui.QPen):
+class Pen(Qt.QPen):
     def __init__(self, *args):
         """Constructor.
 
@@ -567,14 +577,14 @@ class Pen(QtGui.QPen):
         Pen takes any number of optional arguments. The interpretation
         of each optional argument depends on its data type:
         (1) PenStyle -- sets the style of the pen.
-        (2) QtGui.QColor -- sets the color of the pen.
+        (2) Qt.QColor -- sets the color of the pen.
         (3) int -- sets the width of the pen.
         """
-        QtGui.QPen.__init__(self)
+        Qt.QPen.__init__(self)
         for arg in args:
             if isinstance(arg, PenStyle):
                 self.setStyle(arg.style)
-            elif isinstance(arg, QtGui.QColor):
+            elif isinstance(arg, Qt.QColor):
                 self.setColor(arg)
             elif isinstance(arg, int):
                 self.setWidth(arg)
@@ -684,7 +694,7 @@ grace_xpm = [
     ]
 
 
-class IPlot(QtGui.QMainWindow):
+class IPlot(Qt.QMainWindow):
     """A QMainWindow widget with a Plot widget as central widget.
 
     It provides:
@@ -703,30 +713,30 @@ class IPlot(QtGui.QMainWindow):
         of each optional argument depend on its data type:
         (1) Axis -- enables the axis.
         (2) Curve -- plots a curve.
-        (3) string or QtCore.QString -- sets the title.
+        (3) string or Qt.QString -- sets the title.
         (4) tuples of 2 integer -- sets the size.
         """
-        QtGui.QMainWindow.__init__(self)
+        Qt.QMainWindow.__init__(self)
 
         self.__plot = Plot(self, *args)
         self.setCentralWidget(self.__plot)
 
-        toolBar = QtGui.QToolBar(self)
+        toolBar = Qt.QToolBar(self)
         self.addToolBar(toolBar)
 
-        printButton = QtGui.QToolButton(toolBar)
+        printButton = Qt.QToolButton(toolBar)
         printButton.setText("Print")
-        printButton.setIcon(QtGui.QIcon(QtGui.QPixmap(print_xpm)))
+        printButton.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
         toolBar.addWidget(printButton)
         toolBar.addSeparator()
 
-        graceButton = QtGui.QToolButton(toolBar)
+        graceButton = Qt.QToolButton(toolBar)
         graceButton.setText("Grace")
-        graceButton.setIcon(QtGui.QIcon(QtGui.QPixmap(grace_xpm)))
+        graceButton.setIcon(Qt.QIcon(Qt.QPixmap(grace_xpm)))
         toolBar.addWidget(graceButton)
         toolBar.addSeparator()
 
-        mouseComboBox = QtGui.QComboBox(toolBar)
+        mouseComboBox = Qt.QComboBox(toolBar)
         for name in ('3 buttons (PyQwt)',
                      '1 button',
                      '2 buttons',
@@ -736,18 +746,18 @@ class IPlot(QtGui.QMainWindow):
         toolBar.addWidget(mouseComboBox)
         toolBar.addSeparator()
 
-        action = QtGui.QWhatsThis.createAction(toolBar)
+        action = Qt.QWhatsThis.createAction(toolBar)
         toolBar.addAction(action)
         toolBar.addSeparator()
         
         self.connect(printButton,
-                     QtCore.SIGNAL('clicked()'),
+                     Qt.SIGNAL('clicked()'),
                      self.printPlot)
         self.connect(graceButton,
-                     QtCore.SIGNAL('clicked()'),
+                     Qt.SIGNAL('clicked()'),
                      self.gracePlot)
         self.connect(mouseComboBox,
-                     QtCore.SIGNAL('activated(int)'),
+                     Qt.SIGNAL('activated(int)'),
                      self.setZoomerMouseEventSet)
 
         self.statusBar().showMessage("Move the mouse within the plot canvas"
@@ -820,9 +830,9 @@ class IPlot(QtGui.QMainWindow):
     # __init__()
 
     def printPlot(self):
-        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
-        printer.setColorMode(QtGui.QPrinter.Color)
-        printDialog = QtGui.QPrintDialog(printer)
+        printer = Qt.QPrinter(Qt.QPrinter.HighResolution)
+        printer.setColorMode(Qt.QPrinter.Color)
+        printDialog = Qt.QPrintDialog(printer)
         if printDialog.exec_():
             self.__plot.print_(p)
 
@@ -831,10 +841,10 @@ class IPlot(QtGui.QMainWindow):
 ##     def mouseMoveEvent(self, e):
 ##         print 'wow'
 ##         print e
-##         #QtGui.QWidget.changeEvent(self, e)
+##         #Qt.QWidget.changeEvent(self, e)
 ##         print e.type()
-##         print QtCore.QEvent.MouseTrackingChange
-##         if e.type() == QtCore.QEvent.MouseTrackingChange:
+##         print Qt.QEvent.MouseTrackingChange
+##         if e.type() == Qt.QEvent.MouseTrackingChange:
 ##             self.statusBar().showMessage(
 ##                 ' -- '.join(self.formatCoordinates(e.pos().x(), e.pos().y())))
         
@@ -842,7 +852,7 @@ class IPlot(QtGui.QMainWindow):
     def __getattr__(self, attr):
         """Inherit everything from QMainWindow and Plot
         """
-        if hasattr(QtGui.QMainWindow, attr):
+        if hasattr(Qt.QMainWindow, attr):
             return getattr(self.sipThis, attr)
         elif hasattr(self.__plot, attr):
             return getattr(self.__plot, attr)
@@ -865,7 +875,7 @@ def testPlot():
         Curve(x, cos(x), Pen(Magenta, 2), "cos(x)"),
         Curve(x, exp(x), Pen(Red), "exp(x)", Right),
         "PyQwt using Qt-%s and Qwt-%s"
-        % (QtCore.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
+        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
         )
     x = x[0:-1:10]
     p.plot(
@@ -886,7 +896,7 @@ def testIPlot():
         Curve(x, cos(x), Pen(Magenta, 2), "cos(x)"),
         Curve(x, exp(x), Pen(Red), "exp(x)", Right),
         "PyQwt using Qt-%s and Qwt-%s"
-        % (QtCore.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
+        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
         )
     x = x[0:-1:10]
     p.plot(
@@ -929,7 +939,7 @@ def testStandardMap():
     p = IPlot(
         Curve(xs, ys, Symbol(Circle, Red), "standard_map"),
         "PyQwt using Qt-%s and Qwt-%s"
-        % (QtCore.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
+        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
         )
 
     return p
@@ -938,14 +948,9 @@ def testStandardMap():
 
 
 if __name__ == '__main__':
-    # HACK to allow execfile('qplt.py') from a PyQt application (PyCute.py)
-    try: 
-        qApp.argc() 
-        p = testPlot()
-    except RuntimeError:
-        a = QApplication(sys.argv)
-        p = testIPlot()
-        a.exec_()
+    a = Qt.QApplication(sys.argv)
+    p = testIPlot()
+    a.exec_()
 
 # Local Variables: ***
 # mode: python ***

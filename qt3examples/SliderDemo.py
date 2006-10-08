@@ -34,18 +34,18 @@ class Slider(qt.QWidget):
         self.slider = self.createSlider(self, sliderType)
         assert(not self.slider is None)
         
-        if self.slider.scalePosition() == Qwt.QwtSlider.None:
+        if self.slider.scalePosition() == Qwt.QwtSlider.NoScale:
             if self.slider.orientation() == qt.Qt.Horizontal:
                 alignment = qt.Qt.AlignHCenter | qt.Qt.AlignTop
             else:
                 alignment = qt.Qt.AlignVCenter | qt.Qt.AlignLeft
-        elif self.slider.scalePosition() == Qwt.QwtSlider.Left:
+        elif self.slider.scalePosition() == Qwt.QwtSlider.LeftScale:
             alignment = qt.Qt.AlignVCenter | qt.Qt.AlignRight
-        elif self.slider.scalePosition() == Qwt.QwtSlider.Right:
+        elif self.slider.scalePosition() == Qwt.QwtSlider.RightScale:
             alignment = qt.Qt.AlignVCenter | qt.Qt.AlignLeft
-        elif self.slider.scalePosition() == Qwt.QwtSlider.Top:
+        elif self.slider.scalePosition() == Qwt.QwtSlider.TopScale:
             alignment = qt.Qt.AlignHCenter | qt.Qt.AlignBottom
-        elif self.slider.scalePosition() == Qwt.QwtSlider.Bottom:
+        elif self.slider.scalePosition() == Qwt.QwtSlider.BottomScale:
             alignment = qt.Qt.AlignHCenter | qt.Qt.AlignTop
 
         self.label = qt.QLabel("0", self)
@@ -71,7 +71,7 @@ class Slider(qt.QWidget):
         if sliderType == 0:
             slider = Qwt.QwtSlider(parent,
                                    qt.Qt.Horizontal,
-                                   Qwt.QwtSlider.Top,
+                                   Qwt.QwtSlider.TopScale,
                                    Qwt.QwtSlider.BgTrough)
             slider.setThumbWidth(10)
             slider.setRange(-10.0, 10.0, 1.0, 0) # paging disabled
@@ -80,7 +80,7 @@ class Slider(qt.QWidget):
         if sliderType == 1:
             slider = Qwt.QwtSlider(parent,
                                    qt.Qt.Horizontal,
-                                   Qwt.QwtSlider.None,
+                                   Qwt.QwtSlider.NoScale,
                                    Qwt.QwtSlider.BgBoth)
             slider.setRange(0.0, 1.0, 0.01, 5)
             return slider
@@ -88,7 +88,7 @@ class Slider(qt.QWidget):
         if sliderType == 2:
             slider = Qwt.QwtSlider(parent,
                                    qt.Qt.Horizontal,
-                                   Qwt.QwtSlider.Bottom,
+                                   Qwt.QwtSlider.BottomScale,
                                    Qwt.QwtSlider.BgSlot)
             slider.setThumbWidth(25)
             slider.setThumbLength(12)
@@ -98,7 +98,7 @@ class Slider(qt.QWidget):
         if sliderType == 3:
             slider = Qwt.QwtSlider(parent,
                                    qt.Qt.Vertical,
-                                   Qwt.QwtSlider.Left,
+                                   Qwt.QwtSlider.LeftScale,
                                    Qwt.QwtSlider.BgSlot)
             slider.setRange(0.0, 100.0, 1.0, 5)
             slider.setScaleMaxMinor(5)
@@ -107,7 +107,7 @@ class Slider(qt.QWidget):
         if sliderType == 4:
             slider = Qwt.QwtSlider(parent,
                                    qt.Qt.Vertical,
-                                   Qwt.QwtSlider.None,
+                                   Qwt.QwtSlider.NoScale,
                                    Qwt.QwtSlider.BgTrough)
             slider.setRange(0.0,100.0,1.0, 10)
             return slider
@@ -115,7 +115,7 @@ class Slider(qt.QWidget):
         if sliderType == 5:
             slider = Qwt.QwtSlider(parent, 
                                    qt.Qt.Vertical,
-                                   Qwt.QwtSlider.Right,
+                                   Qwt.QwtSlider.RightScale,
                                    Qwt.QwtSlider.BgBoth)
             slider.setScaleEngine(Qwt.QwtLog10ScaleEngine())
             slider.setThumbWidth(20)

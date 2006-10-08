@@ -38,11 +38,11 @@ class QwtSlider: QwtAbstractSlider, QwtAbstractScale
 
 public:
     enum ScalePos {
-        None,
-        Left,
-        Right,
-        Top,
-        Bottom
+        NoScale,
+        LeftScale,
+        RightScale,
+        TopScale,
+        BottomScale
     }; // enum ScalePos
 
     enum BGSTYLE {
@@ -51,7 +51,7 @@ public:
         BgBoth
     }; // enum BGSTYLE
 
-    QwtSlider(QWidget* /TransferThis/, Qt::Orientation = Qt::Horizontal, QwtSlider::ScalePos = None, QwtSlider::BGSTYLE = BgTrough);
+    QwtSlider(QWidget* /TransferThis/, Qt::Orientation = Qt::Horizontal, QwtSlider::ScalePos = NoScale, QwtSlider::BGSTYLE = BgTrough);
     virtual ~QwtSlider();
     virtual void setOrientation(Qt::Orientation);
     void setBgStyle(QwtSlider::BGSTYLE);

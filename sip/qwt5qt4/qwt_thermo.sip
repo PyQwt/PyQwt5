@@ -38,11 +38,11 @@ class QwtThermo: QWidget, QwtAbstractScale
 
 public:
     enum ScalePos {
-        None,
-        Left,
-        Right,
-        Top,
-        Bottom
+        NoScale,
+        LeftScale,
+        RightScale,
+        TopScale,
+        BottomScale
     }; // enum ScalePos
 
     QwtThermo(QWidget* /TransferThis/ = 0);

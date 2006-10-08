@@ -19,7 +19,16 @@ Provides a Command Line Interpreter friendly interface to QwtPlot.
 #
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# In addition, as a special exception, Gerard Vermeulen gives permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
 
 
 import sys
@@ -502,7 +511,7 @@ class SymbolStyle:
 # class SymbolStyle
 
 
-NoSymbol = SymbolStyle(Qwt.QwtSymbol.None)
+NoSymbol = SymbolStyle(Qwt.QwtSymbol.NoSymbol)
 Circle   = SymbolStyle(Qwt.QwtSymbol.Ellipse)
 Square   = SymbolStyle(Qwt.QwtSymbol.Rect)
 Diamond  = SymbolStyle(Qwt.QwtSymbol.Diamond)
@@ -935,14 +944,10 @@ def testStandardMap():
 
 
 if __name__ == '__main__':
-    # HACK to allow execfile('qplt.py') from a PyQt application (PyCute.py)
-    try: 
-        qApp.argc() 
-        p = testPlot()
-    except RuntimeError:
-        a = QApplication(sys.argv)
-        p = testIPlot()
-        a.exec_()
+    a = qt.QApplication(sys.argv)
+    p = testIPlot()
+    a.setMainWidget(p)
+    a.exec_loop()
 
 # Local Variables: ***
 # mode: python ***

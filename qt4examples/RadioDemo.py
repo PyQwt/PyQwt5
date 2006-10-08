@@ -17,7 +17,7 @@ class TuningThermo(Qt.QWidget):
         Qt.QWidget.__init__(self, *args)
 
         self.thermo = Qwt.QwtThermo(self)
-        self.thermo.setOrientation(Qt.Qt.Horizontal, Qwt.QwtThermo.None)
+        self.thermo.setOrientation(Qt.Qt.Horizontal, Qwt.QwtThermo.NoScale)
         self.thermo.setRange(0.0, 1.0)
         self.thermo.setFillColor(Qt.Qt.green)
 
@@ -47,7 +47,7 @@ class TunerFrame(Qt.QFrame):
         Qt.QFrame.__init__(self, *args)
 
         self.frequencySlider = Qwt.QwtSlider(
-            self, Qt.Qt.Horizontal, Qwt.QwtSlider.Top)
+            self, Qt.Qt.Horizontal, Qwt.QwtSlider.TopScale)
         self.frequencySlider.setScaleMaxMinor(5)
         self.frequencySlider.setScaleMaxMajor(12)
         self.frequencySlider.setThumbLength(80)

@@ -38,9 +38,9 @@ class QwtLegend: QFrame
 
 public:
     enum LegendDisplayPolicy {
-        None,
-        Fixed,
-        Auto
+        NoIdentifier,
+        FixedIdentifier,
+        AutoIdentifier
     }; // enum LegendDisplayPolicy
 
     enum LegendItemMode {
@@ -51,7 +51,7 @@ public:
 
     QwtLegend(QWidget* /TransferThis/ = 0);
     virtual ~QwtLegend();
-    void setDisplayPolicy(QwtLegend::LegendDisplayPolicy, int = -1);
+    void setDisplayPolicy(QwtLegend::LegendDisplayPolicy, int);
     QwtLegend::LegendDisplayPolicy displayPolicy() const;
     void setItemMode(QwtLegend::LegendItemMode);
     QwtLegend::LegendItemMode itemMode() const;
