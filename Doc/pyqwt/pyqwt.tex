@@ -12,42 +12,31 @@
 % Source code
 \newcommand{\Download}{\ulink{download}
   {http://pyqwt.sourceforge.net/download.html}}
-\newcommand{\Sip}{\ulink{sip-4.4.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/sip-4.4.tar.gz}}
+\newcommand{\Sip}{\ulink{sip-4.4.5.tar.gz}
+  {http://pyqwt.sourceforge.net/support/sip-4.4.5.tar.gz}}
 \newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.16.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.16-gpl.tar.gz}}
 \newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.16.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.16.tar.gz}}
-\newcommand{\PyQtFourGpl}{\ulink{PyQt4-gpl-4.0.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-gpl-4.0.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt4-gpl-4.0.1.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-gpl-4.0.1.tar.gz}}
 \newcommand{\NumPy}{\ulink{NumPy}
   {http://numpy.scipy.org}}
-\newcommand{\NumPyTarGz}{\ulink{NumPy-0.9.8.tar.gz}
-  {http://prdownloads.sourceforge.net/numpy/numpy-0.9.8.tar.gz?download}}
+\newcommand{\NumPyTarGz}{\ulink{NumPy-1.0rc1.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numpy-1.0rc1.tar.gz?download}}
 \newcommand{\numarray}{\ulink{numarray}
   {http://www.stsci.edu/resources/software_hardware/numarray}}
-\newcommand{\numarrayTarGz}{\ulink{numarray-1.5.1.tar.gz}
-  {http://prdownloads.sourceforge.net/numpy/numarray-1.5.1.tar.gz?download}}
+\newcommand{\numarrayTarGz}{\ulink{numarray-1.5.2.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numarray-1.5.2.tar.gz?download}}
 \newcommand{\Numeric}{\ulink{Numeric}
   {http://www.numpy.org}}
-\newcommand{\NumericTarGz}{\ulink{Numeric-23.8.tar.gz}
-  {http://prdownloads.sourceforge.net/numpy/Numeric-23.8.tar.gz?download}}
+\newcommand{\NumericTarGz}{\ulink{Numeric-24.2.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/Numeric-24.2.tar.gz?download}}
 \newcommand{\PyQwtTarGz}{\ulink{PyQwt5-\cvs.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt5-\cvs.tar.gz?download}}
 \newcommand{\ReadMePatches}{\ulink{README}
   {http://pyqwt.sourceforge.net/patches/README}}
 
-% Installers for MS-Windows
-\newcommand{\PythonExe}{\ulink{Python-2.4.3.exe}
-  {http://www.python.org/ftp/python/2.4.3/Python-2.4.3.exe}}
-\newcommand{\NumericExe}{\ulink{Numeric-23.8.win32-py2.4.exe}
-  {http://prdownloads.sourceforge.net/numpy/Numeric-23.8.win32-py2.4.exe?download}}
-\newcommand{\numarrayExe}{\ulink{numarray-1.5.1.win32-py2.4.exe}
-  {http://prdownloads.sourceforge.net/numpy/numarray-1.5.1.win32-py2.4.exe?download}}
-\newcommand{\PyQtEdu}{\ulink{PyQt-win-edu-msvc-3.13.exe}
-  {http://pyqwt.sourceforge.net/support/PyQt-win-edu-msvc-3.13.exe}}
-\newcommand{\PyQwtExe}{\ulink{PyQwt\_Qt230-4.1.win32-py2.3.exe}
-  {http://prdownloads.sourceforge.net/pyqwt/PyQwt\_Qt230-4.1.win32-py2.3.exe?download}}
 
 \newcommand{\PrerequisitesEnd}{
   The source package \PyQwtTarGz{} contains a CVS snapshot of the not yet
@@ -60,7 +49,7 @@
   \NumPy{}, \numarray{}, or \Numeric{}.
 
   I am using \NumPyTarGz{}, \numarrayTarGz{}, and \NumericTarGz{}.
-  \NumPy{} is actively developed and recommended (although in a state of flux).
+  \NumPy{} is actively developed and recommended.
   \numarray{} development is slowing and \Numeric{} development has stopped.
 }
 
@@ -557,18 +546,16 @@ Build prerequisites for \PyQwtTarGz{}:
 \begin{enumerate}
   \item
     \ulink{Python}{http://www.python.org}.\\
-    Supported versions: Python-2.4.x, and Python-2.3.x.
+    Supported versions: Python-2.5.x, Python-2.4.x, and Python-2.3.x.
   \item
     \ulink{Qt}{http://www.trolltech.com}.\\
-    Supported versions: Qt-4.1.x, Qt-3.3.x, and Qt-3.2.x.
+    Supported versions: Qt-4.2.x, Qt-4.1.x, Qt-3.3.x, and Qt-3.2.x.
   \item
     \Sip{}.\\
-    Supported versions: sip-4.4.x,
+    Supported versions: sip-4.5.x, and sip-4.4.x.
   \item
     Either \PyQtGpl{}, or \PyQtMac{}, or \PyQtFourGpl{}.\\
-    Supported versions: PyQt4-4.0, and PyQt-3.16.
-  \item
-    \ReadMePatches{} for bug fixes and upgrades.
+    Supported versions: PyQt-4.0, and PyQt-3.16.
 \end{enumerate}
 
 \PrerequisitesEnd{}
@@ -743,31 +730,35 @@ For instance:
 
 
 \begin{classdesc*}{QwtAbstractScale}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtAbstractScaleDraw}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtAbstractSlider}
-is fully implemented.
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtAlphaColorMap}
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtAnalogClock}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayData}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayDouble}
-FIXME.
+  is a wrapper for \ctype{QwtArray<double>}, see \ref{qwtarray}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayInt}
-FIXME.
+  is a wrapper for \ctype{QwtArray<int>}, see \ref{qwtarray}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayQwtDoublePoint}
@@ -775,106 +766,111 @@ FIXME.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrowButton}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtColorMap}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCompass}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCompassMagnetNeedle}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCompassRose}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCompassWindArrow}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtCounter}
-is fully implemented.
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtCurveFitter}
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtData}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDial}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDialNeedle}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDialScaleDraw}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDialSimpleNeedle}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoubleInterval}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoublePoint}
-is fully implemented, but only available when PyQwt has been built for Qt-3.
-When PyQwt has been built for Qt-4, this class is replaced by \class{QPointF}.
+  is fully implemented, but only available when PyQwt has been built for Qt-3.
+  When PyQwt has been built for Qt-4, this class is replaced by
+  \class{QPointF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoublePointData}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoubleRange}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoubleRect}
-is fully implemented, but only available when PyQwt has been built for Qt-3.
-When PyQwt has been built for Qt-4, this class is replaced by \class{QRectF}.
+  is fully implemented, but only available when PyQwt has been built for Qt-3.
+  When PyQwt has been built for Qt-4, this class is replaced by \class{QRectF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoubleSize}
-is fully implemented, but only available when PyQwt has been built for Qt-3.
-When PyQwt has been built for Qt-4, this class is replaced by \class{QSizeF}.
+  is fully implemented, but only available when PyQwt has been built for Qt-3.
+  When PyQwt has been built for Qt-4, this class is replaced by \class{QSizeF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDynGridLayout}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtEventPattern}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtIntervalData}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtKnob}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtLegend}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtLegendItem}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtLinearColorMap}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtLinearScaleEngine}
@@ -890,44 +886,44 @@ is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPaintBuffer}
-is fully implemented.
-This class does not exist when PyQwt has been built for  Qt-4.
+  is fully implemented.
+  This class does not exist when PyQwt has been built for  Qt-4.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPainter}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPicker}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerClickPointMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerClickRectMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerDragPointMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerDragRectMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPickerPolygonMachine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlainTextEngine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlot}
@@ -953,7 +949,7 @@ plot.print_(painter, rect, filter)
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotCanvas}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotCurve}
@@ -971,82 +967,75 @@ curve.setData(x, y)
       is not Pythonic.
   \end{cfuncdesc}
 
-  \begin{cfuncdesc}{int}{verifyRange}{int \&i1,int \&i2}
-    is implemented as:
-    \begin{verbatim}
-length, first, last = curve.verifyRange(i1, i2)
-    \end{verbatim}
-  \end{cfuncdesc}
-
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotDict}
-is fully implemented.
-FIXME: is the auto delete feature dangerous?
+  is fully implemented.
+  FIXME: is the auto delete feature dangerous?
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotGrid}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotItem}
-is fully implemented.
-\end{classdesc*}
-
-\begin{classdesc*}{QwtPlotItem}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotLayout}
-is fully implemented.
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotMagnifier}
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotMarker}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotPanner}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotPicker}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotPrintFilter}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotRasterItem}
-FIXME.
+  is fully implementd.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotSpectrogram}
-FIXME.
+  FIXME: protected methods.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotSvgItem}
-FIXME.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotZoomer}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtRect}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtRichTextEngine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtRoundScaleDraw}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleArithmic}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleDiv}
@@ -1054,8 +1043,11 @@ is fully implemented.
   \begin{cfuncdesc}{}
     {QwtScaleDiv}{
       const QwtDoubleInterval\&,
-      QwtTickList[NTickList]}
-    FIXME
+      QwtValueList[NTickList]}
+    is implemented as
+    \begin{verbatim}
+scaleDiv = QwtScaleDiv(qwtDoubleInterval, majorTicks, mediumTicks, minorTicks)
+    \end{verbatim}
   \end{cfuncdesc}
 
   \begin{cfuncdesc}{}
@@ -1063,80 +1055,68 @@ is fully implemented.
       double,
       double,
       QwtTickList[NTickList]}
-    FIXME
+    is implemented as
+    \begin{verbatim}
+scaleDiv = QwtScaleDiv(lower, upper, majorTicks, mediumTicks, minorTicks)
+    \end{verbatim}
   \end{cfuncdesc}
 
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleDraw}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleEngine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleMap}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleTransformation}
-FIXME
+  FIXME
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleWidget}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtSimpleCompassRose}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtSlider}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
-\begin{classdesc*}{QwtSpline}
-  
-  \begin{cfuncdesc}{bool}{recalc}{
-      double *x, double *y, int n, bool periodic = false}
-    is implemented as
-    \begin{verbatim}
-success = spline.recalc(x, y, periodic)
-    \end{verbatim}
-    where \var{x} and \var{y} can be any combination of lists, tuples and
-    Numerical Python arrays and \var{periodic} is a boolean.
-    The data is copied to C++ data types.
-  \end{cfuncdesc}
-  
-  \begin{cfuncdesc}{void}{copyValues}{bool enable = true}
-    is not Pythonic, because PyQwt always copies the values.
-  \end{cfuncdesc}
-
+\begin{classdesc*}{QwtSplineCurveFitter}
+  is fully implemented.
 \end{classdesc*}
  
 \begin{classdesc*}{QwtSymbol}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtText}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtTextEngine}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtTextLabel}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtThermo}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtWheel}
-is fully implemented.
+  is fully implemented.
 \end{classdesc*}
 
 \input{pyqwt.ind}
