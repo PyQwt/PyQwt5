@@ -491,46 +491,6 @@ print the plot.
   \end{itemize}
 \end{classdesc}
 
-\subsection{QImage and NumPy/numarray/Numeric arrays \label{qwt-qimage}}
-
-\Future{}
-
-\begin{funcdesc}{toImage}{array}
-  Convert \var{array} to a QImage, where \var{array} must be a two-dimensional
-  NumPy, numarray, or Numeric array of type UnsignedInt8 or UnsignedInt32.
-\end{funcdesc}
-
-\begin{funcdesc}{toNumarray}{image}
-  Convert \var{image} of type \class{QImage} to a numarray array. This function
-  is only present if numarray has been detected when building PyQwt.
-\end{funcdesc}
-
-\begin{funcdesc}{toNumeric}{image}
-  Convert \var{image} of type \class{QImage} to a Numeric array. This function
-  is only present if Numeric has been detected when building PyQwt.
-\end{funcdesc}
-
-\begin{funcdesc}{toNumpy}{image}
-  Convert \var{image} of type \class{QImage} to a NumPy array. This function
-  is only present if NumPy has been detected when building PyQwt.
-\end{funcdesc}
-
-\begin{funcdesc}{to_na_array}{image}
-  Convert \var{image} of type \class{QImage} to a Numarray array. This function
-  has been deprecated and is only present if Numarray has been detected when
-  building PyQwt.  Use \function{toNumarray(aQImage)}.
-\end{funcdesc}
-
-\begin{funcdesc}{to_np_array}{image}
-  Convert \var{image} of type \class{QImage} to a Numeric array. This function
-  has been deprecated and is is only present if Numeric has been detected when
-  building PyQwt. Use \function{toNumpy(aQImage)}
-\end{funcdesc}
-
-\begin{notice}[warning]
-Those functions ignore endianness and are untested on 64-bit platforms.
-Feedback, please.
-\end{notice}
 
 
 \chapter{Installation
@@ -639,10 +599,44 @@ member functions and all public class variables have been implemented.
 
 Undocumented classes have not yet been implemented or are still experimental.
 
-The classes in the Qwt library have quite a few protected attributes.
-They are not yet available in Python (as far as I know, sip wraps
-protected member function, but not protected attributes).
-I may try to implement protected attributes on demand.
+
+\section{Function reference\label{functions}}
+
+\Future{}
+
+\begin{funcdesc}{toImage}{array}
+  Convert \var{array} to a QImage, where \var{array} must be a two-dimensional
+  NumPy, numarray, or Numeric array of type UnsignedInt8 or UnsignedInt32.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumarray}{image}
+  Convert \var{image} of type \class{QImage} to a numarray array. This function
+  is only present if numarray has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumeric}{image}
+  Convert \var{image} of type \class{QImage} to a Numeric array. This function
+  is only present if Numeric has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{toNumpy}{image}
+  Convert \var{image} of type \class{QImage} to a NumPy array. This function
+  is only present if NumPy has been detected when building PyQwt.
+\end{funcdesc}
+
+\begin{funcdesc}{to_na_array}{image}
+  Convert \var{image} of type \class{QImage} to a Numarray array. This function
+  has been deprecated and is only present if Numarray has been detected when
+  building PyQwt.  Use \function{toNumarray(aQImage)}.
+\end{funcdesc}
+
+\begin{funcdesc}{to_np_array}{image}
+  Convert \var{image} of type \class{QImage} to a Numeric array. This function
+  has been deprecated and is is only present if Numeric has been detected when
+  building PyQwt. Use \function{toNumpy(aQImage)}
+\end{funcdesc}
+
+
 
 \section{Wrappers for \ctype{QwtArray<T>} \label{qwtarray}}
 
@@ -1007,7 +1001,7 @@ curve.setData(x, y)
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotRasterItem}
-  is fully implementd.
+  is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotSpectrogram}
