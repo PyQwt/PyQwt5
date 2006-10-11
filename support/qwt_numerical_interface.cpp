@@ -62,7 +62,7 @@ int try_Contiguous_1D_PyArray_of_double(
 
     PyErr_SetString(PyExc_TypeError, "expected is a sequence convertible to\n"
 
-#ifdef HAS_NUMERIC
+#ifdef HAS_NUMPY
                     "(*) a NumPy 1D array of PyArray_DOUBLE.\n"
 #else
                     "(!) rebuild PyQwt to support NumPy arrays.\n"
