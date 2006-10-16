@@ -834,7 +834,7 @@ class IPlot(Qt.QMainWindow):
         printer.setColorMode(Qt.QPrinter.Color)
         printDialog = Qt.QPrintDialog(printer)
         if printDialog.exec_():
-            self.__plot.print_(p)
+            self.__plot.print_(printer)
 
     # printPlot()
 
