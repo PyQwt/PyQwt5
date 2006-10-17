@@ -45,7 +45,7 @@ public:
     QwtRasterData();
     QwtRasterData(const QwtDoubleRect&);
     virtual ~QwtRasterData();
-    virtual QwtRasterData* copy() const = 0;
+    virtual QwtRasterData* copy() const = 0 /Factory/;
     virtual void setBoundingRect(const QwtDoubleRect&);
     QwtDoubleRect boundingRect() const;
     virtual QSize rasterHint(const QwtDoubleRect&) const;
