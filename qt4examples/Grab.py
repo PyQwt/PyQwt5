@@ -31,6 +31,7 @@ jobs = [
     'ReallySimpleDemo',
     'SimpleDemo',
     'SliderDemo',
+    'SpectrogramDemo',
     ]
 
 
