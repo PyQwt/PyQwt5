@@ -1,0 +1,6 @@
+New features:
+- based on a Qwt CVS snapshot later than Qwt-5.0.0rc0.
+- supports Python-2.5 (requires a SIP snapshot or SIP-4.5 when released)
+- support NumPy-1.0rc2
+- supports Qt-4.2.0 (requires a PyQt4 snapshot or PyQt-4.1 when released)
+
