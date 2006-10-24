@@ -16,7 +16,7 @@ QWT := ../qwt-cvs
 JOBS := 1
 UNAME := $(shell uname)
 
-DATE := 2006-10-08
+DATE := 2006-10-24
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
