@@ -85,8 +85,8 @@ public:
     int heightForWidth(int, const QFont& = QFont()) const;
     QSize textSize(const QFont& = QFont()) const;
     void draw(QPainter*, const QRect&) const;
-protected:
-    const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = AutoText) const;
+    static const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = AutoText);
+    static const QwtTextEngine* textEngine(QwtText::TextFormat);
 }; // class QwtText
 
 
