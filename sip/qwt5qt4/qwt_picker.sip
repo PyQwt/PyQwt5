@@ -123,6 +123,7 @@ protected:
     virtual void widgetWheelEvent(QWheelEvent*);
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
+    virtual void widgetLeaveEvent(QEvent*);
     QRect trackerRect(QPainter*) const;
     virtual void stretchSelection(const QSize&, const QSize&);
     virtual QwtText trackerText(const QPoint&) const;

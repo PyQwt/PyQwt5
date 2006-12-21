@@ -87,6 +87,7 @@ public:
     void draw(QPainter*, const QRect&) const;
     static const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = AutoText);
     static const QwtTextEngine* textEngine(QwtText::TextFormat);
+    static void setTextEngine(QwtText::TextFormat, QwtTextEngine*);
 }; // class QwtText
 
 
