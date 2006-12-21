@@ -604,13 +604,17 @@ def setup_qwt5_build(configuration, options, package):
     extra_headers += glob.glob(os.path.join(os.pardir, 'support', '*.h'))
 
     # do we compile and link the sources of Qwt into PyQwt?
+    if sys.platform == 'win32':
+        qwt = 'qwt5'
+    else:
+        qwt = 'qwt'
     if options.qwt_sources:
-        # yes, zap all 'qwt'
-        while options.extra_libs.count('qwt'):
-            options.extra_libs.remove('qwt')
-    elif 'qwt' not in options.extra_libs:
-        # no, add 'qwt' if needed
-        options.extra_libs.append('qwt')
+        # yes, zap all occurrences of a qwt library
+        while options.extra_libs.count(qwt):
+            options.extra_libs.remove(qwt)
+    elif qwt not in options.extra_libs:
+        # no, add the qwt library if needed
+        options.extra_libs.append(qwt)
 
     # zap the temporary directory
     try:
