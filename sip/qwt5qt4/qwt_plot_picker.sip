@@ -29,6 +29,17 @@
 // If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
 // PyQwt becomes a free plug-in for a non-free program.
 
+// The C++ library declares
+// typedef QPointF QwtDoublePoint;
+// but that does not work in SIP.
+// However the following SIP declaration
+class QwtDoublePoint: QPointF
+{
+%TypeHeaderCode
+#include <qpoint.h>
+%End // %TypeHeaderCode
+};
+// does work.
 
 class QwtPlotPicker: QwtPicker
 {
@@ -49,7 +60,7 @@ public:
     QwtPlotCanvas* canvas();
     // signature: const QwtPlotCanvas* canvas() const;
 signals:
-    void selected(const QPointF&);
+    void selected(const QwtDoublePoint&);
     void selected(const QRectF&);
     void selected(const QwtArrayQwtDoublePoint&);
     void appended(const QPointF&);

@@ -451,7 +451,7 @@ def check_qwt(configuration, options):
         extra_include_dirs.append(os.path.join(configuration.qt_inc_dir, 'Qt'))
         #FIXME: options.extra_include_dirs.extend(extra_include_dirs)
     if options.qwt_sources:
-        extra_include_dirs.append(os.path.join(options.qwt_sources, 'include'))
+        extra_include_dirs.append(os.path.join(options.qwt_sources, 'src'))
     if options.extra_include_dirs:
         extra_include_dirs.extend(options.extra_include_dirs)
 
@@ -592,7 +592,7 @@ def setup_qwt5_build(configuration, options, package):
         extra_sources += glob.glob(os.path.join(
             options.qwt_sources, 'src', '*.cpp'))
         extra_headers += glob.glob(os.path.join(
-            options.qwt_sources, 'include', '*.h'))
+            options.qwt_sources, 'src', '*.h'))
         extra_moc_headers = []
         for header in extra_headers:
             text = open(header).read()

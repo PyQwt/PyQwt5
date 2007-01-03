@@ -1,6 +1,6 @@
---- qwt-cvs/include/qwt_spline.h.pyqwt	2006-09-10 12:30:17.000000000 +0200
-+++ qwt-cvs/include/qwt_spline.h	2006-09-10 12:32:03.000000000 +0200
-@@ -92,10 +92,12 @@
+--- qwt-svn/src/qwt_spline.h.pyqwt	2007-01-03 16:18:36.000000000 +0100
++++ qwt-svn/src/qwt_spline.h	2007-01-03 16:21:20.000000000 +0100
+@@ -95,10 +95,12 @@
  
  #if QT_VERSION < 0x040000
      bool setPoints(const QwtArray<QwtDoublePoint>& points);

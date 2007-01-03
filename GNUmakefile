@@ -11,12 +11,12 @@
 #     The script command appeared in 3.0BSD and is part of util-linux.
 
 # To compile and link the Qwt sources statically into Pyqwt.
-QWT := ../qwt-cvs
+QWT := ../qwt-svn
 
 JOBS := 1
 UNAME := $(shell uname)
 
-DATE := 2006-12-21
+REVISION := 18
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
@@ -26,7 +26,7 @@ ifeq ($(UNAME),Darwin)
 JOBS := $(shell sysctl -n hw.ncpu)
 endif
 
-.PHONY: dist qwt-cvs
+.PHONY: dist qwt-svn
 
 all: 3 4
 
@@ -69,19 +69,16 @@ install-4t: 4t
 
 install-trace: install-3t install-4t
 
-# CVS
-qwt-cvs:
-	(cd tmp/qwt-cvs; cvs up -dP -D $(DATE))
-	rm -rf qwt-old; mv qwt-cvs qwt-old
-	rm -rf qwt-cvs; cp -pr tmp/qwt-cvs qwt-cvs
+# SVN
+qwt-svn:
+	(cd tmp/qwt-svn; svn up -r $(REVISION))
+	rm -rf qwt-old; mv qwt-svn qwt-old
+	rm -rf qwt-svn; cp -pr tmp/qwt-svn qwt-svn
 	python untabify.py -t 4 qwt-cvs .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt.patch
-	(cd qwt-cvs; doxygen -u Doxyfile; doxygen Doxyfile)
-	find qwt-cvs -name CVS \
-		-o -name admin \
-		-o -name images \
-		-o -name latex \
-		-o -name man \
+	(cd qwt-svn/doc; doxygen -u Doxyfile; doxygen Doxyfile)
+	(cd qwt-svn; rm -rf admin doc/images doc/latex doc/man)
+	find qwt-svn -name .svn \
 		-o -name .cvsignore \
 		-o -name '*.map' \
 		-o -name '*.md5' | xargs rm -rf

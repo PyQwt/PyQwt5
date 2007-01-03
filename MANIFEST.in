@@ -27,11 +27,9 @@ recursive-exclude qt4examples *.html *.png *.pyc *cvsignore* *~ typescript
 graft support
 recursive-exclude suppport *cvsignore* *~
 
-# qwt-cvs
-graft qwt-cvs
-recursive-exclude qwt-cvs *~
-# remove qwt.spec, because it interferes with: rpm -ta PyQwt-RELEASE.tar.gz
-recursive-exclude qwt-cvs qwt.spec
+# qwt-svn
+graft qwt-svn
+recursive-exclude qwt-svn *~
 
 # sip files
 graft sip
