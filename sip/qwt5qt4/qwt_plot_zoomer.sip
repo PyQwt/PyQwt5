@@ -42,9 +42,9 @@ public:
     QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
     virtual ~QwtPlotZoomer();
     virtual void setZoomBase();
-    virtual void setZoomBase(const QRectF&);
-    QRectF zoomBase() const;
-    QRectF zoomRect() const;
+    virtual void setZoomBase(const QwtDoubleRect&);
+    QwtDoubleRect zoomBase() const;
+    QwtDoubleRect zoomRect() const;
     virtual void setAxis(int, int);
     void setMaxStackDepth(int);
     int maxStackDepth() const;
@@ -54,18 +54,18 @@ public:
 public slots:
     void moveBy(double, double);
     virtual void move(double, double);
-    virtual void zoom(const QRectF&);
+    virtual void zoom(const QwtDoubleRect&);
     virtual void zoom(int);
 signals:
-    void zoomed(const QRectF&);
+    void zoomed(const QwtDoubleRect&);
 protected:
     virtual void rescale();
-    virtual QSizeF minZoomSize() const;
+    virtual QwtDoubleSize minZoomSize() const;
     virtual void widgetMouseReleaseEvent(QMouseEvent*);
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void begin();
     virtual bool end(bool = true);
-    virtual bool accept(QPolygon&) const;
+    virtual bool accept(QwtPolygon&) const;
 }; // class QwtPlotZoomer
 
 

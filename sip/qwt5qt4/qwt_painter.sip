@@ -56,13 +56,13 @@ public:
     static void drawPie(QPainter*, const QRect&, int, int);
     static void drawLine(QPainter*, int, int, int, int);
     static void drawLine(QPainter*, const QPoint&, const QPoint&);
-    static void drawPolygon(QPainter*, const QPolygon&);
-    static void drawPolyline(QPainter*, const QPolygon&);
+    static void drawPolygon(QPainter*, const QwtPolygon&);
+    static void drawPolyline(QPainter*, const QwtPolygon&);
     static void drawPoint(QPainter*, int, int);
     static void drawRoundFrame(QPainter*, const QRect&, int, const QPalette&, bool);
     static void drawFocusRect(QPainter*, QWidget*);
     static void drawFocusRect(QPainter*, QWidget*, const QRect&);
-    static QPolygon clip(const QPolygon&);
+    static QwtPolygon clip(const QwtPolygon&);
     static void drawColorBar(QPainter*, const QwtColorMap&, const QwtDoubleInterval&, const QwtScaleMap&, Qt::Orientation, const QRect&);
 }; // class QwtPainter
 

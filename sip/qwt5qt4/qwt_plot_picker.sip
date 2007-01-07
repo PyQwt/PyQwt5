@@ -29,17 +29,6 @@
 // If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
 // PyQwt becomes a free plug-in for a non-free program.
 
-// The C++ library declares
-// typedef QPointF QwtDoublePoint;
-// but that does not work in SIP.
-// However the following SIP declaration
-class QwtDoublePoint: QPointF
-{
-%TypeHeaderCode
-#include <qpoint.h>
-%End // %TypeHeaderCode
-};
-// does work.
 
 class QwtPlotPicker: QwtPicker
 {
@@ -61,18 +50,18 @@ public:
     // signature: const QwtPlotCanvas* canvas() const;
 signals:
     void selected(const QwtDoublePoint&);
-    void selected(const QRectF&);
+    void selected(const QwtDoubleRect&);
     void selected(const QwtArrayQwtDoublePoint&);
-    void appended(const QPointF&);
-    void moved(const QPointF&);
+    void appended(const QwtDoublePoint&);
+    void moved(const QwtDoublePoint&);
 protected:
-    QRectF scaleRect() const;
-    QRectF invTransform(const QRect&) const;
-    QRect transform(const QRectF&) const;
-    QPointF invTransform(const QPoint&) const;
-    QPoint transform(const QPointF&) const;
+    QwtDoubleRect scaleRect() const;
+    QwtDoubleRect invTransform(const QRect&) const;
+    QRect transform(const QwtDoubleRect&) const;
+    QwtDoublePoint invTransform(const QPoint&) const;
+    QPoint transform(const QwtDoublePoint&) const;
     virtual QwtText trackerText(const QPoint&) const;
-    virtual QwtText trackerText(const QPointF&) const;
+    virtual QwtText trackerText(const QwtDoublePoint&) const;
     virtual void move(const QPoint&);
     virtual void append(const QPoint&);
     virtual bool end(bool = true);

@@ -101,16 +101,16 @@ public:
     QWidget* parentWidget();
     // signature: const QWidget* parentWidget() const;
     virtual QRect pickRect() const;
-    const QPolygon& selection() const;
+    const QwtPolygon& selection() const;
     virtual void drawRubberBand(QPainter*) const;
     virtual void drawTracker(QPainter*) const;
 signals:
-    void selected(const QPolygon&);
+    void selected(const QwtPolygon&);
     void appended(const QPoint&);
     void moved(const QPoint&);
-    void changed(const QPolygon&);
+    void changed(const QwtPolygon&);
 protected:
-    virtual bool accept(QPolygon&) const;
+    virtual bool accept(QwtPolygon&) const;
     virtual void transition(const QEvent*);
     virtual void begin();
     virtual void append(const QPoint&);

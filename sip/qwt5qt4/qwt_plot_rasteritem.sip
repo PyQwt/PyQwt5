@@ -52,9 +52,9 @@ public:
     QwtPlotRasterItem::CachePolicy cachePolicy() const;
     void invalidateCache();
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
-    virtual QSize rasterHint(const QRectF&) const;
+    virtual QSize rasterHint(const QwtDoubleRect&) const;
 protected:
-    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QRectF&) const = 0;
+    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const = 0;
 }; // class QwtPlotRasterItem
 
 

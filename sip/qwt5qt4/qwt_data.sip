@@ -61,7 +61,7 @@ sipCpp = new sipQwtArrayData(xArray, yArray);
     virtual double y(size_t) const;
     const QwtArrayDouble& xData() const;
     const QwtArrayDouble& yData() const;
-    virtual QRectF boundingRect() const;
+    virtual QwtDoubleRect boundingRect() const;
 }; // class QwtArrayData
 
 
@@ -78,7 +78,7 @@ public:
     virtual size_t size() const = 0;
     virtual double x(size_t) const = 0;
     virtual double y(size_t) const = 0;
-    virtual QRectF boundingRect() const;
+    virtual QwtDoubleRect boundingRect() const;
 protected:
     // Not Pythonic: QwtData& operator=(const QwtData&);
 

@@ -40,16 +40,16 @@ public:
     QwtPlotSvgItem(const QString& = QString::null);
     QwtPlotSvgItem(const QwtText&);
     virtual ~QwtPlotSvgItem();
-    bool loadFile(const QRectF&, const QString&);
-    bool loadData(const QRectF&, const QByteArray&);
-    virtual QRectF boundingRect() const;
+    bool loadFile(const QwtDoubleRect&, const QString&);
+    bool loadData(const QwtDoubleRect&, const QByteArray&);
+    virtual QwtDoubleRect boundingRect() const;
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
     virtual int rtti() const;
 protected:
     // signature: const QSvgRenderer& renderer() const;
     QSvgRenderer& renderer();
-    void render(QPainter*, const QRectF&, const QRect&) const;
-    QRectF viewBox(const QRectF&) const;
+    void render(QPainter*, const QwtDoubleRect&, const QRect&) const;
+    QwtDoubleRect viewBox(const QwtDoubleRect&) const;
 }; // class QwtPlotSvgItem
 
 

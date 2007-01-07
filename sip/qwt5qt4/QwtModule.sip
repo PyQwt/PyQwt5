@@ -71,6 +71,11 @@ typedef int Py_ssize_t;
 #endif
 %End
 
+typedef QPointF QwtDoublePoint;
+typedef QPolygon QwtPolygon;
+typedef QRectF QwtDoubleRect;
+typedef QSizeF QwtDoubleSize;
+
 // Converter code
 %Include QwtMap.sip
 %Include QwtList.sip

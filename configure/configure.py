@@ -153,6 +153,18 @@ def fix_build_file(name, extra_sources, extra_headers, extra_moc_headers):
 # fix_build_file()
 
 
+def fix_typedefs(sources):
+    '''Work around a code generation bug in SIP-4.5.x
+    '''
+    for source in sources:
+        old = open(source).read()
+        new = old.replace('"QtCore"', '"PyQt4.QtCore"')
+        if new != old:
+            open(source, 'w').write(new)
+
+# fix_typedefs()
+
+
 def lazy_copy_file(source, target):
     """Lazy copy a file to another file:
     - check for a SIP time stamp to skip,
@@ -670,6 +682,10 @@ def setup_qwt5_build(configuration, options, package):
                    [os.path.basename(f) for f in extra_headers],
                    [os.path.basename(f) for f in extra_moc_headers])
     
+    # fix the typedefs (work around a bug in SIP-4.5.x)
+    if tmp_dir == 'tmp-qwt5qt4':
+        fix_typedefs(glob.glob(os.path.join(tmp_dir, 'sipQwt*.cpp')))
+
     # copy lazily to the build directory to speed up recompilation
     if not os.path.exists(build_dir):
         try:

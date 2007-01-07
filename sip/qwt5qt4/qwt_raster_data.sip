@@ -43,17 +43,17 @@ public:
     }; // enum ConrecAttribute
 
     QwtRasterData();
-    QwtRasterData(const QRectF&);
+    QwtRasterData(const QwtDoubleRect&);
     virtual ~QwtRasterData();
     virtual QwtRasterData* copy() const = 0 /Factory/;
-    virtual void setBoundingRect(const QRectF&);
-    QRectF boundingRect() const;
-    virtual QSize rasterHint(const QRectF&) const;
-    virtual void initRaster(const QRectF&, const QSize&);
+    virtual void setBoundingRect(const QwtDoubleRect&);
+    QwtDoubleRect boundingRect() const;
+    virtual QSize rasterHint(const QwtDoubleRect&) const;
+    virtual void initRaster(const QwtDoubleRect&, const QSize&);
     virtual void discardRaster();
     virtual double value(double, double) const = 0;
     virtual QwtDoubleInterval range() const = 0;
-    // FIXME: virtual QMap<double,QPolygonF> contourLines(const QRectF&, const QSize&, const QList<double>&, int) const;
+    // FIXME: virtual QMap<double,QPolygonF> contourLines(const QwtDoubleRect&, const QSize&, const QList<double>&, int) const;
 }; // class QwtRasterData
 
 

@@ -93,7 +93,7 @@ sipCpp->QwtPlotCurve::setData(xArray, yArray);
     int dataSize() const;
     double x(int) const;
     double y(int) const;
-    virtual QRectF boundingRect() const;
+    virtual QwtDoubleRect boundingRect() const;
     double minXValue() const;
     double maxXValue() const;
     double minYValue() const;
@@ -124,8 +124,8 @@ protected:
     void drawSticks(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawDots(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
     void drawSteps(QPainter*, const QwtScaleMap&, const QwtScaleMap&, int, int) const;
-    void fillCurve(QPainter*, const QwtScaleMap&, const QwtScaleMap&, QPolygon&) const;
-    void closePolyline(const QwtScaleMap&, const QwtScaleMap&, QPolygon&) const;
+    void fillCurve(QPainter*, const QwtScaleMap&, const QwtScaleMap&, QwtPolygon&) const;
+    void closePolyline(const QwtScaleMap&, const QwtScaleMap&, QwtPolygon&) const;
 }; // class QwtPlotCurve
 
 

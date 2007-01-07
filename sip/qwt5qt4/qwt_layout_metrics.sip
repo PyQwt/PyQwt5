@@ -60,9 +60,9 @@ public:
     QRect deviceToLayout(const QRect&, const QPainter* = 0) const;
     QRect screenToLayout(const QRect&) const;
     QRect layoutToScreen(const QRect&) const;
-    QPolygon layoutToDevice(const QPolygon&, const QPainter* = 0) const;
-    QPolygon deviceToLayout(const QPolygon&, const QPainter* = 0) const;
-    static QPolygon translate(const QMatrix&, const QPolygon&);
+    QwtPolygon layoutToDevice(const QwtPolygon&, const QPainter* = 0) const;
+    QwtPolygon deviceToLayout(const QwtPolygon&, const QPainter* = 0) const;
+    static QwtPolygon translate(const QMatrix&, const QwtPolygon&);
     static QRect translate(const QMatrix&, const QRect&);
 }; // class QwtMetricsMap
 
