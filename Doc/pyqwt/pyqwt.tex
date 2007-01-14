@@ -862,7 +862,7 @@ if __name__ == '__main__':
 # mode: python ***
 # End: ***
   \end{verbatim}
-  shows that the signal return on object of QPointF:
+  shows that the signal return on object of type QPointF:
   \begin{verbatim}
 aSlot gets: <PyQt4.QtCore.QPointF object at 0x2aaaaf73be20>
   \end{verbatim}
@@ -1124,6 +1124,15 @@ scaleDiv = QwtScaleDiv(lower, upper, majorTicks, mediumTicks, minorTicks)
 
 \begin{classdesc*}{QwtScaleMap}
   is fully implemented.
+
+  \begin{cfuncdesc}{}
+    {QwtScaleMap}{
+      int,
+      int,
+      double,
+      double}
+    does not exist in C++, but is provided by PyQwt. 
+  \end{cfuncdesc}
 \end{classdesc*}
 
 \begin{classdesc*}{QwtScaleTransformation}
