@@ -56,7 +56,8 @@
 \newcommand{\Future}{
   \begin{notice}[warning]
     The documentation is for the future PyQwt-5.0 which is only available from
-    CVS or as a snapshot: \PyQwtTarGz{}.
+    CVS. A snapshot, \PyQwtTarGz{}, is available. Please refer, to the
+    documentation in the snapshot when you use the snapshot.
   \end{notice}
 }
 
@@ -756,7 +757,7 @@ For instance:
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayQwtDoublePoint}
-FIXME.
+  is a wrapper for \ctype{QwtArray<QwtArrayDoublePoint>}, see \ref{qwtarray}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrowButton}
@@ -817,8 +818,54 @@ FIXME.
 
 \begin{classdesc*}{QwtDoublePoint}
   is fully implemented, but only available when PyQwt has been built for Qt-3.
-  When PyQwt has been built for Qt-4, this class is replaced by
-  \class{QPointF}.
+  When PyQwt has been built for Qt-4, replace this class with \class{QPointF}
+  except for in signals.
+  For example, clicking in the canvas of the plot displayed canvas by the
+  following program
+  \begin{verbatim}
+#!/usr/bin/env python
+
+import sys
+from PyQt4 import Qt
+import PyQt4.Qwt5 as Qwt
+
+def aSlot(aQPointF):
+    print 'aSlot gets:', aQPointF
+
+# dummy()
+
+def make():
+    demo = Qwt.QwtPlot()
+    picker = Qwt.QwtPlotPicker(Qwt.QwtPlot.xBottom,
+                               Qwt.QwtPlot.yLeft,
+                               Qwt.QwtPicker.PointSelection,
+                               Qwt.QwtPlotPicker.CrossRubberBand,
+                               Qwt.QwtPicker.AlwaysOn,
+                               demo.canvas())
+    picker.connect(picker, Qt.SIGNAL('selected(const QwtDoublePoint&)'), aSlot)
+    return demo
+
+# make()
+
+def main(args):
+    app = Qt.QApplication(args)
+    demo = make()
+    demo.show()
+    sys.exit(app.exec_())
+
+# main()
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+# Local Variables: ***
+# mode: python ***
+# End: ***
+  \end{verbatim}
+  shows that the signal return on object of QPointF:
+  \begin{verbatim}
+aSlot gets: <PyQt4.QtCore.QPointF object at 0x2aaaaf73be20>
+  \end{verbatim}
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoublePointData}
@@ -831,12 +878,14 @@ FIXME.
 
 \begin{classdesc*}{QwtDoubleRect}
   is fully implemented, but only available when PyQwt has been built for Qt-3.
-  When PyQwt has been built for Qt-4, this class is replaced by \class{QRectF}.
+  When PyQwt has been built for Qt-4, replace this class with \class{QRectF}
+  except for in signals. See \class{QPointF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDoubleSize}
   is fully implemented, but only available when PyQwt has been built for Qt-3.
-  When PyQwt has been built for Qt-4, this class is replaced by \class{QSizeF}.
+  When PyQwt has been built for Qt-4, replace this class with \class{QSizeF}
+  except for in signals. See \class{QPointF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtDynGridLayout}
@@ -881,7 +930,7 @@ is fully implemented.
 
 \begin{classdesc*}{QwtPaintBuffer}
   is fully implemented.
-  This class does not exist when PyQwt has been built for  Qt-4.
+  This class does not exist when PyQwt has been built for Qt-4.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPainter}
@@ -1014,6 +1063,14 @@ curve.setData(x, y)
 
 \begin{classdesc*}{QwtPlotZoomer}
   is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPolygon}
+  When PyQwt has been built for Qt-3, replace this class with
+  \class{QPointArray} except for in signals. See \class{QPointF}.
+
+  When PyQwt has been built for Qt-4, replace this class with \class{QPolygon}
+  except for in signals. See \class{QPointF}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtRect}
