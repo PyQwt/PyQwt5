@@ -34,22 +34,22 @@ trace: 3t 4t
 
 3:
 	cd configure \
-	&& python configure.py -3 -Q $(QWT) -j $(JOBS) \
+	&& python configure.py -3 --debug -Q $(QWT) -j $(JOBS) \
 	&& $(MAKE) -j $(JOBS)
 
 4:
 	cd configure \
-	&& python configure.py -4 -Q $(QWT) -j $(JOBS) \
+	&& python configure.py -4 --debug -Q $(QWT) -j $(JOBS) \
 	&& $(MAKE) -j $(JOBS)
 
 3t:
 	cd configure \
-	&& python configure.py --trace -3 -Q $(QWT) \
+	&& python configure.py --debug --trace -3 -Q $(QWT) \
 	&& $(MAKE)
 
 4t:
 	cd configure \
-	&& python configure.py --trace -4 -Q $(QWT) \
+	&& python configure.py --debug --trace -4 -Q $(QWT) \
 	&& $(MAKE)
 
 # Installation
