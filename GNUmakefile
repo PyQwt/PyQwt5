@@ -30,14 +30,27 @@ endif
 
 all: 3 4
 
+debug: 3d 4d
+
 trace: 3t 4t
 
 3:
 	cd configure \
-	&& python configure.py -3 --debug -Q $(QWT) -j $(JOBS) \
+	&& python configure.py -3 -Q $(QWT) -j $(JOBS) \
 	&& $(MAKE) -j $(JOBS)
 
 4:
+	cd configure \
+	&& python configure.py -4 -Q $(QWT) -j $(JOBS) \
+	&& $(MAKE) -j $(JOBS)
+
+
+3d:
+	cd configure \
+	&& python configure.py -3 --debug -Q $(QWT) -j $(JOBS) \
+	&& $(MAKE) -j $(JOBS)
+
+4d:
 	cd configure \
 	&& python configure.py -4 --debug -Q $(QWT) -j $(JOBS) \
 	&& $(MAKE) -j $(JOBS)
@@ -60,6 +73,14 @@ install-4: 4
 	make -C configure install
 
 install: install-3 install-4
+
+install-3d: 3d
+	make -C configure install
+
+install-4d: 4d
+	make -C configure install
+
+install-debug: install-3d install-4d
 
 install-3t: 3t
 	make -C configure install
