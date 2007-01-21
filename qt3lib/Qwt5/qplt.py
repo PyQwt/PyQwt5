@@ -64,6 +64,24 @@ Yellow      = qt.QColor(qt.Qt.yellow)
 Font = qt.QFont('Verdana')
 
 
+class Tracker(qt.QObject):
+    def __init__(self, parent):
+        qt.QObject.__init__(self, parent)
+        parent.setMouseTracking(True)
+        parent.installEventFilter(self)
+
+    # __init__()
+
+    def eventFilter(self, _, event):
+        if event.type() == qt.QEvent.MouseMove:
+            self.emit(qt.PYSIGNAL("MouseMoveTracked"), (event.pos(),))
+        return False
+
+    # eventFilter()
+
+# class Tracker
+
+
 class Plot(Qwt.QwtPlot):
     """Sugar coating.
     """
@@ -360,13 +378,13 @@ class Plot(Qwt.QwtPlot):
                 if not (xAxis == curve.xAxis() and yAxis == curve.yAxis()):
                     continue
                 g('s%s legend "%s"' % (index, curve.title().text()))
-                print "curve.symbol().style()", curve.symbol().style()
-                if curve.symbol().style():
+                #print "curve.symbol().style()", curve.symbol().style()
+                if curve.symbol().style() > Qwt.QwtSymbol.NoSymbol:
                     g('s%s symbol 1;'
                       's%s symbol size 0.4;'
                       's%s symbol fill pattern 1'
                       % (index, index, index))
-                print "curve.style()", curve.style()
+                #print "curve.style()", curve.style()
                 if curve.style():
                     g('s%s line linestyle 1' % index)
                 else:
@@ -750,13 +768,12 @@ class IPlot(qt.QMainWindow):
         self.connect(mouseComboBox,
                      qt.SIGNAL('activated(int)'),
                      self.setZoomerMouseEventSet)
+        self.connect(Tracker(self.canvas()),
+                     qt.PYSIGNAL("MouseMoveTracked"),
+                     self.showCoordinates) 
 
         self.statusBar().message("Move the mouse within the plot canvas"
                                  " to show the cursor position.")
-
-        ## FIXME
-        #self.__plot.canvas().setMouseTracking(True)
-        #self.setMouseTracking(True)
 
         qt.QWhatsThis.add(
             printButton,
@@ -834,16 +851,11 @@ class IPlot(qt.QMainWindow):
 
     # printPlot()
 
-##     def mouseMoveEvent(self, e):
-##         print 'wow'
-##         print e
-##         #qt.QWidget.changeEvent(self, e)
-##         print e.type()
-##         print qt.QEvent.MouseTrackingChange
-##         if e.type() == qt.QEvent.MouseTrackingChange:
-##             self.statusBar().message(
-##                 ' -- '.join(self.formatCoordinates(e.pos().x(), e.pos().y())))
-        
+    def showCoordinates(self, position):
+        self.statusBar().message(' -- '.join(
+            self.formatCoordinates(position.x(), position.y())))
+
+    # showCoordinates()
         
     def __getattr__(self, attr):
         """Inherit everything from QMainWindow and Plot
