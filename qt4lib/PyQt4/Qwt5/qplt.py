@@ -783,10 +783,6 @@ class IPlot(Qt.QMainWindow):
         self.statusBar().showMessage("Move the mouse within the plot canvas"
                                      " to show the cursor position.")
 
-        ## FIXME
-        #self.__plot.canvas().setMouseTracking(True)
-        #self.setMouseTracking(True)
-
         printButton.setWhatsThis(
             'Print to a printer or an (E)PS file.'
             )
