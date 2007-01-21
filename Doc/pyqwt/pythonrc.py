@@ -24,23 +24,28 @@ def save_history(historyPath=historyPath, readline=readline):
 
 register(save_history)
 
-# Cleans up the global name
+# Cleans up the global name space.
 del register, path, readline, rlcompleter, historyPath, save_history
 
-# Tries to import NumPy  and SciPy (assumes new SciPy based on NumPy).
+# Tries to make the PyQt and PyQwt widgets usable from the command line.
 try:
-    import numpy as NP
-    import scipy as SP
-    SP.pkgload()
+    import PyQt4.Qwt5.iqt
+    del PyQt4.Qwt5.iqt
 except ImportError:
     pass
 
-# Tries to import PyQt4.Qt, PyQt4.Qwt5.iqt, PyQt4.Qwt5.Qwt and PyQt4.Qwt5.qplt
+# Tries to import PyQt and Qwt.
 try:
-    import PyQt4.Qt as qt
-    import PyQt4.Qwt5.iqt
-    import PyQt4.Qwt5.Qwt as qwt
-    import PyQt4.Qwt5.qplt as qplt
+    import PyQt4.Qwt5 as Qwt
+    import PyQt4.Qt as Qt
+except ImportError:
+    pass
+
+# Sets up the SciPy help for tab completion: help(sp.optimize.leastsq).
+try:
+    import numpy as np
+    import scipy as sp
+    sp.pkgload()
 except ImportError:
     pass
 
