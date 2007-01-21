@@ -3,7 +3,7 @@
 Provides a Command Line Interpreter friendly interface to QwtPlot.
 """
 #
-# Copyright (C) 2003-2006 Gerard Vermeulen
+# Copyright (C) 2003-2007 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #

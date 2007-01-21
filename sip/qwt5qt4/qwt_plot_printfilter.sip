@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtPlotPrintFilter.
 //
-// Copyright (C) 2001-2006 Gerard Vermeulen
+// Copyright (C) 2001-2007 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
