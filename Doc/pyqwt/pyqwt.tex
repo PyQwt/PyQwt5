@@ -173,8 +173,9 @@ The widgets are documented in the
 on your hard disk or \Qwt{} on the web.
 
 \begin{notice}[note]
-  FIXME.
-  The designer plug-in for Qt-3.x.x of the \Qwt{} library works with PyQwt.
+  The designer plugins of the \Qwt{} library for Qt-3.x.x and Qt-4.x.x work
+  with PyQwt. The pyuic compiler of versions of PyQt for Qt-4 earlier than
+  4.1 do not handle the plugin.
   If you did built PyQwt against its slightly patched internal version of
   \Qwt{}, you must install either the original or the internal \Qwt{} library.
 \end{notice}
@@ -551,7 +552,7 @@ make install
 \begin{verbatim}
 cd PyQwt-5.0
 cd configure
-python configure.py -3 -Q ../qwt-cvs
+python configure.py -3 -Q ../qwt-svn
 make
 make install
 \end{verbatim}
