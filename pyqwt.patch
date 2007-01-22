@@ -1,5 +1,30 @@
---- qwt-svn/src/qwt_spline.h.pyqwt	2007-01-03 16:18:36.000000000 +0100
-+++ qwt-svn/src/qwt_spline.h	2007-01-03 16:21:20.000000000 +0100
+--- qwt-svn//doc/qwt.dox.pyqwt	2007-01-22 19:05:00.000000000 +0100
++++ qwt-svn//doc/qwt.dox	2007-01-22 19:05:52.000000000 +0100
+@@ -91,7 +91,7 @@
+   \par Project admin:
+     Uwe Rathmann \<rathmann@users.sourceforge.net\>
+   \par Developers:
+-    Gerard Vermeulen, Micha Bieber, Roy Dennington
++    Micha Bieber, Roy Dennington
+ */
+ 
+ /*!
+--- qwt-svn//src/qwt_picker.cpp.pyqwt	2007-01-22 07:44:02.000000000 +0100
++++ qwt-svn//src/qwt_picker.cpp	2007-01-22 07:53:14.000000000 +0100
+@@ -696,9 +696,9 @@
+ #if QT_VERSION >= 0x040000
+             // Antialiased fonts are broken on the Mac.
+             painter->save();
+-            painter.setRenderHint(QPainter::TextAntialiasing, false);
++            painter->setRenderHint(QPainter::TextAntialiasing, false);
+ #else
+-            QFont fnt = label.usedText(painter.font());
++            QFont fnt = label.usedFont(painter->font());
+             fnt.setStyleStrategy(QFont::NoAntialias);
+             label.setFont(fnt);
+ #endif
+--- qwt-svn//src/qwt_spline.h.pyqwt	2007-01-03 17:11:08.000000000 +0100
++++ qwt-svn//src/qwt_spline.h	2007-01-22 07:37:52.000000000 +0100
 @@ -95,10 +95,12 @@
  
  #if QT_VERSION < 0x040000
