@@ -49,6 +49,7 @@ public:
     void setSplineType(QwtSpline::SplineType);
     QwtSpline::SplineType splineType() const;
     bool setPoints(const QwtArrayQwtDoublePoint&);
+    QwtArrayQwtDoublePoint points() const;
     void reset();
     bool isValid() const;
     double value(double) const;

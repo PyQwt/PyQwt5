@@ -16,7 +16,7 @@ QWT := ../qwt-svn
 JOBS := 1
 UNAME := $(shell uname)
 
-REVISION := 39
+REVISION := 41
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
