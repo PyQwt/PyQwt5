@@ -88,7 +88,7 @@ public:
     virtual double xForm(double, double, double, double, double) const;
     virtual double invXForm(double, double, double, double, double) const;
     QwtScaleTransformation::Type type() const;
-    virtual QwtScaleTransformation* copy() const;
+    virtual QwtScaleTransformation* copy() const /Factory/;
 }; // class QwtScaleTransformation
 
 
