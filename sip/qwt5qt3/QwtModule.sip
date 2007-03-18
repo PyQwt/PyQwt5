@@ -33,6 +33,8 @@
 
 %Import qt/qtmod.sip
 
+%Timeline {Qwt_5_0_0 Qwt_5_0_1}
+
 %Feature CXX_DYNAMIC_CAST
 %Feature HAS_NUMARRAY
 %Feature HAS_NUMERIC
