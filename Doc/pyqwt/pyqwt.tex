@@ -41,8 +41,8 @@
 
 
 \newcommand{\PrerequisitesEnd}{
-  The source package in the \PyQwtTarGz{} contains a subversion snapshot of the
-  \Qwt-5.0 bugfix branch fixing bugs in \Qwt-5.0.1.
+  The source package \PyQwtTarGz{} contains a subversion snapshot of the
+  \Qwt-5.0 bugfix branch which fixes some bugs in \Qwt-5.0.1.
   It is best to compile and link the bugfix branch statically into PyQwt,
   as long as \Qwt-5.0.2 has not been released.
 
@@ -94,7 +94,7 @@ The main features of PyQwt are:
 }
 
 
-\title{PyQwt5 Manual}
+\title{PyQwt-5.0 Manual}
 
 % boilerplate.tex?
 \author{Gerard Vermeulen}
@@ -234,8 +234,8 @@ between PyQwt and Qwt.
 \Future{}
 
 \begin{notice}[warning]
-  The module \module{iqt} will not work with a MSVC-compiled Python, because
-  it has no \module{readline} module.
+  The module \module{Qwt5.iqt} will not work with a MSVC-compiled Python,
+  because it has no \module{readline} module.
 \end{notice}
 
 The programming style \emph{imposed} by PyQt (and other GUI toolkit wrappers)
@@ -282,7 +282,7 @@ while setting up the help system for \module{scipy}:
 
 \Future{}
 
-The module \module{qwt.qplt} defines a tiny data-directed programming
+The module \module{Qwt5.qplt} defines a tiny data-directed programming
 language to simplify the use of \class{QwtPlot} from the Python command
 line interpreter.
 Here follows a small example:
@@ -871,10 +871,6 @@ aSlot gets: <PyQt4.QtCore.QPointF object at 0x2aaaaf73be20>
   \end{verbatim}
 \end{classdesc*}
 
-\begin{classdesc*}{QwtDoublePointData}
-  is fully implemented.
-\end{classdesc*}
-
 \begin{classdesc*}{QwtDoubleRange}
   is fully implemented.
 \end{classdesc*}
@@ -937,6 +933,10 @@ is fully implemented.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPainter}
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPanner}
   is fully implemented.
 \end{classdesc*}
 
@@ -1076,6 +1076,14 @@ curve.setData(x, y)
   except for in signals. See \class{QwtDoublePoint}.
 \end{classdesc*}
 
+\begin{classdesc*}{QwtPolygonFData}
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtRasterData}
+  is fully implemented.
+\end{classdesc*}
+
 \begin{classdesc*}{QwtRect}
   is fully implemented.
 \end{classdesc*}
@@ -1151,6 +1159,10 @@ scaleDiv = QwtScaleDiv(lower, upper, majorTicks, mediumTicks, minorTicks)
 \end{classdesc*}
 
 \begin{classdesc*}{QwtSlider}
+  is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtSpline}
   is fully implemented.
 \end{classdesc*}
 
