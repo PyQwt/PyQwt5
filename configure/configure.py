@@ -481,6 +481,10 @@ def check_qwt(configuration, options):
 
     if QWT_VERSION < 0x050000:
         raise Die, 'Qwt-%s is not supported.' % QWT_VERSION_STR
+    elif QWT_VERSION == 0x050000:
+        options.timelines.append('-t Qwt_5_0_0')
+    else:
+        options.timelines.append('-t Qwt_5_0_1')        
 
     print ('Found Qwt-%s.' % QWT_VERSION_STR)
 
