@@ -49,7 +49,11 @@ public:
     void setSplineType(QwtSpline::SplineType);
     QwtSpline::SplineType splineType() const;
     bool setPoints(const QPolygonF&);
+
+%If (Qwt_5_0_1 -)
     QPolygonF points() const;
+%End // (Qwt_5_0_1 -)
+
     void reset();
     bool isValid() const;
     double value(double) const;
