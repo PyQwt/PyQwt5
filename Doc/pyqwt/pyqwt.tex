@@ -7,7 +7,7 @@
   {http://qwt.sourceforge.net}}
 \newcommand{\Grace}{\ulink{Grace}
   {http://plasma-gate.weizmann.ac.il/Grace/}}
-\newcommand{\cvs}{20061017}
+\newcommand{\cvs}{5.0.0b0}
 
 % Source code
 \newcommand{\Download}{\ulink{download}
@@ -34,17 +34,17 @@
   {http://www.numpy.org}}
 \newcommand{\NumericTarGz}{\ulink{Numeric-24.2.tar.gz}
   {http://prdownloads.sourceforge.net/numpy/Numeric-24.2.tar.gz?download}}
-\newcommand{\PyQwtTarGz}{\ulink{PyQwt5-\cvs.tar.gz}
-  {http://prdownloads.sourceforge.net/pyqwt/PyQwt5-\cvs.tar.gz?download}}
+\newcommand{\PyQwtTarGz}{\ulink{PyQwt-\cvs.tar.gz}
+  {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\cvs.tar.gz?download}}
 \newcommand{\ReadMePatches}{\ulink{README}
   {http://pyqwt.sourceforge.net/patches/README}}
 
 
 \newcommand{\PrerequisitesEnd}{
-  The source package \PyQwtTarGz{} contains a SVN snapshot of the not yet
-  released \Qwt-5.0.0 library.
-  Since the API of the \Qwt-5.0.0 is still unstable, it is best to compile and
-  link those sources statically into PyQwt.
+  The source package in the \PyQwtTarGz{} contains a subversion snapshot of the
+  \Qwt-5.0 bugfix branch fixing bugs in \Qwt-5.0.1.
+  It is best to compile and link the bugfix branch statically into PyQwt,
+  as long as \Qwt-5.0.2 has not been released.
 
   To exploit the full power of the QwtPlot widget, you should install at
   least one the Numerical Python extensions:
@@ -63,7 +63,7 @@
   \end{notice}
 }
 
-%\renewcommand{\Future}{}
+\renewcommand{\Future}{}
 
 \newcommand{\Blurb}{
 PyQwt is a set of Python bindings for the \Qwt{} C++ class library which
@@ -538,7 +538,7 @@ Build prerequisites for \PyQwtTarGz{}:
 \begin{verbatim}
 cd PyQwt-5.0
 cd configure
-python configure.py -Q ../qwt-svn
+python configure.py -Q ../qwt-5.0
 make
 make install
 \end{verbatim}
@@ -552,7 +552,7 @@ make install
 \begin{verbatim}
 cd PyQwt-5.0
 cd configure
-python configure.py -3 -Q ../qwt-svn
+python configure.py -3 -Q ../qwt-5.0
 make
 make install
 \end{verbatim}
