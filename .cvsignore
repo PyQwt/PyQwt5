@@ -1,7 +1,8 @@
 dist
-qwt-svn
-qwt-old
+old-5.0
+old-5.1
+qwt-5.0
+qwt-5.1
 tmp
 MANIFEST
-PyQwt5.spec
 typescript

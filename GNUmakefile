@@ -11,12 +11,12 @@
 #     The script command appeared in 3.0BSD and is part of util-linux.
 
 # To compile and link the Qwt sources statically into Pyqwt.
-QWT := ../qwt-svn
+QWT := ../qwt-5.0
 
 JOBS := 1
 UNAME := $(shell uname)
 
-REVISION := 42
+REVISION := 72
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
@@ -26,7 +26,7 @@ ifeq ($(UNAME),Darwin)
 JOBS := $(shell sysctl -n hw.ncpu)
 endif
 
-.PHONY: dist qwt-svn
+.PHONY: dist qwt-5.0 qwt-5.1
 
 all: 3 4
 
@@ -91,23 +91,33 @@ install-4t: 4t
 install-trace: install-3t install-4t
 
 # SVN
-qwt-svn:
-	(cd tmp/qwt-svn; svn up -r $(REVISION))
-	rm -rf qwt-old; mv qwt-svn qwt-old
-	rm -rf qwt-svn; cp -pr tmp/qwt-svn qwt-svn
-	python untabify.py -t 4 qwt-cvs .cpp .h .pro
-	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt.patch
-	(cd qwt-svn/doc; doxygen -u Doxyfile; doxygen Doxyfile)
-	(cd qwt-svn; rm -rf admin doc/images doc/latex doc/man)
-	find qwt-svn -name .svn \
-		-o -name .cvsignore \
+qwt-5.0:
+	(cd tmp/qwt-5.0; svn up -r $(REVISION))
+	rm -rf old-5.0; mv qwt-5.0 old-5.0
+	rm -rf qwt-5.0; cp -pr tmp/qwt-5.0 qwt-5.0
+	python untabify.py -t 4 qwt-5.0 .cpp .h .pro
+	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.0.patch
+	(cd qwt-5.0/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.2 doxygen Doxyfile)
+	(cd qwt-5.0; rm -rf admin doc/images doc/latex doc/man)
+	find qwt-5.0 -name .svn \
+		-o -name '*.map' \
+		-o -name '*.md5' | xargs rm -rf
+
+qwt-5.1:
+	(cd tmp/qwt-5.1; svn up -r $(REVISION))
+	rm -rf old-5.1; mv qwt-5.1 old-5.1
+	rm -rf qwt-5.1; cp -pr tmp/qwt-5.1 qwt-5.1
+	python untabify.py -t 4 qwt-5.1 .cpp .h .pro
+	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.1.patch
+	(cd qwt-5.1/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.2 doxygen Doxyfile)
+	(cd qwt-5.1; rm -rf admin doc/images doc/latex doc/man)
+	find qwt-5.1 -name .svn \
 		-o -name '*.map' \
 		-o -name '*.md5' | xargs rm -rf
 
 # build a distribution tarball
 dist: all distclean all
 	(cd Doc; rm doc; make)
-	sed "s|@VERSION@|$$(date '+%Y%m%d')|g" <PyQwt5.spec.in >PyQwt5.spec
 	python setup.py sdist --formats=gztar
 
 clean:

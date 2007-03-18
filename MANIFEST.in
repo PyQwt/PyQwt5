@@ -1,7 +1,7 @@
 # MANIFEST template file to make a distribution tarball
 
 # Package stuff
-include CHANGES-20070121 COPYING* MANIFEST.in GNUmakefile THANKS *.patch *.spec
+include CHANGES-20070121 COPYING* MANIFEST.in GNUmakefile THANKS pyqwt-5.0.patch
 
 # Documentation
 graft Doc/html/pyqwt
@@ -28,8 +28,8 @@ graft support
 recursive-exclude suppport *cvsignore* *~
 
 # qwt-svn
-graft qwt-svn
-recursive-exclude qwt-svn *~
+graft qwt-5.0
+recursive-exclude qwt-5.0 *~
 
 # sip files
 graft sip
