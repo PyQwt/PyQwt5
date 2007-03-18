@@ -121,6 +121,7 @@ typedef int Py_ssize_t;
 %Include qwt_plot_item.sip
 %Include qwt_plot_layout.sip
 %Include qwt_plot_marker.sip
+%Include qwt_plot_magnifier.sip
 %Include qwt_plot_panner.sip
 %Include qwt_plot_picker.sip
 %Include qwt_plot_printfilter.sip
