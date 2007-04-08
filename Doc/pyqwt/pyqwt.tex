@@ -198,7 +198,7 @@ on your hard disk or \Qwt{} on the web.
   The designer plugins of the \Qwt{} library for Qt-3.x.x and Qt-4.x.x work
   with PyQwt. The pyuic compiler of versions of PyQt for Qt-4 earlier than
   4.1 do not handle the plugin.
-  If you did built PyQwt against its slightly patched internal version of
+  If you did built PyQwt against its internal bugfix subversion snapshot of
   \Qwt{}, you must install either the original or the internal \Qwt{} library.
 \end{notice}
 
@@ -624,11 +624,11 @@ Run the following installers, if you have not done so:
 \item \PythonExe{}.
 \item \NumPyExe{}.
 \item \QtOldExe{}.\\
-  Let \QtOldExe{} install MinGW if for instance \DevCpp{} has not been
-  installed before \QtOldExe{}.
+  Let the Qt installer install MinGW if for instance \DevCpp{} has not been
+  installed before Qt.
 \item \PyQtOldExe{}.\\
   Make sure that you can run the PyQt examples by tweaking the environment
-  variables.
+  variable \var{PATH}.
 \item Install \PyQwtOldExe{}.
 \end{enumerate}
 
@@ -642,11 +642,11 @@ Run the following installers, if you have not done so:
 \item \PythonExe{}.
 \item \NumPyExe{}.
 \item \QtNewExe{}.\\
-  Let \QtNewExe{} install MinGW if for instance \DevCpp{} has not been
-  installed before \QtNewExe{}.
+  Let the Qt installer install MinGW if for instance \DevCpp{} has not been
+  installed before Qt.
 \item \PyQtNewExe{}.\\
   Make sure that you can run the PyQt examples by tweaking the environment
-  variables.
+  variable \var{PATH}.
 \item Install \PyQwtNewExe{}.
 \end{enumerate}
 
