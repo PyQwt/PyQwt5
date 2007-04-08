@@ -39,8 +39,6 @@
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\target.tar.gz?download}}
 \newcommand{\PyQwtCvsTarGz}{\ulink{PyQwt-\cvs.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\cvs.tar.gz?download}}
-\newcommand{\ReadMePatches}{\ulink{README}
-  {http://pyqwt.sourceforge.net/patches/README}}
 
 \newcommand{\PythonExe}{\ulink{python-2.5.msi}
   {http://www.python.org/ftp/python/2.5/python-2.5.msi}}
@@ -554,7 +552,7 @@ Build prerequisites for \PyQwtTarGz{}:
 
 \begin{enumerate}
 \item
-  Unpack \PyQwtTarGz{} and read this \ReadMePatches{} to check for patches.
+  Unpack \PyQwtTarGz{}.
 \item
   Invoke the commands to build PyQwt5 for Qt-4:
 \begin{verbatim}
@@ -566,8 +564,8 @@ make install
 \end{verbatim}
   This assumes that the correct Python interpreter is on your path. Replace
   \strong{make} by \strong{nmake}, if you use MSVC or MSVC.net.
-  The commands build PyQwt against the included Qwt CVS snapshot and install
-  PyQwt.
+  The commands build PyQwt against the included Qwt subversion snapshot and
+  install PyQwt.
   Test the installation by playing with the example programs.
 \item
   Invoke the commands to build PyQwt5 for Qt-3:
