@@ -8,12 +8,15 @@ graft Doc/html/pyqwt
 
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
+recursive-exclude qt3lib *cvsignore* *~
 
 # PyQwt python code for PyQt4/Qt4
 graft qt4lib
+recursive-exclude qt4lib *cvsignore* *~
 
 # configure
 include configure/configure.py
+include configure/PyQwt.nsi.in
 
 # Qt3 examples
 graft qt3examples

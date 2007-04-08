@@ -4,8 +4,8 @@ from distutils.core import setup
 import time
 
 name = 'PyQwt'
-version = '5.0'
-version = '%04d%02d%02d' % (time.localtime()[:3])
+version = '5.0.0'
+#version = '%04d%02d%02d' % (time.localtime()[:3])
 
 long_description = """
 PyQwt is a set of Python bindings for the Qwt C++ class library
