@@ -154,8 +154,8 @@ def fix_build_file(name, extra_sources, extra_headers, extra_moc_headers):
 
 
 def fix_typedefs(sources):
-    '''Work around a code generation bug in SIP-4.5.x
-    '''
+    """Work around a code generation bug in SIP-4.5.x
+    """
     for source in sources:
         old = open(source).read()
         new = old.replace('"QtCore"', '"PyQt4.QtCore"')
@@ -310,7 +310,7 @@ def check_numpy(configuration, options, package):
 
 
 def check_compiler(configuration, options):
-    """Check compiler specifics
+    """Check compiler specifics.
     """
     print 'Do not get upset by error messages in the next 3 compiler checks:'
     
@@ -367,7 +367,7 @@ def check_compiler(configuration, options):
 
 
 def check_os(configuration, options):
-    """Adapt to different operating systems
+    """Check operating system specifics.
     """
     print "Found '%s' operating system:" % os.name
     print sys.version
@@ -381,7 +381,7 @@ def check_os(configuration, options):
 
 
 def check_sip(configuration, options):
-    """Check if PyQwt can be built with SIP
+    """Check if PyQwt can be built with SIP.
     """
     version = configuration.sip_version
     version_str = configuration.sip_version_str
@@ -399,7 +399,7 @@ def check_sip(configuration, options):
 
 
 def check_iqt(configuration, options):
-    """Check if building of the iqt package is possible
+    """Check iqt module specifics.
     """
     try:
         import readline
@@ -419,7 +419,7 @@ def check_iqt(configuration, options):
 
 
 def check_qwt(configuration, options):
-    """Check if building of the qwt package is possible
+    """Check qwt module specifics.
     """
     # zap all qwt_version_info*
     for name in glob.glob('qwt_version_info*'):
@@ -501,7 +501,7 @@ def check_qwt(configuration, options):
     
 
 def setup_iqt_build(configuration, options, package):
-    """Setup the iqt package build
+    """Setup the iqt module build.
     """
     if 'iqt' not in options.modules:
         return
@@ -582,8 +582,28 @@ def setup_iqt_build(configuration, options, package):
 # setup_iqt_build()
 
 
+def nsis():
+    """Generate the script for the Nullsoft Scriptable Install System.
+    """
+    try:
+        from sys import version_info
+        from numpy.version import version as numpy_version
+        from PyQt4.Qt import PYQT_VERSION_STR, QT_VERSION_STR
+    except:
+        return
+
+    open('PyQwt.nsi', 'w').write(open('PyQwt.nsi.in').read() % {
+        'PYQT_VERSION': PYQT_VERSION_STR,
+        'PYTHON_VERSION': '%s.%s' % version_info[:2],
+        'QT_VERSION': QT_VERSION_STR,
+        'NUMPY_VERSION': numpy_version,
+        })
+
+# nsis()
+
+
 def setup_qwt5_build(configuration, options, package):
-    """Setup the qwt package build
+    """Setup the qwt module build
     """
     if 'Qwt5' not in options.modules:
         return
@@ -753,6 +773,9 @@ def setup_qwt5_build(configuration, options, package):
     makefile.extra_libs.extend(options.extra_libs)
     makefile.extra_lib_dirs.extend(options.extra_lib_dirs)
     makefile.generate()
+
+    if options.qt == 4:
+        nsis()
 
 # setup_qwt5_build()
 
@@ -956,7 +979,7 @@ def main():
     print 'Great, run make or nmake to build and install PyQwt.'
 
 # main()
-
+    
 
 if __name__ == '__main__':
     try:

@@ -1,0 +1,238 @@
+# PyQwt5 NSIS installer script.
+#
+# Copyright (C) 2001-2007 Gerard Vermeulen
+# Copyright (C) 2000 Mark Colclough
+# 
+# This file is part of PyQwt.
+# 
+# PyQwt is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# PyQwt is supplied in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License along
+# with PyQwt; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02111-1301, USA.
+#
+# In addition, as a special exception, Gerard Vermeulen give permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
+
+
+# These will change with different releases.
+!define PYQWT_VERSION        "5.0.0"
+!define PYQWT_PYQT_VERSION   "%(PYQT_VERSION)s"
+!define PYQWT_LICENSE        "..\COPYING"
+!define PYQWT_PYTHON_VERSION "%(PYTHON_VERSION)s"
+!define PYQWT_QT_VERSION     "%(QT_VERSION)s"
+!define PYQWT_COMPILER       "MinGW"
+!define PYQWT_NUMPY_VERSION  "%(NUMPY_VERSION)s"
+
+# These are all derived from the above.
+!define PYQWT_NAME           "PyQwt-${PYQWT_VERSION}"
+!define PYQWT_INSTALLDIR     "C:\Python${PYQWT_PYTHON_VERSION}\"
+!define PYQWT_PYTHON_HKLM    "Software\Python\PythonCore\${PYQWT_PYTHON_VERSION}\InstallPath"
+
+
+# Tweak some of the standard pages.
+!define MUI_WELCOMEPAGE_TEXT \
+"This wizard will guide you through the installation of ${PYQWT_NAME}.\r\n\
+\r\n\
+This copy of PyQwt has been built with the ${PYQWT_COMPILER} compiler \
+against:\r\n\
+- Python-${PYQWT_PYTHON_VERSION}.x\r\n\
+- Qt-${PYQWT_QT_VERSION}\r\n\
+- PyQt-${PYQWT_PYQT_VERSION}\r\n\
+- NumPy-${PYQWT_NUMPY_VERSION}.\r\n\
+\r\n\
+The license of the distribution of any of your software using PyQwt has to be \
+compatible with the GPL licence. To comply with GPL, you have to assure \
+anybody 4 freedoms:\r\n\
+0 - to run the software, for any purpose\r\n\
+1 - to study how the software works, and adapt it to his needs\r\n\
+2 - to redistribute copies so he can help his neighbor\r\n\
+3 - to improve the software, and release his improvements.\r\n\
+Access to the source code is a precondition for this.\r\n\
+\r\n\
+Click Next to continue."
+
+!define MUI_FINISHPAGE_LINK "Get the latest news of PyQwt here"
+!define MUI_FINISHPAGE_LINK_LOCATION "http://pyqwt.sourceforge.net"
+
+
+# Include the tools we use.
+!include MUI.nsh
+!include LogicLib.nsh
+
+
+# Define the product name and installer executable.
+Name "PyQwt"
+Caption "${PYQWT_NAME} Setup"
+OutFile "PyQwt-${PYQWT_VERSION}-Python${PYQWT_PYTHON_VERSION}-Qt${PYQWT_QT_VERSION}-PyQt${PYQWT_PYQT_VERSION}-NumPy${PYQWT_NUMPY_VERSION}.exe"
+
+
+# Set the install directory, from the registry if possible.
+InstallDir "${PYQWT_INSTALLDIR}"
+InstallDirRegKey HKLM "${PYQWT_PYTHON_HKLM}" ""
+
+
+# The different installation types.  "Full" is everything.  "Minimal" is the
+# runtime environment.
+InstType "Full"
+InstType "Minimal"
+
+
+# Maximum compression.
+SetCompressor /SOLID lzma
+
+# We want the user to confirm they want to cancel.
+!define MUI_ABORTWARNING
+
+
+Function .onInit
+    # Check the right version of Python has been installed.
+    ReadRegStr $0 HKLM "${PYQWT_PYTHON_HKLM}" ""
+
+    ${If} $0 == ""
+        MessageBox MB_YESNO|MB_ICONQUESTION \
+"This copy of PyQwt has been built against Python-${PYQWT_PYTHON_VERSION}.x \
+which doesn't seem to be installed.$\r$\n\
+$\r$\n\
+Do you with to continue with the installation?" IDYES GotPython
+            Abort
+GotPython:
+    ${Endif}
+FunctionEnd
+
+
+# Define the different pages.
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "COPYING"
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+  
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+  
+# Other settings.
+!insertmacro MUI_LANGUAGE "English"
+
+
+# Installer sections.
+
+Section "Extension modules" SecModules
+    SectionIn 1 2 RO
+
+    # Make sure this is clean and tidy.
+    RMDir /r $PROGRAMFILES\PyQwt5
+    CreateDirectory $PROGRAMFILES\PyQwt5
+
+    SetOverwrite on
+
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt4\Qwt5
+    File ..\qt4lib\PyQt4\Qwt5\__init__.py
+    File ..\qt4lib\PyQt4\Qwt5\anynumpy.py
+    File ..\qt4lib\PyQt4\Qwt5\grace.py
+    File ..\qt4lib\PyQt4\Qwt5\iqt.py
+    File ..\qt4lib\PyQt4\Qwt5\qplt.py
+    File .\qwt5qt4\Qwt.pyd
+SectionEnd
+
+Section "Documentation" SecDocumentation
+    SectionIn 1
+
+    SetOverwrite on
+
+    SetOutPath $PROGRAMFILES\PyQwt5
+    File /r ..\Doc\html\pyqwt
+    File /r ..\qwt-5.0\doc\html
+SectionEnd
+
+Section "Examples" SecExamples
+    SectionIn 1
+
+    SetOverwrite on
+
+    SetOutPath $PROGRAMFILES\PyQwt5
+    File /r ..\qt4examples
+SectionEnd
+
+Section "Start Menu shortcuts" SecShortcuts
+    SectionIn 1
+
+    # Make sure this is clean and tidy.
+    RMDir /r "$SMPROGRAMS\${PYQWT_NAME}"
+    CreateDirectory "$SMPROGRAMS\${PYQWT_NAME}"
+
+    IfFileExists "$PROGRAMFILES\PyQwt5\pyqwt\index.html" 0 +2
+        CreateShortCut "$SMPROGRAMS\${PYQWT_NAME}\PyQwt Documentation.lnk" "$PROGRAMFILES\PyQwt5\pyqwt\index.html"
+        
+    IfFileExists "$PROGRAMFILES\PyQwt5\html\index.html" 0 +2
+        CreateShortCut "$SMPROGRAMS\${PYQWT_NAME}\Qwt Documentation.lnk" "$PROGRAMFILES\PyQwt5\html\index.html"
+
+    IfFileExists "$PROGRAMFILES\PyQwt5\qt4examples" 0 +3
+	SetOutPath $INSTDIR
+        CreateShortCut "$SMPROGRAMS\${PYQWT_NAME}\Examples Source.lnk" "$PROGRAMFILES\PyQwt5\qt4examples"
+
+    CreateShortCut "$SMPROGRAMS\${PYQWT_NAME}\Uninstall PyQwt.lnk" "$PROGRAMFILES\PyQwt5\Uninstall.exe"
+SectionEnd
+
+Section -post
+    # Tell Windows about the package.
+    WriteRegExpandStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5" "UninstallString" '"$PROGRAMFILES\PyQwt5\Uninstall.exe"'
+    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5" "DisplayName" "${PYQWT_NAME}"
+    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5" "DisplayVersion" "${PYQWT_VERSION}"
+    WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5" "NoModify" "1"
+    WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5" "NoRepair" "1"
+
+    # Save the installation directory for the uninstaller.
+    WriteRegStr HKLM "Software\PyQwt5" "" $INSTDIR
+
+    # Create the uninstaller.
+    WriteUninstaller "$PROGRAMFILES\PyQwt5\Uninstall.exe"
+SectionEnd
+
+
+# Section description text.
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+!insertmacro MUI_DESCRIPTION_TEXT ${SecModules} \
+"The PyQwt modules: Qwt, anynumpy, grace, iqt, qplt."
+!insertmacro MUI_DESCRIPTION_TEXT ${SecDocumentation} \
+"The PyQwt and Qwt documentation."
+!insertmacro MUI_DESCRIPTION_TEXT ${SecExamples} \
+"Ports to Python of the Qwt-5.0.1 C++ examples."
+!insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} \
+"This adds shortcuts to your Start Menu."
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+
+Section "Uninstall"
+    # Get the install directory.
+    ReadRegStr $INSTDIR HKLM "Software\PyQwt5" ""
+
+    # The modules section.
+    RMDir /r $INSTDIR\Lib\site-packages\PyQt4\Qwt5
+
+    # The shortcuts section.
+    RMDir /r "$SMPROGRAMS\${PYQWT_NAME}"
+
+    # The examples section and the installer itself.
+    RMDir /r "$PROGRAMFILES\PyQwt5"
+
+    # Clean the registry.
+    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\PyQwt5"
+    DeleteRegKey HKLM "Software\PyQwt5"
+SectionEnd
