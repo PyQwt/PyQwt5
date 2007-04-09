@@ -25,31 +25,39 @@ class Die(Exception):
 
 try:
     import sipconfig
+    required = 'At least SIP-4.5 and its development tools are required.'
 except ImportError:
-    raise Die, 'At least SIP-4.4 and its development tools are required.'
+    raise Die, required
+finally:
+    if 0x040500 > sipconfig._pkg_config['sip_version']:
+        raise Die, required
+    del required
 
 
 def get_pyqt_configuration(options):
-    """Return the PyQt configuration for Qt3 or Qt4
+    """Return the PyQt configuration for Qt3 or Qt4.
     """
+
     if options.qt == 3:
+        required = 'At least PyQt-3.17 and its development tools are required.'
         options.qwt = 'qwt5qt3'
         options.iqt = 'iqt5qt3'
         try:
             import pyqtconfig as pyqtconfig
         except ImportError:
-            raise Die, (
-                'At least PyQt-3.16 and its development tools are required.'
-                )
+            raise Die, required
+        if 0x031100 > pyqtconfig._pkg_config['pyqt_version']:
+            raise Die, required
     elif options.qt == 4:
+        required = 'At least PyQt-4.1 and its development tools are required.'
         options.qwt = 'qwt5qt4'
         options.iqt = 'iqt5qt4'
         try:
             import PyQt4.pyqtconfig as pyqtconfig
         except ImportError:
-            raise Die, (
-                'At least PyQt-3.16 and its development tools are required.'
-                )
+            raise Die, required
+        if 0x040100 > pyqtconfig._pkg_config['pyqt_version']:
+            raise Die, required
 
     try:
         configuration = pyqtconfig.Configuration()
@@ -388,10 +396,8 @@ def check_sip(configuration, options):
     
     print "Found SIP-%s." % version_str
 
-    if 0x040400 <= version:
-        pass
-    else:
-        raise Die, 'PyQwt requires SIP-4.4.x.'
+    if 0x040500 > version:
+        raise Die, 'PyQwt requires at least SIP-4.5.x.'
 
     return options
 
@@ -586,7 +592,6 @@ def nsis():
     """Generate the script for the Nullsoft Scriptable Install System.
     """
     try:
-        from sys import version_info
         from numpy.version import version as numpy_version
         from PyQt4.Qt import PYQT_VERSION_STR, QT_VERSION_STR
     except:
@@ -594,7 +599,7 @@ def nsis():
 
     open('PyQwt.nsi', 'w').write(open('PyQwt.nsi.in').read() % {
         'PYQT_VERSION': PYQT_VERSION_STR,
-        'PYTHON_VERSION': '%s.%s' % version_info[:2],
+        'PYTHON_VERSION': '%s.%s' % sys.version_info[:2],
         'QT_VERSION': QT_VERSION_STR,
         'NUMPY_VERSION': numpy_version,
         })
