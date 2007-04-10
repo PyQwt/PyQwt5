@@ -24,14 +24,13 @@ class Die(Exception):
 
 
 try:
-    import sipconfig
     required = 'At least SIP-4.5 and its development tools are required.'
+    import sipconfig
 except ImportError:
     raise Die, required
-finally:
-    if 0x040500 > sipconfig._pkg_config['sip_version']:
-        raise Die, required
-    del required
+if 0x040500 > sipconfig._pkg_config['sip_version']:
+    raise Die, required
+del required
 
 
 def get_pyqt_configuration(options):
