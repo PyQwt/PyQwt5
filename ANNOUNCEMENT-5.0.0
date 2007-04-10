@@ -1,0 +1,37 @@
+What is PyQwt ( http://pyqwt.sourceforge.net ) ?
+
+- it is a set of Python bindings for the Qwt C++ class library which
+  extends the Qt framework with widgets for scientific and engineering
+  applications.   It provides a widget to plot 2-dimensional data and
+  various widgets to display and control bounded or unbounded floating
+  point values.
+
+- it requires and extends PyQt, a set of Python bindings for Qt.
+
+- it supports the use of PyQt, Qt, Qwt, and optionally NumPy or SciPy
+  in a GUI Python application or in an interactive Python session.
+
+- it runs on POSIX, Mac OS X and Windows platforms (practically any
+  platform supported by Qt and Python).
+
+- it plots fast: displaying data with 100,000 points takes about 0.1 s.
+
+- it is licensed under the GPL with an exception to allow dynamic linking
+  with non-free releases of Qt and PyQt. 
+
+
+PyQwt-5.0.0 is a major release with support for Qt-4.x, many API changes
+compared to PyQwt-4.2.x, and a NSIS Windows installer.
+
+
+PyQwt-5.0.0 supports:
+1. Python-2.5, -2.4 or -2.3. 
+2. PyQt-3.18 (to be released in April 2007), or PyQt-3.17.
+3. PyQt-4.2 (to be released in April 2007), or PyQt-4.1.x.
+3  SIP-4.6 (to be released in April 2007), or SIP-4.5.x.
+4. Qt-3.3.x, or -3.2.x.
+5. Qt-4.2.x, or -4.1.x.
+6. Recent versions of NumPy, numarray, and/or Numeric.
+
+
+Enjoy -- Gerard Vermeulen
