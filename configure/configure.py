@@ -433,7 +433,7 @@ def check_qwt(configuration, options):
         except OSError:
             pass
 
-    program = os.linesep.join([
+    open('qwt_version_info.cpp', 'w').write(os.linesep.join([
         r'#include <stdio.h>',
         r'#include <qwt_global.h>',
         r'',
@@ -459,9 +459,7 @@ def check_qwt(configuration, options):
         r'// c-file-style: "stroustrup"',
         r'// End:',
         r'',
-        ])
-
-    open('qwt_version_info.cpp', 'w').write(program)
+        ]))
 
     extra_include_dirs = []
     if options.qt == 4:
@@ -499,6 +497,26 @@ def check_qwt(configuration, options):
     options.modules.append('Qwt5')
     options.qwt_sipfile = os.path.join(
         os.pardir, 'sip', options.qwt, 'QwtModule.sip')
+
+    open('qwt_svg_check.cpp', 'w').write(os.linesep.join([
+        r'#include <qwt_plot_svgitem.h>',
+        r'',
+        r'int main(int, char **)',
+        r'{',
+        r'    return 0;',
+        r'}',
+        r'',
+        r'// Local Variables:',
+        r'// mode: C++',
+        r'// c-file-style: "stroustrup"',
+        r'// End:',
+        r'',
+        ]))
+
+    exe = compile_qt_program('qwt_svg_check.cpp', configuration,
+                             extra_include_dirs = extra_include_dirs)
+    if not exe:
+        options.excluded_features.append('-x HAS_QWT_SVG')
 
     return options
 
@@ -758,13 +776,16 @@ def setup_qwt5_build(configuration, options, package):
             debug = options.debug,
             )
     elif options.qt == 4:
+        qt = ['QtCore', 'QtGui']
+        if '-x HAS_QWT_SVG' not in options.excluded_features:
+            qt.append('QtSvg')
         makefile = sipconfig.SIPModuleMakefile(
             configuration = configuration,
             build_file = os.path.basename(build_file),
             dir = build_dir,
             install_dir = options.module_install_path,
             installs = installs,
-            qt = ['QtCore', 'QtGui', 'QtSvg'],
+            qt = qt,
             warnings = 1,
             debug = options.debug,
             )

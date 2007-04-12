@@ -43,6 +43,7 @@
 %Feature HAS_NUMPY
 %Feature HAS_QWT5
 %Feature HAS_QWT4
+%Feature HAS_QWT_SVG
 
 %Include QwtTypes.sip
 
@@ -129,7 +130,9 @@ typedef QSizeF QwtDoubleSize;
 %Include qwt_plot_printfilter.sip
 %Include qwt_plot_rasteritem.sip
 %Include qwt_plot_spectrogram.sip
+%If (HAS_QWT_SVG)
 %Include qwt_plot_svgitem.sip
+%End // HAS_QWT_SVG
 %Include qwt_plot_zoomer.sip
 %Include qwt_raster_data.sip
 %Include qwt_rect.sip
