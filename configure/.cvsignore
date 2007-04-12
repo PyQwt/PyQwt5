@@ -9,5 +9,6 @@ tmp-qwt5qt4
 *.pyc
 Makefile
 PyQwt.nsi
+qwt_svg_check*
 qwt_version_info*
 size_t_check*
