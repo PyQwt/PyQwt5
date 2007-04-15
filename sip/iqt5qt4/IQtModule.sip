@@ -1,4 +1,4 @@
-// The SIP interface definition for the Qwt module of PyQwt.
+// The SIP interface definition for the _iqt module of PyQwt.
 //
 // Copyright (C) 2001-2007 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -32,27 +32,21 @@
 %Module PyQt4.Qwt5._iqt 0
 
 %ModuleCode
-#include <qapplication.h>
+#include <qcoreapplication.h>
 
-static int event_hook(void)
+static int iqt_event_hook(void)
 {
-    if (qApp)
-        qApp->processEvents();
+    QCoreApplication::processEvents();
 
     return 0;
 }
 
-static void hook(bool enable)
-{
-    if (enable) {
-	PyOS_InputHook = event_hook;
-    } else {
-	PyOS_InputHook = 0;
-    }
-}
-%End
+%End // ModuleCode
 
-void hook(bool enable);
+
+%PostInitialisationCode
+PyOS_InputHook = iqt_event_hook;
+%End // PostInitialisationCode
 
 // Local Variables:
 // mode: C++

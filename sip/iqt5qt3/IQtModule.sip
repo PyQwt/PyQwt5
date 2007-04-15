@@ -34,7 +34,7 @@
 %ModuleCode
 #include <qapplication.h>
 
-static int event_hook(void)
+static int iqt_event_hook(void)
 {
     if (qApp)
         qApp->processEvents();
@@ -42,17 +42,12 @@ static int event_hook(void)
     return 0;
 }
 
-static void hook(bool enable)
-{
-    if (enable) {
-	PyOS_InputHook = event_hook;
-    } else {
-	PyOS_InputHook = 0;
-    }
-}
-%End
+%End // ModuleCode
 
-void hook(bool enable);
+
+%PostInitialisationCode
+PyOS_InputHook = iqt_event_hook;
+%End // PostInitialisationCode
 
 // Local Variables:
 // mode: C++

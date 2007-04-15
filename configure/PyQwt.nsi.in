@@ -30,7 +30,7 @@
 
 
 # These will change with different releases.
-!define PYQWT_VERSION        "5.0.0"
+!define PYQWT_VERSION        "5.0.1"
 !define PYQWT_PYQT_VERSION   "%(PYQT_VERSION)s"
 !define PYQWT_PYTHON_VERSION "%(PYTHON_VERSION)s"
 !define PYQWT_QT_VERSION     "%(QT_VERSION)s"
@@ -144,6 +144,7 @@ Section "Extension modules" SecModules
     File ..\qt4lib\PyQt4\Qwt5\grace.py
     File ..\qt4lib\PyQt4\Qwt5\iqt.py
     File ..\qt4lib\PyQt4\Qwt5\qplt.py
+    File .\iqt5qt4\_iqt.pyd
     File .\qwt5qt4\Qwt.pyd
 SectionEnd
 

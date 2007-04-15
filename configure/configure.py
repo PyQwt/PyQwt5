@@ -406,17 +406,11 @@ def check_sip(configuration, options):
 def check_iqt(configuration, options):
     """Check iqt module specifics.
     """
-    try:
-        import readline
-        if os.name == 'nt':
-            print 'The iqt module will not be built on Windows.'
-        else:
-            options.subdirs.append(options.iqt)
-            options.modules.append('iqt')
-            options.iqt_sipfile = os.path.join(
-                os.pardir, 'sip', options.iqt, 'IQtModule.sip')
-    except ImportError:
-        pass
+    # iqt is useless on non-Windows platforms without GNU readline && select.
+    options.subdirs.append(options.iqt)
+    options.modules.append('iqt')
+    options.iqt_sipfile = os.path.join(
+        os.pardir, 'sip', options.iqt, 'IQtModule.sip')
 
     return options
 

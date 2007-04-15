@@ -3,17 +3,20 @@
 Provides control over PyQt and PyQwt widgets from the command line interpreter.
 """
 
-try:
-    import readline as _r
-    del _r
-except ImportError:
-    pass
+import sys
 
+if 'readline' in sys.modules and '.py' not in sys.modules['readline'].__file__:
+    pass
+else:
+    try:
+        import iqt_readline
+    except ImportError:
+        pass
+    
 from PyQt4.QtGui import QApplication
 _a = QApplication([])
 
 import _iqt 
-_iqt.hook(True)
 
 # Local Variables: ***
 # mode: python ***
