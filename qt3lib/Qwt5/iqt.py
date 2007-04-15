@@ -9,9 +9,9 @@ if 'readline' in sys.modules and '.py' not in sys.modules['readline'].__file__:
     pass
 else:
     try:
-        import iqt_readline
+        import inputhooker
     except ImportError:
-        pass
+        print 'Install InputHooker from http://pyqwt.sourceforge.net.'
 
 from qt import QApplication
 _a = QApplication([])
