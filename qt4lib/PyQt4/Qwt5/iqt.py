@@ -5,9 +5,16 @@ Provides control over PyQt and PyQwt widgets from the command line interpreter.
 
 import sys
 
-if 'readline' in sys.modules and '.py' not in sys.modules['readline'].__file__:
-    pass
-else:
+# Import GNU readline or inputhooker; is also usable in Python scripts.
+try:
+    import readline
+    if '.py' in sys.modules['readline'].__file__:
+        # try inputhooker when readline is not GNU readline
+        try:
+            import inputhooker
+        except ImportError:
+            print 'Install InputHooker from http://pyqwt.sourceforge.net.'
+except ImportError:
     try:
         import inputhooker
     except ImportError:
