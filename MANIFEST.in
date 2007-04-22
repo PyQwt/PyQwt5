@@ -1,7 +1,7 @@
 # MANIFEST template file to make a distribution tarball
 
 # Package stuff
-include ANNOUNCEMENT-5.0.0 CHANGES-5.0.0 COPYING*
+include ANNOUNCEMENT-5.0.1 CHANGES-5.0.1 COPYING*
 include MANIFEST.in GNUmakefile pyqwt-5.0.patch
 
 # Documentation
