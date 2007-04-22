@@ -31,10 +31,6 @@
 
 %Module PyQt4.Qwt5.Qwt 0
 
-%Import QtCore/QtCoremod.sip
-%Import QtGui/QtGuimod.sip
-%Import QtSvg/QtSvgmod.sip
-
 %Timeline {Qwt_5_0_0 Qwt_5_0_1}
 
 %Feature CXX_DYNAMIC_CAST
@@ -44,6 +40,14 @@
 %Feature HAS_QWT5
 %Feature HAS_QWT4
 %Feature HAS_QWT_SVG
+
+
+%Import QtCore/QtCoremod.sip
+%Import QtGui/QtGuimod.sip
+%If (HAS_QWT_SVG)
+%Import QtSvg/QtSvgmod.sip
+%End // HAS_QWT_SVG
+
 
 %Include QwtTypes.sip
 
