@@ -15,10 +15,10 @@
   {http://pyqwt.sourceforge.net/download.html}}
 \newcommand{\Sip}{\ulink{sip-4.6.tar.gz}
   {http://pyqwt.sourceforge.net/support/sip-4.6.tar.gz}}
-\newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.18.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.18.tar.gz}}
-\newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.18.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.18.tar.gz}}
+\newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.17.2.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.17.2.tar.gz}}
+\newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.17.2.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.17.2.tar.gz}}
 \newcommand{\PyQtFourGpl}{\ulink{PyQt4-x11-gpl-4.2.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.2.tar.gz}}
 \newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.2.tar.gz}
@@ -37,6 +37,8 @@
   {http://prdownloads.sourceforge.net/numpy/Numeric-24.2.tar.gz?download}}
 \newcommand{\PyQwtTarGz}{\ulink{PyQwt-\target.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\target.tar.gz?download}}
+\newcommand{\PyQwtLatestTarGz}{\ulink{PyQwt-5.0.0.tar.gz}
+  {http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.0.0.tar.gz?download}}
 \newcommand{\PyQwtCvsTarGz}{\ulink{PyQwt-\cvs.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\cvs.tar.gz?download}}
 
@@ -77,13 +79,13 @@
 
 \newcommand{\Future}{
   \begin{notice}[warning]
-    The documentation is for PyQwt-5.0.0 which has not yet been released. A
-    snapshot, \PyQwtCvsTarGz{}, is available. Please refer, to the
-    documentation in the snapshot when you use the snapshot.
+    The documentation is for PyQwt-5.0.1 which has not yet been released. The
+    latest release is \PyQwtLatestTarGz{} and refer to the documentation
+    included in the latest release when using it.
   \end{notice}
 }
 
-\renewcommand{\Future}{}
+%\renewcommand{\Future}{}
 
 \newcommand{\Blurb}{
 PyQwt is a set of Python bindings for the \Qwt{} C++ class library which
@@ -610,26 +612,10 @@ python configure.py -h
 
 \Future{}
 
-Subsections \ref{old-release} and/or \ref{new-release} explain how to install
-PyQwt in combination with PyQt-4.1.1 and/or PyQt-4.2, respectively. 
-
-\subsection{Binary Installer for PyQt-4.1.1
-  \label{old-release}}
+Subsection \ref{exe-release} explain how to install PyQwt in combination with
+PyQt-4.2. 
 
 \Future{}
-
-Run the following installers, if you have not done so:
-\begin{enumerate}
-\item \PythonExe{}.
-\item \NumPyExe{}.
-\item \QtOldExe{}.\\
-  Let the Qt installer install MinGW if for instance \DevCpp{} has not been
-  installed before Qt.
-\item \PyQtOldExe{}.\\
-  Make sure that you can run the PyQt examples by tweaking the environment
-  variable \var{PATH}.
-\item Install \PyQwtOldExe{}.
-\end{enumerate}
 
 \subsection{Binary Installer for PyQt-4.2
   \label{new-release}}
@@ -643,10 +629,10 @@ Run the following installers, if you have not done so:
 \item \QtNewExe{}.\\
   Let the Qt installer install MinGW if for instance \DevCpp{} has not been
   installed before Qt.
-\item \PyQtNewExe{} (to be released in April 2007).\\
+\item \PyQtNewExe{}.\\
   Make sure that you can run the PyQt examples by tweaking the environment
   variable \var{PATH}.
-\item Install \PyQwtNewExe{} (to be released in April 2007).
+\item Install \PyQwtNewExe{}.
 \end{enumerate}
 
 \chapter{PyQwt Module Reference
