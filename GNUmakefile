@@ -124,7 +124,7 @@ clean:
 	find . -name '*~' | xargs rm -f
 
 distclean: clean
-	find . -name '*.pyc' | xargs rm -f
+	find . -name '.#*' -o -name '*.pyc' | xargs rm -f
 	rm -rf configure/*qt{3,4}
 
 # EOF
