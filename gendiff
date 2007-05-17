@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+import difflib
+import os
+import sys
+import time
+
+def usage():
+    print "gendiff tree .suffix"
+    sys.exit(1)
+
+# usage()
+
+def main(args):
+    if len(args) != 3:
+        usage()
+    tree = args[1]
+    suffix = args[2]
+    for root, _, files in os.walk(tree):
+        for name in files:
+            fromfile = os.path.join(root, name)
+            tofile = os.path.join(root, os.path.splitext(name)[0])
+            if os.path.splitext(name)[-1] == suffix and os.path.exists(tofile):
+                fromdate = time.ctime(os.stat(fromfile).st_mtime)
+                todate = time.ctime(os.stat(tofile).st_mtime)
+                fromlines = open(fromfile, 'U').readlines()
+                tolines = open(tofile, 'U').readlines()
+                sys.stdout.writelines(difflib.unified_diff(
+                    fromlines, tolines, fromfile, tofile, fromdate, todate))
+
+# main()
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+
+# Local Variables: ***
+# mode: python ***
+# End: ***
