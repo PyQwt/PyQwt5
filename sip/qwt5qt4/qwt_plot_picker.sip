@@ -61,7 +61,7 @@ protected:
     QwtDoublePoint invTransform(const QPoint&) const;
     QPoint transform(const QwtDoublePoint&) const;
     virtual QwtText trackerText(const QPoint&) const;
-    virtual QwtText trackerText(const QwtDoublePoint&) const;
+    virtual QwtText trackerText(const QwtDoublePoint&) const /PyName=trackerTextF/;
     virtual void move(const QPoint&);
     virtual void append(const QPoint&);
     virtual bool end(bool = true);
