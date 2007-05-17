@@ -1098,6 +1098,16 @@ curve.setData(x, y)
 
 \begin{classdesc*}{QwtPlotPicker}
   is fully implemented.
+
+  \begin{cfuncdesc}{QwtText}{trackerText}{QwtDoublePoint \&point}
+    is implemented as
+    \begin{verbatim}
+qwtText = plotPicker.trackerTextF(point)
+    \end{verbatim}
+    where \var{point} is a QwtDoublePoint when PyQwt has been built for Qt-3 or
+    a QPointF when PyQwt has been built for Qt-4.
+  \end{cfuncdesc}
+
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotPrintFilter}

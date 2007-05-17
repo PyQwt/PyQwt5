@@ -1,0 +1,33 @@
+--- qwt-5.0/src/qwt_painter.cpp.pyqwt Thu May 17 11:12:24 2007
++++ qwt-5.0/src/qwt_painter.cpp Thu May 17 11:46:48 2007
+@@ -511,8 +511,8 @@
+     if ( deviceClipping )
+         cpa = clip(cpa);
+ 
++#if QT_VERSION >= 0x040000
+     bool doSplit = false;
+-#if QT_VERSION >= 0x040000
+     if ( painter->paintEngine()->type() == QPaintEngine::Raster &&
+         painter->pen().width() >= 2 )
+     {
+@@ -524,7 +524,6 @@
+          */
+         doSplit = true;
+     }
+-#endif
+ 
+     if ( doSplit )
+     {
+@@ -535,10 +534,11 @@
+         for ( int i = 0; i < numPoints; i += splitSize )
+         {
+             const int n = qwtMin(splitSize + 1, cpa.size() - i);
+-            painter->drawPolyline(points + i, n);
++            painter->drawPolyline(points + i, n); // fails with Qt-3.
+         }
+     }
+     else
++#endif
+         painter->drawPolyline(cpa);
+ }
+ 
