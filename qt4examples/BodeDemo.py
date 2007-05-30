@@ -332,7 +332,24 @@ class BodeDemo(Qt.QMainWindow):
         btnPrint.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
         btnPrint.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
         toolBar.addWidget(btnPrint)
+        self.connect(btnPrint, Qt.SIGNAL('clicked()'), self.print_)
 
+        if Qt.QT_VERSION >= 0X040100:
+            btnPDF = Qt.QToolButton(toolBar)
+            btnPDF.setText("PDF")
+            btnPDF.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
+            btnPDF.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+            toolBar.addWidget(btnPDF)
+            self.connect(btnPDF, Qt.SIGNAL('clicked()'), self.exportPDF)
+
+        if Qt.QT_VERSION >= 0x040300:
+            btnSVG = Qt.QToolButton(toolBar)
+            btnSVG.setText("SVG")
+            btnSVG.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
+            btnSVG.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+            toolBar.addWidget(btnSVG)            
+            self.connect(btnSVG, Qt.SIGNAL('clicked()'), self.exportSVG)
+            
         toolBar.addSeparator()
 
         dampBox = Qt.QWidget(toolBar)
@@ -359,10 +376,6 @@ class BodeDemo(Qt.QMainWindow):
             Qt.SIGNAL('valueChanged(double)'),
             self.plot.setDamp)
         self.connect(
-            btnPrint,
-            Qt.SIGNAL('clicked()'),
-            self.print_)
-        self.connect(
             btnZoom,
             Qt.SIGNAL('toggled(bool)'),
             self.zoom)
@@ -382,10 +395,16 @@ class BodeDemo(Qt.QMainWindow):
 
         printer.setOutputFileName('bode-example-%s.ps' % Qt.qVersion())
 
-        printer.setCreator("Bode example")
+        printer.setCreator('Bode example')
         printer.setOrientation(Qt.QPrinter.Landscape)
         printer.setColorMode(Qt.QPrinter.Color)
-        # FIXME: doc name
+
+        docName = self.plot.title().text()
+        if not docName.isEmpty():
+            docName.replace(Qt.QRegExp(Qt.QString.fromLatin1('\n')),
+                            self.tr(' -- '))
+            printer.setDocName(docName)
+
         dialog = Qt.QPrintDialog(printer)
         if dialog.exec_():
             filter = PrintFilter()
@@ -397,6 +416,40 @@ class BodeDemo(Qt.QMainWindow):
 
     # print_()
     
+    def exportPDF(self):
+        if Qt.QT_VERSION > 0x040100:
+            fileName = Qt.QFileDialog.getSaveFileName(
+                self,
+                'Export File Name',
+                'bode-example-%s.pdf' % Qt.qVersion(),
+                'PDF Documents (*.pdf)')
+
+        if not fileName.isEmpty():
+            printer = Qt.QPrinter()
+            printer.setOutputFormat(Qt.QPrinter.PdfFormat)
+            printer.setOrientation(Qt.QPrinter.Landscape)
+            printer.setOutputFileName(fileName)
+
+            printer.setCreator('Bode example')
+            self.plot.print_(printer)
+
+    # exportPDF()
+
+    def exportSVG(self):
+        if Qt.QT_VERSION >= 0x040300:
+            fileName = Qt.QFileDialog.getSaveFileName(
+                self,
+                'Export File Name',
+                'bode-example-%s.svg' % Qt.qVersion(),
+                'SVG Documents (*.svg)')
+            if not fileName.isEmpty():
+                generator = Qt.QSvgGenerator()
+                generator.setFileName(fileName)
+                generator.setSize(Qt.QSize(800, 600))
+                self.plot.print_(generator)
+
+    # exportSVG()
+
     def zoom(self, on):
         self.zoomers[0].setEnabled(on)
         self.zoomers[0].zoom(0)
