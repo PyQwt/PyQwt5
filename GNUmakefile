@@ -16,7 +16,7 @@ QWT := ../qwt-5.0
 JOBS := 1
 UNAME := $(shell uname)
 
-REVISION := 104
+REVISION := 144
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
@@ -97,7 +97,7 @@ qwt-5.0:
 	rm -rf qwt-5.0; cp -pr tmp/qwt-5.0 qwt-5.0
 	python untabify.py -t 4 qwt-5.0 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.0.patch
-	(cd qwt-5.0/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.2 doxygen Doxyfile)
+	(cd qwt-5.0/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.3 doxygen Doxyfile)
 	(cd qwt-5.0; rm -rf admin doc/images doc/latex doc/man)
 	find qwt-5.0 -name .svn \
 		-o -name '*.map' \
