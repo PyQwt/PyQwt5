@@ -716,6 +716,15 @@ def setup_qwt5_build(configuration, options, package):
     if not os.path.exists(build_file):
         raise Die, 'SIP failed to generate the C++ code.'
 
+    # FIXME: sip-4.7 does not generate those include files anymore
+    for name in [os.path.join(tmp_dir, name) for name in [
+        'sipQwtQwtArrayDouble.h',
+        'sipQwtQwtArrayInt.h',
+        'sipQwtQwtArrayQwtDoublePoint.h',
+        ]]:
+        if not os.path.exists(name):
+            open(name, 'w')
+
     # fix the SIP build file
     fix_build_file(build_file,
                    [os.path.basename(f) for f in extra_sources],
