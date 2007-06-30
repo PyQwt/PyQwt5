@@ -39,9 +39,6 @@
 #include <qwt_array.h>
 #include <qwt_numerical_interface.h>
 
-int try_Contiguous_1D_NumericArray_of_double(
-    PyObject *in, PyObject **out, double **doubles, int *n0);
-
 // returns 1, 0, -1 in case of success, wrong PyObject type, failure
 int try_NumericArray_to_QwtArray(PyObject *in, QwtArray<double> &out);
 

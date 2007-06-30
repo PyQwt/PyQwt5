@@ -58,10 +58,6 @@ PyObject *toNumpy(const QImage &image);
 #endif
 
 // returns 1, 0, -1 in case of success, wrong object type, failure
-int try_Contiguous_1D_PyArray_of_double(
-    PyObject *in, PyObject **out, double **doubles, int *n0);
-
-// returns 1, 0, -1 in case of success, wrong object type, failure
 int try_PyObject_to_QwtArray(PyObject *object, QwtArray<double> &array);
 
 // returns 1, 0, -1 in case of success, wrong object type, failure

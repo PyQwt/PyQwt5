@@ -1,4 +1,5 @@
-// The header for the interface PyQwt <-> NumPy.
+// The header for the interface PyQwt <-> N-Dimensional Array Interface
+// See: http://numpy.scipy.org/array_interface.shtml.
 //
 // Copyright (C) 2001-2007 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -29,30 +30,33 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-#ifndef QWT_NUMPY_H
-#define QWT_NUMPY_H
+#ifndef QWT_NDARRAY_H
+#define QWT_NDARRAY_H
 
-#ifdef HAS_NUMPY
+#ifndef HAS_NUMPY
 
 #include <Python.h>
 #include <qwt_array.h>
 #include <qwt_numerical_interface.h>
 
-// returns 1, 0, -1 in case of success, wrong PyObject type, failure
-int try_NumPyArray_to_QwtArray(PyObject *in, QwtArray<double> &out);
+int try_Contiguous_1D_NDArray_of_double(
+    PyObject *in, PyObject **out, double **doubles, int *n0);
 
 // returns 1, 0, -1 in case of success, wrong PyObject type, failure
-int try_NumPyArray_to_QwtArray(PyObject *in, QwtArray<int> &out);
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<double> &out);
 
 // returns 1, 0, -1 in case of success, wrong PyObject type, failure
-int try_NumPyArray_to_QwtArray(PyObject *in, QwtArray<long> &out);
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<int> &out);
 
 // returns 1, 0, -1 in case of success, wrong PyObject type, failure
-int try_NumPyArray_to_QImage(PyObject *in, QImage **out);
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out);
+
+// returns 1, 0, -1 in case of success, wrong PyObject type, failure
+int try_NDArray_to_QImage(PyObject *in, QImage **out);
 
 #endif // HAS_NUMPY
 
-#endif // QWT_NUMPY_H
+#endif // QWT_NDARRAY_H
 
 // Local Variables:
 // mode: C++

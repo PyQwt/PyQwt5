@@ -1,4 +1,5 @@
-// The code for the interface PyQwt <-> Numeric.
+// The code for the interface PyQwt <-> N-Dimensional Array Interface
+// See: http://numpy.scipy.org/array_interface.shtml.
 //
 // Copyright (C) 2001-2007 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -29,109 +30,225 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-#ifdef HAS_NUMERIC
+#ifndef HAS_NUMPY
 
 #include <Python.h>
-#include <Numeric/arrayobject.h>
-#include <qwt_numeric.h>
+#include <qwt_ndarray.h>
 
 
-void qwt_import_numeric() {
-    import_array();
+// The NumPy Array Interface
+typedef struct {
+    int two;       
+    int nd;            
+    char typekind;     
+    int itemsize;      
+    int flags;         
+    Py_intptr_t *shape; 
+    Py_intptr_t *strides;
+    void *data;
+    PyObject *descr;
+} PyArrayInterface;
+
+
+void dump(PyArrayInterface *source)
+{
+    fprintf(stderr, "two: %i\n", source->two);
+    fprintf(stderr, "nd: %i\n", source->nd);
+    fprintf(stderr, "typekind: '%c'\n", source->typekind);
+    fprintf(stderr, "flags: ");
+    fprintf(stderr, "shape: ");
+    fprintf(stderr, "strides: ");
 }
 
-
-int try_NumericArray_to_QwtArray(PyObject *in, QwtArray<double> &out)
+#if 0
+int try_Contiguous_1D_NDArray_of_double(
+    PyObject *in, PyObject **out, double **doubles, int *n0)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NumericArray_to_QwtArray()\n");
+    fprintf(
+        stderr,
+        "Qwt: try_Contiguous_1D_NDArray_of_double()\n");
 #endif
 
-    if (!PyArray_Check(in))
-        return 0;
+    if ((*out = PyObject_GetAttrString(in, "__array_struct__"))) {
+        PyArrayInterface *source = reinterpret_cast<PyArrayInterface *>(
+            PyCObject_AsVoidPtr(*out));
+        
+        // Sanity check
+        if ((source->two != 2)
+            || (source->nd != 1)
+            || (source->typekind != 'f')
+            || (source->itemsize != sizeof(double))) {
+            PyErr_SetString(PyExc_RuntimeError,
+                            "The array is no contiguous 1D-array of double");
+            return -1;
+        }
+        *doubles = reinterpret_cast<double *>(source->data);
+        *n0 = source->shape[0];
 
-    PyArrayObject *array = (PyArrayObject *)PyArray_ContiguousFromObject(
-        in, PyArray_DOUBLE, 1, 0);
+#ifdef TRACE_PYQWT
+        fprintf(
+            stderr,
+            "Qwt: Returning a 1D-array of PyArray_DOUBLE (%d,)\n",
+            *n0);
+#endif
 
-    if (!array) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "Failed to make contiguous array of PyArray_DOUBLE");
-        return -1;
+        return 1;
     }
 
-    double *data = (double *) array->data;
-    out.resize(array->dimensions[0]);
+    PyErr_SetString(PyExc_RuntimeError,
+                    "The array is no contiguous 1D-array of double");
+
+    return -1;
+}
+#endif
+
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<double> &out)
+{
+#ifdef TRACE_PYQWT
+    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray()\n");
+#endif
+
+    PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
+    if (!csource) {
+        return 0;
+    }
+
+    PyArrayInterface *source = 
+        reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
+    if (!source) {
+        return 0;
+    }
+
+    dump(source);
+        
+    if ((source->two != 2)
+        || (source->nd != 1)
+        || (source->typekind != 'f')
+        || (source->itemsize != sizeof(double))) {
+        Py_DECREF(csource);
+        PyErr_SetString(
+            PyExc_RuntimeError,
+            "The array is no contiguous 1D-array of double");
+        return -1;
+        }
+
+    double *data = reinterpret_cast<double *>(source->data);
+    out.resize(source->shape[0]);
     for (double *it = out.begin(); it != out.end();) {
         *it++ = *data++;
     }
-
-    Py_DECREF(array);
+    Py_DECREF(csource);
 
     return 1;
 }
 
 
-int try_NumericArray_to_QwtArray(PyObject *in, QwtArray<int> &out)
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<int> &out)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NumericArray_to_QwtArray()\n");
+    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray()\n");
 #endif
 
-    if (!PyArray_Check(in))
+    PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
+    if (!csource) {
         return 0;
+    }
 
-    PyArrayObject *array = (PyArrayObject *)PyArray_ContiguousFromObject(
-        in, PyArray_INT, 1, 0);
+    PyArrayInterface *source = 
+        reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
+    if (!source) {
+        return 0;
+    }
 
-    if (!array) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "Failed to make contiguous array of PyArray_INT");
+    dump(source);
+        
+    if ((source->two != 2)
+        || (source->nd != 1)
+        || (source->typekind != 'f')
+        || (source->itemsize != sizeof(double))) {
+        Py_DECREF(csource);
+        PyErr_SetString(
+            PyExc_RuntimeError,
+            "The array is no contiguous 1D-array of double");
         return -1;
     }
 
-    int *data = (int *) array->data;
-    out.resize(array->dimensions[0]);
+    int *data = reinterpret_cast<int *>(source->data);
+    out.resize(source->shape[0]);
     for (int *it = out.begin(); it != out.end();) {
         *it++ = *data++;
     }
-
-    Py_DECREF(array);
+    Py_DECREF(csource);
 
     return 1;
 }
 
-
-int try_NumericArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
+int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NumericArray_to_QwtArray()\n");
+    fprintf(stderr, "Qwt: try_NumPyArray_to_QwtArray()\n");
 #endif
 
-    if (!PyArray_Check(in))
+    PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
+    if (!csource) {
         return 0;
-
-    PyArrayObject *array = (PyArrayObject *)PyArray_ContiguousFromObject(
-        in, PyArray_LONG, 1, 0);
-
-    if (!array) {
-        PyErr_SetString(PyExc_RuntimeError,
-                        "Failed to make contiguous array of PyArray_LONG");
-        return -1;
     }
 
-    long *data = (long *) array->data;
-    out.resize(array->dimensions[0]);
+    PyArrayInterface *source = 
+        reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
+    if (!source) {
+        return 0;
+    }
+        
+    if ((source->two != 2)
+        || (source->nd != 1)
+        || (source->typekind != 'f')
+        || (source->itemsize != sizeof(double))) {
+        Py_DECREF(csource);
+        PyErr_SetString(
+            PyExc_RuntimeError,
+            "The array is no contiguous 1D-array of double");
+        return -1;
+        }
+
+    long *data = reinterpret_cast<long *>(source->data);
+    out.resize(source->shape[0]);
     for (long *it = out.begin(); it != out.end();) {
         *it++ = *data++;
     }
-
-    Py_DECREF(array);
+    Py_DECREF(csource);
 
     return 1;
 }
 
-int try_NumericArray_to_QImage(PyObject *in, QImage **out)
+
+int try_NDArray_to_QImage(PyObject *in, QImage **out)
 {
+    PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
+    if (!csource) {
+        return 0;
+    }
+
+    PyArrayInterface *source = 
+        reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
+    if (!source) {
+        return 0;
+    }
+
+    if ((source->two != 2) || (source->nd != 2)) {
+        Py_DECREF(csource);
+        PyErr_SetString(PyExc_RuntimeError,
+                        "Image array must be 2-dimensional");
+        return -1;
+        }
+
+    const int nx = source->shape[0];
+    const int ny = source->shape[1];
+    const int xstride = source->strides[0];
+    const int ystride = source->strides[1];
+
+#if 0
     if (!PyArray_Check(in))
         return 0;
     
@@ -202,12 +319,14 @@ int try_NumericArray_to_QImage(PyObject *in, QImage **out)
     PyErr_SetString(
         PyExc_RuntimeError,
         "Data type must be UnsignedInt8, or UnsignedInt32");
-    
+
+#endif    
     return -1;
 }
 
 
-PyObject *toNumeric(const QImage &image)
+#if 0
+PyObject *toNumpy(const QImage &image)
 {
     PyArrayObject *result = 0;
     const int nx = image.width();
@@ -265,11 +384,11 @@ PyObject *toNumeric(const QImage &image)
         }
         return PyArray_Return(result);
     }
-
     return 0;
 }
+#endif
 
-#endif // HAS_NUMERIC
+#endif // HAS_NUMPY
 
 // Local Variables:
 // mode: C++

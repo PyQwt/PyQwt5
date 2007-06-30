@@ -29,61 +29,11 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+#include <qwt_ndarray.h>
 #include <qwt_numerical_interface.h>
 #include <qwt_numarray.h>
 #include <qwt_numeric.h>
 #include <qwt_numpy.h>
-
-int try_Contiguous_1D_PyArray_of_double(
-    PyObject *in, PyObject **out, double **doubles, int *n0)
-{
-    int result;
-
-#ifdef HAS_NUMPY
-    if ((result = try_Contiguous_1D_NumPyArray_of_double(
-             in, out, doubles, n0))) {
-        return result;
-    }
-#endif
-
-#ifdef HAS_NUMERIC
-    if ((result = try_Contiguous_1D_NumericArray_of_double(
-             in, out, doubles, n0))) {
-        return result;
-    }
-#endif
-
-#ifdef HAS_NUMARRAY
-    if ((result = try_Contiguous_1D_NumarrayArray_of_double(
-             in, out, doubles, n0))) {
-        return result;
-    }
-#endif
-
-    PyErr_SetString(PyExc_TypeError, "expected is a sequence convertible to\n"
-
-#ifdef HAS_NUMPY
-                    "(*) a NumPy 1D array of PyArray_DOUBLE.\n"
-#else
-                    "(!) rebuild PyQwt to support NumPy arrays.\n"
-#endif
-
-#ifdef HAS_NUMERIC
-                    "(*) a Numeric 1D array of PyArray_DOUBLE.\n"
-#else
-                    "(!) rebuild PyQwt to support Numeric arrays.\n"
-#endif
-
-#ifdef HAS_NUMARRAY
-                    "(*) a numarray 1D array of PyArray_DOUBLE.\n"
-#else
-                    "(!) rebuild PyQwt to support numarray arrays.\n"
-#endif
-
-        );
-
-    return -1;
-}
 
 
 static int try_PySequence_to_QwtArray(PyObject *in, QwtArray<double> &out)
@@ -121,6 +71,9 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<double> &out)
 
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
+        return result;
+#else
+    if ((result = try_NDArray_to_QwtArray(in, out)))
         return result;
 #endif
 
@@ -197,6 +150,9 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<int> &out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
         return result;
+#else
+    if ((result = try_NDArray_to_QwtArray(in, out)))
+        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -272,6 +228,9 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<long> &out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
         return result;
+#else
+    if ((result = try_NDArray_to_QwtArray(in, out)))
+        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -316,6 +275,9 @@ int try_PyObject_to_QImage(PyObject *in, QImage **out)
 
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QImage(in, out)))
+        return result;
+#else
+    if ((result = try_NDArray_to_QImage(in, out)))
         return result;
 #endif
 

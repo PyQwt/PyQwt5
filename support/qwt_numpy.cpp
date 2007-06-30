@@ -43,41 +43,6 @@ void qwt_import_numpy() {
 }
 
 
-int try_Contiguous_1D_NumPyArray_of_double(
-    PyObject *in, PyObject **out, double **doubles, int *n0)
-{
-#ifdef TRACE_PYQWT
-    fprintf(
-        stderr,
-        "Qwt: try_Contiguous_1D_NumPyArray_of_double()\n");
-#endif
-
-    if (!(PyArray_Check(in) || PyList_Check(in) || PyTuple_Check(in)))
-        return 0;
-
-    if ((*out = PyArray_ContiguousFromObject(in, PyArray_DOUBLE, 1, 1))) {
-        *doubles = reinterpret_cast<double *>(
-            reinterpret_cast<PyArrayObject *>(*out)->data);
-        *n0 = reinterpret_cast<PyArrayObject *>(*out)->dimensions[0];
-
-#ifdef TRACE_PYQWT
-        fprintf(
-            stderr,
-            "Qwt: Returning a 1D-array of PyArray_DOUBLE (%d,)\n",
-            *n0);
-#endif
-
-        return 1;
-    }
-
-    PyErr_SetString(
-        PyExc_RuntimeError,
-        "Failed to make a contiguous 1D-array of PyArray_DOUBLE");
-
-    return -1;
-}
-
-
 int try_NumPyArray_to_QwtArray(PyObject *in, QwtArray<double> &out)
 {
 #ifdef TRACE_PYQWT
