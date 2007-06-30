@@ -85,19 +85,25 @@ protected:
 %If (CXX_DYNAMIC_CAST)
 %ConvertToSubClassCode
     // Walk the inheritance tree depth first in alphabetical order
+    // This code is for Qwt4 and Qwt5
 #ifdef sipClass_QwtArrayData
     if (dynamic_cast<const QwtArrayData *>(sipCpp))
         sipClass = sipClass_QwtArrayData;
     else
 #endif
-#ifdef sipClass_QwtData
-    if (dynamic_cast<const QwtData *>(sipCpp))
-        sipClass = sipClass_QwtData;
+#ifdef sipClass_QwtDoublePointData
+    if (dynamic_cast<const QwtDoublePointData *>(sipCpp))
+        sipClass = sipClass_QwtDoublePointData;
     else
 #endif
 #ifdef sipClass_QwtPolygonFData
     if (dynamic_cast<const QwtPolygonFData *>(sipCpp))
         sipClass = sipClass_QwtPolygonFData;
+    else
+#endif
+#ifdef sipClass_QwtData
+    if (dynamic_cast<const QwtData *>(sipCpp))
+        sipClass = sipClass_QwtData;
     else
 #endif
         sipClass = 0;
