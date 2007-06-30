@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 
 from distutils.core import setup
 import time
 
 name = 'PyQwt'
-version = '5.0.2'
+version = '5.0.1'
 #version = '%04d%02d%02d' % (time.localtime()[:3])
 
 long_description = """
