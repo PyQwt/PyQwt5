@@ -72,9 +72,6 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<double> &out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
         return result;
-#else
-    if ((result = try_NDArray_to_QwtArray(in, out)))
-        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -87,11 +84,15 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<double> &out)
         return result;
 #endif
 
+    if ((result = try_NDArray_to_QwtArray(in, out)))
+        return result;
+
     if ((result = try_PySequence_to_QwtArray(in, out)))
         return result;
 
     PyErr_SetString(PyExc_TypeError, "expected is\n"
                     "(*) a list or tuple of Python numbers.\n"
+                    "(*) an array with the N-D array interface.\n"
 #ifdef HAS_NUMPY
                     "(*) a NumPy array coercible to PyArray_DOUBLE.\n"
 #else
@@ -150,9 +151,6 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<int> &out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
         return result;
-#else
-    if ((result = try_NDArray_to_QwtArray(in, out)))
-        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -165,11 +163,15 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<int> &out)
         return result;
 #endif
 
+    if ((result = try_NDArray_to_QwtArray(in, out)))
+        return result;
+
     if ((result = try_PySequence_to_QwtArray(in, out)))
         return result;
 
     PyErr_SetString(PyExc_TypeError, "expected is\n"
                     "(*) a list or tuple of Python numbers.\n"
+                    "(*) an array with the N-D array interface.\n"
 #ifdef HAS_NUMPY
                     "(*) a NumPy array coercible to PyArray_INT.\n"
 #else
@@ -228,9 +230,6 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<long> &out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QwtArray(in, out)))
         return result;
-#else
-    if ((result = try_NDArray_to_QwtArray(in, out)))
-        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -243,11 +242,15 @@ int try_PyObject_to_QwtArray(PyObject *in, QwtArray<long> &out)
         return result;
 #endif
 
+    if ((result = try_NDArray_to_QwtArray(in, out)))
+        return result;
+
     if ((result = try_PySequence_to_QwtArray(in, out)))
         return result;
 
     PyErr_SetString(PyExc_TypeError, "expected is\n"
                     "(*) a list or tuple of Python numbers.\n"
+                    "(*) an array with the N-D array interface.\n"
 #ifdef HAS_NUMPY
                     "(*) a NumPy array coercible to PyArray_INT.\n"
 #else
@@ -276,9 +279,6 @@ int try_PyObject_to_QImage(PyObject *in, QImage **out)
 #ifdef HAS_NUMPY
     if ((result = try_NumPyArray_to_QImage(in, out)))
         return result;
-#else
-    if ((result = try_NDArray_to_QImage(in, out)))
-        return result;
 #endif
 
 #ifdef HAS_NUMERIC
@@ -291,7 +291,11 @@ int try_PyObject_to_QImage(PyObject *in, QImage **out)
         return result;
 #endif
 
+    if ((result = try_NDArray_to_QImage(in, out)))
+        return result;
+
     PyErr_SetString(PyExc_TypeError, "expected is\n"
+                    "(*) an array with the N-D array interface.\n"
 #ifdef HAS_NUMPY
                     "(*) a NumPy array.\n"
 #else

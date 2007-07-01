@@ -33,8 +33,6 @@
 #ifndef QWT_NDARRAY_H
 #define QWT_NDARRAY_H
 
-#ifndef HAS_NUMPY
-
 #include <Python.h>
 #include <qwt_array.h>
 #include <qwt_numerical_interface.h>
@@ -51,7 +49,6 @@ int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out);
 // returns 1, 0, -1 in case of success, wrong PyObject type, failure
 int try_NDArray_to_QImage(PyObject *in, QImage **out);
 
-#endif // HAS_NUMPY
 
 #endif // QWT_NDARRAY_H
 
