@@ -57,12 +57,12 @@ trace: 3t 4t
 
 3t:
 	cd configure \
-	&& python configure.py --debug --trace -3 -Q $(QWT) \
+	&& python configure.py --debug --trace -3 -Q $(QWT) --disable-numpy \
 	&& $(MAKE)
 
 4t:
 	cd configure \
-	&& python configure.py --debug --trace -4 -Q $(QWT) \
+	&& python configure.py --debug --trace -4 -Q $(QWT) --disable-numpy \
 	&& $(MAKE)
 
 # Installation
