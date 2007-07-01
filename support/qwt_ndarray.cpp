@@ -69,8 +69,11 @@ void trace(PyArrayInterface *source)
     if (source->flags & 0x200) {
         fprintf(stderr, " NOTSWAPPED");
     }
-    if (source->flags & 0x100) {
+    if (source->flags & 0x400) {
         fprintf(stderr, " WRITABLE");
+    }
+    if (source->flags & 0x800) {
+        fprintf(stderr, " ARR_HAS_DESCR");
     }
     fprintf(stderr, "\n");
     fprintf(stderr, "shape: (");    
