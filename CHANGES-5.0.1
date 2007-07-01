@@ -1,8 +1,10 @@
 New features:
-- the iqt module works now also on Windows (thanks to an auxiliary module).
+- supports the N-D array interface specification: NumPy can be used with
+  somewhat reduced functionality when PyQwt has been built without support
+  for NumPy. See: http://numpy.scipy.org/array_interface.shtml.
+- works with Qt-4.3.0 in combination with SIP-4.7 and PyQt-4.3.
 - one of the QwtPlotPicker::TrackerText() C++ member functions has been renamed
   to QwtPlotPicker.TrackerTextF() in Python for disambiguation.
-- works with Qt-4.3.0 in combination with recent SIP and PyQt snapshots.
 
 Bug fixes:
 - builts against an system Qwt library without the QwtSVGItem CONFIG option.
