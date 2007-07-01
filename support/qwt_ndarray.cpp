@@ -50,6 +50,16 @@ typedef struct {
 } PyArrayInterface;
 
 
+enum {
+    CONTIGUOUS = 0x1,
+    FORTRAN = 0x2,
+    ALIGNED = 0x100,
+    NOTSWAPPED = 0x200,
+    WRITABLE = 0x400,
+    ARR_HAS_DESCR = 0x800,
+};
+
+
 void trace(PyArrayInterface *source)
 {
     fprintf(stderr, "two: %i\n", source->two);
@@ -57,22 +67,22 @@ void trace(PyArrayInterface *source)
     fprintf(stderr, "typekind: '%c'\n", source->typekind);
     fprintf(stderr, "itemsize: %i\n", source->itemsize);
     fprintf(stderr, "flags:");
-    if (source->flags & 0x1) {
+    if (source->flags & CONTIGUOUS) {
         fprintf(stderr, " CONTIGUOUS");
     }
-    if (source->flags & 0x2) {
+    if (source->flags & FORTRAN) {
         fprintf(stderr, " FORTRAN");
     }
-    if (source->flags & 0x100) {
+    if (source->flags & ALIGNED) {
         fprintf(stderr, " ALIGNED");
     }
-    if (source->flags & 0x200) {
+    if (source->flags & NOTSWAPPED) {
         fprintf(stderr, " NOTSWAPPED");
     }
-    if (source->flags & 0x400) {
+    if (source->flags & WRITABLE) {
         fprintf(stderr, " WRITABLE");
     }
-    if (source->flags & 0x800) {
+    if (source->flags & ARR_HAS_DESCR) {
         fprintf(stderr, " ARR_HAS_DESCR");
     }
     fprintf(stderr, "\n");
@@ -119,26 +129,78 @@ int try_NDArray_to_QwtArray(PyObject *in, QwtArray<double> &out)
 #ifdef TRACE_PYQWT
     trace(source);
 #endif
-        
-    if ((source->two != 2)
-        || (source->nd != 1)
-        || (source->typekind != 'f')
-        || (source->itemsize != sizeof(double))) {
-        Py_DECREF(csource);
-        PyErr_SetString(
-            PyExc_RuntimeError,
-            "The array is no contiguous 1D-array of double");
-        return -1;
-        }
+    
+    int stride;
 
-    double *data = reinterpret_cast<double *>(source->data);
-    out.resize(source->shape[0]);
-    for (double *it = out.begin(); it != out.end();) {
-        *it++ = *data++;
+    if ((source->two != 2)|| (source->nd != 1)) {
+        goto error;
     }
-    Py_DECREF(csource);
 
+    stride = source->strides[0]/source->itemsize;
+    out.resize(source->shape[0]);
+    if (source->typekind == 'f') {
+        if (source->itemsize == sizeof(double)) {
+            double *data = reinterpret_cast<double *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(float)) {
+            float *data = reinterpret_cast<float *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else {
+            goto error;
+        }
+    } else if (source->typekind == 'i') {
+        if (source->itemsize == sizeof(char)) {
+            char *data = reinterpret_cast<char *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(short)) {
+            short *data = reinterpret_cast<short *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(int)) {
+            int *data = reinterpret_cast<int *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long)) {
+            long *data = reinterpret_cast<long *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long long)) {
+            long long *data = reinterpret_cast<long long *>(source->data);
+            for (double *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else {
+            goto error;
+        }
+    } else {
+        goto error;
+    }
+ 
+    Py_DECREF(csource);
     return 1;
+
+error:
+    Py_DECREF(csource);
+    PyErr_SetString(
+        PyExc_RuntimeError,
+        "The array is no 1D array containing real or signed integer types");
+    return -1;
 }
 
 
@@ -162,26 +224,62 @@ int try_NDArray_to_QwtArray(PyObject *in, QwtArray<int> &out)
 #ifdef TRACE_PYQWT
     trace(source);
 #endif
-        
-    if ((source->two != 2)
-        || (source->nd != 1)
-        || (source->typekind != 'f')
-        || (source->itemsize != sizeof(double))) {
-        Py_DECREF(csource);
-        PyErr_SetString(
-            PyExc_RuntimeError,
-            "The array is no contiguous 1D-array of double");
-        return -1;
+
+    int stride;
+
+    if ((source->two != 2) || (source->nd != 1)) {
+        goto error;
     }
 
-    int *data = reinterpret_cast<int *>(source->data);
     out.resize(source->shape[0]);
-    for (int *it = out.begin(); it != out.end();) {
-        *it++ = *data++;
+    stride = source->strides[0]/source->itemsize;
+    if (source->typekind == 'i') {
+        if (source->itemsize == sizeof(char)) {
+            char *data = reinterpret_cast<char *>(source->data);
+            for (int *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(short)) {
+            short *data = reinterpret_cast<short *>(source->data);
+            for (int *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(int)) {
+            int *data = reinterpret_cast<int *>(source->data);
+            for (int *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long)) {
+            long *data = reinterpret_cast<long *>(source->data);
+            for (int *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long long)) {
+            long long *data = reinterpret_cast<long long *>(source->data);
+            for (int *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else {
+            goto error;
+        }
+    } else {
+        goto error;
     }
-    Py_DECREF(csource);
 
+    Py_DECREF(csource);
     return 1;
+
+error:
+    Py_DECREF(csource);
+    PyErr_SetString(
+        PyExc_RuntimeError,
+        "The array is no 1D array containing signed integer types");
+    return -1;
 }
 
 int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
@@ -205,25 +303,61 @@ int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
     trace(source);
 #endif
         
-    if ((source->two != 2)
-        || (source->nd != 1)
-        || (source->typekind != 'f')
-        || (source->itemsize != sizeof(double))) {
-        Py_DECREF(csource);
-        PyErr_SetString(
-            PyExc_RuntimeError,
-            "The array is no contiguous 1D-array of double");
-        return -1;
-        }
+    int stride;
 
-    long *data = reinterpret_cast<long *>(source->data);
-    out.resize(source->shape[0]);
-    for (long *it = out.begin(); it != out.end();) {
-        *it++ = *data++;
+    if ((source->two != 2) || (source->nd != 1)) {
+        goto error;
     }
-    Py_DECREF(csource);
 
+    out.resize(source->shape[0]);
+    stride = source->strides[0]/source->itemsize;
+    if (source->typekind == 'i') {
+        if (source->itemsize == sizeof(char)) {
+            char *data = reinterpret_cast<char *>(source->data);
+            for (long *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(short)) {
+            short *data = reinterpret_cast<short *>(source->data);
+            for (long *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(int)) {
+            int *data = reinterpret_cast<int *>(source->data);
+            for (long *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long)) {
+            long *data = reinterpret_cast<long *>(source->data);
+            for (long *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else if (source->itemsize == sizeof(long long)) {
+            long long *data = reinterpret_cast<long long *>(source->data);
+            for (long *it = out.begin(); it != out.end();) {
+                *it++ = *data;
+                data += stride;
+            }
+        } else {
+            goto error;
+        }
+    } else {
+        goto error;
+    }
+
+    Py_DECREF(csource);
     return 1;
+
+error:
+    Py_DECREF(csource);
+    PyErr_SetString(
+        PyExc_RuntimeError,
+        "The array is no 1D array containing signed integer types");
+    return -1;
 }
 
 
@@ -248,10 +382,10 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
     trace(source);
 #endif
         
-    if ((source->two != 2) || (source->nd != 2)) {
+    if (!((source->two==2) && (source->nd==2) && (source->flags&CONTIGUOUS))) {
         Py_DECREF(csource);
         PyErr_SetString(PyExc_RuntimeError,
-                        "Image array must be 2-dimensional");
+                        "Image array must be an contiguous 2-D array");
         return -1;
         }
 
