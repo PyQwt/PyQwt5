@@ -30,8 +30,6 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-#ifndef HAS_NUMPY
-
 #include <Python.h>
 #include <qwt_ndarray.h>
 
@@ -452,8 +450,6 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
 
     return -1;
 }
-
-#endif // HAS_NUMPY
 
 // Local Variables:
 // mode: C++
