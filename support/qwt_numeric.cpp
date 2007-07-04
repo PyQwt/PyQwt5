@@ -132,6 +132,10 @@ int try_NumericArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
 
 int try_NumericArray_to_QImage(PyObject *in, QImage **out)
 {
+#ifdef TRACE_PYQWT
+    fprintf(stderr, "Qwt: try_NumericArray_to_QImage()\n");
+#endif
+
     if (!PyArray_Check(in))
         return 0;
     

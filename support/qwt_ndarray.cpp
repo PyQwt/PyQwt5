@@ -413,8 +413,10 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
         }
         // initialize the palette as all gray
         (*out)->setNumColors(256);
-        for (int i = 0; i<(*out)->numColors(); i++)
+        for (int i = 0; i<(*out)->numColors(); i++) {
             (*out)->setColor(i, qRgb(i, i, i));
+        }
+        Py_DECREF(csource);
         return 1;
     }
 
@@ -442,12 +444,13 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
                 data += xstride;
             }
         }        
+        Py_DECREF(csource);
         return 1;
     }
     
     PyErr_SetString(PyExc_RuntimeError,
                     "Data type must be UnsignedInt8, or UnsignedInt32");
-
+    Py_DECREF(csource);
     return -1;
 }
 
