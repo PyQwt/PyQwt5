@@ -165,7 +165,7 @@ QPoint qwtPolar2Pos(const QPoint &, double, double);
 QPoint qwtDegree2Pos(const QPoint &, double, double);
 
 // Image support
-QImage &toQImage(SIP_PYOBJECT);
+QImage toQImage(SIP_PYOBJECT);
 %MethodCode
     // Numeric is not thread-safe
     sipRes = 0;
