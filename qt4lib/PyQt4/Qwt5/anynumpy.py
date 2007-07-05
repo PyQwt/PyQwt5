@@ -13,7 +13,10 @@ for name in ('numpy', 'numarray', 'Numeric'):
     if not failed:
         break
 else:
-    raise SystemExit, 'Failed to import either scipy, or numarray, or Numeric'
+    raise SystemExit, (
+        'Failed to import either NumPy, or numarray, or Numeric\n'
+        'NumPy is available at http://sourceforge.net/projects/numpy'
+        )
 
 # Local Variables: ***
 # mode: python ***
