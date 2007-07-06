@@ -7,6 +7,12 @@
 #
 # Beautified and expanded by Gerard Vermeulen.
 
+# for debugging, requires: python configure.py  --trace ...
+if False:
+    import sip
+    sip.settracemask(0x3f)
+
+
 import random
 import sys
 import PyQt4.Qt as Qt
