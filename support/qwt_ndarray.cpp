@@ -110,17 +110,21 @@ void trace(PyArrayInterface *source)
 int try_NDArray_to_QwtArray(PyObject *in, QwtArray<double> &out)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray()\n");
+    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray() // QwtArray<double>\n");
 #endif
 
+    if (!PyObject_HasAttrString(in, "__array_struct__")) {
+        return 0;
+    }
+
     PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
-    if (!csource) {
+    if (!csource) { // FIXME
         return 0;
     }
 
     PyArrayInterface *source = 
         reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
-    if (!source) {
+    if (!source) { // FIXME
         return 0;
     }
 
@@ -205,17 +209,21 @@ error:
 int try_NDArray_to_QwtArray(PyObject *in, QwtArray<int> &out)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray()\n");
+    fprintf(stderr, "Qwt: try_NDArray_to_QwtArray() // QwtArray<int>\n");
 #endif
 
+    if (!PyObject_HasAttrString(in, "__array_struct__")) {
+        return 0;
+    }
+
     PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
-    if (!csource) {
+    if (!csource) { // FIXME
         return 0;
     }
 
     PyArrayInterface *source = 
         reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
-    if (!source) {
+    if (!source) { // FIXME
         return 0;
     }
 
@@ -283,17 +291,21 @@ error:
 int try_NDArray_to_QwtArray(PyObject *in, QwtArray<long> &out)
 {
 #ifdef TRACE_PYQWT
-    fprintf(stderr, "Qwt: try_NumPyArray_to_QwtArray()\n");
+    fprintf(stderr, "Qwt: try_NumPyArray_to_QwtArray() // QwtArray<long>\n");
 #endif
 
+    if (!PyObject_HasAttrString(in, "__array_struct__")) {
+        return 0;
+    }
+
     PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
-    if (!csource) {
+    if (!csource) { // FIXME
         return 0;
     }
 
     PyArrayInterface *source = 
         reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
-    if (!source) {
+    if (!source) { // FIXME
         return 0;
     }
         
@@ -365,14 +377,18 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
     fprintf(stderr, "Qwt: try_NDArray_to_QImage()\n");
 #endif
 
+    if (!PyObject_HasAttrString(in, "__array_struct__")) {
+        return 0;
+    }
+
     PyObject *csource = PyObject_GetAttrString(in, "__array_struct__");
-    if (!csource) {
+    if (!csource) { // FIXME
         return 0;
     }
 
     PyArrayInterface *source = 
         reinterpret_cast<PyArrayInterface *>(PyCObject_AsVoidPtr(csource));
-    if (!source) {
+    if (!source) { // FIXME
         return 0;
     }
 
@@ -449,7 +465,7 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
     }
     
     PyErr_SetString(PyExc_RuntimeError,
-                    "Data type must be UnsignedInt8, or UnsignedInt32");
+                    "Data type must be an 'unsigned int' having 8 or 32 bits");
     Py_DECREF(csource);
     return -1;
 }
