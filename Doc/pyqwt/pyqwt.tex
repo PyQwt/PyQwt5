@@ -704,6 +704,8 @@ PyQwt has a partial interface to the following C++ QwtArray templates:
 \item
   \class{QwtArrayInt} for \ctype{QwtArray<int>}
 \item
+  \class{QwtArrayQwtDoubleInterval} for \ctype{QwtArray<QwtDoubleInterval>}
+\item
   \class{QwtArrayQwtDoublePoint} for \ctype{QwtArray<QwtDoublePoint>} when
   PyQwt has been built against PyQt3 or for \ctype{QwtArray<QPointF>} when
   PyQwt has been built against PyQt4.
@@ -808,6 +810,10 @@ For instance:
 
 \begin{classdesc*}{QwtArrayInt}
   is a wrapper for \ctype{QwtArray<int>}, see \ref{qwtarray}.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtArrayQwtDoubleInterval}
+  is a wrapper for \ctype{QwtArray<QwtArrayDoubleInterval>}, see \ref{qwtarray}.
 \end{classdesc*}
 
 \begin{classdesc*}{QwtArrayQwtDoublePoint}

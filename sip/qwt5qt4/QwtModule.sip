@@ -62,6 +62,7 @@ typedef int Py_ssize_t;
 #include <qwt_numerical_interface.h>
 #include <sipQwtQwtArrayDouble.h>
 #include <sipQwtQwtArrayInt.h>
+#include <sipQwtQwtArrayQwtDoubleInterval.h>
 #include <sipQwtQwtArrayQwtDoublePoint.h>
 %End
 
@@ -91,6 +92,7 @@ typedef QSizeF QwtDoubleSize;
 // Template code
 %Include QwtArrayDouble.sip
 %Include QwtArrayInt.sip
+%Include QwtArrayQwtDoubleInterval.sip
 %Include QwtArrayQwtDoublePoint.sip
 
 // Wrapper code

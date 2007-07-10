@@ -720,6 +720,7 @@ def setup_qwt5_build(configuration, options, package):
     for name in [os.path.join(tmp_dir, name) for name in [
         'sipQwtQwtArrayDouble.h',
         'sipQwtQwtArrayInt.h',
+        'sipQwtQwtArrayQwtDoubleInterval.h',
         'sipQwtQwtArrayQwtDoublePoint.h',
         ]]:
         if not os.path.exists(name):
