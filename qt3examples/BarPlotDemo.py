@@ -13,6 +13,25 @@ import qt
 import Qwt5 as Qwt
 
 
+class Spy(qt.QObject):
+    
+    def __init__(self, parent):
+        qt.QObject.__init__(self, parent)
+        parent.setMouseTracking(True)
+        parent.installEventFilter(self)
+
+    # __init__()
+
+    def eventFilter(self, _, event):
+        if event.type() == qt.QEvent.MouseMove:
+            self.emit(qt.PYSIGNAL("MouseMove"), (event.pos(),))
+        return False
+
+    # eventFilter()
+
+# class Spy
+
+
 class BarCurve(Qwt.QwtPlotCurve):
 
     def __init__(self, penColor=qt.Qt.black, brushColor=qt.Qt.white):
@@ -51,28 +70,13 @@ class BarCurve(Qwt.QwtPlotCurve):
 
 class BarPlotMainWindow(qt.QMainWindow):
 
-    colors = [
-##         qt.Qt.color0,
-##         qt.Qt.color1,
-##         qt.Qt.black,
-##         qt.Qt.white,
-##         qt.Qt.darkGray,
-##         qt.Qt.gray,
-##         qt.Qt.lightGray,
-        qt.Qt.red,
-        qt.Qt.green,
-        qt.Qt.blue,
-        qt.Qt.cyan,
-        qt.Qt.magenta,
-        qt.Qt.yellow,
-##         qt.Qt.darkRed,
-##         qt.Qt.darkGreen,
-##         qt.Qt.darkBlue,
-##         qt.Qt.darkCyan,
-##         qt.Qt.darkMagenta,
-##         qt.Qt.darkYellow,
-##         qt.Qt.transparent,
-        ]
+    colors = (qt.Qt.red,
+              qt.Qt.green,
+              qt.Qt.blue,
+              qt.Qt.cyan,
+              qt.Qt.magenta,
+              qt.Qt.yellow,
+              )
 
     def __init__(self, parent=None):
         qt.QMainWindow.__init__(self, parent)
@@ -108,26 +112,22 @@ class BarPlotMainWindow(qt.QMainWindow):
         """Initialize tracking
         """        
 
-##         print self.plot.canvas()
-##         canvas = BarCanvas(self.plot)
-##         canvas.setMouseTracking(True)
-##         print canvas
-##         self.connect(self.plot,
-##                      qt.SIGNAL('plotMouseMoved(const QMouseEvent&)'),
-##                      self.onMouseMoved)
-        #self.plot.canvas().setMouseTracking(True)
+        self.connect(Spy(self.plot.canvas()),
+                     qt.PYSIGNAL("MouseMove"),
+                     self.showCoordinates) 
+
         self.statusBar().message(
-            'Plot cursor movements are tracked in the status bar')
+            'Mouse movements in the plot canvas are shown in the status bar')
 
     # __initTracking()
 
-    def onMouseMoved(self, e):
+    def showCoordinates(self, position):
         self.statusBar().message(
             'x = %+.6g, y = %.6g'
-            % (self.plot.invTransform(Qwt.QwtPlot.xBottom, e.pos().x()),
-               self.plot.invTransform(Qwt.QwtPlot.yLeft, e.pos().y())))
+            % (self.plot.invTransform(Qwt.QwtPlot.xBottom, position.x()),
+               self.plot.invTransform(Qwt.QwtPlot.yLeft, position.y())))
 
-    # onMouseMoved()
+    # showCoordinates()
     
     def __initZooming(self):
         """Initialize zooming
@@ -295,6 +295,7 @@ def make():
 
 # make()
 
+
 def main(args):
     app = qt.QApplication(args)
     demo = make()
@@ -302,6 +303,7 @@ def main(args):
     sys.exit(app.exec_loop())
 
 # main()
+
 
 # Admire!
 if __name__ == '__main__':
