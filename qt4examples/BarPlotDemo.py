@@ -133,7 +133,7 @@ class BarPlotMainWindow(Qt.QMainWindow):
             % (self.plot.invTransform(Qwt.QwtPlot.xBottom, position.x()),
                self.plot.invTransform(Qwt.QwtPlot.yLeft, position.y())))
 
-    # onMouseMoved()
+    # showCoordinates()
     
     def __initZooming(self):
         """Initialize zooming
