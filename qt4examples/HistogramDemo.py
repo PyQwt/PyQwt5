@@ -104,7 +104,7 @@ class HistogramItem(Qwt.QwtPlotItem):
                 self.drawBar(
                     painter, Qt.Qt.Horizontal, Qt.QRect(x0, y1, x2-x0, y2-y1))
             else:
-                y2 = xMap.transform(iData.value(i))
+                y2 = yMap.transform(iData.value(i))
                 if y2 == y0:
                     continue
 
@@ -121,7 +121,7 @@ class HistogramItem(Qwt.QwtPlotItem):
                     yy2 = yMap.transform(iData.value(i+1))
                     if x2 == min(xx1, xx2):
                         if yy2 != 0 and (( yy2 < y0 and y2 < y0)
-                                         or (yy2 >y0 and y2 >y0)):
+                                         or (yy2 > y0 and y2 > y0)):
                             # One pixel distance between neighboured bars
                             x2 -= 1
                 
