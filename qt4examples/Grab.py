@@ -24,6 +24,7 @@ jobs = [
     'DialDemo',
     'ErrorBarDemo',
     'EventFilterDemo',
+    'HistogramDemo',
     'ImagePlotDemo',
     'MapDemo',
     'MultiDemo',
