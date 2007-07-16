@@ -45,6 +45,10 @@ public:
     const QwtDoubleInterval& interval(size_t) const;
     double value(size_t) const;
     QwtDoubleRect boundingRect() const;
+
+    QwtIntervalData(const QwtArrayQwtDoubleInterval&, const QwtArrayDouble&);
+    void setData(const QwtArrayQwtDoubleInterval&, const QwtArrayDouble&);
+
 }; // class QwtIntervalData
 
 

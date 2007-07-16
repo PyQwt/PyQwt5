@@ -954,6 +954,29 @@ aSlot gets: <PyQt4.QtCore.QPointF object at 0x2aaaaf73be20>
 
 \begin{classdesc*}{QwtIntervalData}
   is fully implemented.
+  
+  \begin{cfuncdesc}{}{QwtIntervalData}{
+      const QwtArray<QwtDoubleInterval> \&intervals,
+      const QwtArray<double> \&values}
+    is implemented as
+    \begin{verbatim}
+intervalData = QwtIntervalData(intervals, values)
+    \end{verbatim}
+    where intervals is a QwtArrayQwtDoubleInterval or a list containing
+    QwtDoubleInterval instances.
+  \end{cfuncdesc}
+
+  \begin{cfuncdesc}{void}{setData}{
+      const QwtArray<QwtDoubleInterval> \&intervals,
+      const QwtArray<double> \&values}
+    is implemented as
+    \begin{verbatim}
+intervalData.setData(intervals, values)
+    \end{verbatim}
+    where intervals is a QwtArrayQwtDoubleInterval or a list containing
+    QwtDoubleInterval instances.
+  \end{cfuncdesc}
+
 \end{classdesc*}
 
 \begin{classdesc*}{QwtKnob}
