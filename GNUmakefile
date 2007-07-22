@@ -109,7 +109,7 @@ qwt-5.1:
 	rm -rf qwt-5.1; cp -pr tmp/qwt-5.1 qwt-5.1
 	python untabify.py -t 4 qwt-5.1 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.1.patch
-	(cd qwt-5.1/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.2 doxygen Doxyfile)
+	(cd qwt-5.1/doc; doxygen -u Doxyfile; QTDIR=~/usr/lib/qt4.3 doxygen Doxyfile)
 	(cd qwt-5.1; rm -rf admin doc/images doc/latex doc/man)
 	find qwt-5.1 -name .svn \
 		-o -name '*.map' \
