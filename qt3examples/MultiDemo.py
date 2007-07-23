@@ -37,70 +37,85 @@ class MultiDemo(qt.QWidget):
         
         # try to create a plot for SciPy arrays
         try:
-            import numpy
             # import does_not_exist
+            import numpy
+            # make a curve and copy the data
+            numpy_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            x = numpy.arange(0.0, 10.0, 0.01)
+            y = lorentzian(x)
+            numpy_curve.setData(x, y)
+            # here, we know we can plot NumPy arrays
             numpy_plot = Qwt.QwtPlot(self)
             numpy_plot.setTitle('numpy array')
             numpy_plot.setCanvasBackground(qt.Qt.white)
             numpy_plot.plotLayout().setCanvasMargin(0)
             numpy_plot.plotLayout().setAlignCanvasToScales(True)
-            x = numpy.arange(0.0, 10.0, 0.01)
-            y = lorentzian(x)
-            # insert a curve, make it red and copy the arrays
-            numpy_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            # insert a curve and make it red
             numpy_curve.attach(numpy_plot)
             numpy_curve.setPen(qt.QPen(qt.Qt.red))
-            numpy_curve.setData(x, y)
             layout.addWidget(numpy_plot, 0, 0)
             numpy_plot.replot()
         except ImportError, message:
             print "%s: %s" % (ImportError, message)
-            print "Cannot show how to plot NumPy arrays"
+            print "Install NumPy to plot plot NumPy arrays"
+        except TypeError, message:
+            print "%s: %s" % (TypeError, message)
+            print "Rebuild PyQwt to plot NumPy arrays"
 
         # try to create a plot for Numeric arrays
         try:
-            import Numeric
             # import does_not_exist
+            import Numeric
+            # make a curve and copy the data
+            numeric_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            x = Numeric.arange(0.0, 10.0, 0.01)
+            y = lorentzian(x)
+            numeric_curve.setData(x, y)
+            # here, we know we can plot Numeric arrays
             numeric_plot = Qwt.QwtPlot(self)
             numeric_plot.setTitle('Numeric array')
             numeric_plot.setCanvasBackground(qt.Qt.white)
             numeric_plot.plotLayout().setCanvasMargin(0)
             numeric_plot.plotLayout().setAlignCanvasToScales(True)
-            x = Numeric.arange(0.0, 10.0, 0.01)
-            y = lorentzian(x)
-            # insert a curve, make it red and copy the arrays
-            numeric_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            # insert a curve and it red
             numeric_curve.attach(numeric_plot)
             numeric_curve.setPen(qt.QPen(qt.Qt.red))
-            numeric_curve.setData(x, y)
             layout.addWidget(numeric_plot, 0, 1)
             numeric_plot.replot()
         except ImportError, message:
             print "%s: %s" % (ImportError, message)
-            print "Cannot show how to plot Numeric arrays"
+            print "Install Numeric to plot Numeric arrays"
+        except TypeError, message:
+            print "%s: %s" % (TypeError, message)
+            print "Rebuild PyQwt to plot Numeric arrays"
 
         # try to create a plot for numarray arrays
         try:
-            import numarray
             # import does_not_exist
+            import numarray
+            # make a curve and copy the data
+            numarray_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            x = numarray.arange(0.0, 10.0, 0.01)
+            y = lorentzian(x)
+            numarray_curve.setData(x, y)
+            # here, we know we can plot numarray arrays
             numarray_plot = Qwt.QwtPlot(self)
             numarray_plot.setTitle('numarray array')
             numarray_plot.setCanvasBackground(qt.Qt.white)
             numarray_plot.plotLayout().setCanvasMargin(0)
             numarray_plot.plotLayout().setAlignCanvasToScales(True)
-            x = numarray.arange(0.0, 10.0, 0.01)
-            y = lorentzian(x)
-            # insert a curve, make it red and copy the arrays
-            numarray_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
+            # insert a curve and make it red
             numarray_curve.attach(numarray_plot)
             numarray_curve.setPen(qt.QPen(qt.Qt.red))
-            numarray_curve.setData(x, y)
             layout.addWidget(numarray_plot, 1, 0)
             numarray_plot.replot()
         except ImportError, message:
             print "%s: %s" % (ImportError, message)
-            print "Cannot show how to plot numarray arrays"
-            pass
+            print "Install numarray to plot numarray arrays"
+        except TypeError, message:
+            print "%s: %s" % (TypeError, message)
+            print "Rebuild PyQwt to plot numarray arrays"            
+
 
         # create a plot widget for lists of Python floats
         list_plot = Qwt.QwtPlot(self)
