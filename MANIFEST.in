@@ -5,7 +5,8 @@ include ANNOUNCEMENT-5.0.1 CHANGES-5.0.1 COPYING*
 include MANIFEST.in GNUmakefile pyqwt-5.0.patch
 
 # Documentation
-graft Doc/html/pyqwt
+graft Doc
+recursive-exclude Doc *cvsignore* *~ doc htdoc htdoc/* WARNINGS
 
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
