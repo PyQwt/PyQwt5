@@ -326,7 +326,7 @@ def check_compiler(configuration, options):
     if generator in ['MSVC', 'MSVC.NET']:
         options.extra_cxxflags.extend(['-GR'])
 
-    program = os.linesep.join([
+    program = '\n'.join([
         r'#include <stddef.h>',
         r'class a { public: void f(size_t); };',
         r'void a::f(%s) {};',
@@ -427,7 +427,7 @@ def check_qwt(configuration, options):
         except OSError:
             pass
 
-    open('qwt_version_info.cpp', 'w').write(os.linesep.join([
+    open('qwt_version_info.cpp', 'w').write('\n'.join([
         r'#include <stdio.h>',
         r'#include <qwt_global.h>',
         r'',
@@ -492,7 +492,7 @@ def check_qwt(configuration, options):
     options.qwt_sipfile = os.path.join(
         os.pardir, 'sip', options.qwt, 'QwtModule.sip')
 
-    open('qwt_svg_check.cpp', 'w').write(os.linesep.join([
+    open('qwt_svg_check.cpp', 'w').write('\n'.join([
         r'#include <qwt_plot_svgitem.h>',
         r'',
         r'int main(int, char **)',
