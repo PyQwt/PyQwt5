@@ -1,4 +1,4 @@
-# import either scipy, or numarray, or Numeric into numpy
+# import either NumPy, or numarray, or Numeric
 
 for name in ('numpy', 'numarray', 'Numeric'):
     failed = False
@@ -13,8 +13,18 @@ for name in ('numpy', 'numarray', 'Numeric'):
     if not failed:
         break
 else:
+    import PyQt4.Qt as Qt
+    if not Qt.QCoreApplication.instance():
+        a = Qt.QApplication([])
+    Qt.QMessageBox.critical(
+        None,
+        'Numerical Python Extension Required',
+        'This example requires a Numerical Python Extension, but\n'
+        'failed to import either NumPy, or numarray, or Numeric.\n'
+        'NumPy is available at http://sourceforge.net/projects/numpy'
+        )
     raise SystemExit, (
-        'Failed to import either NumPy, or numarray, or Numeric\n'
+        'Failed to import either NumPy, or numarray, or Numeric.\n'
         'NumPy is available at http://sourceforge.net/projects/numpy'
         )
 
