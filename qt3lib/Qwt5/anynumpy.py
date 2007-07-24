@@ -14,8 +14,12 @@ for name in ('numpy', 'numarray', 'Numeric'):
         break
 else:
     import qt
-    # FIXME: qt.qApp does not return None when no QApplication instance exists.
-    a = qt.QApplication([])
+    # Provoke a runtime error when no QApplication instance exists, since
+    # qt.qApp does not return None when no QApplication instance exists.
+    try:
+        qt.qApp.name()
+    except RuntimeError:
+        a = qt.QApplication([])
     qt.QMessageBox.critical(
         None,
         'Numerical Python Extension Required',
@@ -24,7 +28,7 @@ else:
         'NumPy is available at http://sourceforge.net/projects/numpy'
         )
     raise SystemExit, (
-        'Failed to import either NumPy, or numarray, or Numeric\n'
+        'Failed to import either NumPy, or numarray, or Numeric.\n'
         'NumPy is available at http://sourceforge.net/projects/numpy'
         )
 
