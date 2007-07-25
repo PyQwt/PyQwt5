@@ -50,17 +50,15 @@ static int iqt_input_hook(void)
 #if defined(Q_OS_WIN32)
         QTimer timer;
         QObject::connect(&timer, SIGNAL(timeout()), a, SLOT(quit()));
-
         do {
             timer.start(100);
             QCoreApplication::exec();
             timer.stop();
         } while (!_kbhit());
-
         QObject::disconnect(&timer, SIGNAL(timeout()), a, SLOT(quit()));
 #else
 #if HAVE_LIBREADLINE
-	a->processEvents();
+        a->processEvents();
 #else
         QSocketNotifier notifier(0, QSocketNotifier::Read, 0);
         QObject::connect(&notifier, SIGNAL(activated(int)), a, SLOT(quit()));
@@ -83,4 +81,5 @@ PyOS_InputHook = iqt_input_hook;
 // Local Variables:
 // mode: C++
 // c-file-style: "stroustrup"
+// indent-tabs-mode: nil
 // End:
