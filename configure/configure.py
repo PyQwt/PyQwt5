@@ -38,14 +38,14 @@ def get_pyqt_configuration(options):
     """
 
     if options.qt == 3:
-        required = 'Requires at least PyQt-3.17.2 and its development tools.'
+        required = 'Requires at least PyQt-3.17 and its development tools.'
         options.qwt = 'qwt5qt3'
         options.iqt = 'iqt5qt3'
         try:
             import pyqtconfig as pyqtconfig
         except ImportError:
             raise Die, required
-        if 0x031102 > pyqtconfig._pkg_config['pyqt_version']:
+        if 0x031100 > pyqtconfig._pkg_config['pyqt_version']:
             raise Die, required
     elif options.qt == 4:
         required = 'Requires at least PyQt-4.2 and its development tools.'
