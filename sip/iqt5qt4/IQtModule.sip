@@ -59,11 +59,15 @@ static int iqt_input_hook(void)
 
         QObject::disconnect(&timer, SIGNAL(timeout()), a, SLOT(quit()));
 #else
+#if HAVE_LIBREADLINE
+	a->processEvents();
+#else
         QSocketNotifier notifier(0, QSocketNotifier::Read, 0);
         QObject::connect(&notifier, SIGNAL(activated(int)), a, SLOT(quit()));
         QCoreApplication::exec();
         QObject::disconnect(&notifier, SIGNAL(activated(int)), a, SLOT(quit()));
-#endif
+#endif // HAVE_LIBREADLINE
+#endif // defined(Q_OS_WIN32)
     }
 
     return 0;

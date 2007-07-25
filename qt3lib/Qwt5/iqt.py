@@ -3,25 +3,21 @@
 Provides control over PyQt and PyQwt widgets from the command line interpreter.
 """
 
-import sys
-
-# Import GNU readline or inputhooker; is also usable in Python scripts.
+# Import GNU readline, so that readline can do its work in Python scripts.
+# _iqt falls back on a different method when there is no GNU readline.
 try:
     import readline
-    if '.py' in sys.modules['readline'].__file__:
-        # try inputhooker when readline is not GNU readline
-        try:
-            import inputhooker
-        except ImportError:
-            print 'Install InputHooker from http://pyqwt.sourceforge.net.'
 except ImportError:
-    try:
-        import inputhooker
-    except ImportError:
-        print 'Install InputHooker from http://pyqwt.sourceforge.net.'
+    pass
 
-from qt import QApplication
-_a = QApplication([])
+from qt import QApplication, qApp
+
+# Provoke a runtime error when no QApplication instance exists, since
+# qApp does not return None when no QApplication instance exists.
+try:
+    qApp.name()
+except RuntimeError:
+    _a = QApplication([])
 
 import _iqt 
 
