@@ -251,19 +251,14 @@ the web, supplemented by chapter \ref{reference} to document the differences
 between PyQwt and Qwt.
 
 
-\subsection{Qwt5.iqt
+\subsection{Qwt5.iqt or PyQt4.Qwt5.iqt
   \label{iqt-intro}}
 
 \Future{}
 
 \begin{notice}[note]
-  PyQt-4.3 and later has the functionality of the \module{Qwt5.iqt} module
-  and does not need the \module{readline} module.
-\end{notice}
-
-\begin{notice}[warning]
-  The module \module{Qwt5.iqt} will not work with a MSVC-compiled Python,
-  because it has no \module{readline} module.
+  PyQt-4.3 and later has most of the functionality of the \module{iqt}
+  module.
 \end{notice}
 
 The programming style \emph{imposed} by PyQt (before version 4.3) and other
@@ -271,7 +266,7 @@ GUI toolkit wrappers is to create an application instance with some widgets
 and to enter an event loop that locks you from the Python command line
 interpreter.
 
-Module \module{Qwt5.iqt} enables you to:
+The \module{iqt} module enables you to:
 \begin{itemize}
 \item
   create and control (Py)Qt widgets from the command line interpreter or an
@@ -280,13 +275,19 @@ Module \module{Qwt5.iqt} enables you to:
   to interact with those widgets through (Py)Qt's GUI.
 \end{itemize}
 
-Module \module{iqt} works by hooking \cfunction{qApp->processEvents()} on the
-event hook of the readline module.
-The GNU readline library closes the event loop by calling 
-\cfunction{qApp->processEvent()} at a maximum rate of 10 times per second
-while reading your keyboard input.
+When Python has the GNU \module{readline} module, the \module{iqt} module
+works by hooking \cfunction{qApp->processEvents()} on the event hook of the
+\module{readline} module. The GNU readline library closes the event loop by
+calling  \cfunction{qApp->processEvent()} at a maximum rate of 10 times per
+second while reading your keyboard input.
 
-To see how \module{Qwt5.iqt} works, play with \file{ICompass.py} by running
+When Python does not have the GNU \module{readline} module, the \module{iqt}
+module uses the
+{\ulink{techniques}
+  {http://www.riverbankcomputing.com/pipermail/pyqt/2007-July/016512.html}}
+suggested on the PyQt mailing list.
+
+To see how the \module{iqt} works, play with \file{ICompass.py} by running
 \begin{verbatim}
 python -i ICompass.py
 \end{verbatim}
@@ -302,23 +303,23 @@ ipython ICompass.py
 My \file{.pythonrc.py} file loads the modules \module{readline},
 \module{rlcompleter} and \module{iqt}.  Then, it configures \module{readline}
 for tab-completion and history saving and cleans up the global namespace.
-Finally, it loads the modules \module{scipy}, \module{qwt}, and \module{qt},
-while setting up the help system for \module{scipy}:
+Finally, it loads the modules \module{Qwt5}, \module{Qt}, \module{numpy},
+and \module{scipy}, while setting up the help system for \module{scipy}:
 \verbatiminput{pythonrc.py}
 
 
-\subsection{Qwt5.qplt \label{qwt-qplt}}
+\subsection{Qwt5.qplt or PyQt4.Qwt5.qplt \label{qwt-qplt}}
 
 \Future{}
 
-The module \module{Qwt5.qplt} defines a tiny data-directed programming
+The module \module{qplt} defines a tiny data-directed programming
 language to simplify the use of \class{QwtPlot} from the Python command
 line interpreter.
 Here follows a small example:
 
 \verbatiminput{qplt.example}
 
-\subsubsection{Qwt5.qplt.Plot \label{intro-qplt-plot}}
+\subsubsection{Qwt5.qplt.Plot or PyQt4.Qwt5.qplt.Plot \label{intro-qplt-plot}}
 
 \Future{}
 
@@ -402,7 +403,7 @@ Attach the QwtPlotZoomer actions to set of mouse events.
 Toggle a curve between hidden and shown.
 \end{methoddesc}
 
-\subsubsection{Qwt5.qplt.IPlot \label{intro-qplt-iplot}}
+\subsubsection{Qwt5.qplt.IPlot or PyQt4.Qwt5.qplt.IPlot \label{intro-qplt-iplot}}
 
 \Future{}
 
@@ -448,7 +449,7 @@ print the plot.
 
 \end{classdesc}
 
-\subsubsection{Qwt5.qplt.Curve \label{intro-qplt-curve}}
+\subsubsection{Qwt5.qplt.Curve or PyQt4.Qwt5.qplt.Curve \label{intro-qplt-curve}}
 
 \Future{}
 
@@ -469,7 +470,7 @@ print the plot.
   \end{itemize}
 \end{classdesc}
 
-\subsubsection{Qwt5.qplt.Axis \label{intro-qplt-axis}}
+\subsubsection{Qwt5.qplt.Axis or PyQt4.Qwt5.qplt.Axis \label{intro-qplt-axis}}
 
 \Future{}
 
@@ -488,7 +489,7 @@ print the plot.
   \end{itemize}
 \end{classdesc}
 
-\subsubsection{Qwt5.qplt.Pen \label{intro-qplt-pen}}
+\subsubsection{Qwt5.qplt.Pen or PyQt4.Qwt5.qplt.Pen \label{intro-qplt-pen}}
 
 \Future{}
 
@@ -505,7 +506,7 @@ print the plot.
   \end{itemize}
 \end{classdesc}
 
-\subsubsection{Qwt5.qplt.Symbol \label{intro-qplt-symbol}}
+\subsubsection{Qwt5.qplt.Symbol or PyQt4.Qwt5.qplt.Symbol \label{intro-qplt-symbol}}
 
 \Future{}
 
@@ -539,16 +540,16 @@ Build prerequisites for \PyQwtTarGz{}:
 \begin{enumerate}
   \item
     \ulink{Python}{http://www.python.org}.\\
-    Supported versions: Python-2.5.x, Python-2.4.x, and Python-2.3.x.
+    Supported versions: Python-2.5.x, Python-2.4.x.
   \item
     \ulink{Qt}{http://www.trolltech.com}.\\
-    Supported versions: Qt-4.3.0, Qt-4.2.x, Qt-4.1.x, Qt-3.3.x, and Qt-3.2.x.
+    Supported versions: Qt-4.3.0, Qt-4.2.x, Qt-3.3.x, and Qt-3.2.x.
   \item
     \Sip{}.\\
-    Supported versions: sip-4.7.x, sip-4.6.x, and sip-4.5.x.
+    Supported versions: sip-4.7.x, and sip-4.6.x.
   \item
     Either \PyQtGpl{}, or \PyQtMac{}, or \PyQtFourGpl{}, or \PyQtFourMac{}.\\
-    Supported versions: PyQt-4.3.x, PyQt-4.2.x, PyQt-4.1.x, and PyQt-3.17.x.
+    Supported versions: PyQt-4.3.x, PyQt-4.2.x, and PyQt-3.17.x.
 \end{enumerate}
 
 \PrerequisitesEnd{}
@@ -618,19 +619,12 @@ python configure.py -h
 
 \Future{}
 
-Subsection \ref{exe-release} explain how to install PyQwt in combination with
-PyQt-4.2.
+PyQwt is included in the binary installer of 
+{\ulink{PyQt-gpl-4.3}{http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/}
+for Windows.
 
-PyQwt is included in the binary installer of PyQt-gpl-4.3 for Windows.
-
-\Future{}
-
-\subsection{Binary Installer for PyQt-4.2
-  \label{exe-release}}
-
-\Future{}
-
-Run the following installers, if you have not done so:
+To install PyQwt in combination with \PyQtExe{}, you have to run the following
+installers, if you have not done so:
 \begin{enumerate}
 \item \PythonExe{}.
 \item \NumPyExe{}.
