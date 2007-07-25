@@ -34,9 +34,37 @@
 %ModuleCode
 #include <qcoreapplication.h>
 
-static int iqt_event_hook(void)
+#if defined(Q_OS_WIN32)
+#include <conio.h>
+#include <QTimer>
+#else
+#include <QSocketNotifier>
+#endif
+
+// copy the idea of Michiel de Hoon from PyQt-x11-gpl-4.3.
+static int iqt_input_hook(void)
 {
-    QCoreApplication::processEvents();
+    QCoreApplication *a = QCoreApplication::instance();
+
+    if (a) {
+#if defined(Q_OS_WIN32)
+        QTimer timer;
+        QObject::connect(&timer, SIGNAL(timeout()), a, SLOT(quit()));
+
+        do {
+            timer.start(100);
+            QCoreApplication::exec();
+            timer.stop();
+        } while (!_kbhit());
+
+        QObject::disconnect(&timer, SIGNAL(timeout()), a, SLOT(quit()));
+#else
+        QSocketNotifier notifier(0, QSocketNotifier::Read, 0);
+        QObject::connect(&notifier, SIGNAL(activated(int)), a, SLOT(quit()));
+        QCoreApplication::exec();
+        QObject::disconnect(&notifier, SIGNAL(activated(int)), a, SLOT(quit()));
+#endif
+    }
 
     return 0;
 }
@@ -45,7 +73,7 @@ static int iqt_event_hook(void)
 
 
 %PostInitialisationCode
-PyOS_InputHook = iqt_event_hook;
+PyOS_InputHook = iqt_input_hook;
 %End // PostInitialisationCode
 
 // Local Variables:
