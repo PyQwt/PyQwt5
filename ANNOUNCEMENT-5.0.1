@@ -1,0 +1,43 @@
+What is PyQwt ( http://pyqwt.sourceforge.net ) ?
+
+- it is a set of Python bindings for the Qwt C++ class library which
+  extends the Qt framework with widgets for scientific and engineering
+  applications.   It provides a widget to plot 2-dimensional data and
+  various widgets to display and control bounded or unbounded floating
+  point values.
+
+- it requires and extends PyQt, a set of Python bindings for Qt.
+
+- it supports the use of PyQt, Qt, Qwt, and optionally NumPy or SciPy
+  in a GUI Python application or in an interactive Python session.
+
+- it runs on POSIX, Mac OS X and Windows platforms (practically any
+  platform supported by Qt and Python).
+
+- it plots fast: displaying data with 100,000 points takes about 0.1 s.
+
+- it is licensed under the GPL with an exception to allow dynamic linking
+  with non-free releases of Qt and PyQt. 
+
+
+PyQwt-5.0.1 is a bug fix release. The most important new features are:
+- support for Qt-4.3, SIP-4.7, and PyQt-4.3
+- support for the N-D array interface specification
+  ( http://numpy.scipy.org/array_interface.shtml ).
+- is contained in the PyQt-Py2.5-gpl-4.3 binary installer for Windows
+  ( http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/ )
+
+The most important bug fix is:
+- fixed a huge memory leak in toQImage(anArray)
+
+PyQwt-5.0.1 supports:
+1. Python-2.5, or -2.4. 
+2. PyQt-3.17.
+3. PyQt-4.3, or PyQt-4.2.
+3  SIP-4.7, or SIP-4.6.
+4. Qt-3.3, or Qt-3.2.
+5. Qt-4.3, or Qt-4.2.
+6. Recent versions of NumPy, numarray, and/or Numeric.
+
+
+Enjoy -- Gerard Vermeulen
