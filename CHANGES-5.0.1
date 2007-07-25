@@ -6,9 +6,14 @@ New features:
 - one of the QwtPlotPicker::TrackerText() C++ member functions has been renamed
   to QwtPlotPicker.TrackerTextF() in Python for disambiguation.
 - added the HistogramDemo.py example.
+- when anynumpy.py fails to import any numerical Python extension, it pops up a
+  message box showing where to get NumPy.
 
 Bug fixes:
 - plugs a memory leak in toQImage(anArray).
 - builts against an system Qwt library without the QwtSVGItem CONFIG option.
+- builts with Python-2.5 and MSVS-2005
 - fixed the mouse movement tracking in the BarPlotDemo.py example.
+- fixed crashing of MultiDemo.py when a numerical Python extension has been
+  installed but PyQwt has not been built with support for that extension.
 - includes revision 173 of the Qwt subversion bugfix branch.
