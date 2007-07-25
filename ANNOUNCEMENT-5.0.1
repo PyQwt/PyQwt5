@@ -14,21 +14,24 @@ What is PyQwt ( http://pyqwt.sourceforge.net ) ?
 - it runs on POSIX, Mac OS X and Windows platforms (practically any
   platform supported by Qt and Python).
 
-- it plots fast: displaying data with 100,000 points takes about 0.1 s.
+- it plots fast: displaying data with 100,000 points takes about 0.1 s
+  (PyQwt with Qt-3 is faster than with Qt-4).
 
 - it is licensed under the GPL with an exception to allow dynamic linking
   with non-free releases of Qt and PyQt. 
 
 
-PyQwt-5.0.1 is a bug fix release. The most important new features are:
+The most important new features of PyQwt-5.0.1 are:
 - support for Qt-4.3, SIP-4.7, and PyQt-4.3
 - support for the N-D array interface specification
   ( http://numpy.scipy.org/array_interface.shtml ).
-- is contained in the PyQt-Py2.5-gpl-4.3 binary installer for Windows
+- the iqt module also supports an interactive Python session without the
+  help of the GNU readline module.
+- PyQwt is now part of the PyQt-Py2.5-gpl-4.3 binary installer for Windows
   ( http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/ )
 
-The most important bug fix is:
-- fixed a huge memory leak in toQImage(anArray)
+The most important bug fix in PyQwt-5.0.1 is:
+- removal of a huge memory leak in the conversion from an array to a QImage.
 
 PyQwt-5.0.1 supports:
 1. Python-2.5, or -2.4. 
