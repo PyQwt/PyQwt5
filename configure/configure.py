@@ -395,8 +395,8 @@ def check_sip(configuration, options):
     
     print "Found SIP-%s." % version_str
 
-    if 0x040500 > version:
-        raise Die, 'PyQwt requires at least SIP-4.5.x.'
+    if 0x040600 > version:
+        raise Die, 'PyQwt requires at least SIP-4.6.'
 
     return options
 
