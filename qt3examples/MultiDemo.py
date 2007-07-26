@@ -57,7 +57,7 @@ class MultiDemo(qt.QWidget):
             numpy_plot.replot()
         except ImportError, message:
             print "%s: %s" % (ImportError, message)
-            print "Install NumPy to plot plot NumPy arrays"
+            print "Install NumPy to plot NumPy arrays"
         except TypeError, message:
             print "%s: %s" % (TypeError, message)
             print "Rebuild PyQwt to plot NumPy arrays"
