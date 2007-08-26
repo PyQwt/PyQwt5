@@ -66,18 +66,20 @@ class MaskedCurve(Qwt.QwtPlotCurve):
     # __init__()
 
     def draw(self, painter, xMap, yMap, rect):
-        # all indices of valid data points
+        # When the array indices contains the indices of all valid data points,
+        # a chunks of valid data is indexed by
+        # indices[first], indices[first+1], .., indices[last].
+        # The first index of a chunk of valid data is calculated by:
+        # 1. indices[i] - indices[i-1] > 1
+        # 2. indices[0] is always OK
+        # The last index of a chunk of valid data is calculated by:
+        # 1. index[i] - index[i+1] < -1
+        # 2. index[-1] is always OK
         indices = np.arange(self.data().size())[self.data().mask()]
-        # for the first index of a chunk of valid data holds:
-        # 1. index[i] - index[i-1] > 1
-        # 2. index[0] is always OK
         fs = np.array(indices)
         fs[1:] -= indices[:-1]
         fs[0] = 2
         fs = indices[fs > 1]
-        # for the last index of a chunk of valid data holds:
-        # 1. index[i] - index[i+1] < -1
-        # 2. index[-1] is always OK
         ls = np.array(indices)
         ls[:-1] -= indices[1:]
         ls[-1] = -2
@@ -92,7 +94,7 @@ def make():
     demo = Qwt.QwtPlot()
     demo.setTitle('Masked Data Demo')
     demo.setCanvasBackground(Qt.Qt.white)
-    # num = 501 causes a divide by zero warning on my machine
+    # num = 501 causes a divide by zero warning 64-bit Gentoo
     x = np.linspace(-2*np.pi, 2*np.pi, num=501)
     y = 1/np.sin(x)
     mask = np.logical_and(y>-3.0, y<3.0)
