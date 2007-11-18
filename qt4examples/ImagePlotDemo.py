@@ -83,7 +83,7 @@ class PlotImage(Qwt.QwtPlotItem):
     # updateLegend()
 
     def draw(self, painter, xMap, yMap, rect):
-        """Paint image to zooming to xMap, yMap
+        """Paint image zoomed to xMap, yMap
 
         Calculate (x1, y1, x2, y2) so that it contains at least 1 pixel,
         and copy the visible region to scale it to the canvas.
