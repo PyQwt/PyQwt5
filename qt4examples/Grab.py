@@ -28,6 +28,7 @@ jobs = [
     'HistogramDemo',
     'ImagePlotDemo',
     'MapDemo',
+    'MaskedDataDemo',
     'MultiDemo',
     'RadioDemo',
     'ReallySimpleDemo',
