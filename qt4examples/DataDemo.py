@@ -20,6 +20,7 @@ class DataPlot(Qwt.QwtPlot):
     def __init__(self, *args):
         Qwt.QwtPlot.__init__(self, *args)
 
+        self.setCanvasBackground(Qt.Qt.white)
         self.alignScales()
 
         # Initialize data
