@@ -13,20 +13,20 @@
 % Source code
 \newcommand{\Download}{\ulink{download}
   {http://pyqwt.sourceforge.net/download.html}}
-\newcommand{\Sip}{\ulink{sip-4.7.tar.gz}
-  {http://pyqwt.sourceforge.net/support/sip-4.7.tar.gz}}
-\newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.17.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.17.3.tar.gz}}
-\newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.17.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.17.3.tar.gz}}
-\newcommand{\PyQtFourGpl}{\ulink{PyQt4-x11-gpl-4.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.3.tar.gz}}
-\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.3.tar.gz}}
+\newcommand{\Sip}{\ulink{sip-4.7.3.tar.gz}
+  {http://pyqwt.sourceforge.net/support/sip-4.7.3.tar.gz}}
+\newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.17.4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.17.4.tar.gz}}
+\newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.17.4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.17.4.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt-x11-gpl-4.3.3.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.3.3.tar.gz}}
+\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.3.3.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.3.3.tar.gz}}
 \newcommand{\NumPy}{\ulink{NumPy}
   {http://numpy.scipy.org}}
-\newcommand{\NumPyTarGz}{\ulink{NumPy-1.0.3.tar.gz}
-  {http://prdownloads.sourceforge.net/numpy/numpy-1.0.3.tar.gz?download}}
+\newcommand{\NumPyTarGz}{\ulink{NumPy-1.0.4.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numpy-1.0.4.tar.gz?download}}
 \newcommand{\numarray}{\ulink{numarray}
   {http://www.stsci.edu/resources/software_hardware/numarray}}
 \newcommand{\numarrayTarGz}{\ulink{numarray-1.5.2.tar.gz}
@@ -46,8 +46,8 @@
   {http://www.python.org/ftp/python/2.5/python-2.5.1.msi}}
 \newcommand{\NumPyExe}{\ulink{numpy-1.0.3.win32-py2.5.exe}
   {http://prdownloads.sourceforge.net/numpy/numpy-1.0.3.win32-py2.5.exe}}
-\newcommand{\QtExe}{\ulink{qt-win-opensource-4.2.3-mingw.exe}
-  {ftp://ftp.trolltech.com/qt/source/qt-win-opensource-4.2.3-mingw.exe}}
+\newcommand{\QtExe}{\ulink{qt-win-opensource-4.3.3-mingw.exe}
+  {ftp://ftp.trolltech.com/qt/source/qt-win-opensource-4.3.3-mingw.exe}}
 \newcommand{\DevCpp}{\ulink{Dev-C++}
   {http://prdownloads.sourceforge.net/dev-cpp/devcpp-4.9.9.2_setup.exe}}
 \newcommand{\PyQtExe}{\ulink{PyQt-gpl-4.2-Py2.5-Qt4.2.3.exe}
@@ -620,22 +620,9 @@ python configure.py -h
 \Future{}
 
 PyQwt is included in the binary installer of 
-{\ulink{PyQt-gpl-4.3}{http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/}
+{\ulink{PyQt-gpl-4.3.3}{http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/}
 for Windows.
 
-To install PyQwt in combination with \PyQtExe{}, you have to run the following
-installers, if you have not done so:
-\begin{enumerate}
-\item \PythonExe{}.
-\item \NumPyExe{}.
-\item \QtExe{}.\\
-  Let the Qt installer install MinGW if for instance \DevCpp{} has not been
-  installed before Qt.
-\item \PyQtExe{}.\\
-  Make sure that you can run the PyQt examples by tweaking the environment
-  variable \var{PATH}.
-\item Install \PyQwtExe{}.
-\end{enumerate}
 
 \chapter{PyQwt Module Reference
   \label{reference}}
