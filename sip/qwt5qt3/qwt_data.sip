@@ -3,7 +3,7 @@
 //      QwtData,
 //      QwtPolygonFData.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -39,7 +39,6 @@ class QwtArrayData: QwtData
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtArrayData();
     QwtArrayData(const QwtArrayDouble&, const QwtArrayDouble&);
     QwtArrayData(SIP_PYOBJECT, SIP_PYOBJECT) [(const double*, const double*, size_t)];
 %MethodCode
@@ -62,6 +61,7 @@ sipCpp = new sipQwtArrayData(xArray, yArray);
     const QwtArrayDouble& xData() const;
     const QwtArrayDouble& yData() const;
     virtual QwtDoubleRect boundingRect() const;
+    virtual ~QwtArrayData();
 }; // class QwtArrayData
 
 
@@ -120,7 +120,6 @@ class QwtPolygonFData: QwtData
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPolygonFData();
     QwtPolygonFData(const QwtArrayQwtDoublePoint&);
     // Not Pythonic: QwtPolygonFData& operator=(const QwtPolygonFData&);
     virtual QwtData* copy() const;
@@ -128,6 +127,7 @@ public:
     virtual double x(size_t) const;
     virtual double y(size_t) const;
     const QwtArrayQwtDoublePoint& data() const;
+    virtual ~QwtPolygonFData();
 }; // class QwtPolygonFData
 
 

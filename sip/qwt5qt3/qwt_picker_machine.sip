@@ -6,7 +6,7 @@
 //      QwtPickerMachine,
 //      QwtPickerPolygonMachine.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -42,8 +42,8 @@ class QwtPickerClickPointMachine: QwtPickerMachine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPickerClickPointMachine();
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
+    virtual ~QwtPickerClickPointMachine();
 }; // class QwtPickerClickPointMachine
 
 
@@ -54,8 +54,8 @@ class QwtPickerClickRectMachine: QwtPickerMachine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPickerClickRectMachine();
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
+    virtual ~QwtPickerClickRectMachine();
 }; // class QwtPickerClickRectMachine
 
 
@@ -66,8 +66,8 @@ class QwtPickerDragPointMachine: QwtPickerMachine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPickerDragPointMachine();
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
+    virtual ~QwtPickerDragPointMachine();
 }; // class QwtPickerDragPointMachine
 
 
@@ -78,8 +78,8 @@ class QwtPickerDragRectMachine: QwtPickerMachine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPickerDragRectMachine();
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
+    virtual ~QwtPickerDragRectMachine();
 }; // class QwtPickerDragRectMachine
 
 
@@ -152,8 +152,8 @@ class QwtPickerPolygonMachine: QwtPickerMachine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPickerPolygonMachine();
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
+    virtual ~QwtPickerPolygonMachine();
 }; // class QwtPickerPolygonMachine
 
 

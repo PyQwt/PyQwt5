@@ -4,7 +4,7 @@
 //      QwtScaleArithmetic,
 //      QwtScaleEngine.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -40,12 +40,13 @@ class QwtLinearScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtLinearScaleEngine();
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const;
 protected:
     QwtDoubleInterval align(const QwtDoubleInterval&, double) const;
+public:
+    virtual ~QwtLinearScaleEngine();
 }; // class QwtLinearScaleEngine
 
 
@@ -56,13 +57,14 @@ class QwtLog10ScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtLog10ScaleEngine();
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const;
 protected:
     QwtDoubleInterval log10(const QwtDoubleInterval&) const;
     QwtDoubleInterval pow10(const QwtDoubleInterval&) const;
+public:
+    virtual ~QwtLog10ScaleEngine();
 }; // class QwtLog10ScaleEngine
 
 

@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtIntervalData.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -37,7 +37,6 @@ class QwtIntervalData
 %End // %TypeHeaderCode
 
 public:
-    ~QwtIntervalData();
     QwtIntervalData();
     QwtIntervalData(const QVector<QwtDoubleInterval>&, const QwtArrayDouble&);
     void setData(const QVector<QwtDoubleInterval>&, const QwtArrayDouble&);

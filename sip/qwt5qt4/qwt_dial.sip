@@ -2,7 +2,7 @@
 //      QwtDial,
 //      QwtDialScaleDraw.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -113,11 +113,11 @@ class QwtDialScaleDraw: QwtRoundScaleDraw
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtDialScaleDraw();
     QwtDialScaleDraw(QwtDial*);
     virtual QwtText label(double) const;
     void setPenWidth(uint);
     uint penWidth() const;
+    virtual ~QwtDialScaleDraw();
 }; // class QwtDialScaleDraw
 
 

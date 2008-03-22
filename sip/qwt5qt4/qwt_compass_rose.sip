@@ -2,7 +2,7 @@
 //      QwtCompassRose,
 //      QwtSimpleCompassRose.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -52,7 +52,6 @@ class QwtSimpleCompassRose: QwtCompassRose
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtSimpleCompassRose();
     QwtSimpleCompassRose(int = 8, int = -1);
     void setWidth(double);
     double width() const;
@@ -64,6 +63,7 @@ public:
     double shrinkFactor() const;
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawRose(QPainter*, const QPalette&, const QPoint&, int, double, double, int, int, double);
+    virtual ~QwtSimpleCompassRose();
 }; // class QwtSimpleCompassRose
 
 

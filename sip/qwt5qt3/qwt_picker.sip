@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtPicker.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -104,6 +104,8 @@ public:
     const QwtPolygon& selection() const;
     virtual void drawRubberBand(QPainter*) const;
     virtual void drawTracker(QPainter*) const;
+    virtual QwtText trackerText(const QPoint&) const;
+    QRect trackerRect(QPainter*) const;
 signals:
     void selected(const QwtPolygon&);
     void appended(const QPoint&);
@@ -124,9 +126,7 @@ protected:
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
     virtual void widgetLeaveEvent(QEvent*);
-    QRect trackerRect(QPainter*) const;
     virtual void stretchSelection(const QSize&, const QSize&);
-    virtual QwtText trackerText(const QPoint&) const;
     virtual QwtPickerMachine* stateMachine(int) const;
     virtual void updateDisplay();
     const QWidget* rubberBandWidget() const;

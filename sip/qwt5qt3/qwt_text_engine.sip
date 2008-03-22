@@ -3,7 +3,7 @@
 //      QwtRichTextEngine,
 //      QwtTextEngine.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -56,13 +56,13 @@ class QwtRichTextEngine: QwtTextEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtRichTextEngine();
     QwtRichTextEngine();
     virtual int heightForWidth(const QFont&, int, const QString&, int) const;
     virtual QSize textSize(const QFont&, int, const QString&) const;
     virtual void draw(QPainter*, const QRect&, int, const QString&) const;
     virtual bool mightRender(const QString&) const;
     virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&) const;
+    virtual ~QwtRichTextEngine();
 }; // class QwtRichTextEngine
 
 

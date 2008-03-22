@@ -4,7 +4,7 @@
 //      QwtDialNeedle,
 //      QwtDialSimpleNeedle.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -45,13 +45,14 @@ public:
         ThinStyle
     }; // enum Style
 
-    virtual ~QwtCompassMagnetNeedle();
     QwtCompassMagnetNeedle(QwtCompassMagnetNeedle::Style = TriangleStyle, const QColor& = Qt::white, const QColor& = Qt::red);
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawTriangleNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
     static void drawThinNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
 protected:
     static void drawPointer(QPainter*, const QBrush&, int, const QPoint&, int, int, double);
+public:
+    virtual ~QwtCompassMagnetNeedle();
 }; // class QwtCompassMagnetNeedle
 
 
@@ -67,11 +68,11 @@ public:
         Style2
     }; // enum Style
 
-    virtual ~QwtCompassWindArrow();
     QwtCompassWindArrow(QwtCompassWindArrow::Style, const QColor& = Qt::white, const QColor& = Qt::gray);
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawStyle1Needle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
     static void drawStyle2Needle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
+    virtual ~QwtCompassWindArrow();
 }; // class QwtCompassWindArrow
 
 
@@ -104,13 +105,13 @@ public:
         Ray
     }; // enum Style
 
-    virtual ~QwtDialSimpleNeedle();
     QwtDialSimpleNeedle(QwtDialSimpleNeedle::Style, bool = true, const QColor& = Qt::gray, const QColor& = Qt::darkGray);
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawArrowNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, int, double, bool);
     static void drawRayNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, int, double, bool);
     void setWidth(int);
     int width() const;
+    virtual ~QwtDialSimpleNeedle();
 }; // class QwtDialSimpleNeedle
 
 

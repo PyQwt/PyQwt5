@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtText.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -56,13 +56,13 @@ public:
         MinimumLayout
     }; // enum LayoutAttribute
 
-    QwtText(const QString& = QString::null, QwtText::TextFormat = AutoText);
+    QwtText(const QString& = QString::null, QwtText::TextFormat = QwtText::AutoText);
     QwtText(const QwtText&);
     ~QwtText();
     // Not Pythonic: QwtText& operator=(const QwtText&);
     int operator==(const QwtText&) const;
     int operator!=(const QwtText&) const;
-    void setText(const QString&, QwtText::TextFormat = AutoText);
+    void setText(const QString&, QwtText::TextFormat = QwtText::AutoText);
     QString text() const;
     bool isNull() const;
     bool isEmpty() const;
@@ -85,7 +85,7 @@ public:
     int heightForWidth(int, const QFont& = QFont()) const;
     QSize textSize(const QFont& = QFont()) const;
     void draw(QPainter*, const QRect&) const;
-    static const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = AutoText);
+    static const QwtTextEngine* textEngine(const QString&, QwtText::TextFormat = QwtText::AutoText);
     static const QwtTextEngine* textEngine(QwtText::TextFormat);
     static void setTextEngine(QwtText::TextFormat, QwtTextEngine*);
 }; // class QwtText

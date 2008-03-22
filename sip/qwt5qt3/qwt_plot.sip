@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtPlot.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -108,7 +108,7 @@ public:
     int axisMaxMajor(int) const;
     void setAxisMaxMajor(int, int);
     int axisMaxMinor(int) const;
-    void insertLegend(QwtLegend* /Transfer/, QwtPlot::LegendPosition = QwtPlot::RightLegend, double = -1);
+    void insertLegend(QwtLegend*, QwtPlot::LegendPosition = RightLegend, double = -1.0e+0);
     QwtLegend* legend();
     // signature: const QwtLegend* legend() const;
     virtual void polish();

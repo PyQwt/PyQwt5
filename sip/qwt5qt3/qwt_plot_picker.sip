@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QwtPlotPicker.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -37,7 +37,6 @@ class QwtPlotPicker: QwtPicker
 %End // %TypeHeaderCode
 
 public:
-    virtual ~QwtPlotPicker();
     QwtPlotPicker(QwtPlotCanvas* /TransferThis/);
     QwtPlotPicker(int, int, QwtPlotCanvas* /TransferThis/);
     QwtPlotPicker(int, int, int, QwtPicker::RubberBand, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/);
@@ -65,6 +64,8 @@ protected:
     virtual void move(const QPoint&);
     virtual void append(const QPoint&);
     virtual bool end(bool = true);
+public:
+    virtual ~QwtPlotPicker();
 }; // class QwtPlotPicker
 
 
