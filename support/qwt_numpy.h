@@ -1,6 +1,6 @@
 // The header for the interface PyQwt <-> NumPy.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
