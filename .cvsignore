@@ -3,6 +3,9 @@ old-5.0
 old-5.1
 qwt-5.0
 qwt-5.1
+qwt-5.0.0*
+qwt-5.0.1*
+qwt-5.0.2*
 tmp
 MANIFEST
 typescript
