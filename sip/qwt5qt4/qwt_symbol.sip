@@ -61,7 +61,13 @@ public:
     QwtSymbol(QwtSymbol::Style, const QBrush&, const QPen&, const QSize&);
     virtual ~QwtSymbol();
     bool operator!=(const QwtSymbol&) const;
+%If (- Qwt_5_1_0)
     bool operator==(const QwtSymbol&) const;
+%End // (- Qwt_5_1_0)
+%If (Qwt_5_1_0 -)
+    virtual bool operator==(const QwtSymbol&) const;
+    virtual QwtSymbol* clone() const /Factory/;
+%End // (Qwt_5_1_0 -)
     void setSize(const QSize&);
     void setSize(int, int = -1);
     void setBrush(const QBrush&);

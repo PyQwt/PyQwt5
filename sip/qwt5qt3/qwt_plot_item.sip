@@ -40,6 +40,9 @@ public:
     enum RttiValues {
         Rtti_PlotItem,
         Rtti_PlotGrid,
+%If (Qwt_5_1_0 -)
+        Rtti_PlotScale,
+%End // (Qwt_5_1_0 -)
         Rtti_PlotMarker,
         Rtti_PlotCurve,
         Rtti_PlotHistogram,
@@ -99,10 +102,16 @@ private:
     switch (sipCpp->rtti()) {
     case QwtPlotItem::Rtti_PlotItem: sipClass = sipClass_QwtPlotItem; break;
     case QwtPlotItem::Rtti_PlotGrid: sipClass = sipClass_QwtPlotGrid; break; 
+#ifdef HAS_QWT_PLOT_SCALE_ITEM
+    case QwtPlotItem::Rtti_PlotScale: sipClass = sipClass_QwtPlotScaleItem; break; 
+#endif // HAS_QWT_PLOT_SCALE_ITEM 
     case QwtPlotItem::Rtti_PlotMarker: sipClass = sipClass_QwtPlotMarker; break; 
     case QwtPlotItem::Rtti_PlotCurve: sipClass = sipClass_QwtPlotCurve; break;
     // MISSING case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
     case QwtPlotItem::Rtti_PlotSpectrogram: sipClass = sipClass_QwtPlotSpectrogram; break;
+#ifdef HAS_QWT_PLOT_SVG_ITEM
+    case QwtPlotItem::Rtti_PlotSVG: sipClass = sipClass_QwtPlotSvgItem; break; 
+#endif // HAS_QWT_PLOT_SVG_ITEM
     default: sipClass = 0;
     }
     Py_END_ALLOW_THREADS

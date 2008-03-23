@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPanner.
+//      QwtPlotScaleItem.
 //
 // Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,40 +30,35 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-class QwtPanner: QWidget
+class QwtPlotScaleItem: QwtPlotItem
 {
 %TypeHeaderCode
-#include <qwt_panner.h>
+#include <qwt_plot_scaleitem.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtPanner(QWidget* /TransferThis/);
-    virtual ~QwtPanner();
-    void setEnabled(bool);
-    bool isEnabled() const;
-    void setMouseButton(int, int = Qt::NoButton);
-    void getMouseButton(int&, int&) const;
-    void setAbortKey(int, int = Qt::NoButton);
-    void getAbortKey(int&, int&) const;
-    void setCursor(const QCursor&);
-    const QCursor cursor() const;
-%If (Qwt_5_1_0 -)
-    void setOrientations(Qt::Orientations);
-    Qt::Orientations orientations() const;
-    bool isOrientationEnabled(Qt::Orientation) const;
-%End // (Qwt_5_1_0 -)
-    virtual bool eventFilter(QObject*, QEvent*);
-signals:
-    void panned(int, int);
-    void moved(int, int);
-protected:
-    virtual void widgetMousePressEvent(QMouseEvent*);
-    virtual void widgetMouseReleaseEvent(QMouseEvent*);
-    virtual void widgetMouseMoveEvent(QMouseEvent*);
-    virtual void widgetKeyPressEvent(QKeyEvent*);
-    virtual void widgetKeyReleaseEvent(QKeyEvent*);
-    virtual void paintEvent(QPaintEvent*);
-}; // class QwtPanner
+    QwtPlotScaleItem(QwtScaleDraw::Alignment = QwtScaleDraw::BottomScale, const double = 0.0);
+    virtual ~QwtPlotScaleItem();
+    virtual int rtti() const;
+    void setScaleDiv(const QwtScaleDiv&);
+    const QwtScaleDiv& scaleDiv() const;
+    void setScaleDivFromAxis(bool);
+    bool isScaleDivFromAxis() const;
+    void setColorGroup(const QColorGroup&);
+    QColorGroup colorGroup() const;
+    void setFont(const QFont&);
+    QFont font() const;
+    void setScaleDraw(QwtScaleDraw*);
+    // signature: const QwtScaleDraw* scaleDraw() const;
+    QwtScaleDraw* scaleDraw();
+    void setPosition(double);
+    double position() const;
+    void setBorderDistance(int);
+    int borderDistance() const;
+    void setAlignment(QwtScaleDraw::Alignment);
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    virtual void updateScaleDiv(const QwtScaleDiv&, const QwtScaleDiv&);
+}; // class QwtPlotScaleItem
 
 
 // Local Variables:

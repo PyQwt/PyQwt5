@@ -129,6 +129,9 @@ typedef int Py_ssize_t;
 %Include qwt_plot_picker.sip
 %Include qwt_plot_printfilter.sip
 %Include qwt_plot_rasteritem.sip
+%If (Qwt_5_1_0 -)
+%Include qwt_plot_scaleitem.sip
+%End // (Qwt_5_1_0 -)
 %Include qwt_plot_spectrogram.sip
 %If (HAS_QWT_SVG)
 %Include qwt_plot_svgitem.sip

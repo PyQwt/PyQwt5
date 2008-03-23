@@ -105,7 +105,15 @@ public:
     virtual void drawRubberBand(QPainter*) const;
     virtual void drawTracker(QPainter*) const;
     virtual QwtText trackerText(const QPoint&) const;
+%If (Qwt_5_1_0 -)
+    QPoint trackerPosition() const;
+%End // (Qwt_5_1_0 -)
+%If (- Qwt_5_1_0)
     QRect trackerRect(QPainter*) const;
+%End // (- Qwt_5_1_0)
+%If (Qwt_5_1_0 -)
+    QRect trackerRect(const QFont&) const;
+%End // (Qwt_5_1_0 -)
 signals:
     void selected(const QwtPolygon&);
     void appended(const QPoint&);
@@ -118,6 +126,9 @@ protected:
     virtual void append(const QPoint&);
     virtual void move(const QPoint&);
     virtual bool end(bool = true);
+%If (Qwt_5_1_0 -)
+    virtual void reset();
+%End // (Qwt_5_1_0 -)
     virtual void widgetMousePressEvent(QMouseEvent*);
     virtual void widgetMouseReleaseEvent(QMouseEvent*);
     virtual void widgetMouseDoubleClickEvent(QMouseEvent*);
