@@ -92,9 +92,9 @@ public:
     void setAxisScale(int, double, double, double = 0);
     void setAxisScaleDiv(int, const QwtScaleDiv&);
     void setAxisScaleDraw(int, QwtScaleDraw* /Transfer/);
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
     double axisStepSize(int) const;
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     // signature: const QwtScaleDiv* axisScaleDiv(int) const;
     QwtScaleDiv* axisScaleDiv(int);
     // signature: const QwtScaleDraw* axisScaleDraw(int) const;
@@ -122,12 +122,12 @@ signals:
     void legendClicked(QwtPlotItem*);
     void legendChecked(QwtPlotItem*, bool);
 public slots:
-%If (- Qwt_5_1_0)
+%If ( - Qwt_5_1_0)
     void clear();
-%End // (- Qwt_5_1_0)
-%If (Qwt_5_1_0 -)
+%End // ( - Qwt_5_1_0)
+%If (Qwt_5_1_0 - )
     virtual void clear();
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     virtual void replot();
     void autoRefresh();
 protected slots:

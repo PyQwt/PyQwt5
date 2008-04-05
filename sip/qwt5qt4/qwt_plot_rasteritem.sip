@@ -55,8 +55,10 @@ public:
     virtual QSize rasterHint(const QwtDoubleRect&) const;
 protected:
     virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const = 0;
+%If (Qwt_5_0_1 - )
 private:
     QwtPlotRasterItem(const QwtPlotRasterItem&);
+%End // (Qwt_5_0_1 - )
 }; // class QwtPlotRasterItem
 
 

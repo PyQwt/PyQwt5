@@ -40,9 +40,9 @@ public:
     enum RttiValues {
         Rtti_PlotItem,
         Rtti_PlotGrid,
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
         Rtti_PlotScale,
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
         Rtti_PlotMarker,
         Rtti_PlotCurve,
         Rtti_PlotHistogram,

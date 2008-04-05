@@ -47,10 +47,10 @@ public:
     void getAbortKey(int&, int&) const;
     virtual void setCursor(const QCursor&);
     const QCursor cursor() const;
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
     void enableOrientation(Qt::Orientation, bool);
     bool isOrientationEnabled(Qt::Orientation) const;
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     virtual bool eventFilter(QObject*, QEvent*);
 signals:
     void panned(int, int);

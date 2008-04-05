@@ -104,16 +104,18 @@ public:
     const QwtPolygon& selection() const;
     virtual void drawRubberBand(QPainter*) const;
     virtual void drawTracker(QPainter*) const;
+%If (Qwt_5_0_3 - )
     virtual QwtText trackerText(const QPoint&) const;
-%If (Qwt_5_1_0 -)
+%End // (Qwt_5_0_3 - )
+%If (Qwt_5_1_0 - )
     QPoint trackerPosition() const;
-%End // (Qwt_5_1_0 -)
-%If (- Qwt_5_1_0)
+%End // (Qwt_5_1_0 - )
+%If (Qwt_5_0_3 - Qwt_5_1_0)
     QRect trackerRect(QPainter*) const;
-%End // (- Qwt_5_1_0)
-%If (Qwt_5_1_0 -)
+%End // (Qwt_5_0_3 - Qwt_5_1_0)
+%If (Qwt_5_1_0 - )
     QRect trackerRect(const QFont&) const;
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
 signals:
     void selected(const QwtPolygon&);
     void appended(const QPoint&);
@@ -126,9 +128,9 @@ protected:
     virtual void append(const QPoint&);
     virtual void move(const QPoint&);
     virtual bool end(bool = true);
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
     virtual void reset();
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     virtual void widgetMousePressEvent(QMouseEvent*);
     virtual void widgetMouseReleaseEvent(QMouseEvent*);
     virtual void widgetMouseDoubleClickEvent(QMouseEvent*);
@@ -137,7 +139,13 @@ protected:
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
     virtual void widgetLeaveEvent(QEvent*);
+%If ( - Qwt_5_0_3)
+    QRect trackerRect(QPainter*) const;
+%End // ( - Qwt_5_0_3)
     virtual void stretchSelection(const QSize&, const QSize&);
+%If ( - Qwt_5_0_3)
+    virtual QwtText trackerText(const QPoint&) const;
+%End // ( - Qwt_5_0_3)
     virtual QwtPickerMachine* stateMachine(int) const;
     virtual void updateDisplay();
     const QWidget* rubberBandWidget() const;

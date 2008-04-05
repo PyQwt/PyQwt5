@@ -41,12 +41,12 @@ public:
     QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
     QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
     virtual ~QwtPlotZoomer();
-%If (- Qwt_5_1_0)
+%If ( - Qwt_5_1_0)
     virtual void setZoomBase();
-%End // (- Qwt_5_1_0)
-%If (Qwt_5_1_0 -)
+%End // ( - Qwt_5_1_0)
+%If (Qwt_5_1_0 - )
     virtual void setZoomBase(bool = true);
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     virtual void setZoomBase(const QwtDoubleRect&);
     QwtDoubleRect zoomBase() const;
     QwtDoubleRect zoomRect() const;
@@ -54,9 +54,9 @@ public:
     void setMaxStackDepth(int);
     int maxStackDepth() const;
     const QStack<QRectF>& zoomStack() const;
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
     void setZoomStack(const QStack<QRectF>&, int = -1);
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
     uint zoomRectIndex() const;
     virtual void setSelectionFlags(int);
 public slots:
