@@ -480,8 +480,10 @@ def check_qwt(configuration, options):
         raise Die, 'Qwt-%s is not supported.' % QWT_VERSION_STR
     elif QWT_VERSION == 0x050000:
         options.timelines.append('-t Qwt_5_0_0')
-    elif QWT_VERSION < 0x050100:
+    elif QWT_VERSION < 0x050003:
         options.timelines.append('-t Qwt_5_0_1')
+    elif QWT_VERSION < 0x050010:
+        options.timelines.append('-t Qwt_5_0_3')
     else:
         options.timelines.append('-t Qwt_5_1_0')
         options.extra_defines.append('HAS_QWT_PLOT_SCALE_ITEM')
