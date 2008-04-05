@@ -64,10 +64,17 @@ Py_END_ALLOW_THREADS
 
     int operator==(const QwtScaleDiv&) const;
     int operator!=(const QwtScaleDiv&) const;
+%If (Qwt_5_1_0 - )
+    void setInterval(double, double);
+    void setInterval(const QwtDoubleInterval&);
+%End // (Qwt_5_1_0 - )
     double lBound() const;
     double hBound() const;
     double range() const;
     bool contains(double) const;
+%If (Qwt_5_1_0 - )
+    void setTicks(int, const QwtValueList&);
+%End // (Qwt_5_1_0 - )
     const QwtValueList& ticks(int) const;
     void invalidate();
     bool isValid() const;

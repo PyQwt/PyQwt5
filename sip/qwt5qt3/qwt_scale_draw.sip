@@ -69,6 +69,9 @@ public:
     QPoint labelPosition(double) const;
     QRect labelRect(const QFont&, double) const;
     QSize labelSize(const QFont&, double) const;
+%If (Qwt_5_1_0 - )
+    QRect boundingLabelRect(const QFont&, double) const;
+%End // (Qwt_5_1_0 - )
 protected:
     QWMatrix labelMatrix(const QPoint&, const QSize&) const;
     virtual void drawTick(QPainter*, double, int) const;
