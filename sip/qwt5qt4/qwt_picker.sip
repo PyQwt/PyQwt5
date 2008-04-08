@@ -146,7 +146,7 @@ protected:
 %If ( - Qwt_5_0_3)
     virtual QwtText trackerText(const QPoint&) const;
 %End // ( - Qwt_5_0_3)
-    virtual QwtPickerMachine* stateMachine(int) const;
+    virtual QwtPickerMachine* stateMachine(int) const /Factory/;
     virtual void updateDisplay();
     const QWidget* rubberBandWidget() const;
     const QWidget* trackerWidget() const;
