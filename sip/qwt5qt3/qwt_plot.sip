@@ -111,7 +111,7 @@ public:
     int axisMaxMajor(int) const;
     void setAxisMaxMajor(int, int);
     int axisMaxMinor(int) const;
-    void insertLegend(QwtLegend*, QwtPlot::LegendPosition = RightLegend, double = -1.0e+0);
+    void insertLegend(QwtLegend* /Transfer/, QwtPlot::LegendPosition = QwtPlot::RightLegend, double = -1);
     QwtLegend* legend();
     // signature: const QwtLegend* legend() const;
     virtual void polish();
