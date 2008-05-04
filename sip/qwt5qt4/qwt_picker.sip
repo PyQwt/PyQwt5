@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_0_3)
 class QwtPicker: QObject, QwtEventPattern
 {
 %TypeHeaderCode
@@ -104,18 +105,6 @@ public:
     const QwtPolygon& selection() const;
     virtual void drawRubberBand(QPainter*) const;
     virtual void drawTracker(QPainter*) const;
-%If (Qwt_5_0_3 - )
-    virtual QwtText trackerText(const QPoint&) const;
-%End // (Qwt_5_0_3 - )
-%If (Qwt_5_1_0 - )
-    QPoint trackerPosition() const;
-%End // (Qwt_5_1_0 - )
-%If (Qwt_5_0_3 - Qwt_5_1_0)
-    QRect trackerRect(QPainter*) const;
-%End // (Qwt_5_0_3 - Qwt_5_1_0)
-%If (Qwt_5_1_0 - )
-    QRect trackerRect(const QFont&) const;
-%End // (Qwt_5_1_0 - )
 signals:
     void selected(const QwtPolygon&);
     void appended(const QPoint&);
@@ -128,9 +117,6 @@ protected:
     virtual void append(const QPoint&);
     virtual void move(const QPoint&);
     virtual bool end(bool = true);
-%If (Qwt_5_1_0 - )
-    virtual void reset();
-%End // (Qwt_5_1_0 - )
     virtual void widgetMousePressEvent(QMouseEvent*);
     virtual void widgetMouseReleaseEvent(QMouseEvent*);
     virtual void widgetMouseDoubleClickEvent(QMouseEvent*);
@@ -139,18 +125,227 @@ protected:
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
     virtual void widgetLeaveEvent(QEvent*);
-%If ( - Qwt_5_0_3)
     QRect trackerRect(QPainter*) const;
-%End // ( - Qwt_5_0_3)
     virtual void stretchSelection(const QSize&, const QSize&);
-%If ( - Qwt_5_0_3)
     virtual QwtText trackerText(const QPoint&) const;
-%End // ( - Qwt_5_0_3)
     virtual QwtPickerMachine* stateMachine(int) const /Factory/;
     virtual void updateDisplay();
     const QWidget* rubberBandWidget() const;
     const QWidget* trackerWidget() const;
 }; // class QwtPicker
+%End // (Qwt_5_0_0 - Qwt_5_0_3)
+
+%If (Qwt_5_0_3 - Qwt_5_1_0)
+class QwtPicker: QObject, QwtEventPattern
+{
+%TypeHeaderCode
+#include <qwt_picker.h>
+%End // %TypeHeaderCode
+
+public:
+    enum SelectionType {
+        NoSelection,
+        PointSelection,
+        RectSelection,
+        PolygonSelection
+    }; // enum SelectionType
+
+    enum RectSelectionType {
+        CornerToCorner,
+        CenterToCorner,
+        CenterToRadius
+    }; // enum RectSelectionType
+
+    enum SelectionMode {
+        ClickSelection,
+        DragSelection
+    }; // enum SelectionMode
+
+    enum RubberBand {
+        NoRubberBand,
+        HLineRubberBand,
+        VLineRubberBand,
+        CrossRubberBand,
+        RectRubberBand,
+        EllipseRubberBand,
+        PolygonRubberBand,
+        UserRubberBand
+    }; // enum RubberBand
+
+    enum DisplayMode {
+        AlwaysOff,
+        AlwaysOn,
+        ActiveOnly
+    }; // enum DisplayMode
+
+    enum ResizeMode {
+        Stretch,
+        KeepSize
+    }; // enum ResizeMode
+
+    QwtPicker(QWidget* /TransferThis/);
+    QwtPicker(int, QwtPicker::RubberBand, QwtPicker::DisplayMode, QWidget* /TransferThis/);
+    virtual ~QwtPicker();
+    virtual void setSelectionFlags(int);
+    int selectionFlags() const;
+    virtual void setRubberBand(QwtPicker::RubberBand);
+    QwtPicker::RubberBand rubberBand() const;
+    virtual void setTrackerMode(QwtPicker::DisplayMode);
+    QwtPicker::DisplayMode trackerMode() const;
+    virtual void setResizeMode(QwtPicker::ResizeMode);
+    QwtPicker::ResizeMode resizeMode() const;
+    virtual void setRubberBandPen(const QPen&);
+    QPen rubberBandPen() const;
+    virtual void setTrackerPen(const QPen&);
+    QPen trackerPen() const;
+    virtual void setTrackerFont(const QFont&);
+    QFont trackerFont() const;
+    bool isEnabled() const;
+    virtual void setEnabled(bool);
+    bool isActive() const;
+    virtual bool eventFilter(QObject*, QEvent*);
+    QWidget* parentWidget();
+    // signature: const QWidget* parentWidget() const;
+    virtual QRect pickRect() const;
+    const QwtPolygon& selection() const;
+    virtual void drawRubberBand(QPainter*) const;
+    virtual void drawTracker(QPainter*) const;
+    virtual QwtText trackerText(const QPoint&) const;
+    QRect trackerRect(QPainter*) const;
+signals:
+    void selected(const QwtPolygon&);
+    void appended(const QPoint&);
+    void moved(const QPoint&);
+    void changed(const QwtPolygon&);
+protected:
+    virtual bool accept(QwtPolygon&) const;
+    virtual void transition(const QEvent*);
+    virtual void begin();
+    virtual void append(const QPoint&);
+    virtual void move(const QPoint&);
+    virtual bool end(bool = true);
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseDoubleClickEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetWheelEvent(QWheelEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+    virtual void widgetLeaveEvent(QEvent*);
+    virtual void stretchSelection(const QSize&, const QSize&);
+    virtual QwtPickerMachine* stateMachine(int) const /Factory/;
+    virtual void updateDisplay();
+    const QWidget* rubberBandWidget() const;
+    const QWidget* trackerWidget() const;
+}; // class QwtPicker
+%End // (Qwt_5_0_3 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPicker: QObject, QwtEventPattern
+{
+%TypeHeaderCode
+#include <qwt_picker.h>
+%End // %TypeHeaderCode
+
+public:
+    enum SelectionType {
+        NoSelection,
+        PointSelection,
+        RectSelection,
+        PolygonSelection
+    }; // enum SelectionType
+
+    enum RectSelectionType {
+        CornerToCorner,
+        CenterToCorner,
+        CenterToRadius
+    }; // enum RectSelectionType
+
+    enum SelectionMode {
+        ClickSelection,
+        DragSelection
+    }; // enum SelectionMode
+
+    enum RubberBand {
+        NoRubberBand,
+        HLineRubberBand,
+        VLineRubberBand,
+        CrossRubberBand,
+        RectRubberBand,
+        EllipseRubberBand,
+        PolygonRubberBand,
+        UserRubberBand
+    }; // enum RubberBand
+
+    enum DisplayMode {
+        AlwaysOff,
+        AlwaysOn,
+        ActiveOnly
+    }; // enum DisplayMode
+
+    enum ResizeMode {
+        Stretch,
+        KeepSize
+    }; // enum ResizeMode
+
+    QwtPicker(QWidget* /TransferThis/);
+    QwtPicker(int, QwtPicker::RubberBand, QwtPicker::DisplayMode, QWidget* /TransferThis/);
+    virtual ~QwtPicker();
+    virtual void setSelectionFlags(int);
+    int selectionFlags() const;
+    virtual void setRubberBand(QwtPicker::RubberBand);
+    QwtPicker::RubberBand rubberBand() const;
+    virtual void setTrackerMode(QwtPicker::DisplayMode);
+    QwtPicker::DisplayMode trackerMode() const;
+    virtual void setResizeMode(QwtPicker::ResizeMode);
+    QwtPicker::ResizeMode resizeMode() const;
+    virtual void setRubberBandPen(const QPen&);
+    QPen rubberBandPen() const;
+    virtual void setTrackerPen(const QPen&);
+    QPen trackerPen() const;
+    virtual void setTrackerFont(const QFont&);
+    QFont trackerFont() const;
+    bool isEnabled() const;
+    virtual void setEnabled(bool);
+    bool isActive() const;
+    virtual bool eventFilter(QObject*, QEvent*);
+    QWidget* parentWidget();
+    // signature: const QWidget* parentWidget() const;
+    virtual QRect pickRect() const;
+    const QwtPolygon& selection() const;
+    virtual void drawRubberBand(QPainter*) const;
+    virtual void drawTracker(QPainter*) const;
+    virtual QwtText trackerText(const QPoint&) const;
+    QPoint trackerPosition() const;
+    QRect trackerRect(const QFont&) const;
+signals:
+    void selected(const QwtPolygon&);
+    void appended(const QPoint&);
+    void moved(const QPoint&);
+    void changed(const QwtPolygon&);
+protected:
+    virtual bool accept(QwtPolygon&) const;
+    virtual void transition(const QEvent*);
+    virtual void begin();
+    virtual void append(const QPoint&);
+    virtual void move(const QPoint&);
+    virtual bool end(bool = true);
+    virtual void reset();
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseDoubleClickEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetWheelEvent(QWheelEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+    virtual void widgetLeaveEvent(QEvent*);
+    virtual void stretchSelection(const QSize&, const QSize&);
+    virtual QwtPickerMachine* stateMachine(int) const /Factory/;
+    virtual void updateDisplay();
+    const QWidget* rubberBandWidget() const;
+    const QWidget* trackerWidget() const;
+}; // class QwtPicker
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

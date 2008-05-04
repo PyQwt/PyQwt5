@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtSymbol
 {
 %TypeHeaderCode
@@ -61,13 +62,7 @@ public:
     QwtSymbol(QwtSymbol::Style, const QBrush&, const QPen&, const QSize&);
     virtual ~QwtSymbol();
     bool operator!=(const QwtSymbol&) const;
-%If ( - Qwt_5_1_0)
     bool operator==(const QwtSymbol&) const;
-%End // ( - Qwt_5_1_0)
-%If (Qwt_5_1_0 - )
-    virtual bool operator==(const QwtSymbol&) const;
-    virtual QwtSymbol* clone() const /Factory/;
-%End // (Qwt_5_1_0 - )
     void setSize(const QSize&);
     void setSize(int, int = -1);
     void setBrush(const QBrush&);
@@ -81,6 +76,56 @@ public:
     void draw(QPainter*, int, int) const;
     virtual void draw(QPainter*, const QRect&) const;
 }; // class QwtSymbol
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtSymbol
+{
+%TypeHeaderCode
+#include <qwt_symbol.h>
+%End // %TypeHeaderCode
+
+public:
+    enum Style {
+        NoSymbol,
+        Ellipse,
+        Rect,
+        Diamond,
+        Triangle,
+        DTriangle,
+        UTriangle,
+        LTriangle,
+        RTriangle,
+        Cross,
+        XCross,
+        HLine,
+        VLine,
+        Star1,
+        Star2,
+        Hexagon,
+        StyleCnt
+    }; // enum Style
+
+    QwtSymbol();
+    QwtSymbol(QwtSymbol::Style, const QBrush&, const QPen&, const QSize&);
+    virtual ~QwtSymbol();
+    bool operator!=(const QwtSymbol&) const;
+    virtual bool operator==(const QwtSymbol&) const;
+    virtual QwtSymbol* clone() const /Factory/;
+    void setSize(const QSize&);
+    void setSize(int, int = -1);
+    void setBrush(const QBrush&);
+    void setPen(const QPen&);
+    void setStyle(QwtSymbol::Style);
+    const QBrush& brush() const;
+    const QPen& pen() const;
+    const QSize& size() const;
+    QwtSymbol::Style style() const;
+    void draw(QPainter*, const QPoint&) const;
+    void draw(QPainter*, int, int) const;
+    virtual void draw(QPainter*, const QRect&) const;
+}; // class QwtSymbol
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

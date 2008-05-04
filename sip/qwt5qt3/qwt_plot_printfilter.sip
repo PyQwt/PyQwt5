@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtPlotPrintFilter
 {
 %TypeHeaderCode
@@ -73,6 +74,53 @@ public:
     virtual void apply(QwtPlotItem*) const;
     virtual void reset(QwtPlotItem*) const;
 }; // class QwtPlotPrintFilter
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPlotPrintFilter
+{
+%TypeHeaderCode
+#include <qwt_plot_printfilter.h>
+%End // %TypeHeaderCode
+
+public:
+    enum Options {
+        PrintAll,
+        PrintMargin,
+        PrintTitle,
+        PrintLegend,
+        PrintGrid,
+        PrintBackground,
+        PrintFrameWithScales
+    }; // enum Options
+
+    enum Item {
+        Title,
+        Legend,
+        Curve,
+        CurveSymbol,
+        Marker,
+        MarkerSymbol,
+        MajorGrid,
+        MinorGrid,
+        CanvasBackground,
+        AxisScale,
+        AxisTitle,
+        WidgetBackground
+    }; // enum Item
+
+    QwtPlotPrintFilter();
+    virtual ~QwtPlotPrintFilter();
+    virtual QColor color(const QColor&, QwtPlotPrintFilter::Item) const;
+    virtual QFont font(const QFont&, QwtPlotPrintFilter::Item) const;
+    void setOptions(int);
+    int options() const;
+    virtual void apply(QwtPlot*) const;
+    virtual void reset(QwtPlot*) const;
+    virtual void apply(QwtPlotItem*) const;
+    virtual void reset(QwtPlotItem*) const;
+}; // class QwtPlotPrintFilter
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

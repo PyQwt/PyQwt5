@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtPanner: QWidget
 {
 %TypeHeaderCode
@@ -47,11 +48,6 @@ public:
     void getAbortKey(int&, int&) const;
     void setCursor(const QCursor&);
     const QCursor cursor() const;
-%If (Qwt_5_1_0 - )
-    void setOrientations(Qt::Orientations);
-    Qt::Orientations orientations() const;
-    bool isOrientationEnabled(Qt::Orientation) const;
-%End // (Qwt_5_1_0 - )
     virtual bool eventFilter(QObject*, QEvent*);
 signals:
     void panned(int, int);
@@ -64,6 +60,42 @@ protected:
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
     virtual void paintEvent(QPaintEvent*);
 }; // class QwtPanner
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPanner: QWidget
+{
+%TypeHeaderCode
+#include <qwt_panner.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtPanner(QWidget* /TransferThis/);
+    virtual ~QwtPanner();
+    void setEnabled(bool);
+    bool isEnabled() const;
+    void setMouseButton(int, int = Qt::NoButton);
+    void getMouseButton(int&, int&) const;
+    void setAbortKey(int, int = Qt::NoButton);
+    void getAbortKey(int&, int&) const;
+    void setCursor(const QCursor&);
+    const QCursor cursor() const;
+    void setOrientations(Qt::Orientations);
+    Qt::Orientations orientations() const;
+    bool isOrientationEnabled(Qt::Orientation) const;
+    virtual bool eventFilter(QObject*, QEvent*);
+signals:
+    void panned(int, int);
+    void moved(int, int);
+protected:
+    virtual void widgetMousePressEvent(QMouseEvent*);
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void widgetKeyReleaseEvent(QKeyEvent*);
+    virtual void paintEvent(QPaintEvent*);
+}; // class QwtPanner
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

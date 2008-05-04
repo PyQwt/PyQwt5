@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtScaleDiv
 {
 %TypeHeaderCode
@@ -64,22 +65,66 @@ Py_END_ALLOW_THREADS
 
     int operator==(const QwtScaleDiv&) const;
     int operator!=(const QwtScaleDiv&) const;
-%If (Qwt_5_1_0 - )
-    void setInterval(double, double);
-    void setInterval(const QwtDoubleInterval&);
-%End // (Qwt_5_1_0 - )
     double lBound() const;
     double hBound() const;
     double range() const;
     bool contains(double) const;
-%If (Qwt_5_1_0 - )
-    void setTicks(int, const QwtValueList&);
-%End // (Qwt_5_1_0 - )
     const QwtValueList& ticks(int) const;
     void invalidate();
     bool isValid() const;
     void invert();
 }; // class QwtScaleDiv
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtScaleDiv
+{
+%TypeHeaderCode
+#include <qwt_scale_div.h>
+%End // %TypeHeaderCode
+
+public:
+    enum TickType {
+        NoTick,
+        MinorTick,
+        MediumTick,
+        MajorTick,
+        NTickTypes
+    }; // enum TickType
+
+    QwtScaleDiv();
+    QwtScaleDiv(const QwtDoubleInterval&, QwtValueList, QwtValueList, QwtValueList) [(const QwtDoubleInterval&, QwtValueList*)];
+%MethodCode
+Py_BEGIN_ALLOW_THREADS
+QwtValueList ticks[QwtScaleDiv::NTickTypes] = {*a1, *a2, *a3};
+sipCpp = new QwtScaleDiv(*a0, ticks);
+Py_END_ALLOW_THREADS
+%End
+
+    QwtScaleDiv(double, double, QwtValueList, QwtValueList, QwtValueList) [(const QwtDoubleInterval&, QwtValueList*)];
+%MethodCode
+Py_BEGIN_ALLOW_THREADS
+QwtValueList ticks[QwtScaleDiv::NTickTypes] = {*a2, *a3, *a4};
+sipCpp = new QwtScaleDiv(a0, a1, ticks);
+Py_END_ALLOW_THREADS
+%End
+
+    int operator==(const QwtScaleDiv&) const;
+    int operator!=(const QwtScaleDiv&) const;
+    void setInterval(double, double);
+    void setInterval(const QwtDoubleInterval&);
+    QwtDoubleInterval interval() const;
+    double lBound() const;
+    double hBound() const;
+    double range() const;
+    bool contains(double) const;
+    void setTicks(int, const QwtValueList&);
+    const QwtValueList& ticks(int) const;
+    void invalidate();
+    bool isValid() const;
+    void invert();
+}; // class QwtScaleDiv
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtPlotItem
 {
 %TypeHeaderCode
@@ -40,9 +41,6 @@ public:
     enum RttiValues {
         Rtti_PlotItem,
         Rtti_PlotGrid,
-%If (Qwt_5_1_0 - )
-        Rtti_PlotScale,
-%End // (Qwt_5_1_0 - )
         Rtti_PlotMarker,
         Rtti_PlotCurve,
         Rtti_PlotHistogram,
@@ -119,6 +117,97 @@ private:
 %End // HAS_QWT5
 
 }; // class QwtPlotItem
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPlotItem: QwtLegendItemManager
+{
+%TypeHeaderCode
+#include <qwt_plot_item.h>
+%End // %TypeHeaderCode
+
+public:
+    enum RttiValues {
+        Rtti_PlotItem,
+        Rtti_PlotGrid,
+        Rtti_PlotScale,
+        Rtti_PlotMarker,
+        Rtti_PlotCurve,
+        Rtti_PlotHistogram,
+        Rtti_PlotSpectrogram,
+        Rtti_PlotSVG,
+        Rtti_PlotUserItem
+    }; // enum RttiValues
+
+    enum ItemAttribute {
+        Legend,
+        AutoScale
+    }; // enum ItemAttribute
+
+    QwtPlotItem(const QwtText& = QwtText(QString::null, QwtText::AutoText));
+    virtual ~QwtPlotItem();
+    void attach(QwtPlot* /TransferThis/);
+    void detach();
+%MethodCode
+sipCpp->QwtPlotItem::detach();
+sipTransferBack(sipSelf);
+%End
+
+    QwtPlot* plot() const;
+    void setTitle(const QString&);
+    void setTitle(const QwtText&);
+    const QwtText& title() const;
+    virtual int rtti() const;
+    void setItemAttribute(QwtPlotItem::ItemAttribute, bool = true);
+    bool testItemAttribute(QwtPlotItem::ItemAttribute) const;
+    double z() const;
+    void setZ(double);
+    void show();
+    void hide();
+    virtual void setVisible(bool);
+    bool isVisible() const;
+    void setAxis(int, int);
+    void setXAxis(int);
+    int xAxis() const;
+    void setYAxis(int);
+    int yAxis() const;
+    virtual void itemChanged();
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const = 0;
+    virtual QwtDoubleRect boundingRect() const;
+    virtual void updateLegend(QwtLegend*) const;
+    virtual void updateScaleDiv(const QwtScaleDiv&, const QwtScaleDiv&);
+    virtual QWidget* legendItem() const;
+    QwtDoubleRect scaleRect(const QwtScaleMap&, const QwtScaleMap&) const;
+    QRect paintRect(const QwtScaleMap&, const QwtScaleMap&) const;
+    QRect transform(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const;
+    QwtDoubleRect invTransform(const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+private:
+    QwtPlotItem(const QwtPlotItem&);
+
+%If (HAS_QWT5)
+%ConvertToSubClassCode
+    Py_BEGIN_ALLOW_THREADS
+    switch (sipCpp->rtti()) {
+    case QwtPlotItem::Rtti_PlotItem: sipClass = sipClass_QwtPlotItem; break;
+    case QwtPlotItem::Rtti_PlotGrid: sipClass = sipClass_QwtPlotGrid; break; 
+#ifdef HAS_QWT_PLOT_SCALE_ITEM
+    case QwtPlotItem::Rtti_PlotScale: sipClass = sipClass_QwtPlotScaleItem; break; 
+#endif // HAS_QWT_PLOT_SCALE_ITEM 
+    case QwtPlotItem::Rtti_PlotMarker: sipClass = sipClass_QwtPlotMarker; break; 
+    case QwtPlotItem::Rtti_PlotCurve: sipClass = sipClass_QwtPlotCurve; break;
+    // MISSING case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
+    case QwtPlotItem::Rtti_PlotSpectrogram: sipClass = sipClass_QwtPlotSpectrogram; break;
+#ifdef HAS_QWT_PLOT_SVG_ITEM
+    case QwtPlotItem::Rtti_PlotSVG: sipClass = sipClass_QwtPlotSvgItem; break; 
+#endif // HAS_QWT_PLOT_SVG_ITEM
+    default: sipClass = 0;
+    }
+    Py_END_ALLOW_THREADS
+%End // %ConvertToSubClassCode
+%End // HAS_QWT5
+
+}; // class QwtPlotItem
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

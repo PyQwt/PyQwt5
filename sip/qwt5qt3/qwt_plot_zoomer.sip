@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtPlotZoomer: QwtPlotPicker
 {
 %TypeHeaderCode
@@ -41,12 +42,7 @@ public:
     QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
     QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
     virtual ~QwtPlotZoomer();
-%If ( - Qwt_5_1_0)
     virtual void setZoomBase();
-%End // ( - Qwt_5_1_0)
-%If (Qwt_5_1_0 - )
-    virtual void setZoomBase(bool = true);
-%End // (Qwt_5_1_0 - )
     virtual void setZoomBase(const QwtDoubleRect&);
     QwtDoubleRect zoomBase() const;
     QwtDoubleRect zoomRect() const;
@@ -54,9 +50,6 @@ public:
     void setMaxStackDepth(int);
     int maxStackDepth() const;
     const QValueStack<QwtDoubleRect>& zoomStack() const;
-%If (Qwt_5_1_0 - )
-    void setZoomStack(const QValueStack<QwtDoubleRect>&, int = -1);
-%End // (Qwt_5_1_0 - )
     uint zoomRectIndex() const;
     virtual void setSelectionFlags(int);
 public slots:
@@ -75,6 +68,48 @@ protected:
     virtual bool end(bool = true);
     virtual bool accept(QwtPolygon&) const;
 }; // class QwtPlotZoomer
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPlotZoomer: QwtPlotPicker
+{
+%TypeHeaderCode
+#include <qwt_plot_zoomer.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtPlotZoomer(QwtPlotCanvas* /TransferThis/, bool = true);
+    QwtPlotZoomer(int, int, QwtPlotCanvas* /TransferThis/, bool = true);
+    QwtPlotZoomer(int, int, int, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/, bool = true);
+    virtual ~QwtPlotZoomer();
+    virtual void setZoomBase(bool = true);
+    virtual void setZoomBase(const QwtDoubleRect&);
+    QwtDoubleRect zoomBase() const;
+    QwtDoubleRect zoomRect() const;
+    virtual void setAxis(int, int);
+    void setMaxStackDepth(int);
+    int maxStackDepth() const;
+    const QValueStack<QwtDoubleRect>& zoomStack() const;
+    void setZoomStack(const QValueStack<QwtDoubleRect>&, int = -1);
+    uint zoomRectIndex() const;
+    virtual void setSelectionFlags(int);
+public slots:
+    void moveBy(double, double);
+    virtual void move(double, double);
+    virtual void zoom(const QwtDoubleRect&);
+    virtual void zoom(int);
+signals:
+    void zoomed(const QwtDoubleRect&);
+protected:
+    virtual void rescale();
+    virtual QwtDoubleSize minZoomSize() const;
+    virtual void widgetMouseReleaseEvent(QMouseEvent*);
+    virtual void widgetKeyPressEvent(QKeyEvent*);
+    virtual void begin();
+    virtual bool end(bool = true);
+    virtual bool accept(QwtPolygon&) const;
+}; // class QwtPlotZoomer
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

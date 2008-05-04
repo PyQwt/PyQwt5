@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtScaleDraw: QwtAbstractScaleDraw
 {
 %TypeHeaderCode
@@ -69,15 +70,62 @@ public:
     QPoint labelPosition(double) const;
     QRect labelRect(const QFont&, double) const;
     QSize labelSize(const QFont&, double) const;
-%If (Qwt_5_1_0 - )
-    QRect boundingLabelRect(const QFont&, double) const;
-%End // (Qwt_5_1_0 - )
 protected:
     QMatrix labelMatrix(const QPoint&, const QSize&) const;
     virtual void drawTick(QPainter*, double, int) const;
     virtual void drawBackbone(QPainter*) const;
     virtual void drawLabel(QPainter*, double) const;
 }; // class QwtScaleDraw
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtScaleDraw: QwtAbstractScaleDraw
+{
+%TypeHeaderCode
+#include <qwt_scale_draw.h>
+%End // %TypeHeaderCode
+
+public:
+    enum Alignment {
+        BottomScale,
+        TopScale,
+        LeftScale,
+        RightScale
+    }; // enum Alignment
+
+    QwtScaleDraw();
+    QwtScaleDraw(const QwtScaleDraw&);
+    virtual ~QwtScaleDraw();
+    // Not Pythonic: QwtScaleDraw& operator=(const QwtScaleDraw&);
+    void getBorderDistHint(const QFont&, int& /Out/, int& /Out/) const;
+    int minLabelDist(const QFont&) const;
+    int minLength(const QPen&, const QFont&) const;
+    virtual int extent(const QPen&, const QFont&) const;
+    void move(int, int);
+    void move(const QPoint&);
+    void setLength(int);
+    QwtScaleDraw::Alignment alignment() const;
+    void setAlignment(QwtScaleDraw::Alignment);
+    Qt::Orientation orientation() const;
+    QPoint pos() const;
+    int length() const;
+    void setLabelAlignment(Qt::Alignment);
+    Qt::Alignment labelAlignment() const;
+    void setLabelRotation(double);
+    double labelRotation() const;
+    int maxLabelHeight(const QFont&) const;
+    int maxLabelWidth(const QFont&) const;
+    QPoint labelPosition(double) const;
+    QRect labelRect(const QFont&, double) const;
+    QSize labelSize(const QFont&, double) const;
+    QRect boundingLabelRect(const QFont&, double) const;
+protected:
+    QMatrix labelMatrix(const QPoint&, const QSize&) const;
+    virtual void drawTick(QPainter*, double, int) const;
+    virtual void drawBackbone(QPainter*) const;
+    virtual void drawLabel(QPainter*, double) const;
+}; // class QwtScaleDraw
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

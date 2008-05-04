@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_0_1)
 class QwtPlotRasterItem: QwtPlotItem
 {
 %TypeHeaderCode
@@ -55,11 +56,39 @@ public:
     virtual QSize rasterHint(const QwtDoubleRect&) const;
 protected:
     virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const = 0;
+}; // class QwtPlotRasterItem
+%End // (Qwt_5_0_0 - Qwt_5_0_1)
+
 %If (Qwt_5_0_1 - )
+class QwtPlotRasterItem: QwtPlotItem
+{
+%TypeHeaderCode
+#include <qwt_plot_rasteritem.h>
+%End // %TypeHeaderCode
+
+public:
+    enum CachePolicy {
+        NoCache,
+        PaintCache,
+        ScreenCache
+    }; // enum CachePolicy
+
+    QwtPlotRasterItem(const QString& = QString::null);
+    QwtPlotRasterItem(const QwtText&);
+    virtual ~QwtPlotRasterItem();
+    void setAlpha(int);
+    int alpha() const;
+    void setCachePolicy(QwtPlotRasterItem::CachePolicy);
+    QwtPlotRasterItem::CachePolicy cachePolicy() const;
+    void invalidateCache();
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    virtual QSize rasterHint(const QwtDoubleRect&) const;
+protected:
+    virtual QImage renderImage(const QwtScaleMap&, const QwtScaleMap&, const QwtDoubleRect&) const = 0;
 private:
     QwtPlotRasterItem(const QwtPlotRasterItem&);
-%End // (Qwt_5_0_1 - )
 }; // class QwtPlotRasterItem
+%End // (Qwt_5_0_1 - )
 
 
 // Local Variables:

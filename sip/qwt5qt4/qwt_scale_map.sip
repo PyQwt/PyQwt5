@@ -31,6 +31,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_0_1)
 class QwtScaleMap
 {
 %TypeHeaderCode
@@ -89,11 +90,72 @@ public:
     virtual double invXForm(double, double, double, double, double) const;
     QwtScaleTransformation::Type type() const;
     virtual QwtScaleTransformation* copy() const /Factory/;
+}; // class QwtScaleTransformation
+%End // (Qwt_5_0_0 - Qwt_5_0_1)
+
 %If (Qwt_5_0_1 - )
+class QwtScaleMap
+{
+%TypeHeaderCode
+#include <qwt_scale_map.h>
+%End // %TypeHeaderCode
+
+public:
+    static const double LogMin;
+    static const double LogMax;
+    QwtScaleMap();
+    QwtScaleMap(const QwtScaleMap&);
+    ~QwtScaleMap();
+    // Not Pythonic: QwtScaleMap& operator=(const QwtScaleMap&);
+    void setTransformation(QwtScaleTransformation*);
+    const QwtScaleTransformation* transformation() const;
+    void setPaintInterval(int, int);
+    void setPaintXInterval(double, double);
+    void setScaleInterval(double, double);
+    int transform(double) const;
+    double invTransform(double) const;
+    double xTransform(double) const;
+    double p1() const;
+    double p2() const;
+    double s1() const;
+    double s2() const;
+    double pDist() const;
+    double sDist() const;
+
+public:
+    QwtScaleMap(int, int, double, double);
+%MethodCode
+sipCpp = new QwtScaleMap();
+sipCpp->setPaintInterval(a0, a1);
+sipCpp->setScaleInterval(a2, a3);
+%End
+
+}; // class QwtScaleMap
+
+
+class QwtScaleTransformation
+{
+%TypeHeaderCode
+#include <qwt_scale_map.h>
+%End // %TypeHeaderCode
+
+public:
+    enum Type {
+        Linear,
+        Log10,
+        Other
+    }; // enum Type
+
+    QwtScaleTransformation(QwtScaleTransformation::Type);
+    virtual ~QwtScaleTransformation();
+    virtual double xForm(double, double, double, double, double) const;
+    virtual double invXForm(double, double, double, double, double) const;
+    QwtScaleTransformation::Type type() const;
+    virtual QwtScaleTransformation* copy() const /Factory/;
 private:
     QwtScaleTransformation();
-%End // (Qwt_5_0_1 - )
 }; // class QwtScaleTransformation
+%End // (Qwt_5_0_1 - )
 
 
 // Local Variables:

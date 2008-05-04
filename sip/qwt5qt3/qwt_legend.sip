@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtLegend: QFrame
 {
 %TypeHeaderCode
@@ -75,6 +76,55 @@ protected:
     virtual void resizeEvent(QResizeEvent*);
     virtual void layoutContents();
 }; // class QwtLegend
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtLegend: QFrame
+{
+%TypeHeaderCode
+#include <qwt_legend.h>
+%End // %TypeHeaderCode
+
+public:
+    enum LegendDisplayPolicy {
+        NoIdentifier,
+        FixedIdentifier,
+        AutoIdentifier
+    }; // enum LegendDisplayPolicy
+
+    enum LegendItemMode {
+        ReadOnlyItem,
+        ClickableItem,
+        CheckableItem
+    }; // enum LegendItemMode
+
+    QwtLegend(QWidget* /TransferThis/ = 0);
+    virtual ~QwtLegend();
+    void setDisplayPolicy(QwtLegend::LegendDisplayPolicy, int);
+    QwtLegend::LegendDisplayPolicy displayPolicy() const;
+    void setItemMode(QwtLegend::LegendItemMode);
+    QwtLegend::LegendItemMode itemMode() const;
+    int identifierMode() const;
+    QWidget* contentsWidget();
+    // signature: const QWidget* contentsWidget() const;
+    void insert(const QwtLegendItemManager*, QWidget*);
+    void remove(const QwtLegendItemManager*);
+    QWidget* find(const QwtLegendItemManager*) const;
+    QwtLegendItemManager* find(const QWidget*) const;
+    virtual QValueList<QWidget*> legendItems() const;
+    void clear();
+    bool isEmpty() const;
+    uint itemCount() const;
+    virtual bool eventFilter(QObject*, QEvent*);
+    virtual QSize sizeHint() const;
+    virtual int heightForWidth(int) const;
+    QScrollBar* horizontalScrollBar() const;
+    QScrollBar* verticalScrollBar() const;
+protected:
+    virtual void resizeEvent(QResizeEvent*);
+    virtual void layoutContents();
+}; // class QwtLegend
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

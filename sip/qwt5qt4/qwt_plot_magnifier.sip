@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtPlotMagnifier: QObject
 {
 %TypeHeaderCode
@@ -71,6 +72,28 @@ protected:
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
 }; // class QwtPlotMagnifier
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - )
+class QwtPlotMagnifier: QwtMagnifier
+{
+%TypeHeaderCode
+#include <qwt_plot_magnifier.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtPlotMagnifier(QwtPlotCanvas*);
+    virtual ~QwtPlotMagnifier();
+    void setAxisEnabled(int, bool);
+    bool isAxisEnabled(int) const;
+    QwtPlotCanvas* canvas();
+    // signature: const QwtPlotCanvas* canvas() const;
+    QwtPlot* plot();
+    // signature: const QwtPlot* plot() const;
+protected:
+    virtual void rescale(double);
+}; // class QwtPlotMagnifier
+%End // (Qwt_5_1_0 - )
 
 
 // Local Variables:

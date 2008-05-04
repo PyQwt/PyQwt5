@@ -1,5 +1,5 @@
 // The SIP interface specification for:
-//      QwtPanner.
+//      QwtMagnifier.
 //
 // Copyright (C) 2001-2008 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
@@ -30,71 +30,43 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-%If (Qwt_5_0_0 - Qwt_5_1_0)
-class QwtPanner: QWidget
+class QwtMagnifier: QObject
 {
 %TypeHeaderCode
-#include <qwt_panner.h>
+#include <qwt_magnifier.h>
 %End // %TypeHeaderCode
 
 public:
-    QwtPanner(QWidget* /TransferThis/);
-    virtual ~QwtPanner();
-    virtual void setEnabled(bool);
+    QwtMagnifier(QWidget*);
+    virtual ~QwtMagnifier();
+    QWidget* parentWidget();
+    // signature: const QWidget* parentWidget() const;
+    void setEnabled(bool);
     bool isEnabled() const;
+    void setMouseFactor(double);
+    double mouseFactor() const;
     void setMouseButton(int, int = Qt::NoButton);
     void getMouseButton(int&, int&) const;
-    void setAbortKey(int, int = Qt::NoButton);
-    void getAbortKey(int&, int&) const;
-    virtual void setCursor(const QCursor&);
-    const QCursor cursor() const;
+    void setWheelFactor(double);
+    double wheelFactor() const;
+    void setWheelButtonState(int);
+    int wheelButtonState() const;
+    void setKeyFactor(double);
+    double keyFactor() const;
+    void setZoomInKey(int, int);
+    void getZoomInKey(int&, int&) const;
+    void setZoomOutKey(int, int);
+    void getZoomOutKey(int&, int&) const;
     virtual bool eventFilter(QObject*, QEvent*);
-signals:
-    void panned(int, int);
-    void moved(int, int);
 protected:
+    virtual void rescale(double) = 0;
     virtual void widgetMousePressEvent(QMouseEvent*);
     virtual void widgetMouseReleaseEvent(QMouseEvent*);
     virtual void widgetMouseMoveEvent(QMouseEvent*);
+    virtual void widgetWheelEvent(QWheelEvent*);
     virtual void widgetKeyPressEvent(QKeyEvent*);
     virtual void widgetKeyReleaseEvent(QKeyEvent*);
-    virtual void paintEvent(QPaintEvent*);
-}; // class QwtPanner
-%End // (Qwt_5_0_0 - Qwt_5_1_0)
-
-%If (Qwt_5_1_0 - )
-class QwtPanner: QWidget
-{
-%TypeHeaderCode
-#include <qwt_panner.h>
-%End // %TypeHeaderCode
-
-public:
-    QwtPanner(QWidget* /TransferThis/);
-    virtual ~QwtPanner();
-    virtual void setEnabled(bool);
-    bool isEnabled() const;
-    void setMouseButton(int, int = Qt::NoButton);
-    void getMouseButton(int&, int&) const;
-    void setAbortKey(int, int = Qt::NoButton);
-    void getAbortKey(int&, int&) const;
-    virtual void setCursor(const QCursor&);
-    const QCursor cursor() const;
-    void enableOrientation(Qt::Orientation, bool);
-    bool isOrientationEnabled(Qt::Orientation) const;
-    virtual bool eventFilter(QObject*, QEvent*);
-signals:
-    void panned(int, int);
-    void moved(int, int);
-protected:
-    virtual void widgetMousePressEvent(QMouseEvent*);
-    virtual void widgetMouseReleaseEvent(QMouseEvent*);
-    virtual void widgetMouseMoveEvent(QMouseEvent*);
-    virtual void widgetKeyPressEvent(QKeyEvent*);
-    virtual void widgetKeyReleaseEvent(QKeyEvent*);
-    virtual void paintEvent(QPaintEvent*);
-}; // class QwtPanner
-%End // (Qwt_5_1_0 - )
+}; // class QwtMagnifier
 
 
 // Local Variables:
