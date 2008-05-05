@@ -45,6 +45,9 @@
 
 %Include QwtTypes.sip
 typedef QPointArray QwtPolygon;
+%If (Qwt_5_1_0 -)
+typedef QwtArrayQwtDoublePoint QwtPolygonF;
+%End // (Qwt_5_1_0 -)
 
 %ModuleHeaderCode
 #if PY_VERSION_HEX < 0x02050000 && !defined(PY_SSIZE_T_MIN)
@@ -93,9 +96,9 @@ typedef int Py_ssize_t;
 %Include qwt_abstract_slider.sip
 %Include qwt_analog_clock.sip
 %Include qwt_arrow_button.sip
-//%If (Qwt_5_1_0 -)
-//%Include qwt_clipper.sip
-//%End // (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 -)
+%Include qwt_clipper.sip
+%End // (Qwt_5_1_0 -)
 %Include qwt_color_map.sip
 %Include qwt_compass.sip
 %Include qwt_compass_rose.sip

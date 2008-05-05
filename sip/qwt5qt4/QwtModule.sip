@@ -81,6 +81,9 @@ typedef int Py_ssize_t;
 
 typedef QPointF QwtDoublePoint;
 typedef QPolygon QwtPolygon;
+%If (Qwt_5_1_0 -)
+typedef QPolygonF QwtPolygonF;
+%End // (Qwt_5_1_0 -)
 typedef QRectF QwtDoubleRect;
 typedef QSizeF QwtDoubleSize;
 
@@ -101,9 +104,9 @@ typedef QSizeF QwtDoubleSize;
 %Include qwt_abstract_slider.sip
 %Include qwt_analog_clock.sip
 %Include qwt_arrow_button.sip
-//%If (Qwt_5_1_0 -)
-//%Include qwt_clipper.sip
-//%End // (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 -)
+%Include qwt_clipper.sip
+%End // (Qwt_5_1_0 -)
 %Include qwt_color_map.sip
 %Include qwt_compass.sip
 %Include qwt_compass_rose.sip
