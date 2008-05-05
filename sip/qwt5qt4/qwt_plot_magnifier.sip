@@ -38,7 +38,7 @@ class QwtPlotMagnifier: QObject
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotMagnifier(QwtPlotCanvas*);
+    QwtPlotMagnifier(QwtPlotCanvas* /TransferThis/);
     virtual ~QwtPlotMagnifier();
     void setEnabled(bool);
     bool isEnabled() const;
@@ -82,7 +82,7 @@ class QwtPlotMagnifier: QwtMagnifier
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotMagnifier(QwtPlotCanvas*);
+    QwtPlotMagnifier(QwtPlotCanvas* /TransferThis/);
     virtual ~QwtPlotMagnifier();
     void setAxisEnabled(int, bool);
     bool isAxisEnabled(int) const;

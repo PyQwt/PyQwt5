@@ -37,7 +37,7 @@ class QwtMagnifier: QObject
 %End // %TypeHeaderCode
 
 public:
-    QwtMagnifier(QWidget*);
+    QwtMagnifier(QWidget* /TransferThis/);
     virtual ~QwtMagnifier();
     QWidget* parentWidget();
     // signature: const QWidget* parentWidget() const;
