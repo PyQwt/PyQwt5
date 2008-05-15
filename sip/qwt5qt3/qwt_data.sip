@@ -82,6 +82,8 @@ public:
 protected:
     // Not Pythonic: QwtData& operator=(const QwtData&);
 
+private:
+    QwtData(const QwtData&);
 %If (CXX_DYNAMIC_CAST)
 %ConvertToSubClassCode
     // Walk the inheritance tree depth first in alphabetical order
