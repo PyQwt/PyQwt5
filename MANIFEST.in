@@ -1,8 +1,8 @@
 # MANIFEST template file to make a distribution tarball
 
 # Package stuff
-include ANNOUNCEMENT-5.0.1 CHANGES-5.0.1 COPYING*
-include MANIFEST.in GNUmakefile pyqwt-5.0.patch
+include ANNOUNCEMENT-5.1.0 CHANGES-5.1.0 COPYING*
+include MANIFEST.in GNUmakefile pyqwt-5.1.patch
 
 # Documentation
 graft Doc
@@ -22,19 +22,19 @@ include configure/PyQwt.nsi.in
 
 # Qt3 examples
 graft qt3examples
-recursive-exclude qt3examples *.html *.png *.pyc *cvsignore* *~ typescript
+recursive-exclude qt3examples *.html *.png *.pyc *.svg *cvsignore* *~ typescript
 
 # Qt4 examples
 graft qt4examples
-recursive-exclude qt4examples *.html *.png *.pyc *cvsignore* *~ typescript
+recursive-exclude qt4examples *.html *.png *.pyc *.svg *cvsignore* *~ typescript
 
 # support code
 graft support
 recursive-exclude suppport *cvsignore* *~
 
 # qwt-svn
-graft qwt-5.0
-recursive-exclude qwt-5.0 *~
+graft qwt-5.1
+recursive-exclude qwt-5.1 *~
 
 # sip files
 graft sip

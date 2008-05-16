@@ -4,7 +4,7 @@ from distutils.core import setup
 import time
 
 name = 'PyQwt'
-version = '5.0.2'
+version = '5.1.0'
 #version = '%04d%02d%02d' % (time.localtime()[:3])
 
 long_description = """
@@ -24,7 +24,7 @@ setup(
     author_email     = "gerard.vermeulen@grenoble.cnrs.fr",
     license          = "GPL",
     long_description = long_description,
-    platforms        = "Unix, Windows (MSVC), MacOS/X",
+    platforms        = "Unix, Windows, Mac OS X",
     )
 
 # Local Variables: ***
