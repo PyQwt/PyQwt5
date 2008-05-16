@@ -482,10 +482,13 @@ def check_qwt(configuration, options):
         options.timelines.append('-t Qwt_5_0_0')
     elif QWT_VERSION < 0x050003:
         options.timelines.append('-t Qwt_5_0_1')
-    elif QWT_VERSION < 0x050010:
+    elif QWT_VERSION < 0x050100:
         options.timelines.append('-t Qwt_5_0_3')
-    else:
+    elif QWT_VERSION < 0x050101:
         options.timelines.append('-t Qwt_5_1_0')
+        options.extra_defines.append('HAS_QWT_PLOT_SCALE_ITEM')        
+    else:
+        options.timelines.append('-t Qwt_5_1_1')
         options.extra_defines.append('HAS_QWT_PLOT_SCALE_ITEM')
 
     print ('Found Qwt-%s.' % QWT_VERSION_STR)

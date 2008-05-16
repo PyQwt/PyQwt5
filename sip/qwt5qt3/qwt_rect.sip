@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_1_0)
 class QwtRect: QRect
 {
 %TypeHeaderCode
@@ -41,6 +42,34 @@ public:
     QwtRect(const QRect&);
     QwtPolygon clip(const QwtPolygon&) const;
 }; // class QwtRect
+%End // (Qwt_5_0_0 - Qwt_5_1_0)
+
+%If (Qwt_5_1_0 - Qwt_5_1_1)
+class QwtRect: QRect
+{
+%TypeHeaderCode
+#include <qwt_rect.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtRect();
+    QwtRect(const QRect&);
+}; // class QwtRect
+%End // (Qwt_5_1_0 - Qwt_5_1_1)
+
+%If (Qwt_5_1_1 - )
+class QwtRect: QRect
+{
+%TypeHeaderCode
+#include <qwt_rect.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtRect();
+    QwtRect(const QRect&);
+    QwtPolygon clip(const QwtPolygon&) const;
+}; // class QwtRect
+%End // (Qwt_5_1_1 - )
 
 
 // Local Variables:

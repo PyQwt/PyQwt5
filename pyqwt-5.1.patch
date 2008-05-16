@@ -1,0 +1,13 @@
+--- qwt-5.1/src/qwt_global.h.pyqwt Fri May 16 18:19:02 2008
++++ qwt-5.1/src/qwt_global.h Fri May 16 18:19:29 2008
+@@ -19,8 +19,8 @@
+ 
+ // QWT_VERSION is (major << 16) + (minor << 8) + patch.
+ 
+-#define QWT_VERSION       0x050100
+-#define QWT_VERSION_STR   "5.1.0"
++#define QWT_VERSION       0x050101
++#define QWT_VERSION_STR   "5.1.1"
+ 
+ #if defined(Q_WS_WIN)
+ 
