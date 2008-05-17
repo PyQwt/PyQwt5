@@ -486,14 +486,11 @@ def check_qwt(configuration, options):
         options.timelines.append('-t Qwt_5_0_3')
     elif QWT_VERSION < 0x050101:
         options.timelines.append('-t Qwt_5_1_0')
-        options.extra_defines.append('HAS_QWT_PLOT_SCALE_ITEM')        
     else:
         options.timelines.append('-t Qwt_5_1_1')
-        options.extra_defines.append('HAS_QWT_PLOT_SCALE_ITEM')
 
     print ('Found Qwt-%s.' % QWT_VERSION_STR)
 
-    options.extra_defines.append('HAS_QWT5')
     options.excluded_features.append('-x HAS_QWT4')
     options.subdirs.append(options.qwt)
     options.modules.append('Qwt5')
@@ -519,8 +516,6 @@ def check_qwt(configuration, options):
                              extra_include_dirs = extra_include_dirs)
     if not exe:
         options.excluded_features.append('-x HAS_QWT_SVG')
-    else:
-        options.extra_defines.append('HAS_QWT_PLOT_SVG_ITEM')
 
     return options
 

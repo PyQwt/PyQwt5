@@ -106,16 +106,18 @@ private:
     switch (sipCpp->rtti()) {
     case QwtPlotItem::Rtti_PlotItem: sipClass = sipClass_QwtPlotItem; break;
     case QwtPlotItem::Rtti_PlotGrid: sipClass = sipClass_QwtPlotGrid; break; 
-#ifdef HAS_QWT_PLOT_SCALE_ITEM
+#ifdef sipClass_QwtPlotScaleItem
     case QwtPlotItem::Rtti_PlotScale: sipClass = sipClass_QwtPlotScaleItem; break; 
-#endif // HAS_QWT_PLOT_SCALE_ITEM 
+#endif // sipClass_QwtPlotScaleItem
     case QwtPlotItem::Rtti_PlotMarker: sipClass = sipClass_QwtPlotMarker; break; 
     case QwtPlotItem::Rtti_PlotCurve: sipClass = sipClass_QwtPlotCurve; break;
-    // MISSING case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
+#ifdef sipClass_QwtPlotHistogram
+    case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
+#endif // sipClass_QwtPlotHistogram
     case QwtPlotItem::Rtti_PlotSpectrogram: sipClass = sipClass_QwtPlotSpectrogram; break;
-#ifdef HAS_QWT_PLOT_SVG_ITEM
+#ifdef sipClass_QwtPlotSvgItem
     case QwtPlotItem::Rtti_PlotSVG: sipClass = sipClass_QwtPlotSvgItem; break; 
-#endif // HAS_QWT_PLOT_SVG_ITEM
+#endif // sipClass_QwtPlotSvgItem
     default: sipClass = 0;
     }
     Py_END_ALLOW_THREADS
@@ -202,16 +204,18 @@ private:
     switch (sipCpp->rtti()) {
     case QwtPlotItem::Rtti_PlotItem: sipClass = sipClass_QwtPlotItem; break;
     case QwtPlotItem::Rtti_PlotGrid: sipClass = sipClass_QwtPlotGrid; break; 
-#ifdef HAS_QWT_PLOT_SCALE_ITEM
+#ifdef sipClass_QwtPlotScaleItem
     case QwtPlotItem::Rtti_PlotScale: sipClass = sipClass_QwtPlotScaleItem; break; 
-#endif // HAS_QWT_PLOT_SCALE_ITEM 
+#endif // sipClass_QwtPlotScaleItem
     case QwtPlotItem::Rtti_PlotMarker: sipClass = sipClass_QwtPlotMarker; break; 
     case QwtPlotItem::Rtti_PlotCurve: sipClass = sipClass_QwtPlotCurve; break;
-    // MISSING case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
+#ifdef sipClass_QwtPlotHistogram
+    case QwtPlotItem::Rtti_PlotHistogram: sipClass = sipClass_QwtPlotHistogram; break;
+#endif // sipClass_QwtPlotHistogram
     case QwtPlotItem::Rtti_PlotSpectrogram: sipClass = sipClass_QwtPlotSpectrogram; break;
-#ifdef HAS_QWT_PLOT_SVG_ITEM
+#ifdef sipClass_QwtPlotSvgItem
     case QwtPlotItem::Rtti_PlotSVG: sipClass = sipClass_QwtPlotSvgItem; break; 
-#endif // HAS_QWT_PLOT_SVG_ITEM
+#endif // sipClass_QwtPlotSvgItem
     default: sipClass = 0;
     }
     Py_END_ALLOW_THREADS
