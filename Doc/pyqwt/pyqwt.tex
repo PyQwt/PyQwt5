@@ -8,25 +8,25 @@
 \newcommand{\Grace}{\ulink{Grace}
   {http://plasma-gate.weizmann.ac.il/Grace/}}
 \newcommand{\cvs}{20061017}
-\newcommand{\target}{5.0.1}
+\newcommand{\target}{5.1.0}
 
 % Source code
 \newcommand{\Download}{\ulink{download}
   {http://pyqwt.sourceforge.net/download.html}}
-\newcommand{\Sip}{\ulink{sip-4.7.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/sip-4.7.3.tar.gz}}
+\newcommand{\Sip}{\ulink{sip-4.7.5.tar.gz}
+  {http://pyqwt.sourceforge.net/support/sip-4.7.5.tar.gz}}
 \newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.17.4.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.17.4.tar.gz}}
 \newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.17.4.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.17.4.tar.gz}}
-\newcommand{\PyQtFourGpl}{\ulink{PyQt-x11-gpl-4.3.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.3.3.tar.gz}}
-\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.3.3.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.3.3.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt-x11-gpl-4.4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.4.tar.gz}}
+\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.4.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.4.tar.gz}}
 \newcommand{\NumPy}{\ulink{NumPy}
   {http://numpy.scipy.org}}
-\newcommand{\NumPyTarGz}{\ulink{NumPy-1.0.4.tar.gz}
-  {http://prdownloads.sourceforge.net/numpy/numpy-1.0.4.tar.gz?download}}
+\newcommand{\NumPyTarGz}{\ulink{NumPy-1.1.0.tar.gz}
+  {http://prdownloads.sourceforge.net/numpy/numpy-1.1.0.tar.gz?download}}
 \newcommand{\numarray}{\ulink{numarray}
   {http://www.stsci.edu/resources/software_hardware/numarray}}
 \newcommand{\numarrayTarGz}{\ulink{numarray-1.5.2.tar.gz}
@@ -42,9 +42,9 @@
 \newcommand{\PyQwtCvsTarGz}{\ulink{PyQwt-\cvs.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\cvs.tar.gz?download}}
 
-\newcommand{\PythonExe}{\ulink{python-2.5.1.msi}
-  {http://www.python.org/ftp/python/2.5/python-2.5.1.msi}}
-\newcommand{\NumPyExe}{\ulink{numpy-1.0.3.win32-py2.5.exe}
+\newcommand{\PythonExe}{\ulink{python-2.5.2.msi}
+  {http://www.python.org/ftp/python/2.5/python-2.5.2.msi}}
+\newcommand{\NumPyExe}{\ulink{numpy-1.1.0.win32-py2.5.exe}
   {http://prdownloads.sourceforge.net/numpy/numpy-1.0.3.win32-py2.5.exe}}
 \newcommand{\QtExe}{\ulink{qt-win-opensource-4.3.3-mingw.exe}
   {ftp://ftp.trolltech.com/qt/source/qt-win-opensource-4.3.3-mingw.exe}}
@@ -58,9 +58,9 @@
 
 \newcommand{\PrerequisitesEnd}{
   The source package \PyQwtTarGz{} contains a subversion snapshot of the
-  \Qwt-5.0 bugfix branch which fixes some bugs in \Qwt-5.0.2.
-  It is best to compile and link the bugfix branch statically into PyQwt,
-  as long as \Qwt-5.0.3 has not been released.
+  \Qwt-5.1 bugfix branch which fixes some bugs in \Qwt-5.1.0.
+  However, \Qwt-5.0.0, \Qwt-5.0.1, and \Qwt-5.0.2 are also supported.
+  I recommend to compile and link the bugfix branch statically into PyQwt.
 
   To exploit the full power of PyQwt, you should install at least one of
   the numerical Python extensions:  \NumPy{}, \numarray{}, or \Numeric{}
@@ -81,13 +81,13 @@
 
 \newcommand{\Future}{
   \begin{notice}[warning]
-    The documentation is for PyQwt-5.0.1 which has not yet been released. The
+    The documentation is for PyQwt-5.1.0 which has not yet been released. The
     latest release is \PyQwtLatestTarGz{} and refer to the documentation
     included in the latest release when using it.
   \end{notice}
 }
 
-\renewcommand{\Future}{}
+%\renewcommand{\Future}{}
 
 \newcommand{\Blurb}{
 PyQwt is a set of Python bindings for the \Qwt{} C++ class library which
@@ -112,13 +112,13 @@ The main features of PyQwt are:
   GUI Python application or in an interactive Python session.
 
 \item
-  it runs on POSIX, MacOS/X and Windows (any operating system supported by Qt
+  it runs on POSIX, Mac OS X and Windows (any operating system supported by Qt
   and Python).
 \end{itemize}
 }
 
 
-\title{PyQwt-5.0 Manual}
+\title{PyQwt-5.1 Manual}
 
 % boilerplate.tex?
 \author{Gerard Vermeulen}
@@ -197,8 +197,7 @@ The widgets are documented in the Qwt manual on your hard disk or
 
 \begin{notice}[note]
   The designer plugins of the \Qwt{} library for Qt-3.x.x and Qt-4.x.x work
-  with PyQwt. The pyuic compiler of versions of PyQt for Qt-4 earlier than
-  4.1 do not handle the plugin.
+  with PyQwt.
   If you did built PyQwt against its internal bugfix subversion snapshot of
   \Qwt{}, you must install either the original or the internal \Qwt{} library.
 \end{notice}
@@ -543,13 +542,13 @@ Build prerequisites for \PyQwtTarGz{}:
     Supported versions: Python-2.5.x, Python-2.4.x.
   \item
     \ulink{Qt}{http://www.trolltech.com}.\\
-    Supported versions: Qt-4.3.0, Qt-4.2.x, Qt-3.3.x, and Qt-3.2.x.
+    Supported versions: Qt-4.4.x, Qt-4.3.x, Qt-4.2.x, Qt-3.3.x, and Qt-3.2.x.
   \item
     \Sip{}.\\
     Supported versions: sip-4.7.x, and sip-4.6.x.
   \item
     Either \PyQtGpl{}, or \PyQtMac{}, or \PyQtFourGpl{}, or \PyQtFourMac{}.\\
-    Supported versions: PyQt-4.3.x, PyQt-4.2.x, and PyQt-3.17.x.
+    Supported versions: PyQt-4.4.x, PyQt-4.3.x, PyQt-4.2.x, and PyQt-3.17.x.
 \end{enumerate}
 
 \PrerequisitesEnd{}
@@ -566,9 +565,9 @@ Build prerequisites for \PyQwtTarGz{}:
 \item
   Invoke the commands to build PyQwt-\target{} for Qt-4:
 \begin{verbatim}
-cd PyQwt-5.0.1
+cd PyQwt-5.1.0
 cd configure
-python configure.py -Q ../qwt-5.0
+python configure.py -Q ../qwt-5.1
 make
 make install
 \end{verbatim}
@@ -580,9 +579,9 @@ make install
 \item
   Invoke the commands to build PyQwt-\target{} for Qt-3:
 \begin{verbatim}
-cd PyQwt-5.0.1
+cd PyQwt-5.1.0
 cd configure
-python configure.py -3 -Q ../qwt-5.0
+python configure.py -3 -Q ../qwt-5.1
 make
 make install
 \end{verbatim}
@@ -814,6 +813,11 @@ For instance:
   is fully implemented.
 \end{classdesc*}
 
+\begin{classdesc*}{QwtClipper}
+  is fully implemented, but only available when PyQwt has been built for
+  Qwt-5.1.x.
+\end{classdesc*}
+
 \begin{classdesc*}{QwtColorMap}
   is fully implemented.
 \end{classdesc*}
@@ -981,6 +985,11 @@ intervalData.setData(intervals, values)
   is fully implemented.
 \end{classdesc*}
 
+\begin{classdesc*}{QwtLegendItemManager}
+  is fully implemented, but only available when PyQwt has been built for
+  Qwt-5.1.x. 
+\end{classdesc*}
+
 \begin{classdesc*}{QwtLinearColorMap}
   is fully implemented.
 \end{classdesc*}
@@ -991,6 +1000,11 @@ is fully implemented.
 
 \begin{classdesc*}{QwtLog10ScaleEngine}
 is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtLegendMagnifier}
+  is fully implemented, but only available when PyQwt has been built for
+  Qwt-5.1.x. 
 \end{classdesc*}
 
 \begin{classdesc*}{QwtMetricsMap}
@@ -1134,6 +1148,11 @@ qwtText = plotPicker.trackerTextF(point)
 
 \begin{classdesc*}{QwtPlotRasterItem}
   is fully implemented.
+\end{classdesc*}
+
+\begin{classdesc*}{QwtPlotScaleItem}
+  is fully implemented, but only available when PyQwt has been built for
+  Qwt-5.1.x. 
 \end{classdesc*}
 
 \begin{classdesc*}{QwtPlotSpectrogram}
