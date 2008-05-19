@@ -234,7 +234,7 @@ All this in C, for a manifold speedup with respect to pure Python.
 \Future{}
 
 The PyQwt widgets can be used in Graphical User Interface (GUI)
-programs as well as from the Command Line Interpreter (CLI).
+programs as well as from the Command Line Interface (CLI).
 This section addresses:
 \begin{itemize}
 \item
@@ -244,14 +244,13 @@ This section addresses:
   arrays and vice versa.
 \end{itemize}
 
-The documentation for writing GUI programs consists of the
-\ulink{Qwt manual}{qwt/index.html} on your hard disk or the \Qwt{} manual on
-the web, supplemented by chapter \ref{reference} to document the differences
-between PyQwt and Qwt.
+The documentation for writing GUI programs consists of the \Qwt{} manual on
+your hard disk or on the web, supplemented by chapter \ref{reference} to
+document the differences between PyQwt and Qwt.
 
 
-\subsection{Qwt5.iqt or PyQt4.Qwt5.iqt
-  \label{iqt-intro}}
+\subsection{Command line interface
+  \label{cli-intro}}
 
 \Future{}
 
@@ -299,11 +298,12 @@ or
 ipython ICompass.py
 \end{verbatim}
 
-My \file{.pythonrc.py} file loads the modules \module{readline},
-\module{rlcompleter} and \module{iqt}.  Then, it configures \module{readline}
-for tab-completion and history saving and cleans up the global namespace.
-Finally, it loads the modules \module{Qwt5}, \module{Qt}, \module{numpy},
-and \module{scipy}, while setting up the help system for \module{scipy}:
+My \file{.pythonrc.py} file tries to import the modules \module{numpy} and
+\module{scipy}.
+Then, it tries to import everything from the modules \module{PyQt4.Qt} and
+\module{PyQt4.Qwt5} before creating an QApplication instance.
+Finally, it configures \module{readline} for tab-completion and history saving
+and cleans up the global namespace:
 \verbatiminput{pythonrc.py}
 
 
