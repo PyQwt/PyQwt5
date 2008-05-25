@@ -3,7 +3,7 @@
 Provides a Command Line Interpreter friendly interface to QwtPlot.
 """
 #
-# Copyright (C) 2003-2007 Gerard Vermeulen
+# Copyright (C) 2003-2008 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #
@@ -31,50 +31,74 @@ Provides a Command Line Interpreter friendly interface to QwtPlot.
 # PyQwt becomes a free plug-in for a non-free program.
 
 
-
 import sys
 import time
 
-import PyQt4.Qt as Qt
-import PyQt4.Qwt5 as Qwt
-from anynumpy import *
+import anynumpy as np
+
+from PyQt4.Qt import *
+from PyQt4.Qwt5 import *
 from grace import GracePlotter
 
 
-# colors
-Black       = Qt.QColor(Qt.Qt.black)
-Blue        = Qt.QColor(Qt.Qt.blue)
-Cyan        = Qt.QColor(Qt.Qt.cyan)
-DarkBlue    = Qt.QColor(Qt.Qt.darkBlue)
-DarkCyan    = Qt.QColor(Qt.Qt.darkCyan)
-DarkGray    = Qt.QColor(Qt.Qt.darkGray)
-DarkGreen   = Qt.QColor(Qt.Qt.darkGreen)
-DarkMagenta = Qt.QColor(Qt.Qt.darkMagenta)
-DarkRed     = Qt.QColor(Qt.Qt.darkRed)
-DarkYellow  = Qt.QColor(Qt.Qt.darkYellow)
-Gray        = Qt.QColor(Qt.Qt.gray)
-Green       = Qt.QColor(Qt.Qt.green)
-LightGray   = Qt.QColor(Qt.Qt.lightGray)
-Magenta     = Qt.QColor(Qt.Qt.magenta)
-Red         = Qt.QColor(Qt.Qt.red)
-White       = Qt.QColor(Qt.Qt.white)
-Yellow      = Qt.QColor(Qt.Qt.yellow)
+# Qt.GlobalColor aliases
+Black       = Qt.black
+Blue        = Qt.blue
+Cyan        = Qt.cyan
+DarkBlue    = Qt.darkBlue
+DarkCyan    = Qt.darkCyan
+DarkGray    = Qt.darkGray
+DarkGreen   = Qt.darkGreen
+DarkMagenta = Qt.darkMagenta
+DarkRed     = Qt.darkRed
+DarkYellow  = Qt.darkYellow
+Gray        = Qt.gray
+Green       = Qt.green
+LightGray   = Qt.lightGray
+Magenta     = Qt.magenta
+Red         = Qt.red
+White       = Qt.white
+Yellow      = Qt.yellow
 
+# Qt.PenStyle aliases
+NoLine         = Qt.NoPen
+SolidLine      = Qt.SolidLine
+DashLine       = Qt.DashLine
+DotLine        = Qt.DotLine
+DashDotLine    = Qt.DashDotLine
+DashDotDotLine = Qt.DashDotDotLine
+
+# QwtPlot.Axis aliases
+Y1 = Left   = QwtPlot.yLeft
+Y2 = Right  = QwtPlot.yRight
+X1 = Bottom = QwtPlot.xBottom
+X2 = Top    = QwtPlot.xTop
+
+# QwtScaleEngine aliases
+Lin = QwtLinearScaleEngine
+Log = QwtLog10ScaleEngine
+
+# QwtScaleEngine.Attribute aliases
+NoAttribute      = QwtScaleEngine.NoAttribute
+IncludeReference = QwtScaleEngine.IncludeReference
+Symmetric        = QwtScaleEngine.Symmetric
+Floating         = QwtScaleEngine.Floating
+Inverted         = QwtScaleEngine.Inverted
 
 # font
-Font = Qt.QFont('Verdana')
+Font = QFont('Stix')
 
-class Tracker(Qt.QObject):
+class Tracker(QObject):
     def __init__(self, parent):
-        Qt.QObject.__init__(self, parent)
+        QObject.__init__(self, parent)
         parent.setMouseTracking(True)
         parent.installEventFilter(self)
 
     # __init__()
 
     def eventFilter(self, _, event):
-        if event.type() == Qt.QEvent.MouseMove:
-            self.emit(Qt.SIGNAL("MouseMoveTracked"), event.pos())
+        if event.type() == QEvent.MouseMove:
+            self.emit(SIGNAL("MouseMoveTracked"), event.pos())
         return False
 
     # eventFilter()
@@ -82,116 +106,107 @@ class Tracker(Qt.QObject):
 # class Tracker
 
 
-class Plot(Qwt.QwtPlot):
+class Plot(QwtPlot):
     """Sugar coating.
     """
-    def __init__(self, *args):
+    def __init__(self, *rest):
         """Constructor.
 
-        Usage: plot = Plot(*args)
+        Usage: plot = Plot(*rest)
         
         Plot takes any number of optional arguments. The interpretation
         of each optional argument depend on its data type:
         (1) Axis -- enables the axis.
         (2) Curve -- plots a curve.
-        (3) str or Qt.QString -- sets the title.
+        (3) str or QString -- sets the title.
         (4) integer -- attaches a set of mouse events to the zoomer actions
         (5) tuples of 2 integer -- sets the size.
-        (6) Qt.QWidget -- parent widget.
+        (6) QWidget -- parent widget.
         """
 
         self.size = (600, 400)
 
         # get an optional parent widget
         parent = None
-        for arg in args:
-            if isinstance(arg, Qt.QWidget):
-                parent = arg
+        for item in rest:
+            if isinstance(item, QWidget):
+                parent = item
                 self.size = None
-        Qwt.QwtPlot.__init__(self, parent)
+        QwtPlot.__init__(self, parent)
 
         # look
-        self.setCanvasBackground(Qt.Qt.white)
+        self.setCanvasBackground(White)
         self.plotLayout().setAlignCanvasToScales(True)
 
-        grid = Qwt.QwtPlotGrid()
+        grid = QwtPlotGrid()
         grid.attach(self)
-        grid.setPen(Qt.QPen(Qt.Qt.black, 0, Qt.Qt.DotLine))
+        grid.setPen(QPen(Black, 0, DotLine))
         
-        legend = Qwt.QwtLegend()
+        legend = QwtLegend()
         legend.setItemMode(Qwt.QwtLegend.ClickableItem)
         self.insertLegend(legend, Qwt.QwtPlot.RightLegend)
 
         # zooming
         self.zoomers = []
-        zoomer = Qwt.QwtPlotZoomer(Qwt.QwtPlot.xBottom,
-                                   Qwt.QwtPlot.yLeft,
-                                   Qwt.QwtPicker.DragSelection,
-                                   Qwt.QwtPicker.AlwaysOff,
-                                   self.canvas())
-        zoomer.setRubberBandPen(Qt.QPen(Black))
+        zoomer = QwtPlotZoomer(X1,
+                               Y1,
+                               QwtPicker.DragSelection,
+                               QwtPicker.AlwaysOff,
+                               self.canvas())
+        zoomer.setRubberBandPen(QPen(Black))
         self.zoomers.append(zoomer)
-        zoomer = Qwt.QwtPlotZoomer(Qwt.QwtPlot.xTop,
-                                   Qwt.QwtPlot.yRight,
-                                   Qwt.QwtPicker.DragSelection,
-                                   Qwt.QwtPicker.AlwaysOff,
+        zoomer = Qwt.QwtPlotZoomer(X2,
+                                   Y2,
+                                   QwtPicker.DragSelection,
+                                   QwtPicker.AlwaysOff,
                                    self.canvas())
-        zoomer.setRubberBand(Qwt.QwtPicker.NoRubberBand)
+        zoomer.setRubberBand(QwtPicker.NoRubberBand)
         self.zoomers.append(zoomer)
         self.setZoomerMouseEventSet(0)
 
         # initialization
-        for arg in args:
-            if isinstance(arg, Axis):
-                self.plotAxis(arg)
-            elif isinstance(arg, Curve):
-                self.plotCurve(arg)
-            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
-                text = Qwt.QwtText(arg)
-                font = Qt.QFont(Font)
+        for item in rest:
+            if isinstance(item, Axis):
+                self.plotAxis(item)
+            elif isinstance(item, Curve):
+                self.plotCurve(item)
+            elif (isinstance(item, str) or isinstance(item, QString)):
+                text = QwtText(item)
+                font = QFont(Font)
                 font.setPointSize(14)
                 font.setBold(True)
                 text.setFont(font)
                 self.setTitle(text)
-            elif isinstance(arg, int):
-                self.setZoomerMouseEventSet(arg)
-            elif (isinstance(arg, tuple) and len(tuple) == 2
-                  and isinstance(arg[0], int) and isinstance(arg[1], int)):
-                self.size = arg
-            elif isinstance(arg, Qt.QWidget): # accept a parent silently
+            elif isinstance(item, int):
+                self.setZoomerMouseEventSet(item)
+            elif (isinstance(item, tuple) and len(tuple) == 2
+                  and isinstance(item[0], int) and isinstance(item[1], int)):
+                self.size = item
+            elif isinstance(item, QWidget): # accept a parent silently
                 pass
             else:
-                print "Plot() fails to accept %s." % arg
+                print "Plot() fails to accept %s." % item
 
         if self.size:
             apply(self.resize, self.size)
 
         # connections
         self.connect(self,
-                     Qt.SIGNAL("legendClicked(QwtPlotItem*)"),
+                     SIGNAL("legendClicked(QwtPlotItem*)"),
                      self.toggleVisibility)
         # finalize
         self.show()
 
     # __init__()
 
-    def __getattr__(self, attr):
-        """Inherit everything from Qwt.QwtPlot.
-        """
-        if hasattr(Qwt.QwtPlot, attr):
-            return getattr(self.sipThis, attr)
-        else:
-            raise AttributeError, ('%s has no attribute named %s'
-                                   % (self.__class__.__name__, attr)
-                                   )
-    # __getattr__()
-        
-    def plot(self, *args):
-        for arg in args:
-            if isinstance(arg, Curve):
-                self.plotCurve(arg)
+    def plot(self, *rest):
+        for item in rest:
+            if isinstance(item, Curve):
+                self.plotCurve(item)
+            elif isinstance(item, Axis):
+                self.plotAxis(item)
             else:
-                print "Plot.plot() fails to accept %s." % arg
+                print "Plot.plot() fails to accept %s." % item
 
     # plot()
 
@@ -200,7 +215,7 @@ class Plot(Qwt.QwtPlot):
         engine = axis.engine()
         engine.setAttributes(axis.attributes)
         self.setAxisScaleEngine(axis.orientation, engine)
-        if isinstance(engine, Qwt.QwtLog10ScaleEngine):
+        if isinstance(engine, Log):
             self.setAxisMaxMinor(axis.orientation, 8)
         self.setAxisTitle(axis.orientation, axis.title)
         self.clearZoomStack()
@@ -208,13 +223,13 @@ class Plot(Qwt.QwtPlot):
     # plotAxis()
 
     def plotCurve(self, curve):
-        c = Qwt.QwtPlotCurve(curve.name)
+        c = QwtPlotCurve(curve.name)
         c.setAxis(curve.xAxis, curve.yAxis)
         
         if curve.pen:
             c.setPen(curve.pen)
         else:
-            c.setStyle(Qwt.QwtPlotCurve.NoCurve)
+            c.setStyle(QwtPlotCurve.NoCurve)
         if curve.symbol:
             c.setSymbol(curve.symbol)
         c.setData(curve.x, curve.y)
@@ -226,10 +241,10 @@ class Plot(Qwt.QwtPlot):
     def clearZoomStack(self):
         """Force autoscaling and clear the zoom stack
         """
-        self.setAxisAutoScale(Qwt.QwtPlot.yLeft)
-        self.setAxisAutoScale(Qwt.QwtPlot.yRight)
-        self.setAxisAutoScale(Qwt.QwtPlot.xBottom)
-        self.setAxisAutoScale(Qwt.QwtPlot.xTop)
+        self.setAxisAutoScale(QwtPlot.yLeft)
+        self.setAxisAutoScale(QwtPlot.yRight)
+        self.setAxisAutoScale(QwtPlot.xBottom)
+        self.setAxisAutoScale(QwtPlot.xTop)
         self.replot()
         for zoomer in self.zoomers:
             zoomer.setZoomBase()
@@ -241,18 +256,18 @@ class Plot(Qwt.QwtPlot):
         """
         if index == 0:
             pattern = [
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.LeftButton,
-                                                 Qt.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.MidButton,
-                                                 Qt.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.RightButton,
-                                                 Qt.Qt.NoModifier),
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.LeftButton,
-                                                 Qt.Qt.ShiftModifier),
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.MidButton,
-                                                 Qt.Qt.ShiftModifier),
-                Qwt.QwtEventPattern.MousePattern(Qt.Qt.RightButton,
-                                                 Qt.Qt.ShiftModifier),
+                QwtEventPattern.MousePattern(Qt.LeftButton,
+                                             Qt.NoModifier),
+                QwtEventPattern.MousePattern(Qt.MidButton,
+                                             Qt.NoModifier),
+                QwtEventPattern.MousePattern(Qt.RightButton,
+                                             Qt.NoModifier),
+                QwtEventPattern.MousePattern(Qt.LeftButton,
+                                             Qt.ShiftModifier),
+                QwtEventPattern.MousePattern(Qt.MidButton,
+                                             Qt.ShiftModifier),
+                QwtEventPattern.MousePattern(Qt.RightButton,
+                                             Qt.ShiftModifier),
                 ]
             for zoomer in self.zoomers:
                 zoomer.setMousePattern(pattern)
@@ -274,10 +289,10 @@ class Plot(Qwt.QwtPlot):
         """Format mouse coordinates as real world plot coordinates.
         """
         result = []
-        todo = ((Qwt.QwtPlot.xBottom, "x0=%+.6g", x),
-                (Qwt.QwtPlot.yLeft,   "y0=%+.6g", y),
-                (Qwt.QwtPlot.xTop,    "x1=%+.6g", x),
-                (Qwt.QwtPlot.yRight,  "y1=%+.6g", y))
+        todo = ((QwtPlot.xBottom, "x0=%+.6g", x),
+                (QwtPlot.yLeft,   "y0=%+.6g", y),
+                (QwtPlot.xTop,    "x1=%+.6g", x),
+                (QwtPlot.yRight,  "y1=%+.6g", y))
         for axis, template, value in todo:
             if self.axisEnabled(axis):
                 value = self.invTransform(axis, value)
@@ -305,16 +320,12 @@ class Plot(Qwt.QwtPlot):
         g = GracePlotter(debug = 0)
         g('subtitle "%s"' % self.title().text())
         index = 0
-        for xAxis, yAxis, graph, xPlace, yPlace in [
-            (Qwt.QwtPlot.xBottom, Qwt.QwtPlot.yLeft,
-             'g0', 'normal', 'normal'),
-            (Qwt.QwtPlot.xBottom, Qwt.QwtPlot.yRight,
-             'g1', 'normal', 'opposite'),
-            (Qwt.QwtPlot.xTop, Qwt.QwtPlot.yLeft,
-             'g2', 'opposite', 'normal'),
-            (Qwt.QwtPlot.xTop, Qwt.QwtPlot.yRight,
-             'g3', 'opposite', 'opposite')
-            ]:
+        for xAxis, yAxis, graph, xPlace, yPlace in (
+            (X1, Y1, 'g0', 'normal', 'normal'),
+            (X1, Y2, 'g1', 'normal', 'opposite'),
+            (X2, Y1, 'g2', 'opposite', 'normal'),
+            (X2, Y2, 'g3', 'opposite', 'opposite')
+            ):
             if not (self.axisEnabled(xAxis) and self.axisEnabled(yAxis)):
                 continue
             g('%s on; with %s' % (graph, graph))
@@ -331,9 +342,7 @@ class Plot(Qwt.QwtPlot):
             g('xaxis tick place %s' % xPlace)
             g('xaxis ticklabel place %s' % xPlace)
             time.sleep(pause)
-            if isinstance(
-                self.axisScaleEngine(xAxis), Qwt.QwtLog10ScaleEngine
-                ):
+            if isinstance(self.axisScaleEngine(xAxis), Log):
                 g('xaxes scale Logarithmic')
                 g('xaxis tick major 10')
                 g('xaxis tick minor ticks 9')
@@ -355,9 +364,7 @@ class Plot(Qwt.QwtPlot):
             g('yaxis tick place %s' % yPlace)
             g('yaxis ticklabel place %s' % yPlace)
             time.sleep(pause)
-            if isinstance(
-                self.axisScaleEngine(yAxis), Qwt.QwtLog10ScaleEngine
-                ):
+            if isinstance(self.axisScaleEngine(yAxis), Log):
                 #print 'log y-axis from %s to %s.' % (min, max)
                 g('yaxes scale Logarithmic')
                 g('yaxis tick major 10')
@@ -370,7 +377,7 @@ class Plot(Qwt.QwtPlot):
 
             # curves
             for curve in self.itemList():
-                if not isinstance(curve, Qwt.QwtPlotCurve):
+                if not isinstance(curve, QwtPlotCurve):
                     continue
                 if not curve.isVisible():
                     continue
@@ -378,7 +385,7 @@ class Plot(Qwt.QwtPlot):
                     continue
                 g('s%s legend "%s"' % (index, curve.title().text()))
                 #print "curve.symbol().style()", curve.symbol().style()
-                if curve.symbol().style() > Qwt.QwtSymbol.NoSymbol:
+                if curve.symbol().style() > QwtSymbol.NoSymbol:
                     g('s%s symbol 1;'
                       's%s symbol size 0.4;'
                       's%s symbol fill pattern 1'
@@ -407,12 +414,12 @@ class Plot(Qwt.QwtPlot):
 
 
 class Curve:
-    """Sugar coating for Qwt.QwtPlotCurve.
+    """Sugar coating for QwtPlotCurve.
     """
-    def __init__(self, x, y, *args):
+    def __init__(self, x, y, *rest):
         """Constructor.
 
-        Usage: curve = Curve(x, y, *args)
+        Usage: curve = Curve(x, y, *rest)
         
         Curve takes two obligatory arguments followed by any number of
         optional arguments. The arguments 'x' and 'y' must be sequences
@@ -421,98 +428,69 @@ class Curve:
         (1) Axis -- attaches an axis to the curve.
         (2) Pen -- sets the pen to connect the data points.
         (3) Symbol -- sets the symbol to draw the data points.
-        (4) string or Qt.QString -- sets the title of the curve.
+        (4) string or QString -- sets the title of the curve.
         """
         self.x = x # must be sequence of floats, typecode()?
         self.y = y # must be sequence of floats
         self.name = ""
-        self.xAxis = Qwt.QwtPlot.xBottom
-        self.yAxis = Qwt.QwtPlot.yLeft
+        self.xAxis = QwtPlot.xBottom
+        self.yAxis = QwtPlot.yLeft
         self.symbol = None
         self.pen = None
 
-        for arg in args:
-            if isinstance(arg, AxisOrientation):
-                if arg.orientation in (
-                    Qwt.QwtPlot.xBottom,
-                    Qwt.QwtPlot.xTop
-                    ):
-                    self.xAxis = arg.orientation
-                elif arg.orientation in (
-                    Qwt.QwtPlot.yLeft,
-                    Qwt.QwtPlot.yRight
-                    ):
-                    self.yAxis = arg.orientation
-                else:
-                    raise FIXME
-            elif isinstance(arg, Pen):
-                self.pen = arg
-            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
-                self.name = arg
-            elif isinstance(arg, Symbol):
-                self.symbol = arg
+        for item in rest:
+            if isinstance(item, QwtPlot.Axis):
+                if item in (X1, X2):
+                    self.xAxis = item
+                elif item in (Y1, Y2):
+                    self.yAxis = item
+            elif isinstance(item, Pen):
+                self.pen = item
+            elif (isinstance(item, str) or isinstance(item, QString)):
+                self.name = item
+            elif isinstance(item, Symbol):
+                self.symbol = item
             else:
-                print "Curve fails to accept %s." % arg
+                print "Curve fails to accept %s." % item
 
         if not self.symbol and not self.pen:
-            self.pen = Qt.QPen()
+            self.pen = QPen()
 
     # __init__()
 
 
-class AxisOrientation:
-    def __init__(self, orientation):
-        self.orientation = orientation
-
-# class AxisOrientation
-
-Left   = AxisOrientation(Qwt.QwtPlot.yLeft)
-Right  = AxisOrientation(Qwt.QwtPlot.yRight)
-Bottom = AxisOrientation(Qwt.QwtPlot.xBottom)
-Top    = AxisOrientation(Qwt.QwtPlot.xTop)
-
-Lin = Qwt.QwtLinearScaleEngine
-Log = Qwt.QwtLog10ScaleEngine
-
-NoAttribute      = Qwt.QwtScaleEngine.NoAttribute
-IncludeReference = Qwt.QwtScaleEngine.IncludeReference
-Symmetric        = Qwt.QwtScaleEngine.Symmetric
-Floating         = Qwt.QwtScaleEngine.Floating
-Inverted         = Qwt.QwtScaleEngine.Inverted
-
-
 class Axis:
-    def __init__(self, *args):
+    def __init__(self, *rest):
         """Constructor.
 
-        Usage: axis = Axis(*args)
+        Usage: axis = Axis(*rest)
         
         Axis takes any number of optional arguments. The interpretation
         of each optional argument depends on its data type:
-        (1) AxisOrientation -- sets the orientation of the axis.
-        (2) FIXME: Lin, Log
+        (1) QwtPlot.Axis -- sets the orientation of the axis.
+        (2) QwtScaleEngine -- sets the axis type (Lin or Log).
         (3) int -- sets the attributes of the axis.
-        (4) string or Qt.QString -- sets the title of the axis.
+        (4) string or QString -- sets the title of the axis.
         """
         self.attributes = NoAttribute
-        self.engine = Qwt.QwtLinearScaleEngine
-        self.title = Qwt.QwtText('')
-        font = Qt.QFont(Font)
+        self.engine = QwtLinearScaleEngine
+        self.title = QwtText('')
+        font = QFont(Font)
         font.setPointSize(12)
         font.setBold(True)
         self.title.setFont(font)
 
-        for arg in args:
-            if isinstance(arg, AxisOrientation):
-                self.orientation = arg.orientation
-            elif arg in [Lin, Log]:
-                self.engine = arg
-            elif isinstance(arg, int):
-                self.attributes = arg
-            elif (isinstance(arg, str) or isinstance(arg, Qt.QString)):
-                self.title.setText(arg)
+        for item in rest:
+            if isinstance(item, QwtPlot.Axis):
+                self.orientation = item
+            elif item in [Lin, Log]:
+                self.engine = item
+            elif isinstance(item, int):
+                self.attributes = item
+            elif (isinstance(item, str) or isinstance(item, QString)):
+                self.title.setText(item)
             else:
-                print "Axis() fails to accept %s." % arg
+                print "Axis() fails to accept %s." % item
 
     # __init__()
 
@@ -528,84 +506,67 @@ class SymbolStyle:
 # class SymbolStyle
 
 
-NoSymbol = SymbolStyle(Qwt.QwtSymbol.NoSymbol)
-Circle   = SymbolStyle(Qwt.QwtSymbol.Ellipse)
-Square   = SymbolStyle(Qwt.QwtSymbol.Rect)
-Diamond  = SymbolStyle(Qwt.QwtSymbol.Diamond)
+NoSymbol = SymbolStyle(QwtSymbol.NoSymbol)
+Circle   = SymbolStyle(QwtSymbol.Ellipse)
+Square   = SymbolStyle(QwtSymbol.Rect)
+Diamond  = SymbolStyle(QwtSymbol.Diamond)
 
 
-class PenStyle:
-    def __init__(self, style):
-        self.style = style
-
-    # __init__()
-
-# class PenStyle
-
-
-NoLine         = PenStyle(Qt.Qt.NoPen) 
-SolidLine      = PenStyle(Qt.Qt.SolidLine)
-DashLine       = PenStyle(Qt.Qt.DashLine)
-DotLine        = PenStyle(Qt.Qt.DotLine)
-DashDotLine    = PenStyle(Qt.Qt.DashDotLine)
-DashDotDotLine = PenStyle(Qt.Qt.DashDotDotLine)
-
-
-class Symbol(Qwt.QwtSymbol):
-    """Sugar coating for Qwt.QwtSymbol.
+class Symbol(QwtSymbol):
+    """Sugar coating for QwtSymbol.
     """
-    def __init__(self, *args):
+    def __init__(self, *rest):
         """Constructor.
 
-        Usage: symbol = Symbol(*args)
+        Usage: symbol = Symbol(*rest)
         
         Symbol takes any number of optional arguments. The interpretation
         of each optional argument depends on its data type:
-        (1) Qt.QColor -- sets the fill color of the symbol.
+        (1) QColor or Qt.GlobalColor -- sets the fill color of the symbol.
         (2) SymbolStyle -- sets the style of the symbol.
         (3) int -- sets the size of the symbol.
         """
-        Qwt.QwtSymbol.__init__(self)
+        QwtSymbol.__init__(self)
         self.setSize(5)
-        for arg in args:
-            if isinstance(arg, Qt.QColor):
+        for item in rest:
+            if isinstance(item, (QColor, Qt.GlobalColor)):
                 brush = self.brush()
-                brush.setColor(arg)
+                brush.setColor(item)
                 self.setBrush(brush)
-            elif isinstance(arg, SymbolStyle):
-                self.setStyle(arg.style)
-            elif isinstance(arg, int):
-                self.setSize(arg)
+            elif isinstance(item, SymbolStyle):
+                self.setStyle(item.style)
+            elif isinstance(item, int):
+                self.setSize(item)
             else:
-                print "Symbol fails to accept %s." %  arg
+                print "Symbol fails to accept %s." %  item
 
     # __init__()
 
 # class Symbol
 
 
-class Pen(Qt.QPen):
-    def __init__(self, *args):
+class Pen(QPen):
+    def __init__(self, *rest):
         """Constructor.
 
-        Usage: pen = Pen(*args)
+        Usage: pen = Pen(*rest)
         
-        Pen takes any number of optional arguments. The interpretation
+        Pen takes any number of optional argument. The interpretation
         of each optional argument depends on its data type:
-        (1) PenStyle -- sets the style of the pen.
-        (2) Qt.QColor -- sets the color of the pen.
+        (1) Qt.PenStyle -- sets the style of the pen.
+        (2) QColor or Qt.GlobalColor -- sets the color of the pen.
         (3) int -- sets the width of the pen.
         """
-        Qt.QPen.__init__(self)
-        for arg in args:
-            if isinstance(arg, PenStyle):
-                self.setStyle(arg.style)
-            elif isinstance(arg, Qt.QColor):
-                self.setColor(arg)
-            elif isinstance(arg, int):
-                self.setWidth(arg)
+        QPen.__init__(self)
+        for item in rest:
+            if isinstance(item, Qt.PenStyle):
+                self.setStyle(item.style)
+            elif isinstance(item, (QColor, Qt.GlobalColor)):
+                self.setColor(item)
+            elif isinstance(item, int):
+                self.setWidth(item)
             else:
-                print "Pen fails to accept %s." % arg
+                print "Pen fails to accept %s." % item
 
     # __init__()
 
@@ -710,7 +671,7 @@ grace_xpm = [
     ]
 
 
-class IPlot(Qt.QMainWindow):
+class IPlot(QMainWindow):
     """A QMainWindow widget with a Plot widget as central widget.
 
     It provides:
@@ -720,64 +681,64 @@ class IPlot(Qt.QMainWindow):
     (4) an infinite stack of zoom region.
     """
 
-    def __init__(self, *args):
+    def __init__(self, *rest):
         """Constructor.
 
-        Usage: plot = IPlot(*args)
+        Usage: plot = IPlot(*rest)
         
         IPlot takes any number of optional arguments. The interpretation
         of each optional argument depend on its data type:
         (1) Axis -- enables the axis.
         (2) Curve -- plots a curve.
-        (3) string or Qt.QString -- sets the title.
+        (3) string or QString -- sets the title.
         (4) tuples of 2 integer -- sets the size.
         """
-        Qt.QMainWindow.__init__(self)
+        QMainWindow.__init__(self)
 
-        self.__plot = Plot(self, *args)
+        self.__plot = Plot(self, *rest)
         self.setCentralWidget(self.__plot)
 
-        toolBar = Qt.QToolBar(self)
+        toolBar = QToolBar(self)
         self.addToolBar(toolBar)
 
-        printButton = Qt.QToolButton(toolBar)
+        printButton = QToolButton(toolBar)
         printButton.setText("Print")
-        printButton.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
+        printButton.setIcon(QIcon(QPixmap(print_xpm)))
         toolBar.addWidget(printButton)
         toolBar.addSeparator()
 
-        graceButton = Qt.QToolButton(toolBar)
+        graceButton = QToolButton(toolBar)
         graceButton.setText("Grace")
-        graceButton.setIcon(Qt.QIcon(Qt.QPixmap(grace_xpm)))
+        graceButton.setIcon(QIcon(QPixmap(grace_xpm)))
         toolBar.addWidget(graceButton)
         toolBar.addSeparator()
 
-        mouseComboBox = Qt.QComboBox(toolBar)
+        mouseComboBox = QComboBox(toolBar)
         for name in ('3 buttons (PyQwt)',
                      '1 button',
                      '2 buttons',
                      '3 buttons (Qwt)'):
             mouseComboBox.addItem(name)
-        mouseComboBox.setCurrentIndex(self.getZoomerMouseEventSet())
+        mouseComboBox.setCurrentIndex(self.__plot.getZoomerMouseEventSet())
         toolBar.addWidget(mouseComboBox)
         toolBar.addSeparator()
 
-        action = Qt.QWhatsThis.createAction(toolBar)
+        action = QWhatsThis.createAction(toolBar)
         toolBar.addAction(action)
         toolBar.addSeparator()
         
         self.connect(printButton,
-                     Qt.SIGNAL('clicked()'),
+                     SIGNAL('clicked()'),
                      self.printPlot)
         self.connect(graceButton,
-                     Qt.SIGNAL('clicked()'),
-                     self.gracePlot)
+                     SIGNAL('clicked()'),
+                     self.__plot.gracePlot)
         self.connect(mouseComboBox,
-                     Qt.SIGNAL('activated(int)'),
-                     self.setZoomerMouseEventSet)
+                     SIGNAL('activated(int)'),
+                     self.__plot.setZoomerMouseEventSet)
 
-        self.connect(Tracker(self.canvas()),
-                     Qt.SIGNAL("MouseMoveTracked"),
+        self.connect(Tracker(self.__plot.canvas()),
+                     SIGNAL("MouseMoveTracked"),
                      self.showCoordinates) 
 
         self.statusBar().showMessage("Move the mouse within the plot canvas"
@@ -845,10 +806,15 @@ class IPlot(Qt.QMainWindow):
 
     # __init__()
 
+    def plot(self, *rest):
+        self.__plot.plot(*rest)
+
+    # plot()
+    
     def printPlot(self):
-        printer = Qt.QPrinter(Qt.QPrinter.HighResolution)
-        printer.setColorMode(Qt.QPrinter.Color)
-        printDialog = Qt.QPrintDialog(printer)
+        printer = QPrinter(QPrinter.HighResolution)
+        printer.setColorMode(QPrinter.Color)
+        printDialog = QPrintDialog(printer)
         if printDialog.exec_():
             self.__plot.print_(printer)
 
@@ -856,16 +822,14 @@ class IPlot(Qt.QMainWindow):
 
     def showCoordinates(self, position):
         self.statusBar().showMessage(' -- '.join(
-            self.formatCoordinates(position.x(), position.y())))
+            self.__plot.formatCoordinates(position.x(), position.y())))
 
     # showCoordinates()
         
     def __getattr__(self, attr):
-        """Inherit everything from QMainWindow and Plot
+        """Inherit everything from Plot
         """
-        if hasattr(Qt.QMainWindow, attr):
-            return getattr(self.sipThis, attr)
-        elif hasattr(self.__plot, attr):
+        if hasattr(self.__plot, attr):
             return getattr(self.__plot, attr)
         else:
             raise AttributeError, ('%s has no attribute named %s'
@@ -878,20 +842,18 @@ class IPlot(Qt.QMainWindow):
         
 # Admire!
 def testPlot():
-    x = arange(-2*pi, 2*pi, 0.01)
-    p = Plot(
-        Axis(Bottom, "linear x-axis"),
-        Axis(Left, "linear y-axis"),
-        Axis(Right, Log, "logarithmic y-axis"),             
-        Curve(x, cos(x), Pen(Magenta, 2), "cos(x)"),
-        Curve(x, exp(x), Pen(Red), "exp(x)", Right),
-        "PyQwt using Qt-%s and Qwt-%s"
-        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
-        )
+    x = np.arange(-2*np.pi, 2*np.pi, 0.01)
+    p = Plot(Axis(Bottom, "linear x-axis"),
+             Axis(Left, "linear y-axis"),
+             Axis(Right, Log, "logarithmic y-axis"),             
+             Curve(x, np.cos(x), Pen(Magenta, 2), "cos(x)"),
+             Curve(x, np.exp(x), Pen(Red), "exp(x)", Right),
+             "PyQwt using Qt-%s and Qwt-%s" % (QT_VERSION_STR, QWT_VERSION_STR),
+             )
     x = x[0:-1:10]
     p.plot(
-        Curve(x, cos(x-pi/4), Symbol(Circle, Yellow), "circle"),
-        Curve(x, cos(x+pi/4), Pen(Blue), Symbol(Square, Cyan), "square"),
+        Curve(x, np.cos(x-np.pi/4), Symbol(Circle, Yellow), "circle"),
+        Curve(x, np.cos(x+np.pi/4), Pen(Blue), Symbol(Square, Cyan), "square"),
         )
     return p
 
@@ -899,20 +861,18 @@ def testPlot():
 
 
 def testIPlot():
-    x = arange(-2*pi, 2*pi, 0.01)
-    p = IPlot(
-        Axis(Bottom, "linear x-axis"),
-        Axis(Left, "linear y-axis"),
-        Axis(Right, Log, "logarithmic y-axis"),             
-        Curve(x, cos(x), Pen(Magenta, 2), "cos(x)"),
-        Curve(x, exp(x), Pen(Red), "exp(x)", Right),
-        "PyQwt using Qt-%s and Qwt-%s"
-        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
-        )
+    x = np.arange(-2*np.pi, 2*np.pi, 0.01)
+    p = IPlot(Axis(Bottom, "linear x-axis"),
+              Axis(Left, "linear y-axis"),
+              Axis(Right, Log, "logarithmic y-axis"),             
+              Curve(x, np.cos(x), Pen(Magenta, 2), "cos(x)"),
+              Curve(x, np.exp(x), Pen(Red), "exp(x)", Right),
+              "PyQwt using Qt-%s and Qwt-%s"% (QT_VERSION_STR, QWT_VERSION_STR),
+              )
     x = x[0:-1:10]
     p.plot(
-        Curve(x, cos(x-pi/4), Symbol(Circle, Yellow), "circle"),
-        Curve(x, cos(x+pi/4), Pen(Blue), Symbol(Square, Cyan), "square"),
+        Curve(x, np.cos(x-np.pi/4), Symbol(Circle, Yellow), "circle"),
+        Curve(x, np.cos(x+np.pi/4), Pen(Blue), Symbol(Square, Cyan), "square"),
         )
     return p
 
@@ -920,38 +880,35 @@ def testIPlot():
 
 
 def standard_map(x, y, kappa, n):
-    xs = zeros(n, Float)
-    ys = zeros(n, Float)
+    xs = np.zeros(n, np.Float)
+    ys = np.zeros(n, np.Float)
     for i in range(n):
         xs[i] = x
         ys[i] = y
-        xn = y-kappa*sin(2.0*pi*x)
-        yn = x+y
+        xn = y - kappa*np.sin(2.0*np.pi*x)
+        yn = x + y
         if (xn > 1.0) or (xn < 0.0):
-            x = xn-floor(xn)
+            x = xn - np.floor(xn)
         else:
             x = xn
         if (yn > 1.0) or (yn < 0.0):
-            y = yn-floor(yn)
+            y = yn - np.floor(yn)
         else:
             y = yn
     return xs, ys
 
 # standard_map()
 
-        
+
 def testStandardMap():
     import random
     x = random.random()
     y = random.random()
     kappa = random.random()
     print "x = %s, y = %s, kappa = %s" % (x, y, kappa)
-    xs, ys = standard_map(x, y, kappa, 1 << 16)
-    p = IPlot(
-        Curve(xs, ys, Symbol(Circle, Red), "standard_map"),
-        "PyQwt using Qt-%s and Qwt-%s"
-        % (Qt.QT_VERSION_STR, Qwt.QWT_VERSION_STR),
-        )
+    xs, ys = standard_map(x, y, kappa, 1 << 18)
+    title = "PyQwt using Qt-%s and Qwt-%s" % (QT_VERSION_STR, QWT_VERSION_STR) 
+    p = IPlot(Curve(xs, ys, Symbol(Circle, Red), "standard_map"), title)
 
     return p
 
@@ -959,8 +916,11 @@ def testStandardMap():
 
 
 if __name__ == '__main__':
-    a = Qt.QApplication(sys.argv)
-    p = testIPlot()
+    a = QApplication(sys.argv)
+    print dir(Font)
+    print Font.toString()
+    print Font.rawName()
+    p1, p2, p3 = testPlot(), testIPlot(), testStandardMap()
     a.exec_()
 
 # Local Variables: ***
