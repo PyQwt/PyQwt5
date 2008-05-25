@@ -16,6 +16,7 @@ except ImportError:
 try:
     from PyQt4.Qt import *
     from PyQt4.Qwt5 import *
+    from PyQt4.Qwt5.qplt import *
     application = QApplication([])
 except ImportError:
     application = None
@@ -42,8 +43,8 @@ def save(history=history, readline=readline, application=application):
 
 register(save)
 
-# Clean up the global name space; readline, appliction, and save will persist,
-# since del decrements the reference count by one.
+# Clean up the global name space; save, history, readline, and application
+# will continue to exist, since del decrements the reference count by one.
 del register, path, readline, rlcompleter, history, save, application
 
 # Local Variables: ***

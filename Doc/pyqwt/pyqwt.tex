@@ -98,18 +98,18 @@ widgets to display and control bounded or unbounded floating point values.
 The main features of PyQwt are:
 \begin{itemize}
 \item
-  it really shines with the Numerical Python extension, \NumPy{}, \numarray{},
-  and \Numeric{}.  These extension modules add new data types to Python which
-  turn Python into an ideal system for numerical computing and experimentation,
-  better than MatLab and IDL.
+  it really shines with the Numerical Python extension \NumPy{}.
+  \NumPy{} extends Python with multi-dimensional array types to turn Python
+  into an ideal system for numerical computing and experimentation, better than 
+  for instance MatLab and IDL. 
 
 \item
   it requires and extends PyQt, a set of Python bindings for Qt.
 
 \item
-  it supports the use of PyQt, Qt, Qwt, the Numerical Python extensions (either
-  NumPy, or numarray, or Numeric or any combination) and optionally SciPy in a
-  GUI Python application or in an interactive Python session.
+  it supports the use of PyQt, Qt, Qwt, \NumPy{} (\numarray{} and \Numeric{}
+  are deprecated) and optionally SciPy in a GUI Python application or in an
+  interactive Python session. 
 
 \item
   it runs on POSIX, Mac OS X and Windows (any operating system supported by Qt
@@ -300,8 +300,9 @@ ipython ICompass.py
 
 My \file{.pythonrc.py} file tries to import the modules \module{numpy} and
 \module{scipy}.
-Then, it tries to import everything from the modules \module{PyQt4.Qt} and
-\module{PyQt4.Qwt5} before creating an QApplication instance.
+Then, it tries to import everything from the modules \module{PyQt4.Qt},
+\module{PyQt4.Qwt5}, and \module{PyQt4.Qwt5.qplt} before creating an
+QApplication instance.
 Finally, it configures \module{readline} for tab-completion and history saving
 and cleans up the global namespace:
 \verbatiminput{pythonrc.py}
@@ -314,7 +315,8 @@ and cleans up the global namespace:
 The module \module{qplt} defines a tiny data-directed programming
 language to simplify the use of \class{QwtPlot} from the Python command
 line interpreter.
-Here follows a small example:
+The following small example works with the \file{.pythonrc.py} file in section
+\ref{cli-intro}: 
 
 \verbatiminput{qplt.example}
 
@@ -431,7 +433,7 @@ Toggle a curve between hidden and shown.
   and displayed in a status bar. 
 
   \class{IPlot} uses \method{__getattr__()} to inherit all methods of
-  \class{QMainWindow} and \class{IPlot}.
+  \class{IPlot}.
 
 
 In addition, the class \class{IPlot} defines the following methods:

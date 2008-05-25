@@ -1,15 +1,13 @@
->>> import PyQt4.Qwt5.iqt                                         #  1
->>> from PyQt4.Qwt5.qplt import *                                 #  2
->>> x = arange(-2*pi, 2*pi, 0.01)                                 #  3
->>> p = Plot(Curve(x, cos(x), Pen(Magenta, 2), "cos(x)"),         #  4
-...          Axis(Bottom, "x axis"),                              #  5
-...          Axis(Left, "y axis"),                                #  6
-...          Axis(Right, Logarithmic),                            #  7
-...          Curve(x, exp(x), Pen(Red), "exp(x)", Right),         #  8
-...          ("PyQwt demo based on Qwt-%s (http://qwt.sf.net)"    #  9
-...           % PyQt4.Qwt5.QWT_VERSION_STR))                      # 10
->>> x = x[0:-1:10]                                                # 11
->>> p.plot(Curve(x, cos(x-pi/4),                                  # 12
-...              Symbol(Circle, Yellow), "circle"),               # 13
-...        Curve(x, cos(x+pi/4),                                  # 14
-...              Pen(Blue), Symbol(Square, Cyan), "square"))      # 15
+>>> x = np.arange(-2*np.pi, 2*np.pi, 0.01)                        #  1
+>>> p = Plot(Curve(x, np.cos(x), Pen(Magenta, 2), "cos(x)"),      #  2
+...          Axis(Bottom, "x axis"),                              #  3
+...          Axis(Left, "y axis"),                                #  4
+...          Axis(Right, Log),                                    #  5
+...          Curve(x, np.exp(x), Pen(Red), "exp(x)", Right),      #  6
+...          ("PyQwt demo based on Qwt-%s (http://qwt.sf.net)"    #  7
+...           % QWT_VERSION_STR))                                 #  8
+>>> x = x[0:-1:10]                                                #  9
+>>> p.plot(Curve(x, np.cos(x-np.pi/4),                            # 10
+...              Symbol(Circle, Yellow), "circle"),               # 11
+...        Curve(x, np.cos(x+np.pi/4),                            # 12
+...              Pen(Blue), Symbol(Square, Cyan), "square"))      # 13
