@@ -1,6 +1,6 @@
 # PyQwt5 NSIS installer script.
 #
-# Copyright (C) 2001-2007 Gerard Vermeulen
+# Copyright (C) 2001-2008 Gerard Vermeulen
 # Copyright (C) 2000 Mark Colclough
 # 
 # This file is part of PyQwt.
@@ -30,7 +30,7 @@
 
 
 # These will change with different releases.
-!define PYQWT_VERSION        "5.0.1"
+!define PYQWT_VERSION        "5.1.0"
 !define PYQWT_PYQT_VERSION   "%(PYQT_VERSION)s"
 !define PYQWT_PYTHON_VERSION "%(PYTHON_VERSION)s"
 !define PYQWT_QT_VERSION     "%(QT_VERSION)s"
@@ -155,7 +155,7 @@ Section "Documentation" SecDocumentation
 
     SetOutPath $PROGRAMFILES\PyQwt5
     File /r ..\Doc\html\pyqwt
-    File /r ..\qwt-5.0\doc\html
+    File /r ..\qwt-5.1\doc\html
 SectionEnd
 
 Section "Examples" SecExamples
