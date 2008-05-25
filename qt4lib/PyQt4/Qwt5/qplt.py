@@ -86,7 +86,7 @@ Floating         = QwtScaleEngine.Floating
 Inverted         = QwtScaleEngine.Inverted
 
 # font
-Font = QFont('Stix')
+Font = QFont('Verdana')
 
 class Tracker(QObject):
     def __init__(self, parent):
@@ -917,9 +917,6 @@ def testStandardMap():
 
 if __name__ == '__main__':
     a = QApplication(sys.argv)
-    print dir(Font)
-    print Font.toString()
-    print Font.rawName()
     p1, p2, p3 = testPlot(), testIPlot(), testStandardMap()
     a.exec_()
 
