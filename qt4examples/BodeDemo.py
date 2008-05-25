@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-# The Python version of Qwt-5.0.0/examples/bode
+# The Python version of Qwt-5.1.1/examples/bode
 
-# To get an impression of the expressive power of Numeric,
+# To get an impression of the expressive power of NumPy,
 # compare the Python and C++ versions of setDamp()
 
 
 import sys
-from PyQt4 import Qt
-import PyQt4.Qwt5 as Qwt
-from PyQt4.Qwt5.anynumpy import *
+from PyQt4.Qt import *
+from PyQt4.Qwt5 import *
+import PyQt4.Qwt5.anynumpy as np
 
 import sip; sip.settracemask(0xff)
 
@@ -103,30 +103,30 @@ zoom_xpm = ['32 32 8 1',
 
 
 
-class PrintFilter(Qwt.QwtPlotPrintFilter):
+class PrintFilter(QwtPlotPrintFilter):
     def __init__(self):
-        Qwt.QwtPlotPrintFilter.__init__(self)
+        QwtPlotPrintFilter.__init__(self)
 
     # __init___()
     
     def color(self, c, item):
-        if not (self.options() & Qwt.QwtPlotPrintFilter.PrintCanvasBackground):
-            if item == Qwt.QwtPlotPrintFilter.MajorGrid:
-                return Qt.Qt.darkGray
-            elif item == Qwt.QwtPlotPrintFilter.MinorGrid:
-                return Qt.Qt.gray
-        if item == Qwt.QwtPlotPrintFilter.Title:
-            return Qt.Qt.red
-        elif item == Qwt.QwtPlotPrintFilter.AxisScale:
-            return Qt.Qt.green
-        elif item == Qwt.QwtPlotPrintFilter.AxisTitle:
-            return Qt.Qt.blue
+        if not (self.options() & QwtPlotPrintFilter.CanvasBackground):
+            if item == QwtPlotPrintFilter.MajorGrid:
+                return Qt.darkGray
+            elif item == QwtPlotPrintFilter.MinorGrid:
+                return Qt.gray
+        if item == QwtPlotPrintFilter.Title:
+            return Qt.red
+        elif item == QwtPlotPrintFilter.AxisScale:
+            return Qt.green
+        elif item == QwtPlotPrintFilter.AxisTitle:
+            return Qt.blue
         return c
 
     # color()
 
-    def font(self, f, item):
-        result = Qt.QFont(f)
+    def font(self, f, _):
+        result = QFont(f)
         result.setPointSize(int(f.pointSize()*1.25))
         return result
 
@@ -135,94 +135,94 @@ class PrintFilter(Qwt.QwtPlotPrintFilter):
 # class PrintFilter
 
 
-class BodePlot(Qwt.QwtPlot):
+class BodePlot(QwtPlot):
 
     def __init__(self, *args):
-        Qwt.QwtPlot.__init__(self, *args)
+        QwtPlot.__init__(self, *args)
 
         self.setTitle('Frequency Response of a 2<sup>nd</sup>-order System')
-        self.setCanvasBackground(Qt.Qt.darkBlue)
+        self.setCanvasBackground(Qt.darkBlue)
 
         # legend
-        legend = Qwt.QwtLegend()
-        legend.setFrameStyle(Qt.QFrame.Box | Qt.QFrame.Sunken)
-        legend.setItemMode(Qwt.QwtLegend.ClickableItem)
-        self.insertLegend(legend, Qwt.QwtPlot.BottomLegend)
+        legend = QwtLegend()
+        legend.setFrameStyle(QFrame.Box | QFrame.Sunken)
+        legend.setItemMode(QwtLegend.ClickableItem)
+        self.insertLegend(legend, QwtPlot.BottomLegend)
 
         # grid
-        self.grid = Qwt.QwtPlotGrid()
+        self.grid = QwtPlotGrid()
         self.grid.enableXMin(True)
-        self.grid.setMajPen(Qt.QPen(Qt.Qt.white, 0, Qt.Qt.DotLine))
-        self.grid.setMinPen(Qt.QPen(Qt.Qt.gray, 0 , Qt.Qt.DotLine))
+        self.grid.setMajPen(QPen(Qt.white, 0, Qt.DotLine))
+        self.grid.setMinPen(QPen(Qt.gray, 0 , Qt.DotLine))
         self.grid.attach(self)
 
         # axes
-        self.enableAxis(Qwt.QwtPlot.yRight)
-        self.setAxisTitle(Qwt.QwtPlot.xBottom, u'\u03c9/\u03c9<sub>0</sub>')
-        self.setAxisTitle(Qwt.QwtPlot.yLeft, 'Amplitude [dB]')
-        self.setAxisTitle(Qwt.QwtPlot.yRight, u'Phase [\u00b0]')
+        self.enableAxis(QwtPlot.yRight)
+        self.setAxisTitle(QwtPlot.xBottom, u'\u03c9/\u03c9<sub>0</sub>')
+        self.setAxisTitle(QwtPlot.yLeft, 'Amplitude [dB]')
+        self.setAxisTitle(QwtPlot.yRight, u'Phase [\u00b0]')
 
-        self.setAxisMaxMajor(Qwt.QwtPlot.xBottom, 6)
-        self.setAxisMaxMinor(Qwt.QwtPlot.xBottom, 10)
-        self.setAxisScaleEngine(Qwt.QwtPlot.xBottom, Qwt.QwtLog10ScaleEngine())
+        self.setAxisMaxMajor(QwtPlot.xBottom, 6)
+        self.setAxisMaxMinor(QwtPlot.xBottom, 10)
+        self.setAxisScaleEngine(QwtPlot.xBottom, QwtLog10ScaleEngine())
 
         # curves
-        self.curve1 = Qwt.QwtPlotCurve('Amplitude')
-        self.curve1.setRenderHint(Qwt.QwtPlotItem.RenderAntialiased);
-        self.curve1.setPen(Qt.QPen(Qt.Qt.yellow))
-        self.curve1.setYAxis(Qwt.QwtPlot.yLeft)
+        self.curve1 = QwtPlotCurve('Amplitude')
+        self.curve1.setRenderHint(QwtPlotItem.RenderAntialiased);
+        self.curve1.setPen(QPen(Qt.yellow))
+        self.curve1.setYAxis(QwtPlot.yLeft)
         self.curve1.attach(self)
         
-        self.curve2 = Qwt.QwtPlotCurve('Phase')
-        self.curve2.setRenderHint(Qwt.QwtPlotItem.RenderAntialiased);
-        self.curve2.setPen(Qt.QPen(Qt.Qt.cyan))
-        self.curve2.setYAxis(Qwt.QwtPlot.yRight)
+        self.curve2 = QwtPlotCurve('Phase')
+        self.curve2.setRenderHint(QwtPlotItem.RenderAntialiased);
+        self.curve2.setPen(QPen(Qt.cyan))
+        self.curve2.setYAxis(QwtPlot.yRight)
         self.curve2.attach(self)
 
         # alias
         fn = self.fontInfo().family()
 
         # marker
-        self.dB3Marker = m = Qwt.QwtPlotMarker()
+        self.dB3Marker = m = QwtPlotMarker()
         m.setValue(0.0, 0.0)
-        m.setLineStyle(Qwt.QwtPlotMarker.VLine)
-        m.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignBottom)
-        m.setLinePen(Qt.QPen(Qt.Qt.green, 2, Qt.Qt.DashDotLine))
-        text = Qwt.QwtText('')
-        text.setColor(Qt.Qt.green)
-        text.setBackgroundBrush(Qt.Qt.red)
-        text.setFont(Qt.QFont(fn, 12, Qt.QFont.Bold))
+        m.setLineStyle(QwtPlotMarker.VLine)
+        m.setLabelAlignment(Qt.AlignRight | Qt.AlignBottom)
+        m.setLinePen(QPen(Qt.green, 2, Qt.DashDotLine))
+        text = QwtText('')
+        text.setColor(Qt.green)
+        text.setBackgroundBrush(Qt.red)
+        text.setFont(QFont(fn, 12, QFont.Bold))
         m.setLabel(text)
         m.attach(self)
 
-        self.peakMarker = m = Qwt.QwtPlotMarker()
-        m.setLineStyle(Qwt.QwtPlotMarker.HLine)
-        m.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignBottom)
-        m.setLinePen(Qt.QPen(Qt.Qt.red, 2, Qt.Qt.DashDotLine))
-        text = Qwt.QwtText('')
-        text.setColor(Qt.Qt.red)
-        text.setBackgroundBrush(Qt.QBrush(self.canvasBackground()))
-        text.setFont(Qt.QFont(fn, 12, Qt.QFont.Bold))
+        self.peakMarker = m = QwtPlotMarker()
+        m.setLineStyle(QwtPlotMarker.HLine)
+        m.setLabelAlignment(Qt.AlignRight | Qt.AlignBottom)
+        m.setLinePen(QPen(Qt.red, 2, Qt.DashDotLine))
+        text = QwtText('')
+        text.setColor(Qt.red)
+        text.setBackgroundBrush(QBrush(self.canvasBackground()))
+        text.setFont(QFont(fn, 12, QFont.Bold))
         
         m.setLabel(text)
-        m.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.Diamond,
-                                  Qt.QBrush(Qt.Qt.yellow),
-                                  Qt.QPen(Qt.Qt.green),
-                                  Qt.QSize(7,7)))
+        m.setSymbol(QwtSymbol(QwtSymbol.Diamond,
+                              QBrush(Qt.yellow),
+                              QPen(Qt.green),
+                              QSize(7,7)))
         m.attach(self)
 
         # text marker
-        m = Qwt.QwtPlotMarker()
+        m = QwtPlotMarker()
         m.setValue(0.1, -20.0)
-        m.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignBottom)
-        text = Qwt.QwtText(
+        m.setLabelAlignment(Qt.AlignRight | Qt.AlignBottom)
+        text = QwtText(
             u'[1-(\u03c9/\u03c9<sub>0</sub>)<sup>2</sup>+2j\u03c9/Q]'
             '<sup>-1</sup>'
             )
-        text.setFont(Qt.QFont(fn, 12, Qt.QFont.Bold))
-        text.setColor(Qt.Qt.blue)
-        text.setBackgroundBrush(Qt.QBrush(Qt.Qt.yellow))
-        text.setBackgroundPen(Qt.QPen(Qt.Qt.red, 2))
+        text.setFont(QFont(fn, 12, QFont.Bold))
+        text.setColor(Qt.blue)
+        text.setBackgroundBrush(QBrush(Qt.yellow))
+        text.setBackgroundPen(QPen(Qt.red, 2))
         m.setLabel(text)
         m.attach(self)
 
@@ -254,16 +254,16 @@ class BodePlot(Qwt.QwtPlot):
 
     def setDamp(self, d):
         self.damping = d
-        # Numerical Python: f, g, a and p are numpy arrays!
-        f = exp(log(10.0)*arange(-2, 2.02, 0.04))
+        # Numerical Python: f, g, a and p are NumPy arrays!
+        f = np.exp(np.log(10.0)*np.arange(-2, 2.02, 0.04))
         g = 1.0/(1.0-f*f+2j*self.damping*f)
-        a = 20.0*log10(abs(g))
-        p = 180*arctan2(g.imag, g.real)/pi
+        a = 20.0*np.log10(abs(g))
+        p = 180*np.arctan2(g.imag, g.real)/np.pi
         # for show3dB
-        i3 = argmax(where(less(a, -3.0), a, -100.0))
+        i3 = np.argmax(np.where(np.less(a, -3.0), a, -100.0))
         f3 = f[i3] - (a[i3]+3.0)*(f[i3]-f[i3-1])/(a[i3]-a[i3-1])
         # for showPeak
-        imax = argmax(a)
+        imax = np.argmax(a)
 
         self.showPeak(f[imax], a[imax])
         self.show3dB(f3)
@@ -276,90 +276,90 @@ class BodePlot(Qwt.QwtPlot):
 # class BodePlot
 
 
-class BodeDemo(Qt.QMainWindow):
+class BodeDemo(QMainWindow):
 
     def __init__(self, *args):
-        Qt.QMainWindow.__init__(self, *args)
+        QMainWindow.__init__(self, *args)
 
         self.plot = BodePlot(self)
         self.plot.setMargin(5)
 
-        self.setContextMenuPolicy(Qt.Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.NoContextMenu)
         
         self.zoomers = []
-        zoomer = Qwt.QwtPlotZoomer(
-            Qwt.QwtPlot.xBottom,
-            Qwt.QwtPlot.yLeft,
-            Qwt.QwtPicker.DragSelection,
-            Qwt.QwtPicker.AlwaysOff,
+        zoomer = QwtPlotZoomer(
+            QwtPlot.xBottom,
+            QwtPlot.yLeft,
+            QwtPicker.DragSelection,
+            QwtPicker.AlwaysOff,
             self.plot.canvas())
-        zoomer.setRubberBandPen(Qt.QPen(Qt.Qt.green))
+        zoomer.setRubberBandPen(QPen(Qt.green))
         self.zoomers.append(zoomer)
 
-        zoomer = Qwt.QwtPlotZoomer(
-            Qwt.QwtPlot.xTop,
-            Qwt.QwtPlot.yRight,
-            Qwt.QwtPicker.PointSelection | Qwt.QwtPicker.DragSelection,
-            Qwt.QwtPicker.AlwaysOff,
+        zoomer = QwtPlotZoomer(
+            QwtPlot.xTop,
+            QwtPlot.yRight,
+            QwtPicker.PointSelection | QwtPicker.DragSelection,
+            QwtPicker.AlwaysOff,
             self.plot.canvas())
-        zoomer.setRubberBand(Qwt.QwtPicker.NoRubberBand)
+        zoomer.setRubberBand(QwtPicker.NoRubberBand)
         self.zoomers.append(zoomer)
 
-        self.picker = Qwt.QwtPlotPicker(
-            Qwt.QwtPlot.xBottom,
-            Qwt.QwtPlot.yLeft,
-            Qwt.QwtPicker.PointSelection | Qwt.QwtPicker.DragSelection,
-            Qwt.QwtPlotPicker.CrossRubberBand,
-            Qwt.QwtPicker.AlwaysOn,
+        self.picker = QwtPlotPicker(
+            QwtPlot.xBottom,
+            QwtPlot.yLeft,
+            QwtPicker.PointSelection | QwtPicker.DragSelection,
+            QwtPlotPicker.CrossRubberBand,
+            QwtPicker.AlwaysOn,
             self.plot.canvas())
-        self.picker.setRubberBandPen(Qt.QPen(Qt.Qt.green))
-        self.picker.setTrackerPen(Qt.QPen(Qt.Qt.cyan))
+        self.picker.setRubberBandPen(QPen(Qt.green))
+        self.picker.setTrackerPen(QPen(Qt.cyan))
  
         self.setCentralWidget(self.plot)
 
-        toolBar = Qt.QToolBar(self)
+        toolBar = QToolBar(self)
         self.addToolBar(toolBar)
         
-        btnZoom = Qt.QToolButton(toolBar)
+        btnZoom = QToolButton(toolBar)
         btnZoom.setText("Zoom")
-        btnZoom.setIcon(Qt.QIcon(Qt.QPixmap(zoom_xpm)))
+        btnZoom.setIcon(QIcon(QPixmap(zoom_xpm)))
         btnZoom.setCheckable(True)
-        btnZoom.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+        btnZoom.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         toolBar.addWidget(btnZoom)
 
-        btnPrint = Qt.QToolButton(toolBar)
+        btnPrint = QToolButton(toolBar)
         btnPrint.setText("Print")
-        btnPrint.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
-        btnPrint.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+        btnPrint.setIcon(QIcon(QPixmap(print_xpm)))
+        btnPrint.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         toolBar.addWidget(btnPrint)
-        self.connect(btnPrint, Qt.SIGNAL('clicked()'), self.print_)
+        self.connect(btnPrint, SIGNAL('clicked()'), self.print_)
 
-        if Qt.QT_VERSION >= 0X040100:
-            btnPDF = Qt.QToolButton(toolBar)
+        if QT_VERSION >= 0X040100:
+            btnPDF = QToolButton(toolBar)
             btnPDF.setText("PDF")
-            btnPDF.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
-            btnPDF.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+            btnPDF.setIcon(QIcon(QPixmap(print_xpm)))
+            btnPDF.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
             toolBar.addWidget(btnPDF)
-            self.connect(btnPDF, Qt.SIGNAL('clicked()'), self.exportPDF)
+            self.connect(btnPDF, SIGNAL('clicked()'), self.exportPDF)
 
-        if Qt.QT_VERSION >= 0x040300:
-            btnSVG = Qt.QToolButton(toolBar)
+        if QT_VERSION >= 0x040300:
+            btnSVG = QToolButton(toolBar)
             btnSVG.setText("SVG")
-            btnSVG.setIcon(Qt.QIcon(Qt.QPixmap(print_xpm)))
-            btnSVG.setToolButtonStyle(Qt.Qt.ToolButtonTextUnderIcon)
+            btnSVG.setIcon(QIcon(QPixmap(print_xpm)))
+            btnSVG.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
             toolBar.addWidget(btnSVG)            
-            self.connect(btnSVG, Qt.SIGNAL('clicked()'), self.exportSVG)
+            self.connect(btnSVG, SIGNAL('clicked()'), self.exportSVG)
             
         toolBar.addSeparator()
 
-        dampBox = Qt.QWidget(toolBar)
-        dampLayout = Qt.QHBoxLayout(dampBox)
+        dampBox = QWidget(toolBar)
+        dampLayout = QHBoxLayout(dampBox)
         dampLayout.setSpacing(0)
-        dampLayout.addWidget(Qt.QWidget(dampBox), 10) # spacer
-        dampLayout.addWidget(Qt.QLabel("Damping Factor", dampBox), 0)
+        dampLayout.addWidget(QWidget(dampBox), 10) # spacer
+        dampLayout.addWidget(QLabel("Damping Factor", dampBox), 0)
         dampLayout.addSpacing(10)
 
-        self.cntDamp = Qwt.QwtCounter(dampBox)
+        self.cntDamp = QwtCounter(dampBox)
         self.cntDamp.setRange(0.01, 5.0, 0.01)
         self.cntDamp.setValue(0.01)
         dampLayout.addWidget(self.cntDamp, 10)
@@ -371,63 +371,59 @@ class BodeDemo(Qt.QMainWindow):
         self.zoom(False)
         self.showInfo()
         
-        self.connect(
-            self.cntDamp,
-            Qt.SIGNAL('valueChanged(double)'),
-            self.plot.setDamp)
-        self.connect(
-            btnZoom,
-            Qt.SIGNAL('toggled(bool)'),
-            self.zoom)
-        self.connect(
-            self.picker,
-            Qt.SIGNAL('moved(const QPoint &)'),
-            self.moved)
-        self.connect(
-            self.picker,
-            Qt.SIGNAL('selected(const QaPolygon &)'),
-            self.selected)
+        self.connect(self.cntDamp,
+                     SIGNAL('valueChanged(double)'),
+                     self.plot.setDamp)
+        self.connect(btnZoom,
+                     SIGNAL('toggled(bool)'),
+                     self.zoom)
+        self.connect(self.picker,
+                     SIGNAL('moved(const QPoint &)'),
+                     self.moved)
+        self.connect(self.picker,
+                     SIGNAL('selected(const QaPolygon &)'),
+                     self.selected)
 
     # __init__()
 
     def print_(self):
-        printer = Qt.QPrinter(Qt.QPrinter.HighResolution)
+        printer = QPrinter(QPrinter.HighResolution)
 
-        printer.setOutputFileName('bode-example-%s.ps' % Qt.qVersion())
+        printer.setOutputFileName('bode-example-%s.ps' % qVersion())
 
         printer.setCreator('Bode example')
-        printer.setOrientation(Qt.QPrinter.Landscape)
-        printer.setColorMode(Qt.QPrinter.Color)
+        printer.setOrientation(QPrinter.Landscape)
+        printer.setColorMode(QPrinter.Color)
 
         docName = self.plot.title().text()
         if not docName.isEmpty():
-            docName.replace(Qt.QRegExp(Qt.QString.fromLatin1('\n')),
-                            self.tr(' -- '))
+            docName.replace(QRegExp(QString.fromLatin1('\n')), self.tr(' -- '))
             printer.setDocName(docName)
 
-        dialog = Qt.QPrintDialog(printer)
+        dialog = QPrintDialog(printer)
         if dialog.exec_():
             filter = PrintFilter()
-            if (Qt.QPrinter.GrayScale == printer.colorMode()):
+            if (QPrinter.GrayScale == printer.colorMode()):
                 filter.setOptions(
-                    Qwt.QwtPlotPrintFilter.PrintAll
-                    & ~Qwt.QwtPlotPrintFilter.PrintCanvasBackground)
+                    QwtPlotPrintFilter.PrintAll
+                    & ~QwtPlotPrintFilter.PrintBackground
+                    | QwtPlotPrintFilter.PrintFrameWithScales)
             self.plot.print_(printer, filter)
 
     # print_()
     
     def exportPDF(self):
-        if Qt.QT_VERSION > 0x040100:
-            fileName = Qt.QFileDialog.getSaveFileName(
+        if QT_VERSION > 0x040100:
+            fileName = QFileDialog.getSaveFileName(
                 self,
                 'Export File Name',
-                'bode-example-%s.pdf' % Qt.qVersion(),
+                'bode-example-%s.pdf' % qVersion(),
                 'PDF Documents (*.pdf)')
 
         if not fileName.isEmpty():
-            printer = Qt.QPrinter()
-            printer.setOutputFormat(Qt.QPrinter.PdfFormat)
-            printer.setOrientation(Qt.QPrinter.Landscape)
+            printer = QPrinter()
+            printer.setOutputFormat(QPrinter.PdfFormat)
+            printer.setOrientation(QPrinter.Landscape)
             printer.setOutputFileName(fileName)
 
             printer.setCreator('Bode example')
@@ -436,16 +432,16 @@ class BodeDemo(Qt.QMainWindow):
     # exportPDF()
 
     def exportSVG(self):
-        if Qt.QT_VERSION >= 0x040300:
-            fileName = Qt.QFileDialog.getSaveFileName(
+        if QT_VERSION >= 0x040300:
+            fileName = QFileDialog.getSaveFileName(
                 self,
                 'Export File Name',
-                'bode-example-%s.svg' % Qt.qVersion(),
+                'bode-example-%s.svg' % qVersion(),
                 'SVG Documents (*.svg)')
             if not fileName.isEmpty():
-                generator = Qt.QSvgGenerator()
+                generator = QSvgGenerator()
                 generator.setFileName(fileName)
-                generator.setSize(Qt.QSize(800, 600))
+                generator.setSize(QSize(800, 600))
                 self.plot.print_(generator)
 
     # exportSVG()
@@ -486,7 +482,7 @@ class BodeDemo(Qt.QMainWindow):
 
     # moved()
 
-    def selected(self, points):
+    def selected(self, _):
         self.showInfo()
 
     # selected()
@@ -504,10 +500,12 @@ def make():
 
 
 def main(args):
-    app = Qt.QApplication(args)
-    fonts = Qt.QFontDatabase()
-    if Qt.QString('Verdana') in fonts.families():
-        app.setFont(Qt.QFont('Verdana'))
+    app = QApplication(args)
+    fonts = QFontDatabase()
+    for name in ('Verdana', 'STIXGeneral'):
+        if QString(name) in fonts.families():
+            app.setFont(QFont(name))
+            break
     demo = make()
     sys.exit(app.exec_())
 
