@@ -1,0 +1,45 @@
+What is PyQwt ( http://pyqwt.sourceforge.net ) ?
+
+- it is a set of Python bindings for the Qwt C++ class library which
+  extends the Qt framework with widgets for scientific and engineering
+  applications.   It provides a 2-dimensional plotting widget and
+  various widgets to display and control bounded or unbounded floating
+  point values.
+
+- it requires and extends PyQt, a set of Python bindings for Qt.
+
+- it supports the use of PyQt, Qt, Qwt, and optionally NumPy or SciPy
+  in a GUI Python application or in an interactive Python session.
+
+- it runs on POSIX, Mac OS X and Windows platforms (practically any
+  platform supported by Qt and Python).
+
+- it plots fast: fairly good hardware allows a rate of 100,000 points/second.
+  (PyQwt with Qt-3 is faster than with Qt-4).
+
+- it is licensed under the GPL with an exception to allow dynamic linking
+  with non-free releases of Qt and PyQt. 
+
+
+The most important new features of PyQwt-5.1.0 are:
+- support for PyQt-4.4.2 and SIP-4.7.6.
+- support for Qt-4.4.
+- support for Qwt-5.1.0.
+- the CartesianDemo.py, MaskedDataDemo.py, PickerDemo.py examples.
+
+The most important bug fixes in PyQwt-5.1.0 are:
+- fixed QwtPicker::stateMachine() to allow for subclassing of QwtPicker in
+  Python.
+
+PyQwt-5.0.1 supports:
+1. Python-2.5, or -2.4. 
+2. PyQt-3.17.
+3. PyQt-4.4, PyQt-4.3, or PyQt-4.2.
+3  SIP-4.7, or SIP-4.6.
+4. Qt-3.3, or Qt-3.2.
+5. Qt-4.4, Qt-4.3, or Qt-4.2.
+6. Qwt-5.1, or Qwt-5.0.
+7. Recent versions of NumPy, numarray, and/or Numeric.
+
+
+Enjoy -- Gerard Vermeulen
