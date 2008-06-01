@@ -85,6 +85,13 @@ Symmetric        = QwtScaleEngine.Symmetric
 Floating         = QwtScaleEngine.Floating
 Inverted         = QwtScaleEngine.Inverted
 
+# QwtSymbol.Style aliases
+NoSymbol = QwtSymbol.NoSymbol
+Circle   = QwtSymbol.Ellipse
+Square   = QwtSymbol.Rect
+Diamond  = QwtSymbol.Diamond
+
+
 # font
 Font = QFont('Verdana')
 
@@ -241,10 +248,10 @@ class Plot(QwtPlot):
     def clearZoomStack(self):
         """Force autoscaling and clear the zoom stack
         """
-        self.setAxisAutoScale(QwtPlot.yLeft)
-        self.setAxisAutoScale(QwtPlot.yRight)
-        self.setAxisAutoScale(QwtPlot.xBottom)
-        self.setAxisAutoScale(QwtPlot.xTop)
+        self.setAxisAutoScale(Y1)
+        self.setAxisAutoScale(Y2)
+        self.setAxisAutoScale(X1)
+        self.setAxisAutoScale(X2)
         self.replot()
         for zoomer in self.zoomers:
             zoomer.setZoomBase()
@@ -289,10 +296,11 @@ class Plot(QwtPlot):
         """Format mouse coordinates as real world plot coordinates.
         """
         result = []
-        todo = ((QwtPlot.xBottom, "x0=%+.6g", x),
-                (QwtPlot.yLeft,   "y0=%+.6g", y),
-                (QwtPlot.xTop,    "x1=%+.6g", x),
-                (QwtPlot.yRight,  "y1=%+.6g", y))
+        todo = ((Y1,   "y0=%+.6g", y),
+                (Y2,  "y1=%+.6g", y)
+                (X1, "x0=%+.6g", x),
+                (X2,    "x1=%+.6g", x),
+                )
         for axis, template, value in todo:
             if self.axisEnabled(axis):
                 value = self.invTransform(axis, value)
@@ -433,8 +441,8 @@ class Curve:
         self.x = x # must be sequence of floats, typecode()?
         self.y = y # must be sequence of floats
         self.name = ""
-        self.xAxis = QwtPlot.xBottom
-        self.yAxis = QwtPlot.yLeft
+        self.xAxis = X1
+        self.yAxis = Y1
         self.symbol = None
         self.pen = None
 
@@ -497,21 +505,6 @@ class Axis:
 # class Axis
 
 
-class SymbolStyle:
-    def __init__(self, style):
-        self.style = style
-
-    # __init__()
-
-# class SymbolStyle
-
-
-NoSymbol = SymbolStyle(QwtSymbol.NoSymbol)
-Circle   = SymbolStyle(QwtSymbol.Ellipse)
-Square   = SymbolStyle(QwtSymbol.Rect)
-Diamond  = SymbolStyle(QwtSymbol.Diamond)
-
-
 class Symbol(QwtSymbol):
     """Sugar coating for QwtSymbol.
     """
@@ -523,7 +516,7 @@ class Symbol(QwtSymbol):
         Symbol takes any number of optional arguments. The interpretation
         of each optional argument depends on its data type:
         (1) QColor or Qt.GlobalColor -- sets the fill color of the symbol.
-        (2) SymbolStyle -- sets the style of the symbol.
+        (2) QwtSymbol.Style -- sets the style of the symbol.
         (3) int -- sets the size of the symbol.
         """
         QwtSymbol.__init__(self)
@@ -533,8 +526,8 @@ class Symbol(QwtSymbol):
                 brush = self.brush()
                 brush.setColor(item)
                 self.setBrush(brush)
-            elif isinstance(item, SymbolStyle):
-                self.setStyle(item.style)
+            elif isinstance(item, QwtSymbol.Style):
+                self.setStyle(item)
             elif isinstance(item, int):
                 self.setSize(item)
             else:
