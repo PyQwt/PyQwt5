@@ -22,9 +22,9 @@ What is PyQwt ( http://pyqwt.sourceforge.net ) ?
 
 
 The most important new features of PyQwt-5.1.0 are:
+- support for Qwt-5.1.0.
 - support for PyQt-4.4.2 and SIP-4.7.6.
 - support for Qt-4.4.
-- support for Qwt-5.1.0.
 - the CartesianDemo.py, MaskedDataDemo.py, PickerDemo.py examples.
 
 The most important bug fixes in PyQwt-5.1.0 are:
