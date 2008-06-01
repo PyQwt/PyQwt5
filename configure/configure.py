@@ -1,6 +1,33 @@
 #!/usr/bin/python
+"""Generate the build trees and Makefiles for PyQwt.
+"""
 #
-# Generate the build trees and Makefiles for PyQwt.
+# Copyright (C) 2003-2008 Gerard Vermeulen
+#
+# This file is part of PyQwt.
+#
+# PyQwt is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# PyQwt is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# In addition, as a special exception, Gerard Vermeulen gives permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
 
 
 import compileall
@@ -12,6 +39,7 @@ import re
 import shutil
 import sys
 import traceback
+pyqtconfig = None # will be imported by get_pyqt_configuration()
 
 
 class Die(Exception):
@@ -23,20 +51,11 @@ class Die(Exception):
 # class Die
 
 
-try:
-    required = 'Requires at least SIP-4.6 and its development tools.'
-    import sipconfig
-except ImportError:
-    raise Die, required
-if 0x040600 > sipconfig._pkg_config['sip_version']:
-    raise Die, required
-del required
-
-
 def get_pyqt_configuration(options):
     """Return the PyQt configuration for Qt3 or Qt4.
     """
 
+    global pyqtconfig
     if options.qt == 3:
         required = 'Requires at least PyQt-3.17 and its development tools.'
         options.qwt = 'qwt5qt3'
@@ -44,9 +63,14 @@ def get_pyqt_configuration(options):
         try:
             import pyqtconfig as pyqtconfig
         except ImportError:
-            raise Die, required
-        if 0x031100 > pyqtconfig._pkg_config['pyqt_version']:
-            raise Die, required
+            raise Die(required)
+        try:
+            configuration = pyqtconfig.Configuration()
+        except AttributeError:
+            raise Die(
+                'Check whether SIP and PyQt have been installed properly.')
+        if 0x031100 > configuration.pyqt_version:
+            raise Die(required)
     elif options.qt == 4:
         required = 'Requires at least PyQt-4.2 and its development tools.'
         options.qwt = 'qwt5qt4'
@@ -54,16 +78,14 @@ def get_pyqt_configuration(options):
         try:
             import PyQt4.pyqtconfig as pyqtconfig
         except ImportError:
-            raise Die, required
-        if 0x040200 > pyqtconfig._pkg_config['pyqt_version']:
-            raise Die, required
-
-    try:
-        configuration = pyqtconfig.Configuration()
-    except AttributeError:
-        raise Die, (
-            'Check if SIP and PyQt or PyQt4 have been installed properly.'
-            )
+            raise Die(required)
+        try:
+            configuration = pyqtconfig.Configuration()
+        except AttributeError:
+            raise Die(
+                'Check whether SIP and PyQt4 have been installed properly.')
+        if 0x040200 > configuration.pyqt_version:
+            raise Die(required)
 
     return configuration
 
@@ -85,7 +107,7 @@ def compile_qt_program(name, configuration,
     extra_lib_dirs is a list of extra directories to search for libraries
     extra_libs is a list of extra libraries
     """    
-    makefile = sipconfig.ProgramMakefile(
+    makefile = pyqtconfig.sipconfig.ProgramMakefile(
         configuration, console=True, qt=True, warnings=True)
     
     makefile.extra_defines.extend(extra_defines)
@@ -138,9 +160,8 @@ def fix_build_file(name, extra_sources, extra_headers, extra_moc_headers):
         if line[0] != '#':
             eq = line.find('=')
             if eq == -1:
-                raise Die, ('"%s\" line %d: Line must be in the form '
-                            '"key = value value...."' % (name, nr)
-                            )
+                raise Die('"%s\" line %d: Line must be in the form '
+                          '"key = value value...."' % (name, nr))
         key = line[:eq].strip()
         value = line[eq+1:].strip()
         if key in keys:
@@ -278,7 +299,7 @@ def check_numeric(configuration, options, package):
 # check_numeric()
 
 
-def check_numpy(configuration, options, package):
+def check_numpy(_, options, package):
     """See if the NumPy extension has been installed.
     """
     if options.disable_numpy:
@@ -321,7 +342,7 @@ def check_compiler(configuration, options):
     """
     print 'Do not get upset by error messages in the next 3 compiler checks:'
     
-    makefile = sipconfig.Makefile(configuration)
+    makefile = pyqtconfig.sipconfig.Makefile(configuration)
     generator = makefile.optional_string('MAKEFILE_GENERATOR', 'UNIX')
     if generator in ['MSVC', 'MSVC.NET']:
         options.extra_cxxflags.extend(['-GR'])
@@ -373,7 +394,7 @@ def check_compiler(configuration, options):
 # check_compiler()
 
 
-def check_os(configuration, options):
+def check_os(_, options):
     """Check operating system specifics.
     """
     print "Found '%s' operating system:" % os.name
@@ -396,14 +417,14 @@ def check_sip(configuration, options):
     print "Found SIP-%s." % version_str
 
     if 0x040600 > version:
-        raise Die, 'PyQwt requires at least SIP-4.6.'
+        raise Die('PyQwt requires at least SIP-4.6.')
 
     return options
 
 # check_sip
 
 
-def check_iqt(configuration, options):
+def check_iqt(_, options):
     """Check iqt module specifics.
     """
     # iqt is useless on non-Windows platforms without GNU readline && select.
@@ -467,17 +488,17 @@ def check_qwt(configuration, options):
     exe = compile_qt_program('qwt_version_info.cpp', configuration,
                              extra_include_dirs = extra_include_dirs)
     if not exe:
-        raise Die, 'Failed to build the qwt_version_info tool.'
+        raise Die('Failed to build the qwt_version_info tool.')
 
     os.system(exe)
 
     try:
         from qwt_version_info import QWT_VERSION, QWT_VERSION_STR
     except ImportError:
-        raise Die, 'Failed to import qwt_version_info.'
+        raise Die('Failed to import qwt_version_info.')
 
     if QWT_VERSION < 0x050000:
-        raise Die, 'Qwt-%s is not supported.' % QWT_VERSION_STR
+        raise Die('Qwt-%s is not supported.' % QWT_VERSION_STR)
     elif QWT_VERSION == 0x050000:
         options.timelines.append('-t Qwt_5_0_0')
     elif QWT_VERSION < 0x050003:
@@ -528,7 +549,7 @@ def setup_iqt_build(configuration, options, package):
     if 'iqt' not in options.modules:
         return
 
-    print 'Setup the iqt package build.'
+    print 'Setup the %s package build.' % package
     
     build_dir = options.iqt
     tmp_dir = 'tmp-' + build_dir
@@ -543,7 +564,7 @@ def setup_iqt_build(configuration, options, package):
     try:
         os.mkdir(tmp_dir)
     except:
-        raise Die, 'Failed to create the temporary build directory.'
+        raise Die('Failed to create the temporary build directory.')
 
     # invoke SIP
     cmd = ' '.join(
@@ -563,14 +584,14 @@ def setup_iqt_build(configuration, options, package):
         os.remove(build_file)
     os.system(cmd)
     if not os.path.exists(build_file):
-        raise Die, 'SIP failed to generate the C++ code.'
+        raise Die('SIP failed to generate the C++ code.')
 
     # copy lazily to the build directory to speed up recompilation
     if not os.path.exists(build_dir):
         try:
             os.mkdir(build_dir)
         except:
-            raise Die, 'Failed to create the build directory.'
+            raise Die('Failed to create the build directory.')
 
     lazy_copies = 0
     for pattern in ('*.c', '*.cpp', '*.h', '*.py', '*.sbf'):
@@ -581,7 +602,7 @@ def setup_iqt_build(configuration, options, package):
                 lazy_copies += 1
     print '%s file(s) lazily copied.' % lazy_copies
 
-    makefile = sipconfig.ModuleMakefile(
+    makefile = pyqtconfig.sipconfig.ModuleMakefile(
         configuration  = configuration,
         build_file = os.path.basename(build_file),
         dir = build_dir,
@@ -629,7 +650,7 @@ def setup_qwt5_build(configuration, options, package):
     if 'Qwt5' not in options.modules:
         return
     
-    print 'Setup the qwt package build.'
+    print 'Setup the %s package build.' % package
 
     build_dir = options.qwt
     tmp_dir = 'tmp-%s' % options.qwt
@@ -682,7 +703,7 @@ def setup_qwt5_build(configuration, options, package):
     try:
         os.mkdir(tmp_dir)
     except:
-        raise Die, 'Failed to create the temporary build directory.'
+        raise Die('Failed to create the temporary build directory.')
 
     # copy the extra files
     copy_files(extra_sources, tmp_dir)
@@ -719,7 +740,7 @@ def setup_qwt5_build(configuration, options, package):
         os.remove(build_file)
     os.system(cmd)
     if not os.path.exists(build_file):
-        raise Die, 'SIP failed to generate the C++ code.'
+        raise Die('SIP failed to generate the C++ code.')
 
     # FIXME: sip-4.7 does not generate those include files anymore
     for name in [os.path.join(tmp_dir, name) for name in [
@@ -746,7 +767,7 @@ def setup_qwt5_build(configuration, options, package):
         try:
             os.mkdir(build_dir)
         except:
-            raise Die, 'Failed to create the build directory.'
+            raise Die('Failed to create the build directory.')
 
     lazy_copies = 0
     for pattern in ('*.c', '*.cpp', '*.h', '*.py', '*.sbf'):
@@ -774,7 +795,7 @@ def setup_qwt5_build(configuration, options, package):
 
     # module makefile
     if options.qt == 3:
-        makefile = sipconfig.SIPModuleMakefile(
+        makefile = pyqtconfig.sipconfig.SIPModuleMakefile(
             configuration = configuration,
             build_file = os.path.basename(build_file),
             dir = build_dir,
@@ -788,7 +809,7 @@ def setup_qwt5_build(configuration, options, package):
         qt = ['QtCore', 'QtGui']
         if '-x HAS_QWT_SVG' not in options.excluded_features:
             qt.append('QtSvg')
-        makefile = sipconfig.SIPModuleMakefile(
+        makefile = pyqtconfig.sipconfig.SIPModuleMakefile(
             configuration = configuration,
             build_file = os.path.basename(build_file),
             dir = build_dir,
@@ -819,8 +840,8 @@ def setup_parent_build(configuration, options):
     """
     print "Setup the PyQwt build."
      
-    sipconfig.ParentMakefile(configuration = configuration,
-                             subdirs = options.subdirs).generate()
+    pyqtconfig.sipconfig.ParentMakefile(configuration = configuration,
+                                        subdirs = options.subdirs).generate()
 
 # setup_parent_build()
 
