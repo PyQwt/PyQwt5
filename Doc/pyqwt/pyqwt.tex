@@ -7,22 +7,21 @@
   {http://qwt.sourceforge.net}}
 \newcommand{\Grace}{\ulink{Grace}
   {http://plasma-gate.weizmann.ac.il/Grace/}}
-\newcommand{\cvs}{20061017}
 \newcommand{\target}{5.1.0}
 
 % Source code
 \newcommand{\Download}{\ulink{download}
   {http://pyqwt.sourceforge.net/download.html}}
-\newcommand{\Sip}{\ulink{sip-4.7.5.tar.gz}
-  {http://pyqwt.sourceforge.net/support/sip-4.7.5.tar.gz}}
+\newcommand{\Sip}{\ulink{sip-4.7.6.tar.gz}
+  {http://pyqwt.sourceforge.net/support/sip-4.7.6.tar.gz}}
 \newcommand{\PyQtGpl}{\ulink{PyQt-x11-gpl-3.17.4.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-3.17.4.tar.gz}}
 \newcommand{\PyQtMac}{\ulink{PyQt-mac-gpl-3.17.4.tar.gz}
   {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-3.17.4.tar.gz}}
-\newcommand{\PyQtFourGpl}{\ulink{PyQt-x11-gpl-4.4.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.4.tar.gz}}
-\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.4.tar.gz}
-  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.4.tar.gz}}
+\newcommand{\PyQtFourGpl}{\ulink{PyQt-x11-gpl-4.4.2.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-x11-gpl-4.4.2.tar.gz}}
+\newcommand{\PyQtFourMac}{\ulink{PyQt-mac-gpl-4.4.2.tar.gz}
+  {http://pyqwt.sourceforge.net/support/PyQt-mac-gpl-4.4.2.tar.gz}}
 \newcommand{\NumPy}{\ulink{NumPy}
   {http://numpy.scipy.org}}
 \newcommand{\NumPyTarGz}{\ulink{NumPy-1.1.0.tar.gz}
@@ -39,28 +38,26 @@
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\target.tar.gz?download}}
 \newcommand{\PyQwtLatestTarGz}{\ulink{PyQwt-5.0.1.tar.gz}
   {http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.0.1.tar.gz?download}}
-\newcommand{\PyQwtCvsTarGz}{\ulink{PyQwt-\cvs.tar.gz}
-  {http://prdownloads.sourceforge.net/pyqwt/PyQwt-\cvs.tar.gz?download}}
 
 \newcommand{\PythonExe}{\ulink{python-2.5.2.msi}
   {http://www.python.org/ftp/python/2.5/python-2.5.2.msi}}
-\newcommand{\NumPyExe}{\ulink{numpy-1.1.0.win32-py2.5.exe}
-  {http://prdownloads.sourceforge.net/numpy/numpy-1.0.3.win32-py2.5.exe}}
-\newcommand{\QtExe}{\ulink{qt-win-opensource-4.3.3-mingw.exe}
-  {ftp://ftp.trolltech.com/qt/source/qt-win-opensource-4.3.3-mingw.exe}}
+\newcommand{\NumPyExe}{\ulink{numpy-1.1.0-win32-superpack-python2.5.exe}
+  {http://prdownloads.sourceforge.net/numpy/numpy-1.1.0-win32-superpack-python2.5.exe}}
+\newcommand{\QtExe}{\ulink{qt-win-opensource-4.4.0-mingw.exe}
+  {ftp://ftp.trolltech.com/qt/source/qt-win-opensource-4.4.0-mingw.exe}}
 \newcommand{\DevCpp}{\ulink{Dev-C++}
   {http://prdownloads.sourceforge.net/dev-cpp/devcpp-4.9.9.2_setup.exe}}
-\newcommand{\PyQtExe}{\ulink{PyQt-gpl-4.2-Py2.5-Qt4.2.3.exe}
-  {http://pyqwt.sourceforge.net/support/PyQt-gpl-4.2-Py2.5-Qt4.2.3.exe}}
-\newcommand{\PyQwtExe}{\ulink{PyQwt-5.0.1-Python2.5-Qt4.2.3-PyQt-4.2-NumPy1.0.3.exe}
-  {http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.0.1-Python2.5-Qt4.2.3-PyQt-4.2-NumPy1.0.3.exe}}
+\newcommand{\PyQtExe}{\ulink{PyQt-Py2.5-gpl-4.4.2-1.exe}
+  {http://pyqwt.sourceforge.net/support/PyQt-Py2.5-gpl-4.4.2-1.exe}}
+\newcommand{\PyQwtExe}{\ulink{PyQwt5.1.0-Python2.5-PyQt4.4.2-NumPy1.1.0-1.exe}
+  {http://prdownloads.sourceforge.net/pyqwt/PyQwt5.1.0-Python2.5-PyQt4.4.2-NumPy1.1.0.exe}}
 
 
 \newcommand{\PrerequisitesEnd}{
   The source package \PyQwtTarGz{} contains a subversion snapshot of the
-  \Qwt-5.1 bugfix branch which fixes some bugs in \Qwt-5.1.0.
+  \Qwt-5.1 bug fix branch which may fix some bugs in \Qwt-5.1.0.
   However, \Qwt-5.0.0, \Qwt-5.0.1, and \Qwt-5.0.2 are also supported.
-  I recommend to compile and link the bugfix branch statically into PyQwt.
+  I recommend to compile and link the bug fix branch statically into PyQwt.
 
   To exploit the full power of PyQwt, you should install at least one of
   the numerical Python extensions:  \NumPy{}, \numarray{}, or \Numeric{}
@@ -76,7 +73,7 @@
 
   I am testing PyQwt with \NumPyTarGz{}, \numarrayTarGz{}, and \NumericTarGz{}.
   \NumPy{} is actively developed and recommended;
-  \numarray{} and \Numeric{} are unmaintained.
+  \numarray{} and \Numeric{} are deprecated.
 }
 
 \newcommand{\Future}{
@@ -87,7 +84,7 @@
   \end{notice}
 }
 
-%\renewcommand{\Future}{}
+\renewcommand{\Future}{}
 
 \newcommand{\Blurb}{
 PyQwt is a set of Python bindings for the \Qwt{} C++ class library which
@@ -620,9 +617,13 @@ python configure.py -h
 
 \Future{}
 
-PyQwt is included in the binary installer of 
-{\ulink{PyQt-gpl-4.3.3}{http://www.riverbankcomputing.com/Downloads/PyQt4/GPL/}
-for Windows.
+Make sure to install
+\begin{enumerate}
+  \item \PythonExe{},
+  \item \NumPyExe{},
+  \item \PyQtExe{},
+\end{enumerate}
+before installing \PyQwtExe{}. 
 
 
 \chapter{PyQwt Module Reference

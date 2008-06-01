@@ -9,10 +9,10 @@ version = '5.1.0'
 
 long_description = """
 PyQwt is a set of Python bindings for the Qwt C++ class library
-which extends the Qt framework with widgets for scientific and
-engineering applications.  It provides a widget to plot data
-points in two dimensions and various widgets to display and
-control bounded or unbounded floating point values.
+which extends the Qt framework with widgets for scientific,
+engineering, and scientific applications.  It provides a widget
+to plot data points in two dimensions and various widgets to
+display and control bounded or unbounded floating point values.
 """
 
 setup(

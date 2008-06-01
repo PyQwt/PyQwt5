@@ -74,7 +74,7 @@ Click Next to continue."
 # Define the product name and installer executable.
 Name "PyQwt"
 Caption "${PYQWT_NAME} Setup"
-OutFile "PyQwt-${PYQWT_VERSION}-Python${PYQWT_PYTHON_VERSION}-Qt${PYQWT_QT_VERSION}-PyQt${PYQWT_PYQT_VERSION}-NumPy${PYQWT_NUMPY_VERSION}.exe"
+OutFile "PyQwt${PYQWT_VERSION}-Python${PYQWT_PYTHON_VERSION}-PyQt${PYQWT_PYQT_VERSION}-NumPy${PYQWT_NUMPY_VERSION}-1.exe"
 
 
 # Set the install directory, from the registry if possible.
@@ -206,11 +206,11 @@ SectionEnd
 # Section description text.
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${SecModules} \
-"The PyQwt modules: Qwt, anynumpy, grace, iqt, qplt."
+"The PyQwt modules: Qwt, anynumpy, grace, iqt, pythonrc, qplt."
 !insertmacro MUI_DESCRIPTION_TEXT ${SecDocumentation} \
 "The PyQwt and Qwt documentation."
 !insertmacro MUI_DESCRIPTION_TEXT ${SecExamples} \
-"Ports to Python of the Qwt-5.0.1 examples."
+"Ports to Python of the Qwt C++ examples."
 !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} \
 "Shortcuts to your Start Menu."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END

@@ -1,0 +1,21 @@
+qwt-5.1/qwtconfig.pri.pyqwt qwt-5.1/qwtconfig.pri
+--- qwt-5.1/qwtconfig.pri.pyqwt Sat May 31 11:08:57 2008
++++ qwt-5.1/qwtconfig.pri Sat May 31 11:09:50 2008
+@@ -75,7 +75,7 @@
+ # it will be a static library.
+ ######################################################################
+ 
+-CONFIG           += QwtDll
++# CONFIG           += QwtDll
+ 
+ ######################################################################
+ # QwtPlot enables all classes, that are needed to use the QwtPlot 
+@@ -97,7 +97,7 @@
+ # QwtSVGItem.
+ ######################################################################
+ 
+-#CONFIG     += QwtSVGItem
++CONFIG     += QwtSVGItem
+ 
+ ######################################################################
+ # If you have a commercial license you can use the MathML renderer
