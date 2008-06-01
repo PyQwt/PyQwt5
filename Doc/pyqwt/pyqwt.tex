@@ -189,8 +189,7 @@ It includes the following widgets:
     the computer screen to control a floating point value over a very
     large range in very small steps.
 \end{itemize}
-The widgets are documented in the Qwt manual on your hard disk or
-\Qwt{} on the web.
+The widgets are documented in the \Qwt{} manual.
 
 \begin{notice}[note]
   The designer plugins of the \Qwt{} library for Qt-3.x.x and Qt-4.x.x work
@@ -241,9 +240,9 @@ This section addresses:
   arrays and vice versa.
 \end{itemize}
 
-The documentation for writing GUI programs consists of the \Qwt{} manual on
-your hard disk or on the web, supplemented by chapter \ref{reference} to
-document the differences between PyQwt and Qwt.
+The documentation for writing GUI programs consists of the \Qwt{} manual,
+supplemented by chapter \ref{reference} to document the differences between
+PyQwt and Qwt.
 
 
 \subsection{Command line interface
@@ -295,7 +294,9 @@ or
 ipython ICompass.py
 \end{verbatim}
 
-My \file{.pythonrc.py} file tries to import the modules \module{numpy} and
+My \file{.pythonrc.py} file (a symbolic link to
+\file{/usr/lib/python2.5/site-packages/PyQt4/Qwt5/pythonrc.py})
+tries to import the modules \module{numpy} and
 \module{scipy}.
 Then, it tries to import everything from the modules \module{PyQt4.Qt},
 \module{PyQt4.Qwt5}, and \module{PyQt4.Qwt5.qplt} before creating an
@@ -458,7 +459,10 @@ print the plot.
   The data-directed interpretation of each optional argument is:
   \begin{itemize}
   \item
-    \class{Axis}, to attach an axis to the curve.
+    \class{QwtPlot.Axis}, to attach an axis to the curve.  Predefined
+    instances of \class{QwtPlot.Axis} are \constant{yLeft}, \constant{yRight},
+    \constant{xBottom} and \constant{xTop} or \constant{Y1}, \constant{Y2},
+    \constant{X1} and \constant{X2}.
   \item
     \class{Pen}, to select a pen to connect the data points.
   \item
@@ -477,11 +481,16 @@ print the plot.
   The data-directed interpretation of each optional argument is:
   \begin{itemize}
   \item
-    \class{AxisOrientation}, to set the orientation of the axis.  Predefined
-    instances of \class{AxisOrientation} are \constant{Left}, \constant{Right},
-    \constant{Bottom} and \constant{Top}.
+    \class{QwtPlot.Axis}, to set the orientation of the axis.  Predefined
+    instances of \class{QwtPlot.Axis} are \constant{yLeft}, \constant{yRight},
+    \constant{xBottom} and \constant{xTop} or \constant{Y1}, \constant{Y2},
+    \constant{X1} and \constant{X2}.
   \item
-    \class{int}, to set the options of the axis.
+    \class{QwtScaleEngine}, to set the axis type. Predefined instances of
+    \class{QwtScaleEngine} are \class{QwtLinearScaleEngine} and
+    \class{QwtLog10ScaleEngine} or \class{Lin} and \class{Log}.
+  \item
+    \class{int}, to set the attributes.
   \item
     \class{string} or \class{QString}, to set the title of the axis.
   \end{itemize}
@@ -496,9 +505,9 @@ print the plot.
   The data-directed interpretation of each optional argument is:
   \begin{itemize}
   \item
-    \class{PenStyle}, to set the style of the pen.
+    \class{Qt.PenStyle}, to set the style of the pen.
   \item
-    \class{QColor}, to set the color of the pen.
+    \class{QColor} or \class{Qt.GlobalColor}, to set the color of the pen.
   \item
     \class{int}, to set the width of the pen.
   \end{itemize}
@@ -513,11 +522,12 @@ print the plot.
   The data-directed interpretation of each optional argument is:
   \begin{itemize}
   \item
-    \class{QColor}, to set the fill color of the symbol.
+    \class{QColor} or \class{Qt.GlobalColor}, to set the fill color of the
+    symbol. 
   \item
-    \class{SymbolStyle}, to set the style of the symbol. Predefined instances
-    of \class{SymbolStyle} are \constant{NoSymbol}, \constant{Circle},
-    \constant{Square} and \constant{Diamond}.
+    \class{QwtSymbol.Style}, to set the style of the symbol. Predefined
+    instances of \class{SymbolStyle} are \constant{NoSymbol},
+    \constant{Circle}, \constant{Square} and \constant{Diamond}.
   \item
     \class{int}, to set the size of the symbol.
   \end{itemize}
