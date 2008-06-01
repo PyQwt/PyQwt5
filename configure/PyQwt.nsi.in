@@ -158,6 +158,16 @@ Section "Documentation" SecDocumentation
     File /r ..\qwt-5.1\doc\html
 SectionEnd
 
+Section "Designer plugin" SecDesigner
+    SectionIn 1
+    
+    SetOverwrite on
+    
+    SetOutPath $INSTDIR\PyQt4\plugins\designer
+    File ..\qwt-5.1\designer\plugins\designer\libqwt_designer_plugin5.a
+    File ..\qwt-5.1\designer\plugins\designer\qwt_designer_plugin5.dll
+SectionEnd
+
 Section "Examples" SecExamples
     SectionIn 1
 
@@ -209,8 +219,10 @@ SectionEnd
 "The PyQwt modules: Qwt, anynumpy, grace, iqt, pythonrc, qplt."
 !insertmacro MUI_DESCRIPTION_TEXT ${SecDocumentation} \
 "The PyQwt and Qwt documentation."
+!insertmacro MUI_DESCRIPTION_TEXT ${SecDesigner} \
+"The Qwt plugin for Qt Designer"
 !insertmacro MUI_DESCRIPTION_TEXT ${SecExamples} \
-"Ports to Python of the Qwt C++ examples."
+"Python examples and Python ports of the Qwt C++ examples."
 !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} \
 "Shortcuts to your Start Menu."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
