@@ -1,7 +1,7 @@
 """Qwt5 -- a Python interface to the Qwt library.
 """
 #
-# Copyright (C) 2003-2007 Gerard Vermeulen
+# Copyright (C) 2003-2008 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #
@@ -18,6 +18,15 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# In addition, as a special exception, Gerard Vermeulen gives permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
 
 
 from Qwt import *
