@@ -31,7 +31,7 @@ The most important bug fixes in PyQwt-5.1.0 are:
 - fixed QwtPicker::stateMachine() to allow for subclassing of QwtPicker in
   Python.
 
-PyQwt-5.0.1 supports:
+PyQwt-5.1.0 supports:
 1. Python-2.5, or -2.4. 
 2. PyQt-3.17.
 3. PyQt-4.4, PyQt-4.3, or PyQt-4.2.
