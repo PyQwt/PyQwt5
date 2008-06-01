@@ -30,6 +30,7 @@ jobs = [
     'MapDemo',
     'MaskedDataDemo',
     'MultiDemo',
+    'PickerDemo',
     'RadioDemo',
     'ReallySimpleDemo',
     'SimpleDemo',
