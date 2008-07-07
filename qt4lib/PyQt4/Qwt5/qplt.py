@@ -296,10 +296,10 @@ class Plot(QwtPlot):
         """Format mouse coordinates as real world plot coordinates.
         """
         result = []
-        todo = ((Y1,   "y0=%+.6g", y),
-                (Y2,  "y1=%+.6g", y)
+        todo = ((Y1, "y0=%+.6g", y),
+                (Y2, "y1=%+.6g", y)
                 (X1, "x0=%+.6g", x),
-                (X2,    "x1=%+.6g", x),
+                (X2, "x1=%+.6g", x),
                 )
         for axis, template, value in todo:
             if self.axisEnabled(axis):

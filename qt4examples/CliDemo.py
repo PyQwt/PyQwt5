@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from PyQt4.Qt import QApplication
 from PyQt4.Qwt5.qplt import *
 
 
@@ -9,7 +10,7 @@ def make():
 # make()
 
 def main(args):
-    app = Qt.QApplication(args)
+    app = QApplication(args)
     demo = make()
     sys.exit(app.exec_())
 
