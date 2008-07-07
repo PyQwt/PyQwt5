@@ -297,7 +297,7 @@ class Plot(QwtPlot):
         """
         result = []
         todo = ((Y1, "y0=%+.6g", y),
-                (Y2, "y1=%+.6g", y)
+                (Y2, "y1=%+.6g", y),
                 (X1, "x0=%+.6g", x),
                 (X2, "x1=%+.6g", x),
                 )
