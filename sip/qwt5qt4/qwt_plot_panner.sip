@@ -37,7 +37,7 @@ class QwtPlotPanner: QwtPanner
 %End // %TypeHeaderCode
 
 public:
-    QwtPlotPanner(QwtPlotCanvas*);
+    QwtPlotPanner(QwtPlotCanvas* /TransferThis/);
     virtual ~QwtPlotPanner();
     QwtPlotCanvas* canvas();
     // signature: const QwtPlotCanvas* canvas() const;
