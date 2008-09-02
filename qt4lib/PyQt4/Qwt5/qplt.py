@@ -553,7 +553,7 @@ class Pen(QPen):
         QPen.__init__(self)
         for item in rest:
             if isinstance(item, Qt.PenStyle):
-                self.setStyle(item.style)
+                self.setStyle(item)
             elif isinstance(item, (QColor, Qt.GlobalColor)):
                 self.setColor(item)
             elif isinstance(item, int):
