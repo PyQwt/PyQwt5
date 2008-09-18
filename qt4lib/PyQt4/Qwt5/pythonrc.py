@@ -3,6 +3,8 @@
 # inspired by:
 # http://opag.ca/wiki/OpagCode/OpagSnippets
 
+from __future__ import division
+
 # Import Numpy and SciPy
 try:
     import numpy as np
