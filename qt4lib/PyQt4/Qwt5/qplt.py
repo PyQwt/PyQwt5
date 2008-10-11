@@ -1,7 +1,5 @@
-"""PyQt4.Qwt5.qplt
-
-Provides a Command Line Interpreter friendly interface to QwtPlot.
-"""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2003-2008 Gerard Vermeulen
 #
@@ -31,14 +29,38 @@ Provides a Command Line Interpreter friendly interface to QwtPlot.
 # PyQwt becomes a free plug-in for a non-free program.
 
 
+"""
+Provides a command line interpreter friendly layer over ``QwtPlot``.
+An example of its use is:
+
+>>> import numpy as np
+>>> from PyQt4.Qt import *
+>>> from PyQt4.Qwt5 import *
+>>> from PyQt4.Qwt5.qplt import *
+>>> application = QApplication()
+>>> x = np.arange(-2*np.pi, 2*np.pi, 0.01)
+>>> p = Plot(
+...  Curve(x, np.cos(x), Pen(Magenta, 2), 'cos(x)'),
+...  Curve(x, np.exp(x), Pen(Red), 'exp(x)', Y2),
+...  Axis(Y2, Log),
+...  'PyQwt using Qwt-%s -- http://qwt.sf.net' % QWT_VERSION_STR)
+>>> QPixmap.grabWidget(p).save('cli-plot-1.png', 'PNG')
+True
+>>> x = x[0:-1:10]
+>>> p.plot(
+...  Curve(x, np.cos(x-np.pi/4), Symbol(Circle, Yellow), 'circle'),
+...  Curve(x, np.cos(x+np.pi/4), Pen(Blue), Symbol(Square, Cyan), 'square'))
+>>> QPixmap.grabWidget(p).save('cli-plot-2.png', 'PNG')
+True
+"""
+
+
 import sys
 import time
 
-import anynumpy as np
-
 from PyQt4.Qt import *
 from PyQt4.Qwt5 import *
-from grace import GracePlotter
+from grace import GraceProcess
 
 
 # Qt.GlobalColor aliases
@@ -114,23 +136,19 @@ class Tracker(QObject):
 
 
 class Plot(QwtPlot):
-    """Sugar coating.
-    """
-    def __init__(self, *rest):
-        """Constructor.
-
-        Usage: plot = Plot(*rest)
+    """A command line interpreter friendly layer over ``QwtPlot``.
         
-        Plot takes any number of optional arguments. The interpretation
-        of each optional argument depend on its data type:
-        (1) Axis -- enables the axis.
-        (2) Curve -- plots a curve.
-        (3) str or QString -- sets the title.
-        (4) integer -- attaches a set of mouse events to the zoomer actions
-        (5) tuples of 2 integer -- sets the size.
-        (6) QWidget -- parent widget.
-        """
+    The interpretation of the `*rest` parameters is type dependent:
 
+    - `Axis`: enables the axis.
+    - `Curve`: adds a curve.
+    - str or QString: sets the title.
+    - int: sets a set of mouse events to the zoomer actions.
+    - (int, int): sets the size.
+    - QWidget: parent widget    
+    """
+    
+    def __init__(self, *rest):
         self.size = (600, 400)
 
         # get an optional parent widget
@@ -325,7 +343,7 @@ class Plot(QwtPlot):
         to load Grace in memory (exit the Grace process and try again) or
         when 'pause' is too short.
         """
-        g = GracePlotter(debug = 0)
+        g = GraceProcess(debug = 0)
         g('subtitle "%s"' % self.title().text())
         index = 0
         for xAxis, yAxis, graph, xPlace, yPlace in (
@@ -422,29 +440,27 @@ class Plot(QwtPlot):
 
 
 class Curve:
-    """Sugar coating for QwtPlotCurve.
+    """A command line friendly sugar coating for `QwtPlotCurve`.
+
+    Parameters:
+
+    - `x`: sequence of numbers
+    - `y`: sequence of numbers
+
+    The interpretation of the `*rest` parameters is type dependent: 
+        
+    - `Axis`: attaches an axis to the curve.
+    - `Pen`: sets the pen to connect the data points.
+    - `Symbol`: sets the symbol to draw the data points.
+    - str, QString, or QwtText: sets the title of the curve.
     """
     def __init__(self, x, y, *rest):
-        """Constructor.
-
-        Usage: curve = Curve(x, y, *rest)
-        
-        Curve takes two obligatory arguments followed by any number of
-        optional arguments. The arguments 'x' and 'y' must be sequences
-        of floats. The interpretation of each optional argument depends
-        on its data type:
-        (1) Axis -- attaches an axis to the curve.
-        (2) Pen -- sets the pen to connect the data points.
-        (3) Symbol -- sets the symbol to draw the data points.
-        (4) string or QString -- sets the title of the curve.
-        """
-        self.x = x # must be sequence of floats, typecode()?
-        self.y = y # must be sequence of floats
-        self.name = ""
-        self.xAxis = X1
-        self.yAxis = Y1
-        self.symbol = None
+        self.x = x
+        self.y = y
+        self.xAxis, self.yAxis = X1, Y1
         self.pen = None
+        self.symbol = None
+        self.name = ""
 
         for item in rest:
             if isinstance(item, QwtPlot.Axis):
@@ -454,10 +470,10 @@ class Curve:
                     self.yAxis = item
             elif isinstance(item, Pen):
                 self.pen = item
-            elif (isinstance(item, str) or isinstance(item, QString)):
-                self.name = item
             elif isinstance(item, Symbol):
                 self.symbol = item
+            elif (isinstance(item, str) or isinstance(item, QString)):
+                self.name = item
             else:
                 print "Curve fails to accept %s." % item
 
@@ -468,18 +484,16 @@ class Curve:
 
 
 class Axis:
-    def __init__(self, *rest):
-        """Constructor.
+    """A command line interpreter friendly class.
 
-        Usage: axis = Axis(*rest)
-        
-        Axis takes any number of optional arguments. The interpretation
-        of each optional argument depends on its data type:
-        (1) QwtPlot.Axis -- sets the orientation of the axis.
-        (2) QwtScaleEngine -- sets the axis type (Lin or Log).
-        (3) int -- sets the attributes of the axis.
-        (4) string or QString -- sets the title of the axis.
-        """
+    The interpretation of each optional argument depends on its data type:
+    
+    - 'QwtPlot.Axis' -- sets the orientation of the axis.
+    - 'QwtScaleEngine' -- sets the axis type (Lin or Log).
+    - 'int' -- sets the attributes of the axis.
+    - 'string' or 'QString': sets the title of the axis.
+    """
+    def __init__(self, *rest):
         self.attributes = NoAttribute
         self.engine = QwtLinearScaleEngine
         self.title = QwtText('')
@@ -506,19 +520,16 @@ class Axis:
 
 
 class Symbol(QwtSymbol):
-    """Sugar coating for QwtSymbol.
+    """A command line friendly layer over QwtSymbol.
+
+    The constructor takes any number of optional arguments. The interpretation
+    of each optional argument depends on its data type:
+    
+    #. QColor or Qt.GlobalColor -- sets the fill color of the symbol.
+    #. QwtSymbol.Style -- sets the style of the symbol.
+    #. int -- sets the size of the symbol.
     """
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: symbol = Symbol(*rest)
-        
-        Symbol takes any number of optional arguments. The interpretation
-        of each optional argument depends on its data type:
-        (1) QColor or Qt.GlobalColor -- sets the fill color of the symbol.
-        (2) QwtSymbol.Style -- sets the style of the symbol.
-        (3) int -- sets the size of the symbol.
-        """
         QwtSymbol.__init__(self)
         self.setSize(5)
         for item in rest:
@@ -539,17 +550,16 @@ class Symbol(QwtSymbol):
 
 
 class Pen(QPen):
+    """A command line friendly interface over QPen.
+    
+    The constructor takes any number of optional argument. The interpretation
+    of each optional argument depends on its data type:
+    
+    - 'Qt.PenStyle': the style of the pen.
+    - 'QColor' or 'Qt.GlobalColor': the color of the pen.
+    - 'int': the width of the pen.
+    """
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: pen = Pen(*rest)
-        
-        Pen takes any number of optional argument. The interpretation
-        of each optional argument depends on its data type:
-        (1) Qt.PenStyle -- sets the style of the pen.
-        (2) QColor or Qt.GlobalColor -- sets the color of the pen.
-        (3) int -- sets the width of the pen.
-        """
         QPen.__init__(self)
         for item in rest:
             if isinstance(item, Qt.PenStyle):
@@ -665,27 +675,23 @@ grace_xpm = [
 
 
 class IPlot(QMainWindow):
-    """A QMainWindow widget with a Plot widget as central widget.
+    """A QMainWindow widget with a Plot widget as central widget. It provides:
 
-    It provides:
-    (1) a toolbar for printing and piping into Grace.
-    (2) a legend with control to toggle curves between hidden and shown.
-    (3) mouse tracking to display the coordinates in the status bar.
-    (4) an infinite stack of zoom region.
+    #. a toolbar for printing and piping into Grace.
+    #. a legend with control to toggle curves between hidden and shown.
+    #. mouse tracking to display the coordinates in the status bar.
+    #. an infinite stack of zoom regions.
+
+    The constructor takes any number of optional arguments. The interpretation
+    of each optional argument depend on its data type:
+        
+    #. Axis -- enables the axis.
+    #. Curve -- plots a curve.
+    #. string or QString -- sets the title.
+    #. tuples of 2 integer -- sets the size.
     """
 
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: plot = IPlot(*rest)
-        
-        IPlot takes any number of optional arguments. The interpretation
-        of each optional argument depend on its data type:
-        (1) Axis -- enables the axis.
-        (2) Curve -- plots a curve.
-        (3) string or QString -- sets the title.
-        (4) tuples of 2 integer -- sets the size.
-        """
         QMainWindow.__init__(self)
 
         self.__plot = Plot(self, *rest)
@@ -835,6 +841,8 @@ class IPlot(QMainWindow):
         
 # Admire!
 def testPlot():
+    if 'np' not in dir():
+        import anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     p = Plot(Axis(Bottom, "linear x-axis"),
              Axis(Left, "linear y-axis"),
@@ -854,6 +862,8 @@ def testPlot():
 
 
 def testIPlot():
+    if 'np' not in dir():
+        import anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     p = IPlot(Axis(Bottom, "linear x-axis"),
               Axis(Left, "linear y-axis"),
@@ -873,6 +883,8 @@ def testIPlot():
 
 
 def standard_map(x, y, kappa, n):
+    if 'np' not in dir():
+        import anynumpy as np
     xs = np.zeros(n, np.Float)
     ys = np.zeros(n, np.Float)
     for i in range(n):
