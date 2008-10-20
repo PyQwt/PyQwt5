@@ -419,6 +419,9 @@ def check_sip(configuration, options):
     if 0x040600 > version:
         raise Die('PyQwt requires at least SIP-4.6.')
 
+    if 0x031105 < configuration.pyqt_version:
+        options.excluded_features.append('-x HAS_PYQT_031105')
+
     return options
 
 # check_sip
