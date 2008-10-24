@@ -35,7 +35,7 @@ PyQt4.Qwt5.grace
 
 import subprocess
 import sys
-if sys.version_info < 2.6:
+if sys.version_info[:2] < (2, 6):
     import os
     import signal
 
@@ -58,7 +58,7 @@ class GraceProcess:
 
     def command(self, text):
         if self.debug:
-            print cmd
+            print text
         self.p.stdin.write(text + '\n')
         self.flush()
 
