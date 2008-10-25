@@ -37,7 +37,7 @@ An example of its use is:
 >>> from PyQt4.Qt import *
 >>> from PyQt4.Qwt5 import *
 >>> from PyQt4.Qwt5.qplt import *
->>> application = QApplication()
+>>> application = QApplication([])
 >>> x = np.arange(-2*np.pi, 2*np.pi, 0.01)
 >>> p = Plot(
 ...  Curve(x, np.cos(x), Pen(Magenta, 2), 'cos(x)'),
