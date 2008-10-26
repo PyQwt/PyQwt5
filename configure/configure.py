@@ -422,6 +422,8 @@ def check_sip(configuration, options):
     if 0x031105 < configuration.pyqt_version:
         options.excluded_features.append('-x HAS_PYQT_031105')
 
+    options.extra_include_dirs.append(configuration.sip_inc_dir)
+
     return options
 
 # check_sip
