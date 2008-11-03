@@ -40,7 +40,9 @@
 #define PyArray_DATA(obj) ((void *)(((PyArrayObject *)(obj))->data))
 #define PyArray_BYTES(obj) (((PyArrayObject *)(obj))->data)
 #define PyArray_DIMS(obj) (((PyArrayObject *)(obj))->dimensions)
+#define PyArray_STRIDES(obj) (((PyArrayObject *)(obj))->strides)
 #define PyArray_DIM(obj,n) (PyArray_DIMS(obj)[n])
+#define PyArray_STRIDE(obj,n) (PyArray_STRIDES(obj)[n])
 #define PyArray_TYPE(obj) (((PyArrayObject *)(obj))->descr->type_num)
 
 
@@ -151,6 +153,7 @@ int try_NumarrayArray_to_QImage(PyObject *in, QImage **out)
 
     const int ny = PyArray_DIM(in, 0);
     const int nx = PyArray_DIM(in, 1);
+    const int stride = PyArray_STRIDE(in, 0);
 
     //  8 bit data
     if (PyArray_TYPE(in) == tUInt8) {
@@ -159,14 +162,13 @@ int try_NumarrayArray_to_QImage(PyObject *in, QImage **out)
 #else
         if (!(*out = new QImage(nx, ny, QImage::Format_Indexed8))) {
 #endif
-            PyErr_SetString(PyExc_RuntimeError,
-                            "failed to create a 8 bit image");
+            PyErr_SetString(PyExc_RuntimeError, "Failed to create a QImage");
             return -1;
         }
         char *data = PyArray_BYTES(in);
         for (int i=0; i<ny; i++) {
-            memcpy((*out)->scanLine(i), data, (*out)->bytesPerLine());
-            data += (*out)->bytesPerLine();
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
         }
         // initialize the palette as all gray
         (*out)->setNumColors(256);
@@ -182,14 +184,13 @@ int try_NumarrayArray_to_QImage(PyObject *in, QImage **out)
 #else
         if (!(*out = new QImage(nx, ny, QImage::Format_ARGB32))) {
 #endif
-            PyErr_SetString(PyExc_RuntimeError,
-                            "failed to create a 32 bit image");
+            PyErr_SetString(PyExc_RuntimeError, "Failed to create a QImage");
             return -1;
         }
         char *data = PyArray_BYTES(in);
         for (int i=0; i<ny; i++) {
-            memcpy((*out)->scanLine(i), data, (*out)->bytesPerLine());
-            data += (*out)->bytesPerLine();
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
         }
         return 1;
     }
@@ -207,37 +208,29 @@ PyObject *toNumarray(const QImage &image)
     const int ny = image.height();
     int dimensions[2] = {ny, nx};
 
-    // 8 bit data
-    if (image.depth() == 8) {
+    if (image.depth() == 8) { // 8 bit data
         if (0 == (result = PyArray_FromDims(2, dimensions, tUInt8))) {
             PyErr_SetString(PyExc_MemoryError, "Failed to allocate array");
             return 0;
         }
-
-        char *data = PyArray_BYTES(result);
-        for (int i=0; i<ny; i++) {
-            memcpy(data, image.scanLine(i), image.bytesPerLine());
-            data += image.bytesPerLine();
-        }
-        return PyArray_Return((PyArrayObject *)result);
-    }
-
-    // 32 bit data.
-    if (image.depth() == 32) {
+    } else if (image.depth() == 32) { // 32 bit data
         if (0 == (result = PyArray_FromDims(2, dimensions, tUInt32))) {
             PyErr_SetString(PyExc_MemoryError, "Failed to allocate array");
             return 0;
         }
-
-        char *data = PyArray_BYTES(result);
-        for (int i=0; i<ny; i++) {
-            memcpy(data, image.scanLine(i), image.bytesPerLine());
-            data += image.bytesPerLine();
-        }
-        return PyArray_Return((PyArrayObject *)result);
+    } else {
+        PyErr_SetString(PyExc_RuntimeError, "Image depth must be 8 or 32");
+        return 0;
     }
 
-    return 0;
+    char *data = PyArray_BYTES(result);
+    const int stride = PyArray_STRIDE(result, 0);
+    for (int i=0; i<ny; i++) {
+        memcpy(data, image.scanLine(i), stride);
+        data += stride;
+    }
+
+    return PyArray_Return((PyArrayObject *)result);
 }
 
 

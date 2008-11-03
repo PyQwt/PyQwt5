@@ -398,15 +398,13 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
         
     if (!((source->two==2) && (source->nd==2) && (source->flags&CONTIGUOUS))) {
         Py_DECREF(csource);
-        PyErr_SetString(PyExc_RuntimeError,
-                        "Image array must be an contiguous 2-D array");
+        PyErr_SetString(PyExc_RuntimeError, "Array must be contiguous and 2-D");
         return -1;
         }
 
-    const int nx = source->shape[0];
-    const int ny = source->shape[1];
-    const int xstride = source->strides[0];
-    const int ystride = source->strides[1];
+    const Py_intptr_t ny = source->shape[0];
+    const Py_intptr_t nx = source->shape[1];
+    const Py_intptr_t stride = source->strides[0];
 
     //  8 bit data
     if ((source->typekind =='u') && (source->itemsize==1)) {
@@ -419,13 +417,10 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
                             "failed to create a 8 bit image");
             return -1;
         }
-        for (int j=0; j<ny; j++) {
-            char *line = (char *)((*out)->scanLine(j));
-            char *data = (char *)(source->data) + j*ystride;  
-            for (int i=0; i<nx; i++) {
-                *line++ = data[0];
-                data += xstride;
-            }
+        char *data = static_cast<char *>(source->data);  
+        for (int i=0; i<ny; i++) {
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
         }
         // initialize the palette as all gray
         (*out)->setNumColors(256);
@@ -436,9 +431,7 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
         return 1;
     }
 
-    // 32 bit data.
-    // FIXME: what does it do on a 64 bit platform?
-    // FIXME: endianness
+    // 32 bit data
     if ((source->typekind=='u') && (source->itemsize==4)) {
 #if QT_VERSION < 0x040000
         if (!(*out = new QImage(nx, ny, 32))) {
@@ -449,24 +442,19 @@ int try_NDArray_to_QImage(PyObject *in, QImage **out)
                             "failed to create a 32 bit image");
             return -1;
         }
-        for (int j=0; j<ny; j++) {
-            char *line = (char *)((*out)->scanLine(j));
-            char *data = (char *)(source->data) + j*ystride;  
-            for (int i=0; i<nx; i++) {
-                *line++ = data[0];
-                *line++ = data[1];
-                *line++ = data[2];
-                *line++ = data[3];
-                data += xstride;
-            }
-        }        
+        
+        char *data = static_cast<char *>(source->data);  
+        for (int i=0; i<ny; i++) {
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
+        }
         Py_DECREF(csource);
         return 1;
     }
     
-    PyErr_SetString(PyExc_RuntimeError,
-                    "Data type must be an 'unsigned int' having 8 or 32 bits");
+    PyErr_SetString(PyExc_RuntimeError, "Data type must be uint8 or uint32");
     Py_DECREF(csource);
+
     return -1;
 }
 

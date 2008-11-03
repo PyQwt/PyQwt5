@@ -40,7 +40,9 @@
 #define PyArray_DATA(obj) ((void *)(((PyArrayObject *)(obj))->data))
 #define PyArray_BYTES(obj) (((PyArrayObject *)(obj))->data)
 #define PyArray_DIMS(obj) (((PyArrayObject *)(obj))->dimensions)
+#define PyArray_STRIDES(obj) (((PyArrayObject *)(obj))->strides)
 #define PyArray_DIM(obj,n) (PyArray_DIMS(obj)[n])
+#define PyArray_STRIDE(obj,n) (PyArray_STRIDES(obj)[n])
 #define PyArray_TYPE(obj) (((PyArrayObject *)(obj))->descr->type_num)
 
 
@@ -151,6 +153,7 @@ int try_NumericArray_to_QImage(PyObject *in, QImage **out)
     
     const int ny = PyArray_DIM(in, 0);
     const int nx = PyArray_DIM(in, 1);
+    const int stride = PyArray_STRIDE(in, 0);
     
     //  8 bit data
     if (PyArray_TYPE(in) == PyArray_UBYTE) {
@@ -164,8 +167,8 @@ int try_NumericArray_to_QImage(PyObject *in, QImage **out)
         }
         char *data = PyArray_BYTES(in);
         for (int i=0; i<ny; i++) {
-            memcpy((*out)->scanLine(i), data, (*out)->bytesPerLine());
-            data += (*out)->bytesPerLine();
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
         }
         // initialize the palette as all gray
         (*out)->setNumColors(256);
@@ -186,8 +189,8 @@ int try_NumericArray_to_QImage(PyObject *in, QImage **out)
         }
         char *data = PyArray_BYTES(in);
         for (int i=0; i<ny; i++) {
-            memcpy((*out)->scanLine(i), data, (*out)->bytesPerLine());
-            data += (*out)->bytesPerLine();
+            memcpy((*out)->scanLine(i), data, stride);
+            data += stride;
         }        
         return 1;
     }
@@ -205,37 +208,29 @@ PyObject *toNumeric(const QImage &image)
     const int nx = image.width();
     int dimensions[2] = {ny, nx};
 
-    // 8 bit data
-    if (image.depth() == 8) {
+    if (image.depth() == 8) { // 8 bit data
         if (0 == (result = PyArray_FromDims(2, dimensions, PyArray_UBYTE))) {
             PyErr_SetString(PyExc_MemoryError, "failed to allocate array");
             return 0;
         }
-
-        char *data = PyArray_BYTES(result);
-        for (int i=0; i<ny; i++) {
-            memcpy(data, image.scanLine(i), image.bytesPerLine());
-            data += image.bytesPerLine();
-        }
-        return PyArray_Return((PyArrayObject *)result);
-    }
-
-    // 32 bit data.
-    if (image.depth() == 32) {
+    } else if (image.depth() == 32) { // 32 bit data
         if (0 == (result = PyArray_FromDims(2, dimensions, PyArray_UINT))) {
             PyErr_SetString(PyExc_MemoryError, "failed to allocate array");
             return 0;
         }
-
-        char *data = PyArray_BYTES(result);
-        for (int i=0; i<ny; i++) {
-            memcpy(data, image.scanLine(i), image.bytesPerLine());
-            data += image.bytesPerLine();
-        }
-        return PyArray_Return((PyArrayObject *)result);
+    } else {
+        PyErr_SetString(PyExc_RuntimeError, "Image depth must be 8 or 32");
+        return 0;        
     }
 
-    return 0;
+    char *data = PyArray_BYTES(result);
+    const int stride = PyArray_STRIDE(result, 0);
+    for (int i=0; i<ny; i++) {
+        memcpy(data, image.scanLine(i), stride);
+        data += stride;
+    }
+
+    return PyArray_Return((PyArrayObject *)result);
 }
 
 #endif // HAS_NUMERIC
