@@ -4,7 +4,7 @@ from distutils.core import setup
 import time
 
 name = 'PyQwt'
-version = '5.1.0'
+version = '5.1.1'
 #version = '%04d%02d%02d' % (time.localtime()[:3])
 
 long_description = """
