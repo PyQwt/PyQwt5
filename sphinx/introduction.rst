@@ -22,8 +22,8 @@ If you do not have a mathematical background, you can think of a
 1-dimensional array as a column in a spreadsheet.  The spreadsheet
 lets you change whole columns element by element by one single
 statement. In a similar way, NumPy lets you change whole arrays
-element by eleming by one single statement as illustrated in the
-following exemple::
+element by element by one single statement as illustrated in the
+following example::
 
    >>> import numpy as np
    >>> x = np.arange(0.0, 10.0, 3.0)
@@ -43,7 +43,7 @@ returns a NumPy array of 4 equidistant points from 0 to 9 inclusive::
 
    array([ 0., 3., 6., 9.])
 
-The statements ``y = np. sin(x)`` and ``x*x`` show that NumPy
+The statements ``y = np.sin(x)`` and ``x*x`` show that NumPy
 arrays are manipulated element by element.
 All this in has been coded in C, for a manifold speedup with respect
 to pure Python.
