@@ -119,7 +119,7 @@ qwt-5.1:
 
 # build a distribution tarball
 dist: all distclean all
-	(cd Doc; rm doc; make)
+	(cd sphinx; make clean; make)
 	python setup.py sdist --formats=gztar
 
 clean:

@@ -4,10 +4,6 @@
 include ANNOUNCEMENT-5.1.0 CHANGES-5.1.0 COPYING*
 include MANIFEST.in GNUmakefile pyqwt-5.1.patch
 
-# Documentation
-graft Doc
-recursive-exclude Doc *cvsignore* *~ doc htdoc htdoc/* WARNINGS
-
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
 recursive-exclude qt3lib *cvsignore* *~
@@ -39,6 +35,10 @@ recursive-exclude qwt-5.1 *~
 # sip files
 graft sip
 recursive-exclude sip *cvsignore* *~
+
+# Documentation
+graft sphinx
+recursive-exclude sphinx *cvsignore* *~
 
 # Local Variables: ***
 # mode: sh ***
