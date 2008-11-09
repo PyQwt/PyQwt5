@@ -1,0 +1,64 @@
+Usage: python configure.py [options]
+
+Each option takes at most one argument, but some options
+accumulate arguments when repeated. For example, invoke:
+
+	python configure.py -I . -I ..
+
+to search the current *and* parent directories for headers.
+
+Options:
+  -h, --help            show this help message and exit
+
+  Common options:
+    -3, --qt3           build for Qt3 and PyQt [default Qt4]
+    -4, --qt4           build for Qt4 and PyQt4 [default Qt4]
+    -Q /sources/of/qwt, --qwt-sources=/sources/of/qwt
+                        compile and link the Qwt source files in
+                        /sources/of/qwt statically into PyQwt
+    -I /usr/lib/qt3/include/qwt, --extra-include-dirs=/usr/lib/qt3/include/qwt
+                        add an extra directory to search for headers (the
+                        compiler must be able to find the Qwt headers without
+                        the -Q option)
+    -L /usr/lib/qt3/lib, --extra-lib-dirs=/usr/lib/qt3/lib
+                        add an extra directory to search for libraries (the
+                        linker must be able to find the Qwt library without
+                        the -Q option)
+    -j N, --jobs=N      concatenate the SIP generated code into N files
+                        [default 1 per class] (to speed up make by running
+                        simultaneous jobs on multiprocessor systems)
+
+  Make options:
+    --debug             enable debugging symbols [default disabled]
+    --extra-cflags=EXTRA_CFLAG
+                        add an extra C compiler flag
+    --extra-cxxflags=EXTRA_CXXFLAG
+                        add an extra C++ compiler flag
+    -D HAS_EXTRA_SENSORY_PERCEPTION, --extra-defines=HAS_EXTRA_SENSORY_PERCEPTION
+                        add an extra preprocessor definition
+    -l extra_sensory_perception, --extra-libs=extra_sensory_perception
+                        add an extra library
+    --extra-lflags=EXTRA_LFLAG
+                        add an extra linker flag
+
+  SIP options:
+    -x EXTRA_SENSORY_PERCEPTION, --excluded-features=EXTRA_SENSORY_PERCEPTION
+                        add a feature for SIP to exclude (normally one of the
+                        features in sip/features.sip)
+    -t EXTRA_SENSORY_PERCEPTION, --timelines=EXTRA_SENSORY_PERCEPTION
+                        add a timeline option for SIP (normally one of the
+                        timeline options in sip/timelines.sip)
+    --sip-include-dirs=SIP_INCLUDE_DIR
+                        add an extra directory for SIP to search
+    --trace             enable trace of the execution of the bindings [default
+                        disabled]
+
+  Detection options:
+    --disable-numarray  disable detection and use of numarray [default
+                        enabled]
+    --disable-numeric   disable detection and use of Numeric [default enabled]
+    --disable-numpy     disable detection and use of NumPy [default enabled]
+
+  Install options:
+    --module-install-path=MODULE_INSTALL_PATH
+                        specify the install directory for the Python modules
