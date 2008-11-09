@@ -1,4 +1,4 @@
-"""Qwt5 -- a Python interface to the Qwt library.
+"""A Python interface to the Qwt library.
 """
 #
 # Copyright (C) 2003-2008 Gerard Vermeulen
@@ -37,7 +37,7 @@ except NameError:
     pass
 
 try:
-    to_np_array = toNumeric2
+    to_np_array = toNumeric
 except NameError:
     pass
 
