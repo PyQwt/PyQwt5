@@ -443,12 +443,12 @@ class Curve:
     """A command line friendly sugar coating for `QwtPlotCurve`.
 
     Parameters:
-
+    
     - `x`: sequence of numbers
     - `y`: sequence of numbers
 
-    The interpretation of the `*rest` parameters is type dependent: 
-        
+    The interpretation of the `*rest` parameters is type dependent:
+    
     - `Axis`: attaches an axis to the curve.
     - `Pen`: sets the pen to connect the data points.
     - `Symbol`: sets the symbol to draw the data points.
@@ -486,12 +486,12 @@ class Curve:
 class Axis:
     """A command line interpreter friendly class.
 
-    The interpretation of each optional argument depends on its data type:
+    The interpretation of the `*rest` parameters is type dependent:
     
-    - 'QwtPlot.Axis' -- sets the orientation of the axis.
-    - 'QwtScaleEngine' -- sets the axis type (Lin or Log).
-    - 'int' -- sets the attributes of the axis.
-    - 'string' or 'QString': sets the title of the axis.
+    - `QwtPlot.Axis`: sets the orientation of the axis.
+    - `QwtScaleEngine`: sets the axis type (Lin or Log).
+    - int : sets the attributes of the axis.
+    - string or QString: sets the title of the axis.
     """
     def __init__(self, *rest):
         self.attributes = NoAttribute
@@ -522,12 +522,11 @@ class Axis:
 class Symbol(QwtSymbol):
     """A command line friendly layer over QwtSymbol.
 
-    The constructor takes any number of optional arguments. The interpretation
-    of each optional argument depends on its data type:
+    The interpretation of the `*rest` parameters is type dependent:
     
-    #. QColor or Qt.GlobalColor -- sets the fill color of the symbol.
-    #. QwtSymbol.Style -- sets the style of the symbol.
-    #. int -- sets the size of the symbol.
+    - QColor or Qt.GlobalColor: sets the fill color of the symbol.
+    - QwtSymbol.Style: sets the style of the symbol.
+    - int: sets the size of the symbol.
     """
     def __init__(self, *rest):
         QwtSymbol.__init__(self)
@@ -552,8 +551,7 @@ class Symbol(QwtSymbol):
 class Pen(QPen):
     """A command line friendly interface over QPen.
     
-    The constructor takes any number of optional argument. The interpretation
-    of each optional argument depends on its data type:
+    The interpretation of the `*rest` parameters is type dependent:
     
     - 'Qt.PenStyle': the style of the pen.
     - 'QColor' or 'Qt.GlobalColor': the color of the pen.
@@ -682,13 +680,13 @@ class IPlot(QMainWindow):
     #. mouse tracking to display the coordinates in the status bar.
     #. an infinite stack of zoom regions.
 
-    The constructor takes any number of optional arguments. The interpretation
-    of each optional argument depend on its data type:
+    The interpretation of the `rest` parameters is type dependent:
         
-    #. Axis -- enables the axis.
-    #. Curve -- plots a curve.
-    #. string or QString -- sets the title.
-    #. tuples of 2 integer -- sets the size.
+    - `Axis`: enables the axis.
+    - `Curve`: adds a curve.
+    - str or QString: sets the title.
+    - int: sets a set of mouse events to the zoomer actions.
+    - (int, int): sets the size.
     """
 
     def __init__(self, *rest):

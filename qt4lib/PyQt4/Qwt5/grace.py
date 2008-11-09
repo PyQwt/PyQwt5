@@ -28,11 +28,6 @@
 # PyQwt becomes a free plug-in for a non-free program.
 
 
-"""
-PyQt4.Qwt5.grace
-----------------
-"""
-
 import subprocess
 import sys
 if sys.version_info[:2] < (2, 6):
