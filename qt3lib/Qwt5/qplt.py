@@ -1,7 +1,5 @@
-"""Qwt5.qplt
-
-Provides a Command Line Interpreter friendly interface to QwtPlot.
-"""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2003-2008 Gerard Vermeulen
 #
@@ -31,13 +29,39 @@ Provides a Command Line Interpreter friendly interface to QwtPlot.
 # PyQwt becomes a free plug-in for a non-free program.
 
 
+"""
+Provides a command line interpreter friendly layer over `QwtPlot`.
+An example of its use is:
+
+>>> import numpy as np
+>>> from qt import *
+>>> from Qwt5 import *
+>>> from Qwt5.qplt import *
+>>> application = QApplication([])
+>>> x = np.arange(-2*np.pi, 2*np.pi, 0.01)
+>>> p = Plot(
+...  Curve(x, np.cos(x), Pen(Magenta, 2), 'cos(x)'),
+...  Curve(x, np.exp(x), Pen(Red), 'exp(x)', Y2),
+...  Axis(Y2, Log),
+...  'PyQwt using Qwt-%s -- http://qwt.sf.net' % QWT_VERSION_STR)
+>>> QPixmap.grabWidget(p).save('cli-plot-1.png', 'PNG')
+True
+>>> x = x[0:-1:10]
+>>> p.plot(
+...  Curve(x, np.cos(x-np.pi/4), Symbol(Circle, Yellow), 'circle'),
+...  Curve(x, np.cos(x+np.pi/4), Pen(Blue), Symbol(Square, Cyan), 'square'))
+>>> time.sleep(1)
+>>> QPixmap.grabWidget(p).save('cli-plot-2.png', 'PNG')
+True
+"""
+
+
 import sys
 import time
 
 from qt import *
 from Qwt5 import *
-import anynumpy as np
-from grace import GracePlotter
+from grace import GraceProcess
 
 
 # QColor aliases
@@ -96,23 +120,19 @@ class Tracker(QObject):
 
 
 class Plot(QwtPlot):
-    """Sugar coating.
+    """A command line interpreter friendly layer over `QwtPlot`.
+
+    The interpretation of the `*rest` parameters is type dependent:
+
+    - `Axis`: enables the axis.
+    - `Curve`: adds a curve.
+    - `str` or `QString`: sets the title.
+    - `int`: sets a set of mouse events to the zoomer actions.
+    - (`int`, `int`): sets the size.
+    - `QWidget`: sets the parent widget
     """
+
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: plot = Plot(*rest)
-        
-        Plot takes any number of optional arguments. The interpretation
-        of each optional argument depend on its data type:
-        (1) Axis -- enables the axis.
-        (2) Curve -- plots a curve.
-        (3) str or QString -- sets the title.
-        (4) integer -- attaches a set of mouse events to the zoomer actions
-        (5) tuples of 2 integer -- sets the size.
-        (6) QWidget -- parent widget.
-        """
-
         self.size = (600, 400)
 
         # get an optional parent widget
@@ -190,8 +210,17 @@ class Plot(QwtPlot):
     # __init__()
 
     def plot(self, *rest):
+        """Plot additional curves and/or axes.
+
+        The interpretation of the `*rest` parameters is type dependent:
+
+        - `Axis`: enables the axis.
+        - `Curve`: adds a curve.
+        """
         for item in rest:
-            if isinstance(item, Curve):
+            if isinstance(item, Axis):
+                self.plotAxis(item)
+            elif isinstance(item, Curve):
                 self.plotCurve(item)
             else:
                 print "Plot.plot() fails to accept %s." % item
@@ -305,7 +334,7 @@ class Plot(QwtPlot):
         to load Grace in memory (exit the Grace process and try again) or
         when 'pause' is too short.
         """
-        g = GracePlotter(debug = 0)
+        g = GraceProcess(debug = 0)
         g('subtitle "%s"' % self.title().text())
         index = 0
         for xAxis, yAxis, graph, xPlace, yPlace in (
@@ -406,22 +435,22 @@ class Plot(QwtPlot):
 
 
 class Curve:
-    """Sugar coating for QwtPlotCurve.
-    """
-    def __init__(self, x, y, *rest):
-        """Constructor.
+    """A command line friendly layer over `QwtPlotCurve`.
 
-        Usage: curve = Curve(x, y, *rest)
-        
-        Curve takes two obligatory arguments followed by any number of
-        optional arguments. The arguments 'x' and 'y' must be sequences
-        of floats. The interpretation of each optional argument depends
-        on its data type:
-        (1) Axis -- attaches an axis to the curve.
-        (2) Pen -- sets the pen to connect the data points.
-        (3) Symbol -- sets the symbol to draw the data points.
-        (4) string or QString -- sets the title of the curve.
-        """
+    Parameters:
+
+    - `x`: sequence of numbers
+    - `y`: sequence of numbers
+
+    The interpretation of the `*rest` parameters is type dependent:
+
+    - `Axis`: attaches an axis to the curve.
+    - `Pen`: sets the pen to connect the data points.
+    - `Symbol`: sets the symbol to draw the data points.
+    - `str`, `QString`, or `QwtText`: sets the curve title.
+    """
+
+    def __init__(self, x, y, *rest):
         self.x = x # must be sequence of floats, typecode()?
         self.y = y # must be sequence of floats
         self.name = ""
@@ -463,18 +492,16 @@ Inverted         = QwtScaleEngine.Inverted
 
 
 class Axis:
-    def __init__(self, *rest):
-        """Constructor.
+    """A command line interpreter friendly class.
 
-        Usage: axis = Axis(*rest)
-        
-        Axis takes any number of optional arguments. The interpretation
-        of each optional argument depends on its data type:
-        (1) AxisOrientation -- sets the orientation of the axis.
-        (2) FIXME: Lin, Log
-        (3) int -- sets the attributes of the axis.
-        (4) string or QString -- sets the title of the axis.
-        """
+    The interpretation of the `*rest` parameters is type dependent:
+
+    - `QwtPlot.Axis`: sets the orientation of the axis.
+    - `QwtScaleEngine`: sets the axis type (Lin or Log).
+    - `int` : sets the attributes of the axis.
+    - `string` or `QString`: sets the title of the axis.
+    """
+    def __init__(self, *rest):
         self.attributes = NoAttribute
         self.engine = QwtLinearScaleEngine
         self.title = QwtText('')
@@ -842,6 +869,8 @@ class IPlot(QMainWindow):
         
 # Admire!
 def testPlot():
+    if 'np' not in dir():
+        import anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     title = "PyQwt using Qt-%s and Qwt-%s" % (QT_VERSION_STR, QWT_VERSION_STR)
     p = Plot(Axis(Bottom, "linear x-axis"),
@@ -862,6 +891,8 @@ def testPlot():
 
 
 def testIPlot():
+    if 'np' not in dir():
+        import anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     title = "PyQwt using Qt-%s and Qwt-%s" % (QT_VERSION_STR, QWT_VERSION_STR)
     p = IPlot(Axis(Bottom, "linear x-axis"),
@@ -882,6 +913,8 @@ def testIPlot():
 
 
 def standard_map(x, y, kappa, n):
+    if 'np' not in dir():
+        import anynumpy as np
     xs = np.zeros(n, np.Float)
     ys = np.zeros(n, np.Float)
     for i in range(n):
