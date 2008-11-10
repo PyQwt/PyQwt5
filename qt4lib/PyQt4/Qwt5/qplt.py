@@ -30,7 +30,7 @@
 
 
 """
-Provides a command line interpreter friendly layer over ``QwtPlot``.
+Provides a command line interpreter friendly layer over `QwtPlot`.
 An example of its use is:
 
 >>> import numpy as np
@@ -136,16 +136,16 @@ class Tracker(QObject):
 
 
 class Plot(QwtPlot):
-    """A command line interpreter friendly layer over ``QwtPlot``.
+    """A command line interpreter friendly layer over `QwtPlot`.
         
     The interpretation of the `*rest` parameters is type dependent:
 
     - `Axis`: enables the axis.
     - `Curve`: adds a curve.
-    - str or QString: sets the title.
-    - int: sets a set of mouse events to the zoomer actions.
-    - (int, int): sets the size.
-    - QWidget: parent widget    
+    - `str` or `QString`: sets the title.
+    - `int`: sets a set of mouse events to the zoomer actions.
+    - (`int`, `int`): sets the size.
+    - `QWidget`: sets the parent widget    
     """
     
     def __init__(self, *rest):
@@ -440,7 +440,7 @@ class Plot(QwtPlot):
 
 
 class Curve:
-    """A command line friendly sugar coating for `QwtPlotCurve`.
+    """A command line friendly layer over `QwtPlotCurve`.
 
     Parameters:
     
@@ -452,7 +452,7 @@ class Curve:
     - `Axis`: attaches an axis to the curve.
     - `Pen`: sets the pen to connect the data points.
     - `Symbol`: sets the symbol to draw the data points.
-    - str, QString, or QwtText: sets the title of the curve.
+    - `str`, `QString`, or `QwtText`: sets the curve title.
     """
     def __init__(self, x, y, *rest):
         self.x = x
@@ -490,8 +490,8 @@ class Axis:
     
     - `QwtPlot.Axis`: sets the orientation of the axis.
     - `QwtScaleEngine`: sets the axis type (Lin or Log).
-    - int : sets the attributes of the axis.
-    - string or QString: sets the title of the axis.
+    - `int` : sets the attributes of the axis.
+    - `string` or `QString`: sets the title of the axis.
     """
     def __init__(self, *rest):
         self.attributes = NoAttribute
@@ -520,13 +520,13 @@ class Axis:
 
 
 class Symbol(QwtSymbol):
-    """A command line friendly layer over QwtSymbol.
+    """A command line friendly layer over `QwtSymbol`.
 
     The interpretation of the `*rest` parameters is type dependent:
     
-    - QColor or Qt.GlobalColor: sets the fill color of the symbol.
-    - QwtSymbol.Style: sets the style of the symbol.
-    - int: sets the size of the symbol.
+    - `QColor` or `Qt.GlobalColor`: sets the symbol fill color.
+    - `QwtSymbol.Style`: sets symbol style.
+    - `int`: sets the symbol size.
     """
     def __init__(self, *rest):
         QwtSymbol.__init__(self)
@@ -549,13 +549,13 @@ class Symbol(QwtSymbol):
 
 
 class Pen(QPen):
-    """A command line friendly interface over QPen.
+    """A command line friendly layer over `QPen`.
     
     The interpretation of the `*rest` parameters is type dependent:
     
-    - 'Qt.PenStyle': the style of the pen.
-    - 'QColor' or 'Qt.GlobalColor': the color of the pen.
-    - 'int': the width of the pen.
+    - `Qt.PenStyle`: sets the pen style.
+    - `QColor` or `Qt.GlobalColor`: sets the pen color.
+    - `int`: sets the pen width.
     """
     def __init__(self, *rest):
         QPen.__init__(self)
@@ -684,9 +684,9 @@ class IPlot(QMainWindow):
         
     - `Axis`: enables the axis.
     - `Curve`: adds a curve.
-    - str or QString: sets the title.
-    - int: sets a set of mouse events to the zoomer actions.
-    - (int, int): sets the size.
+    - `str` or `QString`: sets the title.
+    - `int`: sets a set of mouse events to the zoomer actions.
+    - (`int`, `int`): sets the size.
     """
 
     def __init__(self, *rest):
