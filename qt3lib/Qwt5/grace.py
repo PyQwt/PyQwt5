@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (C) 2003-2007 Gerard Vermeulen
+# Copyright (C) 2003-2008 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #
@@ -17,43 +17,79 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# In addition, as a special exception, Gerard Vermeulen gives permission
+# to link PyQwt dynamically with non-free versions of Qt and PyQt,
+# and to distribute PyQwt in this form, provided that equally powerful
+# versions of Qt and PyQt have been released under the terms of the GNU
+# General Public License.
+#
+# If PyQwt is dynamically linked with non-free versions of Qt and PyQt,
+# PyQwt becomes a free plug-in for a non-free program.
 
 
-import os
-import popen2
-import time
+import subprocess
+import sys
+if sys.version_info[:2] < (2, 6):
+    import os
+    import signal
 
-class GracePlotter:
+
+class GraceProcess:
+    """Provides a simple interface to a Grace subprocess."""
+    
     def __init__ (self, debug = None):
         self.debug = debug
-        self.p = popen2.Popen3 ("xmgrace -nosafe -noask -dpipe 0")
+        self.p = subprocess.Popen(
+            ["xmgrace", "-nosafe", "-noask", "-dpipe", "0"],
+            stdin=subprocess.PIPE, close_fds=True)
         self.command("view xmin 0.15")
         self.command("view xmax 0.85")
         self.command("view ymin 0.15")
         self.command("view ymax 0.85")
         self.flush()
 
-    def command(self, cmd):
+    # __init__()
+
+    def command(self, text):
         if self.debug:
-            print cmd
-        self.p.tochild.write(cmd + '\n')
+            print text
+        self.p.stdin.write(text + '\n')
         self.flush()
 
+    # command()
+
     def flush(self):
-        self.p.tochild.flush()
+        self.p.stdin.flush()
+
+    # flush()
 
     def wait(self):
         return self.p.wait()
 
-    def kill(self):
-        os.kill(self.p.pid, 9)
+    # wait()
 
-    def __call__(self, cmd):
-        self.command(cmd)
+    def kill(self):
+        if sys.version_info < 2.6:
+            os.kill(self.p.pid, signal.SIGKILL)
+        else:
+            self.p.kill()
+
+    # kill()
+
+    def __call__(self, text):
+        self.command(text)
+
+    # __call__()
+
+# class GraceProcess
 
 
 if __name__ == '__main__':
-    g = GracePlotter()
+
+    import time
+
+    g = GraceProcess()
     g('world xmax 100')
     g('world ymax 10000')
     g('xaxis tick major 20')
