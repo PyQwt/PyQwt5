@@ -5,9 +5,9 @@ PyQwt is a set of Python bindings for the
 `Qwt <http://qwt.sourceforge.net>`_
 library featuring fast plotting of Python lists and tuples and the
 powerful multi-dimensional arrays provided by
-`NumPy <http://numpy.scipy.org>`_. [#]_
-NumPy is the fundamental package for efficient scientific and
-engineering computing in Python.
+`NumPy <http://numpy.scipy.org>`_, the fundamental package for
+efficient scientific and engineering computing in Python. [#]_
+
 
 NumPy
 =====
@@ -20,10 +20,10 @@ powerful as APL, MatLab, IDL and others, but much more elegant).
 
 If you do not have a mathematical background, you can think of a
 1-dimensional array as a column in a spreadsheet.  The spreadsheet
-lets you change whole columns element by element by one single
+lets you change whole columns element by element in one single
 statement. In a similar way, NumPy lets you change whole arrays
-element by element by one single statement as illustrated in the
-following example::
+element by element in one single statement as illustrated by the
+following snippet::
 
    >>> import numpy as np
    >>> x = np.arange(0.0, 10.0, 3.0)
@@ -48,9 +48,18 @@ arrays are manipulated element by element.
 All this in has been coded in C, for a manifold speedup with respect
 to pure Python.
 
-Want to learn more? See the
+You can think of a 2-dimension array as a spreadsheet: in both cases
+you you can operate on blocks, columns, rows, slices of colums, slices
+of rows or individual elements. 
+
+Want to learn more?
+Look at the
 `Tentative NumPy Tutorial
-<http://www.scipy.org/Tentative_NumPy_Tutorial>`_.
+<http://www.scipy.org/Tentative_NumPy_Tutorial>`_
+for a tutorial or at the
+`Guide to NumPy
+<http://www.tramy.us/numpybook.pdf>`_
+for an advanced book.
 
 
 Qwt
@@ -87,10 +96,14 @@ QwtWheel
 See the `Qwt manual <http://qwt.sourceforge.net>`_ for a complete
 overview of the Qwt library. 
 
-Example
-=======
 
-The following Python example will be explained almost line by line::
+PyQwt with NumPy
+================
+
+PyQwt is mostly used to write graphical user interface applications.
+However, the following snippet shows how to use PyQwt in combination
+with NumPy from the command line interpreter.
+Line by line explanations follow the snippet::
 
    >>> import numpy as np
    >>> from PyQt4.Qt import *
@@ -173,6 +186,31 @@ The statement::
 takes a snapshot of the plot widget and saves it into a file:
 
 .. image:: cli-plot-2.png
+
+
+Getting help
+============
+
+PyQwt and PyQwt3D have a low volume mailing list to answer questions
+on installation problems and how to use the more advanced features.
+In particular, many of the more advanced examples using object
+oriented programming have been written to answer questions.
+Most questions help to improve PyQwt!
+
+Please,
+`subscribe <http://lists.sourceforge.net/lists/listinfo/pyqwt-users>`_
+to the mailing list before posting on the
+`mailing list <mailto:pyqwt-users@lists.sourceforge.net>`_.
+
+The mailing list is a subscribers only list and mail from
+non-subscribers is deferred to filter spam.
+I check practically every day whether some messages are from
+unsubscribed users (more than 95 % is spam).
+Keep in mind, in case you post before subscribing:
+
+  - you are very lucky when your mail gets accepted. 
+  - you will be subscribed to minimize accepting posts manually.
+
 
 .. [#] The older numerical Python extension packages,
        `numarray
