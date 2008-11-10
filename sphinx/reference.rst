@@ -6,85 +6,6 @@ PyQwt Reference Guide
 :mod:`PyQt4.Qwt5`
 =================
 
-Wrappers for `QwtArray<T>`
---------------------------
-
-PyQwt has a partial interface to the following C++ QwtArray templates:
-
-  #. :class:`QwtArrayDouble` for `QwtArray<double>`
-  #. :class:`QwtArrayInt` for `QwtArray<int>`
-  #. :class:`QwtArrayQwtDoubleInterval` for `QwtArray<QwtDoubleInterval>`
-  #. :class:`QwtArrayQwtDoublePoint` for `QwtArray<QwtDoublePoint>`
-     when PyQt has been built against Qt-3 or for `QwtArray<QPointF>` when
-     PyQt has been built against Qt-4.
-
-Those classes have at least 3 constructors, taking `QwtArrayDouble` as an
-example:
-
-  #. ``array = QwtArrayDouble()``
-  #. ``array = QwtArrayDouble(int)``
-  #. ``array = QwtArrayDouble(otherArray)``
-
-``QwtArrayDouble`` and ``QwtArrayInt`` have also a constructor which takes a
-sequence of items convertable to a C++ double and a C++ long.
-For instance:
-
-  - ``array = QwtArrayDouble(numpy.array([0.0, 1.0]))``
-  - ``array = QwtArrayInt(numpy.array([0, 1]))``
-
-All those classes have 16 member functions, taking QwtArrayDouble as example:
-
-  #. ``array = array.assign(otherArray)``
-  #. ``item = array.at(index)``
-  #. ``index = array.bsearch(item)``
-  #. ``index = contains(item)``
-  #. ``array = otherArray.copy()``
-  #. ``result = array.count()``
-  #. ``array.detach()``
-  #. ``array = array.duplicate(otherArray)``
-  #. ``bool = array.fill(item, index=-1)``
-  #. ``index = array.find(item, index=0)``
-  #. ``bool = array.isEmpty()``
-  #. ``bool = array.isNull()``
-  #. ``bool = array.resize(index)``
-  #. ``result = array.size()``
-  #. ``array.sort()``
-  #. ``bool = array.truncate(index)``
-
-Iterators are not yet implemented. However, the implementation of the
-special class methods ``__getitem__``, ``__len__`` and ``__setitem__``
-let you use those classes almost as a sequence.
-For instance::
-
-  >>> from PyQt4.Qwt5 import *
-  >>> import numpy as np
-  >>> a = QwtArrayDouble(np.arange(10, 20, 4))
-  >>> for i in a:                                  # thanks to __getitem__
-  ...  print i
-  ...
-  10.0
-  14.0
-  18.0
-  >>> for i in range(len(a)):                      # thanks to __len__
-  ...  print a[i]                                  # thanks to __getitem__
-  ...
-  10.0
-  14.0
-  18.0
-  >>> for i in range(len(a)):                      # thanks to __len__
-  ...  a[i] = 10+3*i                               # thanks to __setitem__
-  ...
-  >>> for i in a:                                  # thanks to __getitem__
-  ...  print i
-  ...
-  10.0
-  13.0
-  16.0
-
-
-Class Reference Guide
----------------------
-
 The reference should be used in conjunction with the
 `Qwt manual <http://qwt.sourceforge.net>`_.
 Only the differences specific to the Python bindings are documented here.
@@ -100,6 +21,9 @@ member functions and all public class variables have been implemented.
 
 Undocumented classes have not yet been implemented or are still experimental.
 
+
+Class reference
+---------------
 
 .. class:: QwtAbstractScale
 
@@ -662,6 +586,123 @@ Undocumented classes have not yet been implemented or are still experimental.
 .. class:: QwtWheel
 
    is fully implemented.
+
+
+Function reference
+------------------
+
+
+.. function:: toImage(array)
+
+   Convert `array` to a `QImage`, where `array` must be a 2D NumPy,
+   numarray, or Numeric array containing data of type uint8 or uin32.
+
+
+.. function:: toNumarray(image)
+
+   Convert `image` to a 2D numarray array, where `image` must be a
+   `QImage` with depth 8 or 32.  The resulting 2D numarray array
+   contains data of type uint8 or uint32.
+
+
+.. function:: toNumeric(image)
+
+   Convert `image` to a 2D Numeric array, where `image` must be a
+   `QImage` of depth 8 or 32.  The resulting 2D Numeric array
+   contains data of type uint8 or uint32.
+
+
+.. function:: toNumpy(image)
+
+   Convert `image` to a 2D NumPy array, where `image` must be a
+   `QImage` of depth 8 or 32.  The resulting 2D NumPy array
+   contains data of type uint8 or uint32.
+
+
+.. function:: to_na_array(image)
+
+   Deprecated. Use :func:`toNumarray`.
+
+
+.. function:: to_np_array(image)
+
+   Deprecated. Use :func:`toNumeric`.
+
+
+Template reference
+------------------
+
+PyQwt has a partial interface to the following `QwtArray<T>` templates:
+
+  #. :class:`QwtArrayDouble` for `QwtArray<double>`
+  #. :class:`QwtArrayInt` for `QwtArray<int>`
+  #. :class:`QwtArrayQwtDoubleInterval` for `QwtArray<QwtDoubleInterval>`
+  #. :class:`QwtArrayQwtDoublePoint` for `QwtArray<QwtDoublePoint>`
+     when PyQt has been built against Qt-3 or for `QwtArray<QPointF>` when
+     PyQt has been built against Qt-4.
+
+Those classes have at least 3 constructors, taking `QwtArrayDouble` as an
+example:
+
+  #. ``array = QwtArrayDouble()``
+  #. ``array = QwtArrayDouble(int)``
+  #. ``array = QwtArrayDouble(otherArray)``
+
+``QwtArrayDouble`` and ``QwtArrayInt`` have also a constructor which takes a
+sequence of items convertable to a C++ double and a C++ long.
+For instance:
+
+  - ``array = QwtArrayDouble(numpy.array([0.0, 1.0]))``
+  - ``array = QwtArrayInt(numpy.array([0, 1]))``
+
+All those classes have 16 member functions, taking QwtArrayDouble as example:
+
+  #. ``array = array.assign(otherArray)``
+  #. ``item = array.at(index)``
+  #. ``index = array.bsearch(item)``
+  #. ``index = contains(item)``
+  #. ``array = otherArray.copy()``
+  #. ``result = array.count()``
+  #. ``array.detach()``
+  #. ``array = array.duplicate(otherArray)``
+  #. ``bool = array.fill(item, index=-1)``
+  #. ``index = array.find(item, index=0)``
+  #. ``bool = array.isEmpty()``
+  #. ``bool = array.isNull()``
+  #. ``bool = array.resize(index)``
+  #. ``result = array.size()``
+  #. ``array.sort()``
+  #. ``bool = array.truncate(index)``
+
+Iterators are not yet implemented. However, the implementation of the
+special class methods ``__getitem__``, ``__len__`` and ``__setitem__``
+let you use those classes almost as a sequence.
+For instance::
+
+  >>> from PyQt4.Qwt5 import *
+  >>> import numpy as np
+  >>> a = QwtArrayDouble(np.arange(10, 20, 4))
+  >>> for i in a:                                  # thanks to __getitem__
+  ...  print i
+  ...
+  10.0
+  14.0
+  18.0
+  >>> for i in range(len(a)):                      # thanks to __len__
+  ...  print a[i]                                  # thanks to __getitem__
+  ...
+  10.0
+  14.0
+  18.0
+  >>> for i in range(len(a)):                      # thanks to __len__
+  ...  a[i] = 10+3*i                               # thanks to __setitem__
+  ...
+  >>> for i in a:                                  # thanks to __getitem__
+  ...  print i
+  ...
+  10.0
+  13.0
+  16.0
 
 
 :mod:`PyQt4.Qwt5.qplt`
