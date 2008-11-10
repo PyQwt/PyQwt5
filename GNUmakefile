@@ -118,7 +118,7 @@ qwt-5.1:
 		-o -name '*.md5' | xargs rm -rf
 
 # build a distribution tarball
-dist: all distclean all
+dist: distclean install
 	(cd sphinx; make clean; make)
 	python setup.py sdist --formats=gztar
 
