@@ -97,9 +97,26 @@ Y2 = Right  = QwtPlot.yRight
 X1 = Bottom = QwtPlot.xBottom
 X2 = Top    = QwtPlot.xTop
 
+# QwtScaleEngine aliases
+Lin = QwtLinearScaleEngine
+Log = QwtLog10ScaleEngine
+
+# QwtScaleEngine.Attribute aliases
+NoAttribute      = QwtScaleEngine.NoAttribute
+IncludeReference = QwtScaleEngine.IncludeReference
+Symmetric        = QwtScaleEngine.Symmetric
+Floating         = QwtScaleEngine.Floating
+Inverted         = QwtScaleEngine.Inverted
+
+# QwtSymbol.Style aliases
+NoSymbol = QwtSymbol.NoSymbol
+Circle   = QwtSymbol.Ellipse
+Square   = QwtSymbol.Rect
+Diamond  = QwtSymbol.Diamond
+
+
 # font
 Font = QFont('Verdana')
-
 
 class Tracker(QObject):
     def __init__(self, parent):
@@ -481,15 +498,6 @@ class Curve:
 
 # class Curve()
 
-Lin = QwtLinearScaleEngine
-Log = QwtLog10ScaleEngine
-
-NoAttribute      = QwtScaleEngine.NoAttribute
-IncludeReference = QwtScaleEngine.IncludeReference
-Symmetric        = QwtScaleEngine.Symmetric
-Floating         = QwtScaleEngine.Floating
-Inverted         = QwtScaleEngine.Inverted
-
 
 class Axis:
     """A command line interpreter friendly class.
@@ -527,36 +535,16 @@ class Axis:
 # class Axis
 
 
-class SymbolStyle:
-    def __init__(self, style):
-        self.style = style
-
-    # __init__()
-
-# class SymbolStyle
-
-
-NoSymbol = SymbolStyle(QwtSymbol.NoSymbol)
-Circle   = SymbolStyle(QwtSymbol.Ellipse)
-Square   = SymbolStyle(QwtSymbol.Rect)
-Diamond  = SymbolStyle(QwtSymbol.Diamond)
-
-
-
 class Symbol(QwtSymbol):
-    """Sugar coating for QwtSymbol.
+    """A command line friendly layer over `QwtSymbol`.
+
+    The interpretation of the `*rest` parameters is type dependent:
+
+    - `QColor`: sets the symbol fill color.
+    - `QwtSymbol.Style`: sets symbol style.
+    - `int`: sets the symbol size.
     """
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: symbol = Symbol(*rest)
-        
-        Symbol takes any number of optional arguments. The interpretation
-        of each optional argument depends on its data type:
-        (1) QColor -- sets the fill color of the symbol.
-        (2) SymbolStyle -- sets the style of the symbol.
-        (3) int -- sets the size of the symbol.
-        """
         QwtSymbol.__init__(self)
         self.setSize(5)
         for item in rest:
@@ -564,8 +552,8 @@ class Symbol(QwtSymbol):
                 brush = self.brush()
                 brush.setColor(item)
                 self.setBrush(brush)
-            elif isinstance(item, SymbolStyle):
-                self.setStyle(item.style)
+            elif isinstance(item, QwtSymbol.Style):
+                self.setStyle(item)
             elif isinstance(item, int):
                 self.setSize(item)
             else:
@@ -577,17 +565,15 @@ class Symbol(QwtSymbol):
 
 
 class Pen(QPen):
-    def __init__(self, *rest):
-        """Constructor.
+    """A command line friendly layer over `QPen`.
 
-        Usage: pen = Pen(*rest)
-        
-        Pen takes any number of optional arguments. The interpretation
-        of each optional argument depends on its data type:
-        (1) Qt.PenStyle -- sets the style of the pen.
-        (2) QColor -- sets the color of the pen.
-        (3) int -- sets the width of the pen.
-        """
+    The interpretation of the `*rest` parameters is type dependent:
+
+    - `Qt.PenStyle`: sets the pen style.
+    - `QColor` sets the pen color.
+    - `int`: sets the pen width.
+    """
+    def __init__(self, *rest):
         QPen.__init__(self)
         for item in rest:
             if isinstance(item, Qt.PenStyle):
@@ -703,27 +689,23 @@ grace_xpm = [
 
 
 class IPlot(QMainWindow):
-    """A QMainWindow widget with a Plot widget as central widget.
+    """A QMainWindow widget with a Plot widget as central widget. It provides:
 
-    It provides:
-    (1) a toolbar for printing and piping into Grace.
-    (2) a legend with control to toggle curves between hidden and shown.
-    (3) mouse tracking to display the coordinates in the status bar.
-    (4) an infinite stack of zoom region.
+    #. a toolbar for printing and piping into Grace.
+    #. a legend with control to toggle curves between hidden and shown.
+    #. mouse tracking to display the coordinates in the status bar.
+    #. an infinite stack of zoom regions.
+    
+    The interpretation of the `rest` parameters is type dependent:
+    
+    - `Axis`: enables the axis.
+    - `Curve`: adds a curve.
+    - `str` or `QString`: sets the title.
+    - `int`: sets a set of mouse events to the zoomer actions.
+    - (`int`, `int`): sets the size.
     """
 
     def __init__(self, *rest):
-        """Constructor.
-
-        Usage: plot = IPlot(*rest)
-        
-        IPlot takes any number of optional arguments. The interpretation
-        of each optional argument depend on its data type:
-        (1) Axis -- enables the axis.
-        (2) Curve -- plots a curve.
-        (3) string or QString -- sets the title.
-        (4) tuples of 2 integer -- sets the size.
-        """
         QMainWindow.__init__(self)
 
         self.__plot = Plot(self, *rest)
@@ -777,7 +759,7 @@ class IPlot(QMainWindow):
             'The hardcopy output of Grace is better for\n'
             'scientific journals and LaTeX documents.'
             )
-        
+
         QWhatsThis.add(
             mouseComboBox,
             'Configure the mouse events for the QwtPlotZoomer.\n\n'
@@ -854,7 +836,7 @@ class IPlot(QMainWindow):
     # showCoordinates()
         
     def __getattr__(self, attr):
-        """Inherit everything from QMainWindow and Plot
+        """Inherit everything from Plot
         """
         if hasattr(self.__plot, attr):
             return getattr(self.__plot, attr)
