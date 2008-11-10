@@ -225,11 +225,18 @@ class Plot(QwtPlot):
     # __init__()
 
     def plot(self, *rest):
+        """Plot additional curves and/or axes.
+        
+        The interpretation of the `*rest` parameters is type dependent:
+
+        - `Axis`: enables the axis.
+        - `Curve`: adds a curve.
+        """
         for item in rest:
-            if isinstance(item, Curve):
-                self.plotCurve(item)
-            elif isinstance(item, Axis):
+            if isinstance(item, Axis):
                 self.plotAxis(item)
+            elif isinstance(item, Curve):
+                self.plotCurve(item)
             else:
                 print "Plot.plot() fails to accept %s." % item
 
