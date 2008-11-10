@@ -1,11 +1,5 @@
-.. PyQwt documentation master file, created by sphinx-quickstart on Wed Sep  3 22:01:35 2008.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to PyQwt's documentation!
-=================================
-
-Contents:
+PyQwt User Manual
+=================
 
 .. toctree::
    :maxdepth: 2
@@ -13,9 +7,10 @@ Contents:
    introduction.rst
    installation.rst
    reference.rst
+   copyright.rst
 
 
-Indices and tables
+Indices and Tables
 ==================
 
 * :ref:`genindex`
