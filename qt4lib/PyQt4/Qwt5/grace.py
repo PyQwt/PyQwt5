@@ -70,7 +70,7 @@ class GraceProcess:
     # wait()
 
     def kill(self):
-        if sys.version_info < 2.6:
+        if sys.version_info[:2] < (2, 6):
             os.kill(self.p.pid, signal.SIGKILL)
         else:
             self.p.kill()
