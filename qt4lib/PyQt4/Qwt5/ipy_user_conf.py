@@ -101,6 +101,7 @@ def main():
     readline.parse_and_bind('set page-completions no')
     ip.ex('import numpy as np')
     ip.ex('import scipy as sp')
+    ip.ex('sp.pkgload()')
     ip.ex('from PyQt4.Qt import *')
     ip.ex('from PyQt4.Qwt5 import *')
     ip.ex('from PyQt4.Qwt5.qplt import *')
