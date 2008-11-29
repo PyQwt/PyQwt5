@@ -130,12 +130,65 @@ protected slots:
 protected:
     static bool axisValid(int);
     virtual void drawCanvas(QPainter*);
-    virtual void drawItems(QPainter*, const QRect&, SIP_PYTUPLE, const QwtPlotPrintFilter&) const [
+    virtual void drawItems(QPainter*, const QRect&, SIP_PYLIST, const QwtPlotPrintFilter&) const [
         void (QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&)];
 %MethodCode
-QwtScaleMap maps[QwtPlot::axisCnt];
-// FIXME: fill in maps
-sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
+        // PyQwt takes a list with QwtScaleMap objects in the first
+        // QwtPlot::axisCnt elements.
+        
+        QwtScaleMap maps[QwtPlot::axisCnt];
+
+        sipIsErr = QwtPlot::axisCnt > PyList_GET_SIZE(a2);
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                void *cpp = sipForceConvertToInstance(
+                    PyList_GET_ITEM(a2, i), sipClass_QwtScaleMap,
+                    0, SIP_NO_CONVERTORS, 0, &sipIsErr);
+                maps[i] = *reinterpret_cast<QwtScaleMap*>(cpp);
+            }
+        }
+
+        if (!sipIsErr) {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
+            Py_END_ALLOW_THREADS
+        }
+%End
+
+%VirtualCatcherCode
+        PyObject *maps = PyList_New(QwtPlot::axisCnt);
+
+        sipIsErr = !maps;
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                PyObject *object = sipConvertFromInstance(
+                    const_cast<QwtScaleMap*>(&a2[i]), sipClass_QwtScaleMap, 0);
+                if (!object) {
+                    sipIsErr = true;
+                    break;
+                }
+                PyList_SET_ITEM(maps, i, object);
+            }
+        }
+
+        if (!sipIsErr) {
+            PyObject *result = sipCallMethod(
+                &sipIsErr, sipMethod, "CCSC",
+                a0, sipClass_QPainter, 0,
+                &a1, sipClass_QRect, 0,
+                maps,
+                &a3, sipClass_QwtPlotPrintFilter, 0);
+
+            if (result)
+            {
+                sipParseResult(&sipIsErr, sipMethod, result, "Z");
+                Py_DECREF(result);
+            }
+        }
+
+        Py_XDECREF(maps);
 %End
 
     virtual void updateTabOrder();
@@ -144,12 +197,66 @@ sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
     virtual void printLegendItem(QPainter*, const QWidget*, const QRect&) const;
     virtual void printTitle(QPainter*, const QRect&) const;
     virtual void printScale(QPainter*, int, int, int, int, const QRect&) const;
-    virtual void printCanvas(QPainter*, const QRect&, SIP_PYTUPLE, const QwtPlotPrintFilter&) const [
+    virtual void printCanvas(QPainter*, const QRect&, SIP_PYLIST, const QwtPlotPrintFilter&) const [
      void (QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&)];
 %MethodCode
-QwtScaleMap maps[QwtPlot::axisCnt];
-// FIXME: fill in maps
-sipCpp->sipProtectVirt_printCanvas(sipSelfWasArg, a0, *a1, maps, *a3);
+        // PyQwt takes a list with QwtScaleMap objects in the first
+        // QwtPlot::axisCnt elements.
+        
+        QwtScaleMap maps[QwtPlot::axisCnt];
+
+        sipIsErr = QwtPlot::axisCnt > PyList_GET_SIZE(a2);
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                void *cpp = sipForceConvertToInstance(
+                    PyList_GET_ITEM(a2, i), sipClass_QwtScaleMap,
+                    0, SIP_NO_CONVERTORS, 0, &sipIsErr);
+                maps[i] = *reinterpret_cast<QwtScaleMap*>(cpp);
+            }
+        }
+
+        if (!sipIsErr) {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->sipProtectVirt_printCanvas(
+                sipSelfWasArg, a0, *a1, maps, *a3);
+            Py_END_ALLOW_THREADS
+        }
+End
+
+%VirtualCatcherCode
+        PyObject *maps = PyList_New(QwtPlot::axisCnt);
+
+        sipIsErr = !maps;
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                PyObject *object = sipConvertFromInstance(
+                    const_cast<QwtScaleMap*>(&a2[i]), sipClass_QwtScaleMap, 0);
+                if (!object) {
+                    sipIsErr = true;
+                    break;
+                }
+                PyList_SET_ITEM(maps, i, object);
+            }
+        }
+
+        if (!sipIsErr) {
+            PyObject *result = sipCallMethod(
+                &sipIsErr, sipMethod, "CCSC",
+                a0, sipClass_QPainter, 0,
+                &a1, sipClass_QRect, 0,
+                maps,
+                &a3, sipClass_QwtPrintFilter, 0);
+
+            if (result)
+            {
+                sipParseResult(&sipIsErr, sipMethod, result, "Z");
+                Py_DECREF(result);
+            }
+        }
+
+        Py_XDECREF(maps);
 %End
 
     virtual void printLegend(QPainter*, const QRect&) const;
@@ -257,12 +364,65 @@ protected slots:
 protected:
     static bool axisValid(int);
     virtual void drawCanvas(QPainter*);
-    virtual void drawItems(QPainter*, const QRect&, SIP_PYTUPLE, const QwtPlotPrintFilter&) const [
+    virtual void drawItems(QPainter*, const QRect&, SIP_PYLIST, const QwtPlotPrintFilter&) const [
         void (QPainter*, const QRect&, const QwtScaleMap*, const QwtPlotPrintFilter&)];
 %MethodCode
-QwtScaleMap maps[QwtPlot::axisCnt];
-// FIXME: fill in maps
-sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
+        // PyQwt takes a list with QwtScaleMap objects in the first
+        // QwtPlot::axisCnt elements.
+        
+        QwtScaleMap maps[QwtPlot::axisCnt];
+
+        sipIsErr = QwtPlot::axisCnt > PyList_GET_SIZE(a2);
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                void *cpp = sipForceConvertToInstance(
+                    PyList_GET_ITEM(a2, i), sipClass_QwtScaleMap,
+                    0, SIP_NO_CONVERTORS, 0, &sipIsErr);
+                maps[i] = *reinterpret_cast<QwtScaleMap*>(cpp);
+            }
+        }
+
+        if (!sipIsErr) {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->sipProtectVirt_drawItems(sipSelfWasArg, a0, *a1, maps, *a3);
+            Py_END_ALLOW_THREADS
+        }
+%End
+
+%VirtualCatcherCode
+        PyObject *maps = PyList_New(QwtPlot::axisCnt);
+
+        sipIsErr = !maps;
+
+        if (!sipIsErr) {
+            for (int i=0; i<QwtPlot::axisCnt; ++i) {
+                PyObject *object = sipConvertFromInstance(
+                    const_cast<QwtScaleMap*>(&a2[i]), sipClass_QwtScaleMap, 0);
+                if (!object) {
+                    sipIsErr = true;
+                    break;
+                }
+                PyList_SET_ITEM(maps, i, object);
+            }
+        }
+
+        if (!sipIsErr) {
+            PyObject *result = sipCallMethod(
+                &sipIsErr, sipMethod, "CCSC",
+                a0, sipClass_QPainter, 0,
+                &a1, sipClass_QRect, 0,
+                maps,
+                &a3, sipClass_QwtPlotPrintFilter, 0);
+
+            if (result)
+            {
+                sipParseResult(&sipIsErr, sipMethod, result, "Z");
+                Py_DECREF(result);
+            }
+        }
+
+        Py_XDECREF(maps);
 %End
 
     virtual void updateTabOrder();
