@@ -9,7 +9,25 @@ from __future__ import division
 try:
     import numpy as np
     import scipy as sp
-    sp.pkgload()
+    sp.pkgload(#'cluster',
+               'constants',
+               'fftpack',
+               'integrate',
+               'interpolate',
+               #'io',
+               'linalg',
+               'misc',
+               'ndimage',
+               'odr',
+               'optimize',
+               #'signal',
+               #'sparse',
+               #'spatial',
+               'special',
+               #'stats',
+               #'stsci',
+               #'weave',
+               )
 except ImportError:
     pass
 
