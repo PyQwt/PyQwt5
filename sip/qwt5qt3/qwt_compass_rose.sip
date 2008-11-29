@@ -63,7 +63,6 @@ public:
     double shrinkFactor() const;
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawRose(QPainter*, const QColorGroup&, const QPoint&, int, double, double, int, int, double);
-    virtual ~QwtSimpleCompassRose();
 }; // class QwtSimpleCompassRose
 
 

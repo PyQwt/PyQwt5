@@ -64,8 +64,6 @@ protected:
     virtual void move(const QPoint&);
     virtual void append(const QPoint&);
     virtual bool end(bool = true);
-public:
-    virtual ~QwtPlotPicker();
 }; // class QwtPlotPicker
 
 

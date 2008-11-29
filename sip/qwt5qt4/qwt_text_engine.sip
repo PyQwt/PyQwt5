@@ -62,7 +62,6 @@ public:
     virtual void draw(QPainter*, const QRect&, int, const QString&) const;
     virtual bool mightRender(const QString&) const;
     virtual void textMargins(const QFont&, const QString&, int&, int&, int&, int&) const;
-    virtual ~QwtRichTextEngine();
 }; // class QwtRichTextEngine
 
 

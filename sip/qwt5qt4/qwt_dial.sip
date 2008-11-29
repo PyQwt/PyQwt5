@@ -117,7 +117,6 @@ public:
     virtual QwtText label(double) const;
     void setPenWidth(uint);
     uint penWidth() const;
-    virtual ~QwtDialScaleDraw();
 }; // class QwtDialScaleDraw
 
 

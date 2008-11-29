@@ -43,7 +43,6 @@ class QwtPickerClickPointMachine: QwtPickerMachine
 
 public:
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
-    virtual ~QwtPickerClickPointMachine();
 }; // class QwtPickerClickPointMachine
 
 
@@ -55,7 +54,6 @@ class QwtPickerClickRectMachine: QwtPickerMachine
 
 public:
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
-    virtual ~QwtPickerClickRectMachine();
 }; // class QwtPickerClickRectMachine
 
 
@@ -67,7 +65,6 @@ class QwtPickerDragPointMachine: QwtPickerMachine
 
 public:
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
-    virtual ~QwtPickerDragPointMachine();
 }; // class QwtPickerDragPointMachine
 
 
@@ -79,7 +76,6 @@ class QwtPickerDragRectMachine: QwtPickerMachine
 
 public:
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
-    virtual ~QwtPickerDragRectMachine();
 }; // class QwtPickerDragRectMachine
 
 
@@ -153,7 +149,6 @@ class QwtPickerPolygonMachine: QwtPickerMachine
 
 public:
     virtual QValueList<QwtPickerMachine::Command> transition(const QwtEventPattern&, const QEvent*);
-    virtual ~QwtPickerPolygonMachine();
 }; // class QwtPickerPolygonMachine
 
 

@@ -45,8 +45,6 @@ public:
     virtual QwtScaleTransformation* transformation() const;
 protected:
     QwtDoubleInterval align(const QwtDoubleInterval&, double) const;
-public:
-    virtual ~QwtLinearScaleEngine();
 }; // class QwtLinearScaleEngine
 
 
@@ -63,8 +61,6 @@ public:
 protected:
     QwtDoubleInterval log10(const QwtDoubleInterval&) const;
     QwtDoubleInterval pow10(const QwtDoubleInterval&) const;
-public:
-    virtual ~QwtLog10ScaleEngine();
 }; // class QwtLog10ScaleEngine
 
 

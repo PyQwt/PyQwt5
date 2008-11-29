@@ -51,8 +51,6 @@ public:
     static void drawThinNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
 protected:
     static void drawPointer(QPainter*, const QBrush&, int, const QPoint&, int, int, double);
-public:
-    virtual ~QwtCompassMagnetNeedle();
 }; // class QwtCompassMagnetNeedle
 
 
@@ -72,7 +70,6 @@ public:
     virtual void draw(QPainter*, const QPoint&, int, double, QPalette::ColorGroup = QPalette::Active) const;
     static void drawStyle1Needle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
     static void drawStyle2Needle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, double);
-    virtual ~QwtCompassWindArrow();
 }; // class QwtCompassWindArrow
 
 
@@ -111,7 +108,6 @@ public:
     static void drawRayNeedle(QPainter*, const QPalette&, QPalette::ColorGroup, const QPoint&, int, int, double, bool);
     void setWidth(int);
     int width() const;
-    virtual ~QwtDialSimpleNeedle();
 }; // class QwtDialSimpleNeedle
 
 
