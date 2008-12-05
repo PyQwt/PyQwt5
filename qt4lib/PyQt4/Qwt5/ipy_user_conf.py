@@ -102,6 +102,7 @@ def main():
     ip.ex('import numpy as np')
     ip.ex('import scipy as sp')
     ip.ex('sp.pkgload()')
+    ip.ex('sp.pkgload("scipy.constants")')
     ip.ex('from PyQt4.Qt import *')
     ip.ex('from PyQt4.Qwt5 import *')
     ip.ex('from PyQt4.Qwt5.qplt import *')
