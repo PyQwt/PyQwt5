@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (C) 2003-2008 Gerard Vermeulen
+# Copyright (C) 2003-2009 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #

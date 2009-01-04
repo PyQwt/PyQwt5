@@ -1,7 +1,7 @@
 """Qwt5 -- a Python interface to the Qwt library.
 """
 #
-# Copyright (C) 2003-2008 Gerard Vermeulen
+# Copyright (C) 2003-2009 Gerard Vermeulen
 #
 # This file is part of PyQwt.
 #
