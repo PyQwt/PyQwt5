@@ -35,7 +35,7 @@ def main():
     # Configure your favourite editor?
     # Good idea e.g. for %edit os.path.isfile
 
-    #import ipy_editors
+    import ipy_editors
     
     # Choose one of these:
     
@@ -44,6 +44,7 @@ def main():
     #ipy_editors.komodo()
     #ipy_editors.idle()
     # ... or many others, try 'ipy_editors??' after import to see them
+    ipy_editors.emacs()
     
     # Or roll your own:
     #ipy_editors.install_editor("c:/opt/jed +$line $file")
