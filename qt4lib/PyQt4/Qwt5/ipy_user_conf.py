@@ -74,7 +74,8 @@ def main():
     #o.autoexec.append('%colors Linux')
     
     # for sane integer division that converts to float (1/2 == 0.5)
-    o.autoexec.append('from __future__ import division')
+    #o.autoexec.append('from __future__ import division')
+    ip.IP.runcode(ip.IP.compile('from __future__ import division'))
     
     # For %tasks and %kill
     #import jobctrl 
@@ -100,6 +101,8 @@ def main():
     import readline
     readline.parse_and_bind('set completion-query-items 1000')
     readline.parse_and_bind('set page-completions no')
+    #print dir(ip)
+    #print dir(ip.IP)
     ip.ex('import numpy as np')
     ip.ex('import scipy as sp')
     ip.ex('sp.pkgload()')
