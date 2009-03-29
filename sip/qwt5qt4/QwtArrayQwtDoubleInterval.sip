@@ -49,6 +49,15 @@ public:
     QwtArray<QwtDoubleInterval> array(PyList_GET_SIZE(a0));
 
     for (int i = 0; i < PyList_GET_SIZE(a0); ++i) {
+#if SIP_VERSION < 0x040800
+        void *cpp = sipForceConvertToInstance(
+            PyList_GET_ITEM(a0, i),
+            sipClass_QwtDoubleInterval,
+            NULL,
+            SIP_NO_CONVERTORS,
+            NULL,
+            &sipIsErr);
+#else
         void *cpp = sipForceConvertToType(
             PyList_GET_ITEM(a0, i),
             sipType_QwtDoubleInterval,
@@ -56,6 +65,7 @@ public:
             SIP_NO_CONVERTORS,
             NULL,
             &sipIsErr);
+#endif
                     
         array[i] = *reinterpret_cast<QwtDoubleInterval*>(cpp);
     }

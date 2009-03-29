@@ -48,8 +48,14 @@
         QString *t = new QString(i.value());
 
         PyObject *kobj = PyFloat_FromDouble(i.key());
+
+#if SIP_VERSION < 0x040800
+        PyObject *tobj = sipConvertFromNewInstance(
+            t, sipClass_QString, sipTransferObj);
+#else
         PyObject *tobj = sipConvertFromNewType(
             t, sipType_QString, sipTransferObj);
+#endif
 
         if ((0 == kobj) || (0 == tobj) || (0 > PyDict_SetItem(d, kobj, tobj))) {
             Py_DECREF(d);
@@ -83,7 +89,11 @@
             return 0;
 
         while (PyDict_Next(sipPy, &i, &kobj, &tobj))
+#if SIP_VERSION < 0x040800
+            if (!sipCanConvertToInstance(tobj, sipClass_QString, SIP_NOT_NONE))
+#else
             if (!sipCanConvertToType(tobj, sipType_QString, SIP_NOT_NONE))
+#endif
                 return 0;
 
         return 1;
@@ -94,12 +104,22 @@
     while (PyDict_Next(sipPy, &i, &kobj, &tobj)) {
         int state;
         double k = PyFloat_AS_DOUBLE(kobj);
+#if SIP_VERSION < 0x040800
+        QString *t = reinterpret_cast<QString *>(
+            sipConvertToInstance(tobj, sipClass_QString, sipTransferObj,
+                                 SIP_NOT_NONE, &state, sipIsErr));
+#else
         QString *t = reinterpret_cast<QString *>(
             sipConvertToType(tobj, sipType_QString, sipTransferObj,
                              SIP_NOT_NONE, &state, sipIsErr));
+#endif
 
         if (*sipIsErr) {
+#if SIP_VERSION < 0x040800
+            sipReleaseInstance(t, sipClass_QString, state);
+#else
             sipReleaseType(t, sipType_QString, state);
+#endif
 
             delete qm;
             return 0;
@@ -107,7 +127,11 @@
 
         qm->insert(k, *t);
 
+#if SIP_VERSION < 0x040800
+        sipReleaseInstance(t, sipClass_QString, state);
+#else
         sipReleaseType(t, sipType_QString, state);
+#endif
     }
 
     *sipCppPtr = qm;
