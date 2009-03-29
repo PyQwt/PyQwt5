@@ -45,20 +45,19 @@ public:
     QwtArrayQwtDoublePoint(const QwtArrayQwtDoublePoint &);
     QwtArrayQwtDoublePoint(SIP_PYLIST); 
 %MethodCode
+    // FIXME
     QwtArray<QwtDoublePoint> array(PyList_GET_SIZE(a0));
 
-    int failed = 0;
     for (int i = 0; i < PyList_GET_SIZE(a0); ++i) {
-        QwtDoublePoint *item =
-            reinterpret_cast<QwtDoublePoint *>(
-                sipForceConvertTo_QwtDoublePoint(
-                    PyList_GET_ITEM(a0, i), &failed));
+        void *cpp = sipForceConvertToType(
+            PyList_GET_ITEM(a0, i),
+            sipType_QwtDoublePoint,
+            NULL,
+            SIP_NO_CONVERTORS,
+            NULL,
+            &sipIsErr);
                     
-        if (failed) {
-            return 0;
-        }
-
-        array[i] = *item;
+        array[i] = *reinterpret_cast<QwtDoublePoint*>(cpp);
     }
 
     sipCpp = new QwtArrayQwtDoublePoint(array);

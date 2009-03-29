@@ -1,7 +1,7 @@
 // The SIP interface specification for:
 //      QMap<double, QString>.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2009 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -39,52 +39,80 @@
 %ConvertFromTypeCode
     PyObject *d = PyDict_New();
 
-    if (!sipCpp || !d)
-        return d;
+    if (!d)
+        return 0;
 
-    const QMap<double, QString> map = *sipCpp;
-    QMap<double, QString>::ConstIterator it;
+    QMap<double, QString>::const_iterator i = sipCpp->constBegin();
 
-    for (it = map.begin(); it != map.end(); ++it) {
-        PyObject *key = PyFloat_FromDouble(it.key());
-        PyObject *val = sipBuildResult(
-            0, "N", new QString(it.value()), sipClass_QString);
-        if ((0 == key) || (0 == val) || (0 > PyDict_SetItem(d, key, val))) {
-            Py_XDECREF(key);
-            Py_XDECREF(val);
+    while (i != sipCpp->constEnd()) {
+        QString *t = new QString(i.value());
+
+        PyObject *kobj = PyFloat_FromDouble(i.key());
+        PyObject *tobj = sipConvertFromNewType(
+            t, sipType_QString, sipTransferObj);
+
+        if ((0 == kobj) || (0 == tobj) || (0 > PyDict_SetItem(d, kobj, tobj))) {
             Py_DECREF(d);
+
+            if (kobj)
+                Py_DECREF(kobj);
+
+            if (tobj)
+                Py_DECREF(tobj);
+            else
+                delete t;
+
             return 0;
         }
+
+        Py_DECREF(kobj);
+        Py_DECREF(tobj);
+
+        ++i;
     }
 
     return d;
 %End // ConvertFromTypeCode
 
 %ConvertToTypeCode
-    if (0 == sipIsErr)
-        return PyDict_Check(sipPy);
+    PyObject *kobj, *tobj;
+    SIP_SSIZE_T i = 0;
 
-    QMap<double, QString> *map = new QMap<double, QString>;
+    if (0 == sipIsErr) {
+        if (!PyDict_Check(sipPy))
+            return 0;
 
-    PyObject *key, *val;
-    Py_ssize_t i = 0;
+        while (PyDict_Next(sipPy, &i, &kobj, &tobj))
+            if (!sipCanConvertToType(tobj, sipType_QString, SIP_NOT_NONE))
+                return 0;
 
-    while (PyDict_Next(sipPy, &i, &key, &val)) {
-        double cKey = PyFloat_AS_DOUBLE(key);
-        QString *cVal = reinterpret_cast<QString *>(
-            sipForceConvertTo_QString(val, sipIsErr));
+        return 1;
+    }
+
+    QMap<double, QString> *qm = new QMap<double, QString>;
+
+    while (PyDict_Next(sipPy, &i, &kobj, &tobj)) {
+        int state;
+        double k = PyFloat_AS_DOUBLE(kobj);
+        QString *t = reinterpret_cast<QString *>(
+            sipConvertToType(tobj, sipType_QString, sipTransferObj,
+                             SIP_NOT_NONE, &state, sipIsErr));
 
         if (*sipIsErr) {
-            delete map;
+            sipReleaseType(t, sipType_QString, state);
+
+            delete qm;
             return 0;
         }
 
-        map->insert(cKey, *cVal);
+        qm->insert(k, *t);
+
+        sipReleaseType(t, sipType_QString, state);
     }
 
-    *sipCppPtr = map;
+    *sipCppPtr = qm;
 
-    return 1;
+    return sipGetState(sipTransferObj);
 %End // ConvertToTypeCode
 
 }; // QMap<double, QString>

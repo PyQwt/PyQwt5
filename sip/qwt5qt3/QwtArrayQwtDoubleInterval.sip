@@ -45,20 +45,19 @@ public:
     QwtArrayQwtDoubleInterval(const QwtArrayQwtDoubleInterval &);
     QwtArrayQwtDoubleInterval(SIP_PYLIST); 
 %MethodCode
+    // FIXME
     QwtArray<QwtDoubleInterval> array(PyList_GET_SIZE(a0));
 
-    int failed = 0;
     for (int i = 0; i < PyList_GET_SIZE(a0); ++i) {
-        QwtDoubleInterval *item =
-            reinterpret_cast<QwtDoubleInterval *>(
-                sipForceConvertTo_QwtDoubleInterval(
-                    PyList_GET_ITEM(a0, i), &failed));
+        void *cpp = sipForceConvertToType(
+            PyList_GET_ITEM(a0, i),
+            sipType_QwtDoubleInterval,
+            NULL,
+            SIP_NO_CONVERTORS,
+            NULL,
+            &sipIsErr);
                     
-        if (failed) {
-            return 0;
-        }
-
-        array[i] = *item;
+        array[i] = *reinterpret_cast<QwtDoubleInterval*>(cpp);
     }
 
     sipCpp = new QwtArrayQwtDoubleInterval(array);

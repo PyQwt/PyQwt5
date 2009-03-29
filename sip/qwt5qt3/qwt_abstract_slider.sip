@@ -85,7 +85,7 @@ protected:
 // python mksccode PyQt4.Qwt5
 %ConvertToSubClassCode
     static struct class_graph {
-        char *name;
+        const char *name;
         sipWrapperType **type;
         int yes, no;
     } graph[] = {
