@@ -1,13 +1,17 @@
 dist
 old-5.0
 old-5.1
+old-5.2
 qwt-5.0
 qwt-5.1
+qwt-5.2
 qwt-5.0.0*
 qwt-5.0.1*
 qwt-5.0.2*
 qwt-5.1.0*
 qwt-5.1.1*
+qwt-5.1.2*
+qwt-5.2.0*
 tmp
 MANIFEST
 typescript
