@@ -67,7 +67,7 @@ protected:
 }; // class QwtPlotCanvas
 %End // (Qwt_5_0_0 - Qwt_5_1_0)
 
-%If (Qwt_5_1_0 - )
+%If (Qwt_5_1_0 - Qwt_5_2_0)
 class QwtPlotCanvas: QFrame
 {
 %TypeHeaderCode
@@ -104,7 +104,47 @@ protected:
     virtual void drawFocusIndicator(QPainter*);
     void drawCanvas(QPainter* = 0);
 }; // class QwtPlotCanvas
-%End // (Qwt_5_1_0 - )
+%End // (Qwt_5_1_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtPlotCanvas: QFrame
+{
+%TypeHeaderCode
+#include <qwt_plot_canvas.h>
+%End // %TypeHeaderCode
+
+public:
+    enum PaintAttribute {
+        PaintCached,
+        PaintPacked
+    }; // enum PaintAttribute
+
+    enum FocusIndicator {
+        NoFocusIndicator,
+        CanvasFocusIndicator,
+        ItemFocusIndicator
+    }; // enum FocusIndicator
+
+    QwtPlotCanvas(QwtPlot* /TransferThis/);
+    virtual ~QwtPlotCanvas();
+    QwtPlot* plot();
+    // signature: const QwtPlot* plot() const;
+    void setFocusIndicator(QwtPlotCanvas::FocusIndicator);
+    QwtPlotCanvas::FocusIndicator focusIndicator() const;
+    void setPaintAttribute(QwtPlotCanvas::PaintAttribute, bool = true);
+    bool testPaintAttribute(QwtPlotCanvas::PaintAttribute) const;
+    QPixmap* paintCache();
+    // signature: const QPixmap* paintCache() const;
+    void invalidatePaintCache();
+    void replot();
+protected:
+    virtual void hideEvent(QHideEvent*);
+    virtual void paintEvent(QPaintEvent*);
+    virtual void drawContents(QPainter*);
+    virtual void drawFocusIndicator(QPainter*);
+    void drawCanvas(QPainter* = 0);
+}; // class QwtPlotCanvas
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtIntervalData
 {
 %TypeHeaderCode
@@ -49,6 +50,30 @@ public:
     void setData(const QwtArrayQwtDoubleInterval&, const QwtArrayDouble&);
 
 }; // class QwtIntervalData
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtIntervalData
+{
+%TypeHeaderCode
+#include <qwt_interval_data.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtIntervalData();
+    QwtIntervalData(const QVector<QwtDoubleInterval>&, const QwtArrayDouble&);
+    ~QwtIntervalData();
+    void setData(const QVector<QwtDoubleInterval>&, const QwtArrayDouble&);
+    size_t size() const;
+    const QwtDoubleInterval& interval(size_t) const;
+    double value(size_t) const;
+    QwtDoubleRect boundingRect() const;
+
+    QwtIntervalData(const QwtArrayQwtDoubleInterval&, const QwtArrayDouble&);
+    void setData(const QwtArrayQwtDoubleInterval&, const QwtArrayDouble&);
+
+}; // class QwtIntervalData
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

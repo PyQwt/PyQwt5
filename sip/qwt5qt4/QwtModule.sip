@@ -31,7 +31,7 @@
 
 %Module PyQt4.Qwt5.Qwt 0
 
-%Timeline {Qwt_5_0_0 Qwt_5_0_1 Qwt_5_0_3 Qwt_5_1_0 Qwt_5_1_1}
+%Timeline {Qwt_5_0_0 Qwt_5_0_1 Qwt_5_0_3 Qwt_5_1_0 Qwt_5_1_1 Qwt_5_2_0}
 
 %Feature CXX_DYNAMIC_CAST
 %Feature HAS_NUMARRAY
@@ -81,9 +81,9 @@ typedef int Py_ssize_t;
 
 typedef QPointF QwtDoublePoint;
 typedef QPolygon QwtPolygon;
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
 typedef QPolygonF QwtPolygonF;
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
 typedef QRectF QwtDoubleRect;
 typedef QSizeF QwtDoubleSize;
 
@@ -104,9 +104,9 @@ typedef QSizeF QwtDoubleSize;
 %Include qwt_abstract_slider.sip
 %Include qwt_analog_clock.sip
 %Include qwt_arrow_button.sip
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
 %Include qwt_clipper.sip
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
 %Include qwt_color_map.sip
 %Include qwt_compass.sip
 %Include qwt_compass_rose.sip
@@ -124,10 +124,10 @@ typedef QSizeF QwtDoubleSize;
 %Include qwt_layout_metrics.sip
 %Include qwt_legend.sip
 %Include qwt_legend_item.sip
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_1_0 - )
 %Include qwt_legend_itemmanager.sip
 %Include qwt_magnifier.sip
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
 %Include qwt_panner.sip
 %Include qwt_painter.sip
 %Include qwt_picker.sip
@@ -145,16 +145,21 @@ typedef QSizeF QwtDoubleSize;
 %Include qwt_plot_picker.sip
 %Include qwt_plot_printfilter.sip
 %Include qwt_plot_rasteritem.sip
-%If (Qwt_5_1_0 -)
+%If (Qwt_5_2_0 - )
+%Include qwt_plot_rescaler.sip
+%End // (Qwt_5_2_0 - )
+%If (Qwt_5_1_0 - )
 %Include qwt_plot_scaleitem.sip
-%End // (Qwt_5_1_0 -)
+%End // (Qwt_5_1_0 - )
 %Include qwt_plot_spectrogram.sip
 %If (HAS_QWT_SVG)
 %Include qwt_plot_svgitem.sip
 %End // HAS_QWT_SVG
 %Include qwt_plot_zoomer.sip
 %Include qwt_raster_data.sip
+%If ( - Qwt_5_2_0)
 %Include qwt_rect.sip
+%End // ( - Qwt_5_2_0)
 %Include qwt_round_scale_draw.sip
 %Include qwt_scale_div.sip
 %Include qwt_scale_draw.sip

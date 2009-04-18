@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtPainter
 {
 %TypeHeaderCode
@@ -65,6 +66,46 @@ public:
     static QwtPolygon clip(const QwtPolygon&);
     static void drawColorBar(QPainter*, const QwtColorMap&, const QwtDoubleInterval&, const QwtScaleMap&, Qt::Orientation, const QRect&);
 }; // class QwtPainter
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtPainter
+{
+%TypeHeaderCode
+#include <qwt_painter.h>
+%End // %TypeHeaderCode
+
+public:
+    static void setMetricsMap(const QPaintDevice*, const QPaintDevice*);
+    static void setMetricsMap(const QwtMetricsMap&);
+    static void resetMetricsMap();
+    static const QwtMetricsMap& metricsMap();
+    static void setDeviceClipping(bool);
+    static bool deviceClipping();
+    static const QRect& deviceClipRect();
+    static void setClipRect(QPainter*, const QRect&);
+    static void drawText(QPainter*, int, int, const QString&);
+    static void drawText(QPainter*, const QPoint&, const QString&);
+    static void drawText(QPainter*, int, int, int, int, int, const QString&);
+    static void drawText(QPainter*, const QRect&, int, const QString&);
+    static void drawSimpleRichText(QPainter*, const QRect&, int, QTextDocument&);
+    static void drawRect(QPainter*, int, int, int, int);
+    static void drawRect(QPainter*, const QRect&);
+    static void fillRect(QPainter*, const QRect&, const QBrush&);
+    static void drawEllipse(QPainter*, const QRect&);
+    static void drawPie(QPainter*, const QRect&, int, int);
+    static void drawLine(QPainter*, int, int, int, int);
+    static void drawLine(QPainter*, const QPoint&, const QPoint&);
+    static void drawPolygon(QPainter*, const QwtPolygon&);
+    static void drawPolyline(QPainter*, const QwtPolygon&);
+    static void drawPoint(QPainter*, int, int);
+    static void drawRoundFrame(QPainter*, const QRect&, int, const QPalette&, bool);
+    static void drawFocusRect(QPainter*, QWidget*);
+    static void drawFocusRect(QPainter*, QWidget*, const QRect&);
+    static void drawColorBar(QPainter*, const QwtColorMap&, const QwtDoubleInterval&, const QwtScaleMap&, Qt::Orientation, const QRect&);
+    static QPen scaledPen(const QPen&);
+}; // class QwtPainter
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtLegendItem: QwtTextLabel
 {
 %TypeHeaderCode
@@ -81,6 +82,61 @@ protected:
     virtual void keyReleaseEvent(QKeyEvent*);
     virtual void drawText(QPainter*, const QRect&);
 }; // class QwtLegendItem
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtLegendItem: QwtTextLabel
+{
+%TypeHeaderCode
+#include <qwt_legend_item.h>
+%End // %TypeHeaderCode
+
+public:
+    enum IdentifierMode {
+        NoIdentifier,
+        ShowLine,
+        ShowSymbol,
+        ShowText
+    }; // enum IdentifierMode
+
+    QwtLegendItem(QWidget* /TransferThis/ = 0);
+    QwtLegendItem(const QwtSymbol&, const QPen&, const QwtText&, QWidget* /TransferThis/ = 0);
+    virtual ~QwtLegendItem();
+    virtual void setText(const QwtText&);
+    void setItemMode(QwtLegend::LegendItemMode);
+    QwtLegend::LegendItemMode itemMode() const;
+    void setIdentifierMode(int);
+    int identifierMode() const;
+    void setIdentifierWidth(int);
+    int identifierWidth() const;
+    void setSpacing(int);
+    int spacing() const;
+    void setSymbol(const QwtSymbol&);
+    const QwtSymbol& symbol() const;
+    void setCurvePen(const QPen&);
+    const QPen& curvePen() const;
+    virtual void drawIdentifier(QPainter*, const QRect&) const;
+    virtual void drawItem(QPainter*, const QRect&) const;
+    virtual QSize sizeHint() const;
+    bool isChecked() const;
+public slots:
+    void setChecked(bool);
+signals:
+    void clicked();
+    void pressed();
+    void released();
+    void checked(bool);
+protected:
+    void setDown(bool);
+    bool isDown() const;
+    virtual void paintEvent(QPaintEvent*);
+    virtual void mousePressEvent(QMouseEvent*);
+    virtual void mouseReleaseEvent(QMouseEvent*);
+    virtual void keyPressEvent(QKeyEvent*);
+    virtual void keyReleaseEvent(QKeyEvent*);
+    virtual void drawText(QPainter*, const QRect&);
+}; // class QwtLegendItem
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

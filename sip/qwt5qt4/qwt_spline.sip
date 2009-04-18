@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtSpline
 {
 %TypeHeaderCode
@@ -50,9 +51,9 @@ public:
     QwtSpline::SplineType splineType() const;
     bool setPoints(const QPolygonF&);
 
-%If (Qwt_5_0_1 -)
+%If (Qwt_5_0_1 - )
     QPolygonF points() const;
-%End // (Qwt_5_0_1 -)
+%End // (Qwt_5_0_1 - )
 
     void reset();
     bool isValid() const;
@@ -61,6 +62,44 @@ protected:
     bool buildNaturalSpline(const QPolygonF&);
     bool buildPeriodicSpline(const QPolygonF&);
 }; // class QwtSpline
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtSpline
+{
+%TypeHeaderCode
+#include <qwt_spline.h>
+%End // %TypeHeaderCode
+
+public:
+    enum SplineType {
+        Natural,
+        Periodic
+    }; // enum SplineType
+
+    QwtSpline();
+    QwtSpline(const QwtSpline&);
+    ~QwtSpline();
+    // Not Pythonic: QwtSpline& operator=(const QwtSpline&);
+    void setSplineType(QwtSpline::SplineType);
+    QwtSpline::SplineType splineType() const;
+    bool setPoints(const QPolygonF&);
+
+%If (Qwt_5_0_1 - )
+    QPolygonF points() const;
+%End // (Qwt_5_0_1 - )
+
+    void reset();
+    bool isValid() const;
+    double value(double) const;
+    const QwtArrayDouble& coefficientsA() const;
+    const QwtArrayDouble& coefficientsB() const;
+    const QwtArrayDouble& coefficientsC() const;
+protected:
+    bool buildNaturalSpline(const QPolygonF&);
+    bool buildPeriodicSpline(const QPolygonF&);
+}; // class QwtSpline
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

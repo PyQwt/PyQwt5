@@ -11,7 +11,7 @@
 #     The script command appeared in 3.0BSD and is part of util-linux.
 
 # To compile and link the Qwt sources statically into Pyqwt.
-QWT := ../qwt-5.1
+QWT := ../qwt-5.2
 
 JOBS := 1
 UNAME := $(shell uname)

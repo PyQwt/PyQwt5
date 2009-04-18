@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtDoubleInterval
 {
 %TypeHeaderCode
@@ -66,6 +67,55 @@ public:
     void invalidate();
     QwtDoubleInterval symmetrize(double) const;
 }; // class QwtDoubleInterval
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtDoubleInterval
+{
+%TypeHeaderCode
+#include <qwt_double_interval.h>
+%End // %TypeHeaderCode
+
+public:
+    enum BorderMode {
+        IncludeBorders,
+        ExcludeMinimum,
+        ExcludeMaximum,
+        ExcludeBorders
+    }; // enum BorderMode
+
+    QwtDoubleInterval();
+    QwtDoubleInterval(double, double, int = IncludeBorders);
+    void setInterval(double, double, int = IncludeBorders);
+    QwtDoubleInterval normalized() const;
+    QwtDoubleInterval inverted() const;
+    QwtDoubleInterval limited(double, double) const;
+    int operator==(const QwtDoubleInterval&) const;
+    int operator!=(const QwtDoubleInterval&) const;
+    void setBorderFlags(int);
+    int borderFlags() const;
+    double minValue() const;
+    double maxValue() const;
+    double width() const;
+    void setMinValue(double);
+    void setMaxValue(double);
+    bool contains(double) const;
+    bool intersects(const QwtDoubleInterval&) const;
+    QwtDoubleInterval intersect(const QwtDoubleInterval&) const;
+    QwtDoubleInterval unite(const QwtDoubleInterval&) const;
+    QwtDoubleInterval operator|(const QwtDoubleInterval&) const;
+    QwtDoubleInterval operator&(const QwtDoubleInterval&) const;
+    QwtDoubleInterval& __ior__(const QwtDoubleInterval&);
+    QwtDoubleInterval& __iand__(const QwtDoubleInterval&);
+    QwtDoubleInterval extend(double) const;
+    QwtDoubleInterval operator|(double) const;
+    QwtDoubleInterval& __ior__(double);
+    bool isValid() const;
+    bool isNull() const;
+    void invalidate();
+    QwtDoubleInterval symmetrize(double) const;
+}; // class QwtDoubleInterval
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

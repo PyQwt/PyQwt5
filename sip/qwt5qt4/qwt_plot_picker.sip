@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtPlotPicker: QwtPicker
 {
 %TypeHeaderCode
@@ -65,6 +66,46 @@ protected:
     virtual void append(const QPoint&);
     virtual bool end(bool = true);
 }; // class QwtPlotPicker
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtPlotPicker: QwtPicker
+{
+%TypeHeaderCode
+#include <qwt_plot_picker.h>
+%End // %TypeHeaderCode
+
+public:
+    QwtPlotPicker(QwtPlotCanvas* /TransferThis/);
+    virtual ~QwtPlotPicker();
+    QwtPlotPicker(int, int, QwtPlotCanvas* /TransferThis/);
+    QwtPlotPicker(int, int, int, QwtPicker::RubberBand, QwtPicker::DisplayMode, QwtPlotCanvas* /TransferThis/);
+    virtual void setAxis(int, int);
+    int xAxis() const;
+    int yAxis() const;
+    QwtPlot* plot();
+    // signature: const QwtPlot* plot() const;
+    QwtPlotCanvas* canvas();
+    // signature: const QwtPlotCanvas* canvas() const;
+signals:
+    void selected(const QwtDoublePoint&);
+    void selected(const QwtDoubleRect&);
+    void selected(const QwtArrayQwtDoublePoint&);
+    void appended(const QwtDoublePoint&);
+    void moved(const QwtDoublePoint&);
+protected:
+    QwtDoubleRect scaleRect() const;
+    QwtDoubleRect invTransform(const QRect&) const;
+    QRect transform(const QwtDoubleRect&) const;
+    QwtDoublePoint invTransform(const QPoint&) const;
+    QPoint transform(const QwtDoublePoint&) const;
+    virtual QwtText trackerText(const QPoint&) const;
+    virtual QwtText trackerText(const QwtDoublePoint&) const /PyName=trackerTextF/;
+    virtual void move(const QPoint&);
+    virtual void append(const QPoint&);
+    virtual bool end(bool = true);
+}; // class QwtPlotPicker
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:

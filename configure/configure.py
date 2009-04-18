@@ -513,8 +513,10 @@ def check_qwt(configuration, options):
         options.timelines.append('-t Qwt_5_0_3')
     elif QWT_VERSION < 0x050101:
         options.timelines.append('-t Qwt_5_1_0')
-    else:
+    elif QWT_VERSION < 0x050200:
         options.timelines.append('-t Qwt_5_1_1')
+    else:
+        options.timelines.append('-t Qwt_5_2_0')
 
     print ('Found Qwt-%s.' % QWT_VERSION_STR)
 

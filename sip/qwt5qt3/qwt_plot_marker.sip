@@ -30,6 +30,7 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+%If (Qwt_5_0_0 - Qwt_5_2_0)
 class QwtPlotMarker: QwtPlotItem
 {
 %TypeHeaderCode
@@ -67,6 +68,53 @@ public:
     virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
     virtual QwtDoubleRect boundingRect() const;
 }; // class QwtPlotMarker
+%End // (Qwt_5_0_0 - Qwt_5_2_0)
+
+%If (Qwt_5_2_0 - )
+class QwtPlotMarker: QwtPlotItem
+{
+%TypeHeaderCode
+#include <qwt_plot_marker.h>
+%End // %TypeHeaderCode
+
+public:
+    enum LineStyle {
+        NoLine,
+        HLine,
+        VLine,
+        Cross
+    }; // enum LineStyle
+
+    QwtPlotMarker();
+    virtual ~QwtPlotMarker();
+    virtual int rtti() const;
+    double xValue() const;
+    double yValue() const;
+    QwtDoublePoint value() const;
+    void setXValue(double);
+    void setYValue(double);
+    void setValue(double, double);
+    void setValue(const QwtDoublePoint&);
+    void setLineStyle(QwtPlotMarker::LineStyle);
+    QwtPlotMarker::LineStyle lineStyle() const;
+    void setLinePen(const QPen&);
+    const QPen& linePen() const;
+    void setSymbol(const QwtSymbol&);
+    const QwtSymbol& symbol() const;
+    void setLabel(const QwtText&);
+    QwtText label() const;
+    void setLabelAlignment(int);
+    int labelAlignment() const;
+    void setLabelOrientation(Qt::Orientation);
+    Qt::Orientation labelOrientation() const;
+    void setSpacing(int);
+    int spacing() const;
+    virtual void draw(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QRect&) const;
+    virtual QwtDoubleRect boundingRect() const;
+protected:
+    void drawAt(QPainter*, const QRect&, const QPoint&) const;
+}; // class QwtPlotMarker
+%End // (Qwt_5_2_0 - )
 
 
 // Local Variables:
