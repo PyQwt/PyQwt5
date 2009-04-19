@@ -364,8 +364,13 @@ class Plot(QwtPlot):
             g('%s on; with %s' % (graph, graph))
 
             # x-axes
-            xmin = self.axisScaleDiv(xAxis).lBound()
-            xmax = self.axisScaleDiv(xAxis).hBound()
+            if QWT_VERSION < 0x050200:
+                xmin = self.axisScaleDiv(xAxis).lBound()
+                xmax = self.axisScaleDiv(xAxis).hBound()
+            else:
+                xmin = self.axisScaleDiv(xAxis).lowerBound()
+                xmax = self.axisScaleDiv(xAxis).upperBound()
+                
             #majStep = minStep = axisScale.majStep()
             #majStep *= 2
             g('world xmin %g; world xmax %g' % (xmin, xmax))
@@ -386,8 +391,12 @@ class Plot(QwtPlot):
                 #  % (majStep, minStep))
 
             # y-axes
-            ymin = self.axisScaleDiv(yAxis).lBound()
-            ymax = self.axisScaleDiv(yAxis).hBound()
+            if QWT_VERSION < 0x050200:
+                ymin = self.axisScaleDiv(yAxis).lBound()
+                ymax = self.axisScaleDiv(yAxis).hBound()
+            else:
+                ymin = self.axisScaleDiv(yAxis).lowerBound()
+                ymax = self.axisScaleDiv(yAxis).upperBound()
             #majStep = minStep = axisScale.majStep()
             #majStep *= 2
             g('world ymin %g; world ymax %g' % (ymin, ymax))
