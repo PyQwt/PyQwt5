@@ -1,5 +1,5 @@
 --- qwt-5.2/qwtconfig.pri.pyqwt Sun Mar 29 19:53:27 2009
-+++ qwt-5.2/qwtconfig.pri Sun Mar 29 20:00:13 2009
++++ qwt-5.2/qwtconfig.pri Thu May 28 15:51:46 2009
 @@ -75,7 +75,7 @@
  # it will be a static library.
  ######################################################################
@@ -18,8 +18,22 @@
  
  ######################################################################
  # If you have a commercial license you can use the MathML renderer
+--- qwt-5.2/src/qwt_plot_rescaler.h.pyqwt Thu May 28 15:59:32 2009
++++ qwt-5.2/src/qwt_plot_rescaler.h Thu May 28 16:00:12 2009
+@@ -13,10 +13,10 @@
+ #include "qwt_global.h"
+ #include "qwt_double_rect.h"
+ #include "qwt_double_interval.h"
++#include "qwt_plot.h"
+ #include <qobject.h>
+ 
+ class QwtPlotCanvas;
+-class QwtPlot;
+ class QResizeEvent;
+ 
+ /*!
 --- qwt-5.2/src/qwt_global.h.pyqwt Sun Mar 29 19:53:26 2009
-+++ qwt-5.2/src/qwt_global.h Sun Mar 29 20:08:56 2009
++++ qwt-5.2/src/qwt_global.h Thu May 28 15:51:46 2009
 @@ -19,8 +19,8 @@
  
  // QWT_VERSION is (major << 16) + (minor << 8) + patch.
