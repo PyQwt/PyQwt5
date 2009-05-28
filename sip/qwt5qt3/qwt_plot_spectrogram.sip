@@ -48,16 +48,8 @@ public:
     bool testDisplayMode(QwtPlotSpectrogram::DisplayMode) const;
     void setData(const QwtRasterData&);
     const QwtRasterData& data() const;
-%MethodCode
-sipRes = sipCpp->data().copy();
-%End
-
     void setColorMap(const QwtColorMap&);
     const QwtColorMap& colorMap() const;
-%MethodCode
-sipRes = sipCpp->colorMap().copy();
-%End
-
     virtual QwtDoubleRect boundingRect() const;
     virtual QSize rasterHint(const QwtDoubleRect&) const;
     void setDefaultContourPen(const QPen&);

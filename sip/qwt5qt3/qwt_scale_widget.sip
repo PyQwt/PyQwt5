@@ -72,10 +72,6 @@ public:
     void setColorMap(const QwtDoubleInterval&, const QwtColorMap&);
     QwtDoubleInterval colorBarInterval() const;
     const QwtColorMap& colorMap() const;
-%MethodCode
-sipRes = sipCpp->colorMap().copy();
-%End
-
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
     int titleHeightForWidth(int) const;
