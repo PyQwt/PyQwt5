@@ -11,7 +11,6 @@ from PyQt4.Qt import *
 from PyQt4.Qwt5 import *
 import PyQt4.Qwt5.anynumpy as np
 
-import sip; sip.settracemask(0xff)
 
 print_xpm = ['32 32 12 1',
              'a c #ffffff',
@@ -514,6 +513,11 @@ def main(args):
 
 # Admire!
 if __name__ == '__main__':
+    if 'settracemask' in sys.argv:
+        # for debugging, requires: python configure.py --trace ...
+        import sip
+        sip.settracemask(0x3f)
+
     main(sys.argv)
 
 # Local Variables: ***

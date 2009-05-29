@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-# for debugging, requires: python configure.py --trace ...
-if 0:
-    import sip
-    sip.settracemask(0x3f)
 
 import sys
 from PyQt4 import Qt
@@ -296,6 +292,11 @@ def main(args):
 
 # Admire!
 if __name__ == '__main__':
+    if 'settracemask' in sys.argv:
+        # for debugging, requires: python configure.py --trace ...
+        import sip
+        sip.settracemask(0x3f)
+
     main(sys.argv)
 
 # Local Variables: ***

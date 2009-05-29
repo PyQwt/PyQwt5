@@ -81,14 +81,12 @@ def main(args):
 
 # Admire
 if __name__ == '__main__':
-    if 0:
-        main(sys.argv)
-    else:
-        app = Qt.QApplication(sys.argv)
-        demo = SimplePlot()
-        demo.resize(500, 300)
-        demo.show()
-        sys.exit(app.exec_())
+    if 'settracemask' in sys.argv:
+        # for debugging, requires: python configure.py --trace ...
+        import sip
+        sip.settracemask(0x3f)
+
+    main(sys.argv)
         
 
 # Local Variables: ***
