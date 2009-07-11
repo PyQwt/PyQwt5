@@ -1,8 +1,8 @@
 # MANIFEST template file to make a distribution tarball
 
 # Package stuff
-include ANNOUNCEMENT-5.1.1 COPYING*
-include MANIFEST.in GNUmakefile pyqwt-5.1.patch
+include ANNOUNCEMENT-5.2.0 COPYING*
+include MANIFEST.in GNUmakefile pyqwt-5.2.patch
 
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
@@ -29,8 +29,8 @@ graft support
 recursive-exclude suppport .cvsignore *~
 
 # qwt-svn
-graft qwt-5.1
-recursive-exclude qwt-5.1 *~
+graft qwt-5.2
+recursive-exclude qwt-5.2 *~
 
 # sip files
 graft sip

@@ -132,7 +132,8 @@ qwt-5.2:
 
 # build a distribution tarball
 dist: distclean install
-	(cd sphinx; make clean; make)
+	(cd sphinx; make clean; make; make latex)
+	(cd sphinx/build/latex; make all-pdf)
 	python setup.py sdist --formats=gztar
 
 clean:
