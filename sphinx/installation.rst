@@ -9,25 +9,25 @@ Build Prerequisites
 
 Recommended build prerequisites for PyQwt-|release| are: 
 
-#. `Python <http://www.python.org>`_, version 2.6.x, 2.5.x, and 2.4.x
-   are supported. 
-#. `Qt <http://trolltech.com/products/qt>`_, version 4.4.x, 4.3.x,
-   4.2.x, and 3.3.x  are supported.
+#. `Python <http://www.python.org>`_, version 2.6.x and 2.5.x are
+   supported.  
+#. `Qt <http://trolltech.com/products/qt>`_, version 4.5.x, 4.4.x,
+   4.3.x, and 3.3.x  are supported.
 #. `SIP <http://www.riverbankcomputing.co.uk/software/sip/intro>`_,
-   version 4.7.x, and 4.6.x are supported. 
+   version 4.8.x and 4.7.x (x > 3) are supported. 
 #. `PyQt <http://www.riverbankcomputing.co.uk/software/pyqt/intro>`_
-   for Mac OS X, Windows, and/or X11, version 4.4.x, 4.3.x, 4.2.x, and
-   3.17.x are supported.
-#. optionally `NumPy <http://www.scipy.org/NumPy>`_, version 1.2.x,
-   and 1.1.x are supported.
-#. optionally `Qwt <http://qwt.sourceforge.net>`_, version 5.1.x and
-   5.0.x are supported. 
+   for Mac OS X, Windows, and/or X11, version 4.5.x, 4.4.x, 4.3.x,
+   3.18.x, and 3.17.x are supported.
+#. optionally `NumPy <http://www.scipy.org/NumPy>`_, version 1.3.x,
+   1.2.x, and 1.1.x are supported.
+#. optionally `Qwt <http://qwt.sourceforge.net>`_, version 5.2.x,
+   5.1.x, and 5.0.x are supported. 
 
 The source package
-`PyQwt-5.1.1.tar.gz
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.1.1.tar.gz>`_
-contains a snapshot of the Qwt-5.1 subversion bug fix branch which may
-fix some bugs in Qwt-5.1.1. 
+`PyQwt-5.2.0.tar.gz
+<http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.2.0.tar.gz>`_
+contains a snapshot of the Qwt-5.2 subversion bug fix branch which may
+fix some bugs in Qwt-5.2.0. 
 I recommend to compile and link the bug fix branch statically into PyQwt.
 
 To exploit the full power of PyQwt, you should install at least one of
@@ -58,17 +58,17 @@ The installation procedure consists of three steps:
 #. Unpack PyQwt-|release|.tar.gz.
 #. Invoke the following commands to build PyQwt-|release| for Qt-4::
 
-      cd PyQwt-5.1.1
+      cd PyQwt-5.2.0
       cd configure
-      python configure.py -Q ../qwt-5.1
+      python configure.py -Q ../qwt-5.2
       make
       make install
 
    or invoke the commands to build PyQwt-|release| for Qt-3::
 
-      cd PyQwt-5.1.1
+      cd PyQwt-5.2.0
       cd configure
-      python configure.py -3 -Q ../qwt-5.1
+      python configure.py -3 -Q ../qwt-5.2
       make
       make install
 
@@ -132,13 +132,13 @@ Windows Binary Installer
 
 Make sure that you have installed:
 
-#. `python-2.5.2.msi
-   <http://www.python.org/ftp/python/2.5.2/python-2.5.2.msi>`_ 
-#. `numpy-1.2.0-win32-superpack-python2.5.exe
-   <http://prdownloads.sourceforge.net/numpy/numpy-1.2.0-win32-superpack-python2.5.exe>`_ 
-#. `PyQt-Py2.5-gpl-4.4.3-1.exe
-   <http://pyqwt.sourceforge.net/support/PyQt-Py2.5-gpl-4.4.2-1.exe>`_
+#. `python-2.6.2.msi
+   <http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi>`_ 
+#. `numpy-1.3.0-win32-superpack-python2.6.exe
+   <http://prdownloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.6.exe>`_ 
+#. `PyQt-Py2.6-gpl-4.5.1-1.exe
+   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.5.1-1.exe>`_
 
 before installing
-`PyQwt5.1.1-Python2.5-PyQt4.4.3-NumPy1.2.0-1.exe
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.1.1-Python2.5-PyQt4.4.3-NumPy1.2.0-1.exe>`_.
+`PyQwt5.2.0-Python2.6-PyQt4.5.1-NumPy1.3.0-1.exe
+<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.0-Python2.6-PyQt4.5.1-NumPy1.3.0-1.exe>`_.

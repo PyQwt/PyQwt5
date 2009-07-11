@@ -43,9 +43,9 @@ copyright = '2001-%s, Gerard Vermeulen' % time.strftime('%Y')
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '5.1'
+version = '5.2'
 # The full version, including alpha/beta/rc tags.
-release = '5.1.1'
+release = '5.2.0'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
