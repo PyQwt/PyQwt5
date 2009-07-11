@@ -126,7 +126,11 @@ def make():
     picker.setRubberBandPen(QPen(Qt.black, 1))
     slot = lambda polygon: QMessageBox.information(
         None, 'PlotPicker signaled', str(polygon))
-    picker.connect(picker, SIGNAL('selected(const QwtPolygon&)'), slot)
+    if PYQT_VERSION == 0x040500:
+        # works around a bug in PyQt-4.5/sip-4.8
+        picker.connect(picker, SIGNAL('selected(const QPolygon&)'), slot)
+    else:
+        picker.connect(picker, SIGNAL('selected(const QwtPolygon&)'), slot)
    
     QWhatsThis.enterWhatsThisMode()
     QWhatsThis.showText(
