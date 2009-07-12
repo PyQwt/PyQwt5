@@ -30,7 +30,7 @@
 
 
 # These will change with different releases.
-!define PYQWT_VERSION        "5.1.0"
+!define PYQWT_VERSION        "5.2.0"
 !define PYQWT_PYQT_VERSION   "%(PYQT_VERSION)s"
 !define PYQWT_PYTHON_VERSION "%(PYTHON_VERSION)s"
 !define PYQWT_QT_VERSION     "%(QT_VERSION)s"
@@ -154,8 +154,8 @@ Section "Documentation" SecDocumentation
     SetOverwrite on
 
     SetOutPath $PROGRAMFILES\PyQwt5
-    File /r ..\Doc\html\pyqwt
-    File /r ..\qwt-5.1\doc\html
+    File /r ..\sphinx\build\html
+    File /r ..\qwt-5.2\doc\html
 SectionEnd
 
 Section "Designer plugin" SecDesigner
@@ -164,8 +164,7 @@ Section "Designer plugin" SecDesigner
     SetOverwrite on
     
     SetOutPath $INSTDIR\PyQt4\plugins\designer
-    File ..\qwt-5.1\designer\plugins\designer\libqwt_designer_plugin5.a
-    File ..\qwt-5.1\designer\plugins\designer\qwt_designer_plugin5.dll
+    File ..\qwt-5.2\designer\plugins\designer\qwt_designer_plugin5.dll
 SectionEnd
 
 Section "Examples" SecExamples
