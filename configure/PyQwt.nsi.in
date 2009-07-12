@@ -163,7 +163,7 @@ Section "Designer plugin" SecDesigner
     
     SetOverwrite on
     
-    SetOutPath $INSTDIR\PyQt4\plugins\designer
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt4\plugins\designer
     File ..\qwt-5.2\designer\plugins\designer\qwt_designer_plugin5.dll
 SectionEnd
 
