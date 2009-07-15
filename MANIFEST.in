@@ -15,6 +15,7 @@ recursive-exclude qt4lib .cvsignore *~
 # configure
 include configure/configure.py
 include configure/PyQwt.nsi.in
+include configure/configqt.bat
 
 # Qt3 examples
 graft qt3examples
