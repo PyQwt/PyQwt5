@@ -45,7 +45,7 @@ public:
     QwtScaleMap(const QwtScaleMap&);
     ~QwtScaleMap();
     // Not Pythonic: QwtScaleMap& operator=(const QwtScaleMap&);
-    void setTransformation(QwtScaleTransformation*);
+    void setTransformation(QwtScaleTransformation* /Transfer/);
     const QwtScaleTransformation* transformation() const;
     void setPaintInterval(int, int);
     void setPaintXInterval(double, double);
@@ -111,7 +111,7 @@ public:
     QwtScaleMap(const QwtScaleMap&);
     ~QwtScaleMap();
     // Not Pythonic: QwtScaleMap& operator=(const QwtScaleMap&);
-    void setTransformation(QwtScaleTransformation*);
+    void setTransformation(QwtScaleTransformation* /Transfer/);
     const QwtScaleTransformation* transformation() const;
     void setPaintInterval(int, int);
     void setPaintXInterval(double, double);
