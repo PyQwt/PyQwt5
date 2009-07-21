@@ -60,10 +60,6 @@ typedef int Py_ssize_t;
 
 #include <qwt_math.h>
 #include <qwt_numerical_interface.h>
-#include <sipQwtQwtArrayDouble.h>
-#include <sipQwtQwtArrayInt.h>
-#include <sipQwtQwtArrayQwtDoubleInterval.h>
-#include <sipQwtQwtArrayQwtDoublePoint.h>
 %End
 
 
