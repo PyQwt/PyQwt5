@@ -48,7 +48,7 @@ public:
     QPalette palette() const;
     void setFont(const QFont&);
     QFont font() const;
-    void setScaleDraw(QwtScaleDraw*);
+    void setScaleDraw(QwtScaleDraw* /Transfer/);
     // signature: const QwtScaleDraw* scaleDraw() const;
     QwtScaleDraw* scaleDraw();
     void setPosition(double);
