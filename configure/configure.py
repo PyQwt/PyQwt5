@@ -135,6 +135,73 @@ def compile_qt_program(name, configuration,
 
 # compile_qt_program()
 
+
+def make_and_run_qt_program(name, code, configuration,
+                            extra_defines = [],
+                            extra_include_dirs = [],
+                            ):
+    """Make and run a simple Qt application
+
+    name is the name of the application
+    code is the code of the single source file
+    configuration is the pyqtconfig.Configuration()
+    extra_defines is a list of extra preprocessor definitions
+    extra_include_dirs is a list of extra directories to search for headers
+    """
+    pro_file = name + '.pro'
+    make_file = name + '.mak'
+    cpp_file = name + '.cpp'
+    make_target = ''
+    if sys.platform == "win32":
+        exe = os.path.join("release", name + ".exe")
+        make_target = " release"
+    elif sys.platform == "darwin":
+        exe = os.path.join(name + ".app", "Contents", "MacOS", name)
+    else:
+        exe = os.path.join(".", name)
+
+    # Generate the source code.
+    open(cpp_file, "w").write(code)
+
+    # Generate the qmake project file.
+    f = open(pro_file, "w")
+    f.write(
+'''QT = core
+# This is for certain broken Linux distros and is needed to make sure that
+# QT_SHARED is properly defined.
+CONFIG += link_prl
+TARGET = %s
+SOURCES = %s
+''' % (name, cpp_file))
+    if extra_defines:
+        f.write(
+'''DEFINES += %s
+''' % ' '.join(extra_defines))
+    if extra_include_dirs:
+        f.write(
+'''INCLUDEPATH += %s
+''' % ' '.join(extra_include_dirs))
+    f.close()
+
+    qmake = os.path.join(configuration.qt_dir, 'bin', 'qmake')
+    os.system('%s -spec %s -o %s %s' % (
+        qmake, configuration.platform, make_file, pro_file))
+
+    # Try and work out the name of make.
+    if configuration.platform.startswith("win32-msvc"):
+        make = "nmake"
+    elif configuration.platform == "win32-borland":
+        make = "bmake"
+    elif configuration.platform == "win32-g++":
+        make = "mingw32-make"
+    else:
+        make = "make"
+
+    os.system('%s -f %s %s' % (make, make_file, make_target))
+    os.system(exe)
+
+# make_and_run_qt_program
+
     
 def copy_files(sources, directory):
     """Copy a list of files to a directory
@@ -179,18 +246,6 @@ def fix_build_file(name, extra_sources, extra_headers, extra_moc_headers):
             print >> output, '%s = %s' % (key, ' '.join(sbf[key]))
 
 # fix_build_file()
-
-
-def fix_typedefs(sources):
-    """Work around a code generation bug in SIP-4.5.x
-    """
-    for source in sources:
-        old = open(source).read()
-        new = old.replace('"QtCore"', '"PyQt4.QtCore"')
-        if new != old:
-            open(source, 'w').write(new)
-
-# fix_typedefs()
 
 
 def lazy_copy_file(source, target):
@@ -454,49 +509,43 @@ def check_qwt(configuration, options):
         except OSError:
             pass
 
-    open('qwt_version_info.cpp', 'w').write('\n'.join([
-        r'#include <stdio.h>',
-        r'#include <qwt_global.h>',
-        r'',
-        r'int main(int, char **)',
-        r'{',
-        r'    FILE *file;',
-        r'',
-        r'    if (!(file = fopen("qwt_version_info.py", "w"))) {',
-        r'        fprintf(stderr, "Failed to create qwt_version_info.py\n");',
-        r'        return 1;',
-        r'    }',
-        r'',
-        r'    fprintf(file, "QWT_VERSION = %#08x\n", QWT_VERSION);',
-        r'    fprintf(file, "QWT_VERSION_STR = \"%s\"\n", QWT_VERSION_STR);',
-        r'',
-        r'    fclose(file);',
-        r'',
-        r'    return 0;',
-        r'}',
-        r'',
-        r'// Local Variables:',
-        r'// mode: C++',
-        r'// c-file-style: "stroustrup"',
-        r'// End:',
-        r'',
-        ]))
+    code = (
+'''#include <qfile.h>
+#include <qtextstream.h>
+#include <qwt_global.h>
 
+int main(int, char **)
+{
+    QFile file("qwt_version_info.py");
+#if QT_VERSION < 0x040000
+    if (!file.open(IO_WriteOnly|IO_Truncate)) {
+#else
+    if (!file.open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text)) {
+#endif
+        return 1;
+    }
+
+    QTextStream text(&file);
+
+    text << "QWT_VERSION = 0x0" << hex << QWT_VERSION << "\\n";
+    text << "QWT_VERSION_STR = \\"" << QWT_VERSION_STR << "\\"\\n";
+
+    return 0;
+}   
+
+// Local Variables:
+// mode: C++
+// c-file-style: "stroustrup"
+// End:
+''')
     extra_include_dirs = []
-    if options.qt == 4:
-        extra_include_dirs.append(os.path.join(configuration.qt_inc_dir, 'Qt'))
-        #FIXME: options.extra_include_dirs.extend(extra_include_dirs)
     if options.qwt_sources:
         extra_include_dirs.append(os.path.join(options.qwt_sources, 'src'))
     if options.extra_include_dirs:
         extra_include_dirs.extend(options.extra_include_dirs)
 
-    exe = compile_qt_program('qwt_version_info.cpp', configuration,
-                             extra_include_dirs = extra_include_dirs)
-    if not exe:
-        raise Die('Failed to build the qwt_version_info tool.')
-
-    os.system(exe)
+    make_and_run_qt_program('qwt_version_info', code, configuration,
+                            extra_include_dirs = extra_include_dirs)
 
     try:
         from qwt_version_info import QWT_VERSION, QWT_VERSION_STR
@@ -750,26 +799,12 @@ def setup_qwt5_build(configuration, options, package):
     if not os.path.exists(build_file):
         raise Die('SIP failed to generate the C++ code.')
 
-    # FIXME: sip-4.7 does not generate those include files anymore
-    for name in [os.path.join(tmp_dir, name) for name in [
-        'sipQwtQwtArrayDouble.h',
-        'sipQwtQwtArrayInt.h',
-        'sipQwtQwtArrayQwtDoubleInterval.h',
-        'sipQwtQwtArrayQwtDoublePoint.h',
-        ]]:
-        if not os.path.exists(name):
-            open(name, 'w')
-
     # fix the SIP build file
     fix_build_file(build_file,
                    [os.path.basename(f) for f in extra_sources],
                    [os.path.basename(f) for f in extra_headers],
                    [os.path.basename(f) for f in extra_moc_headers])
     
-    # fix the typedefs (work around a bug in SIP-4.5.x)
-    if tmp_dir == 'tmp-qwt5qt4':
-        fix_typedefs(glob.glob(os.path.join(tmp_dir, 'sipQwt*.cpp')))
-
     # copy lazily to the build directory to speed up recompilation
     if not os.path.exists(build_dir):
         try:
