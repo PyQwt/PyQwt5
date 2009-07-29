@@ -37,6 +37,9 @@ recursive-exclude qwt-5.2 *~
 graft sip
 recursive-exclude sip .cvsignore *~
 
+# tests
+include tests/test_*.py
+
 # Documentation
 graft sphinx
 recursive-exclude sphinx static *.doctree *.pickle .cvsignore *~
