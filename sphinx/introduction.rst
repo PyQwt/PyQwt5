@@ -187,6 +187,7 @@ takes a snapshot of the plot widget and saves it into a file:
 
 .. image:: cli-plot-2.png
 
+.. _getting-help:
 
 Getting help
 ============
@@ -203,13 +204,11 @@ to the mailing list before posting on the
 `mailing list <mailto:pyqwt-users@lists.sourceforge.net>`_.
 
 The mailing list is a subscribers only list and mail from
-non-subscribers is deferred to filter spam.
-I check practically every day whether some messages are from
-unsubscribed users (more than 95 % is spam).
-Keep in mind, in case you post before subscribing:
+non-subscribers is deferred to filter spam (more than 95 % of the mail
+by non-subscribers is spam and mail by non-subscribers is rejected).
 
-  - you are very lucky when your mail gets accepted. 
-  - you will be subscribed to minimize accepting posts manually.
+The mailing list is configured to garantee anonimity as much as
+possible. 
 
 
 .. [#] The older numerical Python extension packages,

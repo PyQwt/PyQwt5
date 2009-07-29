@@ -115,10 +115,12 @@ Troubleshooting and getting help
       python configure.py --your --options > configure.log
       make > make.log
    
-   `Subscribe
-   <http://lists.sourceforge.net/lists/listinfo/pyqwt-users>`_ [1]_ to the
-   mailing list and send the log files to the
-   `mailing list <mailto:pyqwt-users@lists.sourceforge.net>`_.
+   Send the log files to the
+   `mailing list <mailto:pyqwt-users@lists.sourceforge.net>`_ after 
+   `subscribing 
+   <http://lists.sourceforge.net/lists/listinfo/pyqwt-users>`_  to the
+   mailing list, because the mailing list is for subscribers only, see
+   :ref:`getting-help`.
 
 .. [1] The mailing list is a subscribers only list and mail from
        non-subscribers is deferred to filter spam (95 % is spam).
