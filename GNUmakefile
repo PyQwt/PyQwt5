@@ -141,6 +141,6 @@ clean:
 
 distclean: clean
 	find . -name '.#*' -o -name '*.pyc' | xargs rm -f
-	rm -rf configure/*qt{3,4}
+	rm -rf configure/*qt{3,4} configure/qwt_* configure/*.cpp
 
 # EOF
