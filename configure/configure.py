@@ -777,7 +777,7 @@ def setup_qwt5_build(configuration, options, package):
             raise Die('Failed to import qwt_version_info.')
         if QWT_VERSION == 0x050200:
             fixed_headers += glob.glob(os.path.join(
-                os.pardir, 'include-5.2.0', 'src', '*.h'))
+                os.pardir, 'include-5.2.0', '*.h'))
         copy_files(fixed_headers, tmp_dir)
 
     try: # Qt4
