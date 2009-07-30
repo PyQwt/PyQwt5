@@ -768,6 +768,18 @@ def setup_qwt5_build(configuration, options, package):
     copy_files(extra_moc_headers, tmp_dir)
     copy_files(extra_py_files, tmp_dir)
 
+    # work around a bug one of the Qwt-5.2.0 headers
+    if not options.qwt_sources:
+        fixed_headers = []
+        try:
+            from qwt_version_info import QWT_VERSION
+        except ImportError:
+            raise Die('Failed to import qwt_version_info.')
+        if QWT_VERSION == 0x050200:
+            fixed_headers += glob.glob(os.path.join(
+                os.pardir, 'include-5.2.0', 'src', '*.h'))
+        copy_files(fixed_headers, tmp_dir)
+
     try: # Qt4
         pyqt_sip_flags = configuration.pyqt_sip_flags
     except AttributeError: # Qt3

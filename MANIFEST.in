@@ -1,8 +1,17 @@
 # MANIFEST template file to make a distribution tarball
 
-# Package stuff
+# package stuff
 include ANNOUNCEMENT-5.2.0 COPYING*
 include MANIFEST.in GNUmakefile pyqwt-5.2.patch
+
+# configure
+include configure/configure.py
+include configure/PyQwt.nsi.in
+include configure/configqt.bat
+
+# fixed Qwt-5.2.0 headers
+graft include-5.2.0
+recursive-exclude include-5.2.0 .cvsignore *~
 
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
@@ -11,11 +20,6 @@ recursive-exclude qt3lib .cvsignore *~
 # PyQwt python code for PyQt4/Qt4
 graft qt4lib
 recursive-exclude qt4lib .cvsignore *~
-
-# configure
-include configure/configure.py
-include configure/PyQwt.nsi.in
-include configure/configqt.bat
 
 # Qt3 examples
 graft qt3examples
