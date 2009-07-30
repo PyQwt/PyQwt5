@@ -121,7 +121,7 @@ qwt-5.2:
 	(cd tmp/qwt-5.2; svn up -r $(REVISION))
 	rm -rf old-5.2; mv qwt-5.2 old-5.2
 	rm -rf qwt-5.2; cp -pr tmp/qwt-5.2 qwt-5.2
-	python untabify.py -t 4 qwt-5.1 .cpp .h .pro
+	python untabify.py -t 4 qwt-5.2 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.2.patch
 	(cd qwt-5.2/doc; cp ../COPYING .; cp ../INSTALL .)
 	(cd qwt-5.2/doc; doxygen -u Doxyfile; doxygen Doxyfile)
