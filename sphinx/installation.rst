@@ -110,10 +110,12 @@ Troubleshooting and getting help
 
 #. Check whether all development packages have been installed when
    :command:`make` produces lots of errors on Linux.
-#. If you fail to install PyQwt, create two log files::
+#. If you fail to install PyQwt, unpack PyQwt-5.2.0.tar.gz into a
+   clean directory and create two log files containing :file:`stdout`
+   *and* :file:`stderr`:: 
 
-      python configure.py --your --options > configure.log
-      make > make.log
+      python configure.py --your --options 2&>1 >configure.log
+      make 2&>1 >make.log
    
    Send the log files to the
    `mailing list <mailto:pyqwt-users@lists.sourceforge.net>`_ after 
@@ -121,9 +123,6 @@ Troubleshooting and getting help
    <http://lists.sourceforge.net/lists/listinfo/pyqwt-users>`_  to the
    mailing list, because the mailing list is for subscribers only, see
    :ref:`getting-help`.
-
-.. [1] The mailing list is a subscribers only list and mail from
-       non-subscribers is deferred to filter spam (95 % is spam).
 
 
 Windows Binary Installer
@@ -135,9 +134,9 @@ Make sure that you have installed:
    <http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi>`_ 
 #. `numpy-1.3.0-win32-superpack-python2.6.exe
    <http://prdownloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.6.exe>`_ 
-#. `PyQt-Py2.6-gpl-4.5.2-1.exe
-   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.5.2-1.exe>`_
+#. `PyQt-Py2.6-gpl-4.5.4-1.exe
+   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.5.4-1.exe>`_
 
 before installing
-`PyQwt5.2.0-Python2.6-PyQt4.5.2-NumPy1.3.0-1.exe
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.0-Python2.6-PyQt4.5.2-NumPy1.3.0-1.exe>`_.
+`PyQwt5.2.0-Python2.6-PyQt4.5.4-NumPy1.3.0-1.exe
+<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.0-Python2.6-PyQt4.5.4-NumPy1.3.0-1.exe>`_.
