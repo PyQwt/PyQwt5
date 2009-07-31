@@ -834,7 +834,7 @@ def setup_qwt5_build(configuration, options, package):
     print '%s file(s) lazily copied.' % lazy_copies
 
     # byte-compile the Python files
-    compileall.compile_dir(build_dir, 1, options.module_install_path)
+    compileall.compile_dir(build_dir, ddir=options.module_install_path)
 
     # files to be installed
     installs = []
@@ -847,6 +847,17 @@ def setup_qwt5_build(configuration, options, package):
     sip_files += [os.path.join(os.pardir, f) for f in glob.glob(pattern)]
     installs.append(
         [sip_files, os.path.join(configuration.pyqt_sip_dir, 'Qwt5')])
+
+    # designer
+    if configuration.qt_version > 0x03ffff:
+        plugin_source_path = os.path.join(
+            os.pardir, 'qt4lib', 'PyQt4', 'uic', 'widget-plugins') 
+        plugin_install_path = os.path.join(
+            configuration.pyqt_mod_dir, 'uic', 'widget_plugins')
+        compileall.compile_dir(plugin_source_path, ddir=plugin_install_path)
+        pattern = os.path.join(plugin_source_path, '*.py*')
+        plugin_files = [os.path.join(os.pardir, f) for f in glob.glob(pattern)]
+        installs.append([plugin_files, plugin_install_path])
 
     # module makefile
     if options.qt == 3:
