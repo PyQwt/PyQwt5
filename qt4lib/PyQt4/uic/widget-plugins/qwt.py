@@ -13,14 +13,14 @@ pluginType = MODULE
 # "import A".  If "module" is "A[.B].C", the code generator will write
 # "from A[.B] import C".  Each entry in "widget_list" must be unique.
 def moduleInformation():
-    return "PyQt4.Qwt5", ("Qwt5.QwtAnalogClock",
-                          "Qwt5.QwtCompass",
-                          "Qwt5.QwtCounter",
-                          "Qwt5.QwtDial",
-                          "Qwt5.QwtKnob",
-                          "Qwt5.QwtPlot",
-                          "Qwt5.QwtScaleWidget",
-                          "Qwt5.QwtSlider",
-                          "Qwt5.QwtThermo",
-                          "Qwt5.QwtWheel",
-                          "Qwt5.QwtTextLabel",)
+    return "PyQt4.Qwt5", ("QwtAnalogClock",
+                          "QwtCompass",
+                          "QwtCounter",
+                          "QwtDial",
+                          "QwtKnob",
+                          "QwtPlot",
+                          "QwtScaleWidget",
+                          "QwtSlider",
+                          "QwtThermo",
+                          "QwtWheel",
+                          "QwtTextLabel",)
