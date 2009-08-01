@@ -853,7 +853,7 @@ def setup_qwt5_build(configuration, options, package):
         plugin_source_path = os.path.join(
             os.pardir, 'qt4lib', 'PyQt4', 'uic', 'widget-plugins') 
         plugin_install_path = os.path.join(
-            configuration.pyqt_mod_dir, 'uic', 'widget_plugins')
+            configuration.pyqt_mod_dir, 'uic', 'widget-plugins')
         compileall.compile_dir(plugin_source_path, ddir=plugin_install_path)
         pattern = os.path.join(plugin_source_path, '*.py*')
         plugin_files = [os.path.join(os.pardir, f) for f in glob.glob(pattern)]
