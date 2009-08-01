@@ -146,6 +146,9 @@ Section "Extension modules" SecModules
     File ..\qt4lib\PyQt4\Qwt5\qplt.py
     File .\iqt5qt4\_iqt.pyd
     File .\qwt5qt4\Qwt.pyd
+
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt4\uic\widget-plugins
+    File ..\qt4lib\PyQt4\uic\widget-plugins\qwt.py
 SectionEnd
 
 Section "Documentation" SecDocumentation
@@ -233,6 +236,9 @@ Section "Uninstall"
 
     # The modules section.
     RMDir /r $INSTDIR\Lib\site-packages\PyQt4\Qwt5
+
+    # The widget plugin for the pyuic4
+    Delete $INSTDIR\Lib\site-packages\PyQt4\uic\widget-plugins\qwt.py
 
     # The shortcuts section.
     RMDir /r "$SMPROGRAMS\${PYQWT_NAME}"
