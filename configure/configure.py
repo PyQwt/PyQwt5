@@ -363,29 +363,42 @@ def check_numpy(_, options, package):
 
     try:
         import numpy
-
-        # Try to find numpy/arrayobject.h.
-        from  numpy.distutils.misc_util import get_numpy_include_dirs
-        include_dirs = get_numpy_include_dirs()
-        for inc_dir in include_dirs:
-            header = os.path.join(inc_dir, 'numpy', 'arrayobject.h')
-            if os.access(header, os.F_OK):
-                break
-        else:
-            print ('NumPy has been installed, '
-                   'but its headers are not in the standard location.\n'
-                   '%s will be build without support for NumPy.\n'
-                   '(Linux users may have to install a development package)\n'
-                   ) % (package,)
-            raise ImportError
-        print 'Found NumPy-%s.\n' % numpy.__version__
-        options.extra_defines.append('HAS_NUMPY')
-        options.extra_include_dirs.extend(include_dirs)
     except ImportError:
         options.excluded_features.append("-x HAS_NUMPY")
-        print ("Failed to find NumPy: "
-               "%s will be build without support for NumPy.\n"
+        print ('Failed to import numpy: '
+               '%s will be build without support for NumPy.\n'
                ) % (package,)
+        return options
+
+    # Try to find numpy/arrayobject.h.
+    try:
+        from numpy.distutils.misc_util import get_numpy_include_dirs
+    except ImportError:
+        options.excluded_features.append("-x HAS_NUMPY")
+        print ('NumPy has been installed, '
+               'but numpy.distutils.misc_util is missing.\n'
+               '%s will be build without support for NumPy.\n'
+               '(Linux users may have to install a development package)\n'
+               ) % (package,)
+        return options
+        
+    include_dirs = get_numpy_include_dirs()
+    for inc_dir in include_dirs:
+        header = os.path.join(inc_dir, 'numpy', 'arrayobject.h')
+        if os.access(header, os.F_OK):
+            break
+    else:
+        options.excluded_features.append("-x HAS_NUMPY")
+        print ('NumPy has been installed, '
+               'but its headers are not in the standard location.\n'
+               '%s will be build without support for NumPy.\n'
+               '(Linux users may have to install a development package)\n'
+               ) % (package,)
+        return options
+
+    print 'Found NumPy-%s.\n' % numpy.__version__
+    options.extra_defines.append('HAS_NUMPY')
+    options.extra_include_dirs.extend(include_dirs)
 
     return options
 
