@@ -1,8 +1,7 @@
 // The SIP interface definition for:
-//      QList<QwtPickerMachine::Command>,
 //      QwtValueList.
 //
-// Copyright (C) 2001-2007 Gerard Vermeulen
+// Copyright (C) 2001-2009 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
@@ -31,46 +30,6 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
-%MappedType QList<QwtPickerMachine::Command>
-{
-%TypeHeaderCode
-#include <qlist.h>
-#include <qwt_picker_machine.h>
-%End
-
-%ConvertFromTypeCode
-    // Create the list.
-    PyObject *l = PyList_New(sipCpp->size());
-    if (!l)
-        return 0;
-
-    for (int i = 0; i < sipCpp->size(); ++i) {
-	PyObject *o =  PyInt_FromLong(long(sipCpp->value(i)));
-        if (!o) {
-            Py_DECREF(l);
-            return 0;
-        }
-        PyList_SET_ITEM(l, i, o);
-    }
-    return l;
-%End // %ConvertFromTypeCode
-
-%ConvertToTypeCode
-    if (0 == sipIsErr)
-        return PyList_Check(sipPy);
-
-    QList<QwtPickerMachine::Command> *l = new QList<QwtPickerMachine::Command>;
-
-    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
-        l->append(QwtPickerMachine::Command(PyInt_AsLong(PyList_GET_ITEM(sipPy, i))));
-    }
-    *sipCppPtr = l;
-    return sipGetState(sipTransferObj);
-%End // %ConvertToTypeCode
-
-}; // QList<QwtPickerMachine::Command>
-
-
 %MappedType QwtValueList
 {
 %TypeHeaderCode
@@ -83,9 +42,9 @@
     if (0 == l)
         return 0;
 
-    for (int i = 0; i < int(sipCpp->count()); ++i) {
-	PyObject *o = PyFloat_FromDouble(sipCpp->value(i));
-	if (!o) {
+    for (int i = 0; i < int(sipCpp->size()); ++i) {
+        PyObject *o = PyFloat_FromDouble(sipCpp->value(i));
+        if (!o) {
             Py_DECREF(l);
             return 0;
         }
@@ -96,13 +55,22 @@
 
 %ConvertToTypeCode
     if (0 == sipIsErr)
-        return PyList_Check(sipPy);
+        return (PySequence_Check(sipPy) && PySequence_Size(sipPy) >=0);
 
     QwtValueList *l = new QwtValueList;
+    SIP_SSIZE_T size = PySequence_Size(sipPy);
 
-    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
-        l->append(PyFloat_AsDouble(PyList_GET_ITEM(sipPy, i)));
+    for (int i = 0; i < size; ++i) {
+        PyObject *item = PySequence_ITEM(sipPy, i);
+        if (!item) {
+            delete l;
+            *sipIsErr = 1;
+            return 0;
+        }
+        l->append(PyFloat_AsDouble(item));
+        Py_DECREF(item);
     }
+
     *sipCppPtr = l;
     return sipGetState(sipTransferObj);
 %End // %ConvertToTypeCode
@@ -113,4 +81,5 @@
 // Local Variables:
 // mode: C++
 // c-file-style: "stroustrup"
+// indent-tabs-mode: nil
 // End:
