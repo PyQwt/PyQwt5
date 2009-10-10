@@ -50,6 +50,10 @@ class Die(Exception):
 
 # class Die
 
+def inform(message):
+    sys.stdout.write(message)
+
+# inform()
 
 def get_pyqt_configuration(options):
     """Return the PyQt configuration for Qt3 or Qt4.
@@ -243,7 +247,7 @@ def fix_build_file(name, extra_sources, extra_headers, extra_moc_headers):
     output = open(name, 'w')
     for key in keys:
         if sbf[key]:
-            print >> output, '%s = %s' % (key, ' '.join(sbf[key]))
+            output.write('%s = %s%s' % (key, ' '.join(sbf[key]), os.linesep))
 
 # fix_build_file()
 
@@ -288,7 +292,7 @@ def lazy_copy_file(source, target):
 
 
 def check_numarray(configuration, options, package):
-    """See if the numarray extension has been installed.
+    """Check whether the numarray extension has been installed.
     """
     if options.disable_numarray:
         options.excluded_features.append("-x HAS_NUMARRAY")
@@ -301,20 +305,20 @@ def check_numarray(configuration, options, package):
         numarray_inc = os.path.join(
             configuration.py_inc_dir, "numarray", "arrayobject.h")
         if os.access(numarray_inc, os.F_OK):
-            print "Found numarray-%s.\n" % numarray.__version__
+            inform("Found numarray-%s.\n" % numarray.__version__)
             options.extra_defines.append("HAS_NUMARRAY")
         else:
-            print ("numarray has been installed, "
-                   "but its headers are not in the standard location.\n"
-                   "%s will be build without support for numarray.\n"
-                   "(Linux users may have to install a development package)\n"
-                   ) % (package,)
+            inform(("numarray has been installed, "
+                    "but its headers are not in the standard location.\n"
+                    "%s will be build without support for numarray.\n"
+                    "(Linux users may have to install a development package)\n"
+                    ) % (package,))
             raise ImportError
     except ImportError:
         options.excluded_features.append("-x HAS_NUMARRAY")
-        print ("Failed to import numarray: "
-               "%s will be build without support for numarray.\n"
-               ) % (package,)
+        inform(("Failed to import numarray: "
+                "%s will be build without support for numarray.\n"
+                ) % (package,))
 
     return options
 
@@ -334,20 +338,20 @@ def check_numeric(configuration, options, package):
         numeric_inc = os.path.join(
             configuration.py_inc_dir, "Numeric", "arrayobject.h")
         if os.access(numeric_inc, os.F_OK):
-            print "Found Numeric-%s.\n" % Numeric.__version__
+            inform("Found Numeric-%s.\n" % (Numeric.__version__,))
             options.extra_defines.append("HAS_NUMERIC")
         else:
-            print ("Numeric has been installed, "
-                   "but its headers are not in the standard location.\n"
-                   "%s will be build without support for Numeric.\n"
-                   "(Linux users may have to install a development package)\n"
-                   ) % (package,)
+            inform(("Numeric has been installed, "
+                    "but its headers are not in the standard location.\n"
+                    "%s will be build without support for Numeric.\n"
+                    "(Linux users may have to install a development package)\n"
+                    ) % (package,))
             raise ImportError
     except ImportError:
         options.excluded_features.append("-x HAS_NUMERIC")
-        print ("Failed to find Numeric2: "
-               "%s will be build without support for Numeric.\n"
-               ) % (package,)
+        inform(("Failed to import Numeric: "
+                "%s will be build without support for Numeric.\n"
+                ) % (package,))
 
     return options
 
@@ -365,9 +369,9 @@ def check_numpy(_, options, package):
         import numpy
     except ImportError:
         options.excluded_features.append("-x HAS_NUMPY")
-        print ('Failed to import numpy: '
-               '%s will be build without support for NumPy.\n'
-               ) % (package,)
+        inform(('Failed to import numpy: '
+                '%s will be build without support for NumPy.\n'
+                ) % (package,))
         return options
 
     # Try to find numpy/arrayobject.h.
@@ -375,11 +379,11 @@ def check_numpy(_, options, package):
         from numpy.distutils.misc_util import get_numpy_include_dirs
     except ImportError:
         options.excluded_features.append("-x HAS_NUMPY")
-        print ('NumPy has been installed, '
-               'but numpy.distutils.misc_util is missing.\n'
-               '%s will be build without support for NumPy.\n'
-               '(Linux users may have to install a development package)\n'
-               ) % (package,)
+        inform(('NumPy has been installed, '
+                'but numpy.distutils.misc_util is missing.\n'
+                '%s will be build without support for NumPy.\n'
+                '(Linux users may have to install a development package)\n'
+                ) % (package,))
         return options
         
     include_dirs = get_numpy_include_dirs()
@@ -389,14 +393,14 @@ def check_numpy(_, options, package):
             break
     else:
         options.excluded_features.append("-x HAS_NUMPY")
-        print ('NumPy has been installed, '
-               'but its headers are not in the standard location.\n'
-               '%s will be build without support for NumPy.\n'
-               '(Linux users may have to install a development package)\n'
-               ) % (package,)
+        inform(('NumPy has been installed, '
+                'but its headers are not in the standard location.\n'
+                '%s will be build without support for NumPy.\n'
+                '(Linux users may have to install a development package)\n'
+                ) % (package,))
         return options
 
-    print 'Found NumPy-%s.\n' % numpy.__version__
+    inform('Found NumPy-%s.\n' % (numpy.__version__,))
     options.extra_defines.append('HAS_NUMPY')
     options.extra_include_dirs.extend(include_dirs)
 
@@ -408,7 +412,8 @@ def check_numpy(_, options, package):
 def check_compiler(configuration, options):
     """Check compiler specifics.
     """
-    print 'Do not get upset by error messages in the next 3 compiler checks:'
+    inform(
+        'Do not get upset by error messages in the next 3 compiler checks:\n')
     
     makefile = pyqtconfig.sipconfig.Makefile(configuration)
     generator = makefile.optional_string('MAKEFILE_GENERATOR', 'UNIX')
@@ -431,12 +436,12 @@ def check_compiler(configuration, options):
 
     for ctype in ('unsigned int', 'unsigned long', 'unsigned long long'):
         open(name, "w").write(program % ctype)
-        print "Check if 'size_t' and '%s' are the same type:" % ctype
+        inform("Check whether 'size_t' and '%s' are the same type:\n" % ctype)
         if compile_qt_program(name, configuration):
             comment = ''
-            print "YES"
+            inform("YES\n")
         else:
-            print "NO"
+            inform("NO\n")
             comment =  '// '
         new.append('%stypedef %s size_t;' % (comment, ctype))
 
@@ -463,10 +468,10 @@ def check_compiler(configuration, options):
 
 
 def check_os(_, options):
-    """Check operating system specifics.
+    """Check operating system and Python specifics.
     """
-    print "Found '%s' operating system:" % os.name
-    print sys.version
+    inform("Found %s operating system.\n" % os.name)
+    inform("Found Python-%s.\n" % sys.version)
 
     if os.name == 'nt':
         options.extra_defines.append('WIN32')
@@ -477,12 +482,12 @@ def check_os(_, options):
 
 
 def check_sip(configuration, options):
-    """Check if PyQwt can be built with SIP.
+    """Check whether PyQwt can be built with SIP.
     """
     version = configuration.sip_version
     version_str = configuration.sip_version_str
     
-    print "Found SIP-%s." % version_str
+    inform("Found SIP-%s.\n" % version_str)
 
     if 0x040600 > version:
         raise Die('PyQwt requires at least SIP-4.6.')
@@ -580,7 +585,7 @@ int main(int, char **)
     else:
         options.timelines.append('-t Qwt_5_2_0')
 
-    print ('Found Qwt-%s.' % QWT_VERSION_STR)
+    inform('Found Qwt-%s.\n' % QWT_VERSION_STR)
 
     options.excluded_features.append('-x HAS_QWT4')
     options.subdirs.append(options.qwt)
@@ -619,7 +624,7 @@ def setup_iqt_build(configuration, options, package):
     if 'iqt' not in options.modules:
         return
 
-    print 'Setup the %s package build.' % package
+    inform('Setup the %s package build.\n' % package)
     
     build_dir = options.iqt
     tmp_dir = 'tmp-' + build_dir
@@ -648,7 +653,7 @@ def setup_iqt_build(configuration, options, package):
         + [options.iqt_sipfile.replace('\\', '/')]
         )
 
-    print 'sip invokation:'
+    inform('sip invokation:')
     pprint.pprint(cmd)
     if os.path.exists(build_file):
         os.remove(build_file)
@@ -668,9 +673,9 @@ def setup_iqt_build(configuration, options, package):
         for source in glob.glob(os.path.join(tmp_dir, pattern)):
             target = os.path.join(build_dir, os.path.basename(source))
             if lazy_copy_file(source, target):
-                print 'Copy %s -> %s.' % (source, target)
+                inform('Copy %s -> %s.\n' % (source, target))
                 lazy_copies += 1
-    print '%s file(s) lazily copied.' % lazy_copies
+    inform('%s file(s) lazily copied.\n' % lazy_copies)
 
     makefile = pyqtconfig.sipconfig.ModuleMakefile(
         configuration  = configuration,
@@ -720,7 +725,7 @@ def setup_qwt5_build(configuration, options, package):
     if 'Qwt5' not in options.modules:
         return
     
-    print 'Setup the %s package build.' % package
+    inform('Setup the %s package build.\n' % package)
 
     build_dir = options.qwt
     tmp_dir = 'tmp-%s' % options.qwt
@@ -816,7 +821,7 @@ def setup_qwt5_build(configuration, options, package):
         + [options.qwt_sipfile.replace('\\', '/')]
         )
 
-    print 'sip invokation:'
+    inform('sip invokation:\n')
     pprint.pprint(cmd)
     if os.path.exists(build_file):
         os.remove(build_file)
@@ -842,9 +847,9 @@ def setup_qwt5_build(configuration, options, package):
         for source in glob.glob(os.path.join(tmp_dir, pattern)):
             target = os.path.join(build_dir, os.path.basename(source))
             if lazy_copy_file(source, target):
-                print 'Copy %s -> %s.' % (source, target)
+                inform('Copy %s -> %s.\n' % (source, target))
                 lazy_copies += 1
-    print '%s file(s) lazily copied.' % lazy_copies
+    inform('%s file(s) lazily copied.\n' % lazy_copies)
 
     # byte-compile the Python files
     compileall.compile_dir(build_dir, ddir=options.module_install_path)
@@ -917,7 +922,7 @@ def setup_qwt5_build(configuration, options, package):
 def setup_parent_build(configuration, options):
     """Generate the parent Makefile
     """
-    print "Setup the PyQwt build."
+    inform("Setup the PyQwt build.\n")
      
     pyqtconfig.sipconfig.ParentMakefile(configuration = configuration,
                                         subdirs = options.subdirs).generate()
@@ -1080,9 +1085,8 @@ def main():
     """
     options, args = parse_args()
     
-    print 'Command line options:'
-    pprint.pprint(options.__dict__)
-    print
+    inform('Command line options:\n%s\n'
+           % pprint.pformat(options.__dict__))
 
     configuration = get_pyqt_configuration(options)
     
@@ -1098,19 +1102,16 @@ def main():
         options.module_install_path = os.path.join(
             configuration.pyqt_mod_dir, 'Qwt5')
 
-    print
-    print 'Extended command line options:'
-    pprint.pprint(options.__dict__)
-    print
-    print 'The following modules will be built: %s.' % options.modules
-    print
+    inform('Extended command line options:\n%s\n'
+           % pprint.pformat(options.__dict__))
+
+    inform('\nThe following modules will be built: %s.\n\n' % options.modules)
+
     setup_iqt_build(configuration, options, 'PyQwt')
-    print
     setup_qwt5_build(configuration, options, 'PyQwt')
-    print
     setup_parent_build(configuration, options)
-    print
-    print 'Great, run make or nmake to build and install PyQwt.'
+
+    inform('\nGreat, run make or nmake to build and install PyQwt.\n')
 
 # main()
     
@@ -1118,18 +1119,18 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except Die, info:
-        print info
+    except Die as e:
+        inform('%s\n' % e.args)
         sys.exit(1)
     except:
         for entry in traceback.extract_tb(sys.exc_info()[-1]):
             if 'optparse.py' in entry[0]:
                 sys.exit(0)
         else:
-            print (
+            inform(
                 'An internal error occured.  Please report all the output\n'
                 'from the program, including the following traceback, to\n'
-                'pyqwt-users@lists.sourceforge.net'
+                'pyqwt-users@lists.sourceforge.net.\n'
                 )
             traceback.print_exc()
             sys.exit(1)
