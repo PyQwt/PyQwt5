@@ -24,8 +24,8 @@ Recommended build prerequisites for PyQwt-|release| are:
    5.1.x, and 5.0.x are supported. 
 
 The source package
-`PyQwt-5.2.0.tar.gz
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.2.0.tar.gz>`_
+`PyQwt-5.2.1.tar.gz
+<http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.2.1.tar.gz>`_
 contains a snapshot of the Qwt-5.2 subversion bug fix branch which may
 fix some bugs in Qwt-5.2.0. 
 I recommend to compile and link the bug fix branch statically into PyQwt.
@@ -58,7 +58,7 @@ The installation procedure consists of three steps:
 #. Unpack PyQwt-|release|.tar.gz.
 #. Invoke the following commands to build PyQwt-|release| for Qt-4::
 
-      cd PyQwt-5.2.0
+      cd PyQwt-5.2.1
       cd configure
       python configure.py -Q ../qwt-5.2
       make
@@ -66,7 +66,7 @@ The installation procedure consists of three steps:
 
    or invoke the commands to build PyQwt-|release| for Qt-3::
 
-      cd PyQwt-5.2.0
+      cd PyQwt-5.2.1
       cd configure
       python configure.py -3 -Q ../qwt-5.2
       make
@@ -110,7 +110,7 @@ Troubleshooting and getting help
 
 #. Check whether all development packages have been installed when
    :command:`make` produces lots of errors on Linux.
-#. If you fail to install PyQwt, unpack PyQwt-5.2.0.tar.gz into a
+#. If you fail to install PyQwt, unpack PyQwt-5.2.1.tar.gz into a
    clean directory and create two log files containing :file:`stdout`
    *and* :file:`stderr`:: 
 
@@ -130,13 +130,13 @@ Windows Binary Installer
 
 Make sure that you have installed:
 
-#. `python-2.6.2.msi
-   <http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi>`_ 
+#. `python-2.6.3.msi
+   <http://www.python.org/ftp/python/2.6.3/python-2.6.3.msi>`_ 
 #. `numpy-1.3.0-win32-superpack-python2.6.exe
    <http://prdownloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.6.exe>`_ 
-#. `PyQt-Py2.6-gpl-4.5.4-1.exe
-   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.5.4-1.exe>`_
+#. `PyQt-Py2.6-gpl-4.6.1-1.exe
+   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.6.1-1.exe>`_
 
 before installing
-`PyQwt5.2.0-Python2.6-PyQt4.5.4-NumPy1.3.0-1.exe
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.0-Python2.6-PyQt4.5.4-NumPy1.3.0-1.exe>`_.
+`PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe
+<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe>`_.
