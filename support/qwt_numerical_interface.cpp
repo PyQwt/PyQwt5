@@ -49,8 +49,10 @@ static int try_PySequence_to_QwtArray(PyObject *in, QwtArray<double> &out)
         PyObject *element = PySequence_Fast_GET_ITEM(in, i);
         if (PyFloat_Check(element)) {
             out[i] = PyFloat_AsDouble(element);
+#if PY_MAJOR_VERSION < 3
         } else if (PyInt_Check(element)) {
             out[i] = double(PyInt_AsLong(element));
+#endif
         } else if (PyLong_Check(element)) {
             out[i] = PyLong_AsDouble(element);
         } else {
@@ -125,10 +127,12 @@ static int try_PySequence_to_QwtArray(PyObject *in, QwtArray<int> &out)
 
     for (int i=0; i<size; i++) {
         PyObject *element = PySequence_Fast_GET_ITEM(in, i);
-        if (PyInt_Check(element)) {
-            out[i] = int(PyInt_AsLong(element));
-        } else if (PyFloat_Check(element)) {
+        if (PyFloat_Check(element)) {
             out[i] = int(PyFloat_AsDouble(element));
+#if PY_MAJOR_VERSION < 3
+        } else if (PyInt_Check(element)) {
+            out[i] = int(PyInt_AsLong(element));
+#endif
         } else if (PyLong_Check(element)) {
             out[i] = int(PyLong_AsLong(element));
         } else {
@@ -204,10 +208,12 @@ static int try_PySequence_to_QwtArray(PyObject *in, QwtArray<long> &out)
 
     for (int i=0; i<size; i++) {
         PyObject *element = PySequence_Fast_GET_ITEM(in, i);
-        if (PyInt_Check(element)) {
-            out[i] = PyInt_AsLong(element);
-        } else if (PyFloat_Check(element)) {
+        if (PyFloat_Check(element)) {
             out[i] = long(PyFloat_AsDouble(element));
+#if PY_MAJOR_VERSION < 3
+        } else if (PyInt_Check(element)) {
+            out[i] = PyInt_AsLong(element);
+#endif
         } else if (PyLong_Check(element)) {
             out[i] = PyLong_AsLong(element);
         } else {
