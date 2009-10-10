@@ -53,7 +53,7 @@ class GraceProcess:
 
     def command(self, text):
         if self.debug:
-            print text
+            print(text)
         self.p.stdin.write(text + '\n')
         self.flush()
 

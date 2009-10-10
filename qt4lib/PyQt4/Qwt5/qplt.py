@@ -210,7 +210,7 @@ class Plot(QwtPlot):
             elif isinstance(item, QWidget): # accept a parent silently
                 pass
             else:
-                print "Plot() fails to accept %s." % item
+                print("Plot() fails to accept %s." % item)
 
         if self.size:
             apply(self.resize, self.size)
@@ -238,7 +238,7 @@ class Plot(QwtPlot):
             elif isinstance(item, Curve):
                 self.plotCurve(item)
             else:
-                print "Plot.plot() fails to accept %s." % item
+                print("Plot.plot() fails to accept %s." % item)
 
     # plot()
 
@@ -307,7 +307,7 @@ class Plot(QwtPlot):
             for zoomer in self.zoomers:
                 zoomer.initMousePattern(index)
         else:
-            raise ValueError, 'index must be in (0, 1, 2, 3)'
+            raise ValueError('index must be in (0, 1, 2, 3)')
         self.__mouseEventSet = index
 
     # setZoomerMouseEventSet()
@@ -491,7 +491,7 @@ class Curve:
             elif (isinstance(item, str) or isinstance(item, QString)):
                 self.name = item
             else:
-                print "Curve fails to accept %s." % item
+                print("Curve fails to accept %s." % item)
 
         if not self.symbol and not self.pen:
             self.pen = QPen()
@@ -528,7 +528,7 @@ class Axis:
             elif (isinstance(item, str) or isinstance(item, QString)):
                 self.title.setText(item)
             else:
-                print "Axis() fails to accept %s." % item
+                print("Axis() fails to accept %s." % item)
 
     # __init__()
 
@@ -557,7 +557,7 @@ class Symbol(QwtSymbol):
             elif isinstance(item, int):
                 self.setSize(item)
             else:
-                print "Symbol fails to accept %s." %  item
+                print("Symbol fails to accept %s." %  item)
 
     # __init__()
 
@@ -583,7 +583,7 @@ class Pen(QPen):
             elif isinstance(item, int):
                 self.setWidth(item)
             else:
-                print "Pen fails to accept %s." % item
+                print("Pen fails to accept %s." % item)
 
     # __init__()
 
@@ -845,8 +845,8 @@ class IPlot(QMainWindow):
         if hasattr(self.__plot, attr):
             return getattr(self.__plot, attr)
         else:
-            raise AttributeError, ('%s has no attribute named %s'
-                                   % (self.__class__.__name__, attr))
+            raise AttributeError('%s has no attribute named %s'
+                                 % (self.__class__.__name__, attr))
 
     # __getattr__()
 
@@ -924,7 +924,7 @@ def testStandardMap():
     x = random.random()
     y = random.random()
     kappa = random.random()
-    print "x = %s, y = %s, kappa = %s" % (x, y, kappa)
+    print("x = %s, y = %s, kappa = %s" % (x, y, kappa))
     xs, ys = standard_map(x, y, kappa, 1 << 18)
     title = "PyQwt using Qt-%s and Qwt-%s" % (QT_VERSION_STR, QWT_VERSION_STR) 
     p = IPlot(Curve(xs, ys, Symbol(Circle, Red), "standard_map"), title)
