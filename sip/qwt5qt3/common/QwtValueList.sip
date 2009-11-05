@@ -1,6 +1,5 @@
 // The SIP interface definition for:
 //      QValueList<QwtPickerMachine::Command>,
-//      QValueList<Type>,
 //      QValueList<Type*>,
 //      QwtValueList.
 //
@@ -33,106 +32,90 @@
 // PyQwt becomes a free plug-in for a non-free program.
 
 
+// QValueList<QwtPickerMachine::Command> is implemented as a Python list.
 %MappedType QValueList<QwtPickerMachine::Command>
 {
 %TypeHeaderCode
 #include <qvaluelist.h>
-#include <qwt_picker_machine.h>
 %End
 
 %ConvertFromTypeCode
     // Create the list.
-    PyObject *l = PyList_New(sipCpp->size());
+    PyObject *l  = PyList_New(sipCpp->size());
+
     if (0 == l)
         return 0;
+
     // Set the list elements.
-    for (int i = 0; i < int(sipCpp->count()); ++i) {
-	PyObject *o = PyInt_FromLong(long((*sipCpp)[i]));
-	if (!o) {
-	    Py_DECREF(l);
-	    return 0;
-	}
-        PyList_SetItem(l, i, o);
-    }
-    return l;
-%End // %ConvertFromTypeCode
+    for (int i = 0; i < int(sipCpp->size()); ++i) {
+      QwtPickerMachine::Command *t = new QwtPickerMachine::Command((*sipCpp)[i]);
+        PyObject *tobj = sipConvertFromNewType(t, sipType_QwtPickerMachine_Command, sipTransferObj);
 
-%ConvertToTypeCode
-    // Type checking if that is all that is required.
-    if (!sipIsErr)
-        return PyList_Check(sipPy);
-    // Return the QValueList.    
-    QValueList<QwtPickerMachine::Command> *l =
-        new QValueList<QwtPickerMachine::Command>;
-    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
-        l->append((QwtPickerMachine::Command)PyInt_AsLong(PyList_GET_ITEM(sipPy, i)));
-    }
-    *sipCppPtr = l;
-    return sipGetState(sipTransferObj);
-%End // %ConvertToTypeCode
-
-}; // QValueList<QwtPickerMachine::Command>
-
-
-// QList<TYPE> is implemented as a Python list.
-template<TYPE>
-%MappedType QList<TYPE>
-{
-%TypeHeaderCode
-#include <qvaluelist.h>
-%End
-
-%ConvertFromTypeCode
-    // Handle NULL pointer.
-    if (!sipCpp)
-        return PyList_New(0);
-    // Create the list.
-    PyObject *l = PyList_New(sipCpp->size());
-    if (!l)
-        return 0;
-    // Set the list elements.
-    for (int i = 0; i < sipCpp->size(); ++i) {
-        TYPE *t = new TYPE(sipCpp->at(i));
-        PyObject *o = sipBuildResult(0, "N", t, sipClass_TYPE);
-        if (!o) {
+        if (0 == tobj) {
             Py_DECREF(l);
             delete t;
+
             return 0;
         }
-        PyList_SET_ITEM(l, i, o);
+
+        PyList_SET_ITEM(l, i, tobj);
     }
+
     return l;
 %End
 
 %ConvertToTypeCode
-    // Type checking if that is all that is required.
-    if (!sipIsErr) {
-        if (!PyList_Check(sipPy))
+    SIP_SSIZE_T size;
+
+    // Check the type if that is all that is required.
+    if (0 == sipIsErr)
+    {
+        if (!PySequence_Check(sipPy) || 0 > (size = PySequence_Size(sipPy)))
             return 0;
-	// Check the elements
-        for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i)
-            if (!sipCanConvertToInstance(PyList_GET_ITEM(sipPy, i), sipClass_TYPE, SIP_NOT_NONE))
+
+        for (SIP_SSIZE_T i = 0; i < size; ++i)
+        {
+            PyObject *item = PySequence_ITEM(sipPy, i);
+            bool ok = (item && sipCanConvertToType(item, sipType_QwtPickerMachine_Command, SIP_NOT_NONE));
+
+            Py_XDECREF(item);
+
+            if (!ok)
                 return 0;
+        }
+
         return 1;
     }
-    // Return the QValueList.    
-    QValueList<TYPE> *l = new QValueList<TYPE>;
-    for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i) {
+
+    QValueList<QwtPickerMachine::Command> *l = new QValueList<QwtPickerMachine::Command>;
+
+    size = PySequence_Size(sipPy);
+ 
+    for (SIP_SSIZE_T i = 0; i < size; ++i) {
+        PyObject *item = PySequence_ITEM(sipPy, i);
         int state;
-        TYPE *t = reinterpret_cast<TYPE *>(
-	    sipConvertToInstance(PyList_GET_ITEM(sipPy, i), sipClass_TYPE, sipTransferObj, SIP_NOT_NONE, &state, sipIsErr));
-        if (*sipIsErr) {
-            sipReleaseInstance(t, sipClass_TYPE, state);
+        QwtPickerMachine::Command *t = reinterpret_cast<QwtPickerMachine::Command *>(sipConvertToType(item, sipType_QwtPickerMachine_Command, sipTransferObj, SIP_NOT_NONE, &state, sipIsErr));
+
+        Py_DECREF(item);
+ 
+        if (*sipIsErr)
+        {
+            sipReleaseType(t, sipType_QwtPickerMachine_Command, state);
+
             delete l;
             return 0;
         }
+
         l->append(*t);
-        sipReleaseInstance(t, sipClass_TYPE, state);
+
+        sipReleaseType(t, sipType_QwtPickerMachine_Command, state);
     }
+ 
     *sipCppPtr = l;
+ 
     return sipGetState(sipTransferObj);
 %End
-}; // template<TYPE> %MappedType QList<TYPE>
+};
 
 
 // QValueList<TYPE *> is implemented as a Python list.
@@ -151,7 +134,7 @@ template<TYPE>
     // Set the list elements.
     for (int i = 0; i < int(sipCpp->size()); ++i) {
         TYPE *t = (*sipCpp)[i];
-	PyObject *o = sipConvertFromInstance(t, sipClass_TYPE, sipTransferObj);
+	PyObject *o = sipConvertFromType(t, sipType_TYPE, sipTransferObj);
         if (!o) {
             Py_DECREF(l);
             return 0;
@@ -162,28 +145,45 @@ template<TYPE>
 %End
 
 %ConvertToTypeCode
-    // Type checking if that is all that is required.
-    if (!sipIsErr) {
-        if (!PyList_Check(sipPy))
+    SIP_SSIZE_T len;
+
+    // Check the type if that is all that is required.
+    if (0 == sipIsErr) {
+        if (!PySequence_Check(sipPy) || 0 < (len = PySequence_Size(sipPy)))
             return 0;
+
 	// Check the elements
-        for (int i = 0; i < PyList_GET_SIZE(sipPy); ++i)
-            if (!sipCanConvertToInstance(PyList_GET_ITEM(sipPy, i), sipClass_TYPE, 0))
+        for (SIP_SSIZE_T i = 0; i < len; ++i) {
+	    PyObject *item = PySequence_ITEM(sipPy, i);
+            bool ok = (item && sipCanConvertToType(item, sipType_TYPE, 0));
+
+            Py_XDECREF(item);
+
+            if (!ok)
                 return 0;
+	}
         return 1;
     }
     // Return the QValueList.
     QValueList<TYPE *> *l = new QValueList<TYPE *>;
-    for (int i=0; i < PyList_GET_SIZE(sipPy); ++i) {
-        TYPE *t = reinterpret_cast<TYPE *>(
-	    sipConvertToInstance(PyList_GET_ITEM(sipPy, i), sipClass_TYPE, sipTransferObj, 0, 0, sipIsErr));
-        if (*sipIsErr) {
+    len = PySequence_Size(sipPy);
+ 
+    for (SIP_SSIZE_T i=0; i < len; ++i) {
+        PyObject *item = PySequence_ITEM(sipPy, i);
+        TYPE *t = reinterpret_cast<TYPE *>(sipConvertToType(item, sipType_TYPE, sipTransferObj, 0, 0, sipIsErr));
+
+        Py_DECREF(item);
+ 
+        if (*sipIsErr)
+        {
             delete l;
             return 0;
         }
+
         l->append(t);
     }
     *sipCppPtr = l;
+
     return sipGetState(sipTransferObj);
 %End
 }; // template<TYPE> %MappedType QValueList<TYPE *>
