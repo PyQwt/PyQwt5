@@ -49,7 +49,7 @@ public:
     // Not Pythonic: QwtAbstractScaleDraw& operator=(const QwtAbstractScaleDraw&);
     void setScaleDiv(const QwtScaleDiv&);
     const QwtScaleDiv& scaleDiv() const;
-    void setTransformation(QwtScaleTransformation*);
+    void setTransformation(QwtScaleTransformation* /Transfer/);
     const QwtScaleMap& map() const;
     void enableComponent(QwtAbstractScaleDraw::ScaleComponent, bool = true);
     bool hasComponent(QwtAbstractScaleDraw::ScaleComponent) const;

@@ -43,7 +43,7 @@ class QwtLinearScaleEngine: QwtScaleEngine
 public:
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation* transformation() const;
+    virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
     QwtDoubleInterval align(const QwtDoubleInterval&, double) const;
 }; // class QwtLinearScaleEngine
@@ -58,7 +58,7 @@ class QwtLog10ScaleEngine: QwtScaleEngine
 public:
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation* transformation() const;
+    virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
     QwtDoubleInterval log10(const QwtDoubleInterval&) const;
     QwtDoubleInterval pow10(const QwtDoubleInterval&) const;
@@ -109,7 +109,7 @@ public:
     double hiMargin() const;
     virtual void autoScale(int, double&, double&, double&) const = 0;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const = 0;
-    virtual QwtScaleTransformation* transformation() const = 0;
+    virtual QwtScaleTransformation* transformation() const = 0 /Factory/;
 protected:
     bool contains(const QwtDoubleInterval&, double) const;
     QwtValueList strip(const QwtValueList&, const QwtDoubleInterval&) const;
@@ -128,7 +128,7 @@ class QwtLinearScaleEngine: QwtScaleEngine
 public:
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation* transformation() const;
+    virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
     QwtDoubleInterval align(const QwtDoubleInterval&, double) const;
 }; // class QwtLinearScaleEngine
@@ -143,7 +143,7 @@ class QwtLog10ScaleEngine: QwtScaleEngine
 public:
     virtual void autoScale(int, double&, double&, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
-    virtual QwtScaleTransformation* transformation() const;
+    virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
     QwtDoubleInterval log10(const QwtDoubleInterval&) const;
     QwtDoubleInterval pow10(const QwtDoubleInterval&) const;
@@ -194,7 +194,7 @@ public:
     double upperMargin() const;
     virtual void autoScale(int, double&, double&, double&) const = 0;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const = 0;
-    virtual QwtScaleTransformation* transformation() const = 0;
+    virtual QwtScaleTransformation* transformation() const = 0 /Factory/;
 protected:
     bool contains(const QwtDoubleInterval&, double) const;
     QwtValueList strip(const QwtValueList&, const QwtDoubleInterval&) const;
