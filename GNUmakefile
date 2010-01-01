@@ -90,11 +90,43 @@ install-4t: 4t
 
 install-trace: install-3t install-4t
 
+# Releases
+qwt-5.0.0:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.0.1:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.0.2:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.1.0:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.1.1:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.1.2:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
+qwt-5.2.0:
+	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+	tar xvfj $@.tar.bz2
+
 # SVN
 qwt-5.0:
-	(cd tmp/qwt-5.0; svn up -r $(REVISION))
-	rm -rf old-5.0; mv qwt-5.0 old-5.0
-	rm -rf qwt-5.0; cp -pr tmp/qwt-5.0 qwt-5.0
+	(if [ ! -d tmp ]; then mkdir tmp ; fi)
+	(cd tmp; svn co https://qwt.svn.sourceforge.net/svnroot/qwt/branches/qwt-5.0 -r $(REVISION))
+	(if [ -d old-5.0 ]; then rm -rf old-5.0 ; fi)
+	(if [ -d qwt-5.0 ]; then mv qwt-5.0 old-5.0 ; fi)
+	(if [ -d qwt-5.0 ]; then rm -rf qwt-5.0; fi)
+	cp -pr tmp/qwt-5.0 qwt-5.0
 	python untabify.py -t 4 qwt-5.0 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.0.patch
 	(cd qwt-5.0/doc; cp ../COPYING .; cp ../INSTALL .)
@@ -105,9 +137,12 @@ qwt-5.0:
 		-o -name '*.md5' | xargs rm -rf
 
 qwt-5.1:
-	(cd tmp/qwt-5.1; svn up -r $(REVISION))
-	rm -rf old-5.1; mv qwt-5.1 old-5.1
-	rm -rf qwt-5.1; cp -pr tmp/qwt-5.1 qwt-5.1
+	(if [ ! -d tmp ]; then mkdir tmp ; fi)
+	(cd tmp; svn co https://qwt.svn.sourceforge.net/svnroot/qwt/branches/qwt-5.1 -r $(REVISION))
+	(if [ -d old-5.1 ]; then rm -rf old-5.1 ; fi)
+	(if [ -d qwt-5.1 ]; then mv qwt-5.1 old-5.1 ; fi)
+	(if [ -d qwt-5.1 ]; then rm -rf qwt-5.1; fi)
+	cp -pr tmp/qwt-5.1 qwt-5.1
 	python untabify.py -t 4 qwt-5.1 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.1.patch
 	(cd qwt-5.1/doc; cp ../COPYING .; cp ../INSTALL .)
@@ -118,9 +153,12 @@ qwt-5.1:
 		-o -name '*.md5' | xargs rm -rf
 
 qwt-5.2:
-	(cd tmp/qwt-5.2; svn up -r $(REVISION))
-	rm -rf old-5.2; mv qwt-5.2 old-5.2
-	rm -rf qwt-5.2; cp -pr tmp/qwt-5.2 qwt-5.2
+	(if [ ! -d tmp ]; then mkdir tmp ; fi)
+	(cd tmp; svn co https://qwt.svn.sourceforge.net/svnroot/qwt/branches/qwt-5.2 -r $(REVISION))
+	(if [ -d old-5.2 ]; then rm -rf old-5.2 ; fi)
+	(if [ -d qwt-5.2 ]; then mv qwt-5.2 old-5.2 ; fi)
+	(if [ -d qwt-5.2 ]; then rm -rf qwt-5.2; fi)
+	cp -pr tmp/qwt-5.2 qwt-5.2
 	python untabify.py -t 4 qwt-5.2 .cpp .h .pro
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.2.patch
 	(cd qwt-5.2/doc; cp ../COPYING .; cp ../INSTALL .)
