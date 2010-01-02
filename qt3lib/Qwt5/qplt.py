@@ -205,7 +205,7 @@ class Plot(QwtPlot):
                 self.setTitle(text)
             elif isinstance(item, int):
                 self.setZoomerMouseEventSet(item)
-            elif (isinstance(item, tuple) and len(tuple) == 2
+            elif (isinstance(item, tuple) and len(item) == 2
                   and isinstance(item[0], int) and isinstance(item[1], int)):
                 self.size = item
             elif isinstance(item, QWidget): # accept a parent silently
