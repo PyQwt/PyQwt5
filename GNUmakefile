@@ -118,6 +118,7 @@ qwt-5.1.2:
 qwt-5.2.0:
 	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
 	tar xvfj $@.tar.bz2
+	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.2.0.patch
 
 # SVN
 qwt-5.0:
