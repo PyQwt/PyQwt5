@@ -380,7 +380,7 @@ class BodeDemo(QMainWindow):
                      SIGNAL('moved(const QPoint &)'),
                      self.moved)
         self.connect(self.picker,
-                     SIGNAL('selected(const QaPolygon &)'),
+                     SIGNAL('selected(const QPolygon &)'),
                      self.selected)
 
     # __init__()
