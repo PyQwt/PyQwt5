@@ -1,7 +1,7 @@
 Copyright
 *********
 
-Copyright © 2001-2009 Gerard Vermeulen
+Copyright © 2001-2010 Gerard Vermeulen
 
 Copyright © 2000 Mark Colclough
 

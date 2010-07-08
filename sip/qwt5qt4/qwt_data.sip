@@ -3,7 +3,7 @@
 //      QwtData,
 //      QwtPolygonFData.
 //
-// Copyright (C) 2001-2009 Gerard Vermeulen
+// Copyright (C) 2001-2010 Gerard Vermeulen
 // Copyright (C) 2000 Mark Colclough
 //
 // This file is part of PyQwt.
