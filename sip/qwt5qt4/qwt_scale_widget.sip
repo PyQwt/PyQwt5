@@ -58,10 +58,10 @@ public:
     int spacing() const;
     void setPenWidth(int);
     int penWidth() const;
-    void setScaleDiv(QwtScaleTransformation*, const QwtScaleDiv&);
-    void setScaleDraw(QwtScaleDraw*);
-    // signature: const QwtScaleDraw* scaleDraw() const;
-    QwtScaleDraw* scaleDraw();
+    void setScaleDiv(QwtScaleTransformation* /Transfer/, const QwtScaleDiv&);
+    void setScaleDraw(QwtScaleDraw*) /Transfer/;
+    // signature: const QwtScaleDraw* scaleDraw() const /Transfer/;
+    QwtScaleDraw* scaleDraw() /Transfer/;
     void setLabelAlignment(Qt::Alignment);
     void setLabelRotation(double);
     void setColorBarEnabled(bool);

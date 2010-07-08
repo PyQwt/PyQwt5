@@ -56,7 +56,9 @@ public:
         MinimumLayout
     }; // enum LayoutAttribute
 
-    QwtText(const QString& = QString::null, QwtText::TextFormat = QwtText::AutoText);
+    QwtText();
+    QwtText(const QString&);
+    QwtText(const QString&, QwtText::TextFormat);
     QwtText(const QwtText&);
     ~QwtText();
     // Not Pythonic: QwtText& operator=(const QwtText&);

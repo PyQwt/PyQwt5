@@ -41,7 +41,7 @@ class QwtLinearScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual void autoScale(int, double&, double&, double&) const;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
@@ -56,7 +56,7 @@ class QwtLog10ScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual void autoScale(int, double&, double&, double&) const;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
@@ -107,7 +107,7 @@ public:
     void setMargins(double, double);
     double loMargin() const;
     double hiMargin() const;
-    virtual void autoScale(int, double&, double&, double&) const = 0;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const = 0;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const = 0;
     virtual QwtScaleTransformation* transformation() const = 0 /Factory/;
 protected:
@@ -126,7 +126,7 @@ class QwtLinearScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual void autoScale(int, double&, double&, double&) const;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
@@ -141,7 +141,7 @@ class QwtLog10ScaleEngine: QwtScaleEngine
 %End // %TypeHeaderCode
 
 public:
-    virtual void autoScale(int, double&, double&, double&) const;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const;
     virtual QwtScaleTransformation* transformation() const /Factory/;
 protected:
@@ -192,7 +192,7 @@ public:
     void setMargins(double, double);
     double lowerMargin() const;
     double upperMargin() const;
-    virtual void autoScale(int, double&, double&, double&) const = 0;
+    virtual void autoScale(int, double& /In, Out/, double& /In, Out/, double&) const = 0;
     virtual QwtScaleDiv divideScale(double, double, int, int, double = 0.0) const = 0;
     virtual QwtScaleTransformation* transformation() const = 0 /Factory/;
 protected:
