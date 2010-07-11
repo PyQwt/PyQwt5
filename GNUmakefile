@@ -16,7 +16,7 @@ QWT := ../qwt-5.2
 JOBS := 1
 UNAME := $(shell uname)
 
-REVISION := 596
+REVISION := 784
 
 ifeq ($(UNAME),Linux)
 JOBS := $(shell getconf _NPROCESSORS_ONLN)
@@ -27,6 +27,9 @@ JOBS := $(shell sysctl -n hw.ncpu)
 endif
 
 .PHONY: dist qwt-5.0 qwt-5.1 qwt-5.2
+
+%.tar.bz2:
+	wget http://prdownloads.sf.net/qwt/$@
 
 all: 3 4
 
@@ -91,34 +94,30 @@ install-4t: 4t
 install-trace: install-3t install-4t
 
 # Releases
-qwt-5.0.0:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.0.0: qwt-5.0.0.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.0.1:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.0.1: qwt-5.0.1.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.0.2:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.0.2: qwt-5.0.2.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.1.0:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.1.0: qwt-5.1.0.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.1.1:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.1.1: qwt-5.1.1.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.1.2:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.1.2: qwt-5.1.2.tar.bz2
 	tar xvfj $@.tar.bz2
 
-qwt-5.2.0:
-	wget http://prdownloads.sf.net/qwt/$@.tar.bz2
+qwt-5.2.0: qwt-5.2.0.tar.bz2
 	tar xvfj $@.tar.bz2
 	patch -p0 --fuzz=10 -b -z .pyqwt <pyqwt-5.2.0.patch
+
+qwt-5.2.1: qwt-5.2.1.tar.bz2
+	tar xvfj $@.tar.bz2
 
 # SVN
 qwt-5.0:
