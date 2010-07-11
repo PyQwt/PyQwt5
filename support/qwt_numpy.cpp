@@ -36,10 +36,8 @@
 #include <qwt_numerical_interface.h>
 #include <qwt_numpy.h>
 
-
-void qwt_import_numpy() {
-    // this is a function which does error handling
-    import_array();
+int qwt_import_numpy() {
+    import_array1(0);
 }
 
 

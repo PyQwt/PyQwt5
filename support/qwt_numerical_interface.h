@@ -52,7 +52,7 @@ PyObject *toNumeric(const QImage &image);
 
 #ifdef HAS_NUMPY
 // to hide NumPy's import_array()
-void qwt_import_numpy();
+int qwt_import_numpy();
 
 PyObject *toNumpy(const QImage &image);
 #endif
