@@ -130,18 +130,22 @@ class MapDemo(Qt.QMainWindow):
             self.xs[self.i] = self.x
             self.ys[self.i] = self.y
             self.i += 1
+            chunks = []
             if has_resource:
                 self.user_toc, self.system_toc = resource.getrusage(
                     resource.RUSAGE_SELF)[:2]
                 if self.user_tic:
-                    print "user: %s s;" % (self.user_toc-self.user_tic),
+                    chunks.append("user: %s s;"
+                                  % (self.user_toc-self.user_tic))
                 self.user_tic = self.user_toc
                 if self.system_tic:
-                    print "system: %s s;" % (self.system_toc-self.system_tic),
+                    chunks.append("system: %s s;"
+                                  % (self.system_toc-self.system_tic))
                 self.system_tic = self.system_toc
             self.timer_toc = time.time()
             if self.timer_tic:
-                print "wall: %s s." % (self.timer_toc-self.timer_tic)
+                chunks.append("wall: %s s." % (self.timer_toc-self.timer_tic))
+                print(' '.join(chunks))
             self.timer_tic = self.timer_toc
         else:
             self.x, self.y = standard_map(self.x, self.y, self.kappa)

@@ -38,10 +38,10 @@ class CompassGrid(Qt.QFrame):
         
         layout = Qt.QGridLayout(self)
 
-        for i in xrange(6):
+        for i in range(6):
             layout.addWidget(self.__createCompass(i), i / 3, i % 3)
 
-        for i in xrange(layout.columnCount()):
+        for i in range(layout.columnCount()):
             layout.setColumnStretch(i, 1)
 
     # __init__()
@@ -339,10 +339,10 @@ class CockpitGrid(Qt.QFrame):
 
         layout = Qt.QGridLayout(self)
         
-        for i in xrange(3):
+        for i in range(3):
             layout.addWidget(self.__createDial(i), 0, i)
 
-        for i in xrange(layout.columnCount()):
+        for i in range(layout.columnCount()):
             layout.setColumnStretch(i, 1)
 
         self.__speed_offset = 0.8

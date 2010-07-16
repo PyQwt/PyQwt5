@@ -12,7 +12,7 @@ def drange(start, stop, step):
     start, stop, step = float(start), float(stop), float(step)
     size = int(round((stop-start)/step))
     result = [start]*size
-    for i in xrange(size):
+    for i in range(size):
         result[i] += i*step
     return result
 
@@ -50,12 +50,12 @@ class MultiDemo(Qt.QWidget):
             numpy_curve.setPen(Qt.QPen(Qt.Qt.red))
             layout.addWidget(numpy_plot, 0, 0)
             numpy_plot.replot()
-        except ImportError, message:
-            print "%s: %s" % (ImportError, message)
-            print "Install NumPy to plot plot NumPy arrays"
-        except TypeError, message:
-            print "%s: %s" % (TypeError, message)
-            print "Rebuild PyQwt to plot NumPy arrays"
+        except ImportError as message:
+            print("%s: %s" % (ImportError, message))
+            print("Install NumPy to plot plot NumPy arrays")
+        except TypeError as message:
+            print("%s: %s" % (TypeError, message))
+            print("Rebuild PyQwt to plot NumPy arrays")
 
         # try to create a plot for Numeric arrays
         try:
@@ -77,12 +77,12 @@ class MultiDemo(Qt.QWidget):
             numeric_curve.setPen(Qt.QPen(Qt.Qt.red))
             layout.addWidget(numeric_plot, 0, 1)
             numeric_plot.replot()
-        except ImportError, message:
-            print "%s: %s" % (ImportError, message)
-            print "Install Numeric to plot Numeric arrays"
-        except TypeError, message:
-            print "%s: %s" % (TypeError, message)
-            print "Rebuild PyQwt to plot Numeric arrays"
+        except ImportError as message:
+            print("%s: %s" % (ImportError, message))
+            print("Install Numeric to plot Numeric arrays")
+        except TypeError as message:
+            print("%s: %s" % (TypeError, message))
+            print("Rebuild PyQwt to plot Numeric arrays")
 
         # try to create a plot for numarray arrays
         try:
@@ -104,12 +104,12 @@ class MultiDemo(Qt.QWidget):
             numarray_curve.setPen(Qt.QPen(Qt.Qt.red))
             layout.addWidget(numarray_plot, 1, 0)
             numarray_plot.replot()
-        except ImportError, message:
-            print "%s: %s" % (ImportError, message)
-            print "Install numarray to plot numarray arrays"
-        except TypeError, message:
-            print "%s: %s" % (TypeError, message)
-            print "Rebuild PyQwt to plot numarray arrays"            
+        except ImportError as message:
+            print("%s: %s" % (ImportError, message))
+            print("Install numarray to plot numarray arrays")
+        except TypeError as message:
+            print("%s: %s" % (TypeError, message))
+            print("Rebuild PyQwt to plot numarray arrays")            
 
         # create a plot widget for lists of Python floats
         list_plot = Qwt.QwtPlot(self)
@@ -118,7 +118,7 @@ class MultiDemo(Qt.QWidget):
         list_plot.plotLayout().setCanvasMargin(0)
         list_plot.plotLayout().setAlignCanvasToScales(True)
         x = drange(0.0, 10.0, 0.01)
-        y = map(lorentzian, x)
+        y = [lorentzian(item) for item in x]
         # insert a curve, make it red and copy the lists
         list_curve = Qwt.QwtPlotCurve('y = lorentzian(x)')
         list_curve.attach(list_plot)

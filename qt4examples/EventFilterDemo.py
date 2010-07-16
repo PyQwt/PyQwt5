@@ -86,18 +86,18 @@ class ColorBar(Qt.QWidget):
         painter.fillRect(rect, Qt.QBrush(self.__dark))
         sectionSize = 2
         if (self.__orientation == Qt.Qt.Horizontal):
-            numIntervalls = rect.width()/sectionSize
+            numIntervals = rect.width()/sectionSize
         else:
-            numIntervalls = rect.height()/sectionSize
+            numIntervals = rect.height()/sectionSize
         section = Qt.QRect()
-        for i in range(numIntervalls):
+        for i in range(int(numIntervals)):
             if self.__orientation == Qt.Qt.Horizontal:
                 section.setRect(rect.x() + i*sectionSize, rect.y(),
                                 sectionSize, rect.heigh())
             else:
                 section.setRect(rect.x(), rect.y() + i*sectionSize,
                                 rect.width(), sectionSize)
-            ratio = float(i)/float(numIntervalls)
+            ratio = float(i)/float(numIntervals)
             color = Qt.QColor()
             color.setHsv(h1 + int(ratio*(h2-h1) + 0.5),
                          s1 + int(ratio*(s2-s1) + 0.5),

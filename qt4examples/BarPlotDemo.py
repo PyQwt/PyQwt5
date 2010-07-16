@@ -166,7 +166,7 @@ class BarPlotMainWindow(Qt.QMainWindow):
         elif index in (1, 2, 3):
             self.zoomer.initMousePattern(index)
         else:
-            raise ValueError, 'index must be in (0, 1, 2, 3)'
+            raise ValueError('index must be in (0, 1, 2, 3)')
 
     # setZoomerMousePattern()
 

@@ -197,7 +197,7 @@ class CpuStat:
             for line in open("/proc/stat"):
                 words = line.split()
                 if words[0] == "cpu" and len(words) >= 5:
-                    return map(float, words[1:])
+                    return [float(w) for w in words[1:]]
         else:
             result = CpuStat.dummyValues[CpuStat.counter]
             CpuStat.counter += 1
@@ -396,7 +396,7 @@ class CpuPlot(Qwt.QwtPlot):
     # __init__()
     
     def timerEvent(self, e):
-        for data in self.data.itervalues():
+        for data in self.data.values():
             data[1:] = data[0:-1]
         self.data["User"][0], self.data["System"][0] = self.cpuStat.statistic()
         self.data["Total"][0] = self.data["User"][0] + self.data["System"][0]

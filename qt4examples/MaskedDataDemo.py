@@ -15,7 +15,7 @@ except ImportError:
         'This example requires NumPy, but failed to import NumPy.\n'
         'NumPy is available at http://sourceforge.net/projects/numpy'
         )
-    raise SystemExit, (
+    raise SystemExit(
         'Failed to import NumPy.\n'
         'NumPy is available at http://sourceforge.net/projects/numpy'
         )

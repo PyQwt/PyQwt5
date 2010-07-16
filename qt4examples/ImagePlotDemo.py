@@ -124,7 +124,7 @@ class ImagePlot(Qwt.QwtPlot):
     def __init__(self, *args):
         Qwt.QwtPlot.__init__(self, *args)
         # set plot title
-	self.setTitle('ImagePlot: (un)zoom & (un)hide')
+        self.setTitle('ImagePlot: (un)zoom & (un)hide')
         # set plot layout
         self.plotLayout().setMargin(0)
         self.plotLayout().setCanvasMargin(0)
@@ -134,22 +134,22 @@ class ImagePlot(Qwt.QwtPlot):
         legend.setItemMode(Qwt.QwtLegend.ClickableItem)
         self.insertLegend(legend, Qwt.QwtPlot.RightLegend)
 	# set axis titles
-	self.setAxisTitle(Qwt.QwtPlot.xBottom, 'time (s)')
-	self.setAxisTitle(Qwt.QwtPlot.yLeft, 'frequency (Hz)')
+        self.setAxisTitle(Qwt.QwtPlot.xBottom, 'time (s)')
+        self.setAxisTitle(Qwt.QwtPlot.yLeft, 'frequency (Hz)')
 	# calculate 3 NumPy arrays
         x = arange(-2*pi, 2*pi, 0.01)
         y = pi*sin(x)
         z = 4*pi*cos(x)*cos(x)*sin(x)
 	# attach a curve
-	curve = Qwt.QwtPlotCurve('y = pi*sin(x)')
+        curve = Qwt.QwtPlotCurve('y = pi*sin(x)')
         curve.attach(self)
-	curve.setPen(Qt.QPen(Qt.Qt.green, 2))
-	curve.setData(x, y)
+        curve.setPen(Qt.QPen(Qt.Qt.green, 2))
+        curve.setData(x, y)
         # attach another curve
-	curve = Qwt.QwtPlotCurve('y = 4*pi*sin(x)*cos(x)**2')
+        curve = Qwt.QwtPlotCurve('y = 4*pi*sin(x)*cos(x)**2')
         curve.attach(self)
-	curve.setPen(Qt.QPen(Qt.Qt.black, 2))
-	curve.setData(x, z)
+        curve.setPen(Qt.QPen(Qt.Qt.black, 2))
+        curve.setData(x, z)
         # attach a grid
         grid = Qwt.QwtPlotGrid()
         grid.attach(self)

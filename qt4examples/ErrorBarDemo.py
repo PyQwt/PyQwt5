@@ -72,27 +72,27 @@ class ErrorBarPlotCurve(Qwt.QwtPlotCurve):
         
         self.__x = asarray(x, Float)
         if len(self.__x.shape) != 1:
-            raise RuntimeError, 'len(asarray(x).shape) != 1'
+            raise RuntimeError('len(asarray(x).shape) != 1')
 
         self.__y = asarray(y, Float)
         if len(self.__y.shape) != 1:
-            raise RuntimeError, 'len(asarray(y).shape) != 1'
+            raise RuntimeError('len(asarray(y).shape) != 1')
         if len(self.__x) != len(self.__y):
-            raise RuntimeError, 'len(asarray(x)) != len(asarray(y))' 
+            raise RuntimeError('len(asarray(x)) != len(asarray(y))')
 
         if dx is None:
             self.__dx = None
         else:
             self.__dx = asarray(dx, Float)
         if len(self.__dx.shape) not in [0, 1, 2]:
-            raise RuntimeError, 'len(asarray(dx).shape) not in [0, 1, 2]'
+            raise RuntimeError('len(asarray(dx).shape) not in [0, 1, 2]')
             
         if dy is None:
             self.__dy = dy
         else:
             self.__dy = asarray(dy, Float)
         if len(self.__dy.shape) not in [0, 1, 2]:
-            raise RuntimeError, 'len(asarray(dy).shape) not in [0, 1, 2]'
+            raise RuntimeError('len(asarray(dy).shape) not in [0, 1, 2]')
         
         Qwt.QwtPlotCurve.setData(self, self.__x, self.__y)
 

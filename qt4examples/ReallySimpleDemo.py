@@ -15,38 +15,38 @@ class SimplePlot(Qwt.QwtPlot):
         Qwt.QwtPlot.__init__(self, *args)
 
 	# make a QwtPlot widget
-	self.setTitle('ReallySimpleDemo.py')
+        self.setTitle('ReallySimpleDemo.py')
         self.insertLegend(Qwt.QwtLegend(), Qwt.QwtPlot.RightLegend)
         
-	# set axis titles
-	self.setAxisTitle(Qwt.QwtPlot.xBottom, 'x -->')
-	self.setAxisTitle(Qwt.QwtPlot.yLeft, 'y -->')
+        # set axis titles
+        self.setAxisTitle(Qwt.QwtPlot.xBottom, 'x -->')
+        self.setAxisTitle(Qwt.QwtPlot.yLeft, 'y -->')
 
-	# insert a few curves
-	cSin = Qwt.QwtPlotCurve('y = sin(x)')
-	cSin.setPen(Qt.QPen(Qt.Qt.red))
+        # insert a few curves
+        cSin = Qwt.QwtPlotCurve('y = sin(x)')
+        cSin.setPen(Qt.QPen(Qt.Qt.red))
         cSin.attach(self)
 
-	cCos = Qwt.QwtPlotCurve('y = cos(x)')
-	cCos.setPen(Qt.QPen(Qt.Qt.blue))
+        cCos = Qwt.QwtPlotCurve('y = cos(x)')
+        cCos.setPen(Qt.QPen(Qt.Qt.blue))
         cCos.attach(self)
         
-	# make a Numeric array for the horizontal data
+        # make a Numeric array for the horizontal data
         x = arange(0.0, 10.0, 0.1)
 
-	# initialize the data
-	cSin.setData(x, sin(x))
-	cCos.setData(x, cos(x))
+        # initialize the data
+        cSin.setData(x, sin(x))
+        cCos.setData(x, cos(x))
 
-	# insert a horizontal marker at y = 0
- 	mY = Qwt.QwtPlotMarker()
+        # insert a horizontal marker at y = 0
+        mY = Qwt.QwtPlotMarker()
         mY.setLabel(Qwt.QwtText('y = 0'))
         mY.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignTop)
         mY.setLineStyle(Qwt.QwtPlotMarker.HLine)
         mY.setYValue(0.0)
         mY.attach(self)
 
- 	# insert a vertical marker at x = 2 pi
+        # insert a vertical marker at x = 2 pi
         mX = Qwt.QwtPlotMarker()
         mX.setLabel(Qwt.QwtText('x = 2 pi'))
         mX.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignTop)
