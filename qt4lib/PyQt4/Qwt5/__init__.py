@@ -29,7 +29,7 @@
 # PyQwt becomes a free plug-in for a non-free program.
 
 
-from Qwt import *
+from PyQt4.Qwt5.Qwt import *
 
 try:
     to_na_array = toNumarray

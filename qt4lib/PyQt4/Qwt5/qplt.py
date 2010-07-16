@@ -60,7 +60,7 @@ import time
 
 from PyQt4.Qt import *
 from PyQt4.Qwt5 import *
-from grace import GraceProcess
+from PyQt4.Qwt5.grace import GraceProcess
 
 
 # Qt.GlobalColor aliases
@@ -213,7 +213,7 @@ class Plot(QwtPlot):
                 print("Plot() fails to accept %s." % item)
 
         if self.size:
-            apply(self.resize, self.size)
+            self.resize(*self.size)
 
         # connections
         self.connect(self,
@@ -856,7 +856,7 @@ class IPlot(QMainWindow):
 # Admire!
 def testPlot():
     if 'np' not in dir():
-        import anynumpy as np
+        import PyQt4.Qwt5.anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     p = Plot(Axis(Bottom, "linear x-axis"),
              Axis(Left, "linear y-axis"),
@@ -877,7 +877,7 @@ def testPlot():
 
 def testIPlot():
     if 'np' not in dir():
-        import anynumpy as np
+        import PyQt4.Qwt5.anynumpy as np
     x = np.arange(-2*np.pi, 2*np.pi, 0.01)
     p = IPlot(Axis(Bottom, "linear x-axis"),
               Axis(Left, "linear y-axis"),
@@ -898,7 +898,7 @@ def testIPlot():
 
 def standard_map(x, y, kappa, n):
     if 'np' not in dir():
-        import anynumpy as np
+        import PyQt4.Qwt5.anynumpy as np
     xs = np.zeros(n, np.Float)
     ys = np.zeros(n, np.Float)
     for i in range(n):
