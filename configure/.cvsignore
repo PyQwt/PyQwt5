@@ -12,3 +12,4 @@ PyQwt.nsi
 qwt_svg_check*
 qwt_version_info*
 size_t_check*
+.python_history
