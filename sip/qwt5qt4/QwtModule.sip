@@ -84,6 +84,7 @@ typedef QRectF QwtDoubleRect;
 typedef QSizeF QwtDoubleSize;
 
 // Converter code
+%Include QList.sip
 %Include QwtMap.sip
 %Include QwtList.sip
 %Include QwtStack.sip
