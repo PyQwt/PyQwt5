@@ -1119,8 +1119,8 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except Die as e:
-        inform('%s\n' % e.args)
+    except Die:
+        inform('%s\n' % sys.exc_info()[1])
         sys.exit(1)
     except:
         for entry in traceback.extract_tb(sys.exc_info()[-1]):
