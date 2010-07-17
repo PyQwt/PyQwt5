@@ -3,8 +3,10 @@
 try:
     import PyQt4.Qwt5.iqt
 except ImportError:
-    raise SystemExit, 'Grab.py requires the PyQt4.Qwt5.iqt module'
+    raise SystemExit('Grab.py requires the PyQt4.Qwt5.iqt module')
 
+
+import sys
 from PyQt4.Qt import QPixmap
 
 # a list of .py files defining a function make()
@@ -62,7 +64,10 @@ def save(cache):
 
 def main():
     cache = expose(jobs)
-    raw_input("Are all widgets looking HAPPY? ")
+    if sys.version_info[0] == 3:
+        input("Are all widgets looking HAPPY? ")
+    else:
+        raw_input("Are all widgets looking HAPPY? ")
     save(cache)
 
 # main()

@@ -53,8 +53,8 @@ def py2html(source):
 if __name__ == '__main__':
 
     if len(sys.argv) == 1:
-        print "Usage: ./py2html.py files"
-        print "\tfiles is a list of Python source files."
+        print("Usage: ./py2html.py files")
+        print("\tfiles is a list of Python source files.")
         sys.exit(1)
 
     for file in sys.argv[1:]:

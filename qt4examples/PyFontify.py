@@ -33,12 +33,11 @@ sublist is not used, hence always None.
 __version__ = "0.5"
 
 import keyword
-import string
 import re
 
 # First a little helper, since I don't like to repeat things. (Tismer speaking)
-def replace(where, what, with):
-    return with.join(where.split(what))
+def replace(where, source, target):
+    return target.join(where.split(source))
 
 # Build up a regular expression which will match anything
 # interesting, including multi-line triple-quoted strings.
@@ -76,7 +75,7 @@ tripleQuotePat = replace(pat, "q", "'") + "|" + replace(pat, 'q', '"')
 # a keyword pattern.
 nonKeyPat = r"(^|[^a-zA-Z0-9_.\"'])"
 
-keyPat = nonKeyPat + "(" + string.join(keyword.kwlist, "|") + ")" + nonKeyPat
+keyPat = nonKeyPat + "(" + '|'.join(keyword.kwlist) + ")" + nonKeyPat
 
 matchPat = commentPat + "|" + keyPat + "|" + tripleQuotePat + "|" + quotePat
 matchRE = re.compile(matchPat)
@@ -113,7 +112,7 @@ def fontify(pytext, searchfrom = 0, searchto = None):
         c = match[0]
         if c not in "#'\"":
             # Must have matched a keyword.
-            if start <> searchfrom:
+            if start != searchfrom:
                 # there's still a redundant char before and after it, strip!
                 match = match[1:-1]
                 start = start + 1
@@ -146,4 +145,4 @@ def test(path):
     f.close()
     tags = fontify(text)
     for tag, start, end, sublist in tags:
-        print tag, `text[start:end]`
+        print(tag, text[start:end])

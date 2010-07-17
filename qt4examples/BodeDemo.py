@@ -5,6 +5,8 @@
 # To get an impression of the expressive power of NumPy,
 # compare the Python and C++ versions of setDamp()
 
+# BodeDemo.py requires at least Python v2.6.
+from __future__ import unicode_literals
 
 import sys
 from PyQt4.Qt import *
@@ -157,9 +159,9 @@ class BodePlot(QwtPlot):
 
         # axes
         self.enableAxis(QwtPlot.yRight)
-        self.setAxisTitle(QwtPlot.xBottom, u'\u03c9/\u03c9<sub>0</sub>')
+        self.setAxisTitle(QwtPlot.xBottom, '\u03c9/\u03c9<sub>0</sub>')
         self.setAxisTitle(QwtPlot.yLeft, 'Amplitude [dB]')
-        self.setAxisTitle(QwtPlot.yRight, u'Phase [\u00b0]')
+        self.setAxisTitle(QwtPlot.yRight, 'Phase [\u00b0]')
 
         self.setAxisMaxMajor(QwtPlot.xBottom, 6)
         self.setAxisMaxMinor(QwtPlot.xBottom, 10)
@@ -215,7 +217,7 @@ class BodePlot(QwtPlot):
         m.setValue(0.1, -20.0)
         m.setLabelAlignment(Qt.AlignRight | Qt.AlignBottom)
         text = QwtText(
-            u'[1-(\u03c9/\u03c9<sub>0</sub>)<sup>2</sup>+2j\u03c9/Q]'
+            '[1-(\u03c9/\u03c9<sub>0</sub>)<sup>2</sup>+2j\u03c9/Q]'
             '<sup>-1</sup>'
             )
         text.setFont(QFont(fn, 12, QFont.Bold))
@@ -394,20 +396,20 @@ class BodeDemo(QMainWindow):
         printer.setOrientation(QPrinter.Landscape)
         printer.setColorMode(QPrinter.Color)
 
-        docName = self.plot.title().text()
-        if not docName.isEmpty():
-            docName.replace(QRegExp(QString.fromLatin1('\n')), self.tr(' -- '))
+        docName = str(self.plot.title().text())
+        if not docName:
+            docName.replace('\n', ' -- ')
             printer.setDocName(docName)
 
         dialog = QPrintDialog(printer)
         if dialog.exec_():
-            filter = PrintFilter()
+            printFilter = PrintFilter()
             if (QPrinter.GrayScale == printer.colorMode()):
-                filter.setOptions(
+                printFilter.setOptions(
                     QwtPlotPrintFilter.PrintAll
                     & ~QwtPlotPrintFilter.PrintBackground
                     | QwtPlotPrintFilter.PrintFrameWithScales)
-            self.plot.print_(printer, filter)
+            self.plot.print_(printer, printFilter)
 
     # print_()
     
@@ -502,7 +504,7 @@ def main(args):
     app = QApplication(args)
     fonts = QFontDatabase()
     for name in ('Verdana', 'STIXGeneral'):
-        if QString(name) in fonts.families():
+        if name in fonts.families():
             app.setFont(QFont(name))
             break
     demo = make()
