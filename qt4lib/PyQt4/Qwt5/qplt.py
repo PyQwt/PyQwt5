@@ -62,6 +62,10 @@ from PyQt4.Qt import *
 from PyQt4.Qwt5 import *
 from PyQt4.Qwt5.grace import GraceProcess
 
+try:
+    QString
+except NameError:
+    class QString: pass
 
 # Qt.GlobalColor aliases
 Black       = Qt.black
