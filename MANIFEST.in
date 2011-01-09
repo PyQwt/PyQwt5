@@ -1,7 +1,7 @@
 # MANIFEST template file to make a distribution tarball
 
 # package stuff
-include ANNOUNCEMENT-5.2.0 COPYING*
+include ANNOUNCEMENT-5.2.1 COPYING*
 include MANIFEST.in GNUmakefile pyqwt-5.2.patch
 
 # configure
@@ -15,23 +15,23 @@ recursive-exclude include-5.2.0 .cvsignore *~
 
 # PyQwt python code for PyQt/Qt3
 graft qt3lib
-recursive-exclude qt3lib .cvsignore *~
+recursive-exclude qt3lib .cvsignore .python_history *~
 
 # PyQwt python code for PyQt4/Qt4
 graft qt4lib
-recursive-exclude qt4lib .cvsignore *~
+recursive-exclude qt4lib .cvsignore .python_history *~
 
 # Qt3 examples
 graft qt3examples
-recursive-exclude qt3examples *.html *.png *.pyc *.svg .cvsignore *~ typescript
+recursive-exclude qt3examples *.html *.png *.pyc *.svg .cvsignore .python_history *~ typescript
 
 # Qt4 examples
 graft qt4examples
-recursive-exclude qt4examples *.html *.png *.pyc *.svg .cvsignore *~ typescript
+recursive-exclude qt4examples *.html *.png *.pyc *.svg .cvsignore .python_history *~ typescript
 
 # support code
 graft support
-recursive-exclude suppport .cvsignore *~
+recursive-exclude suppport .cvsignore .python_history *~
 
 # qwt-svn
 graft qwt-5.2
@@ -39,14 +39,14 @@ recursive-exclude qwt-5.2 *~
 
 # sip files
 graft sip
-recursive-exclude sip .cvsignore *~
+recursive-exclude sip .cvsignore .python_history *~
 
 # tests
 include tests/test_*.py
 
 # Documentation
 graft sphinx
-recursive-exclude sphinx static *.doctree *.pickle .cvsignore *~
+recursive-exclude sphinx static *.doctree *.pickle .cvsignore .python_history *~
 
 # Local Variables: ***
 # mode: sh ***
