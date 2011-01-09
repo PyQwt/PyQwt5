@@ -138,7 +138,7 @@ The statement::
    >>> application = QApplication([])
 
 initializes and starts the Qt library so that it handles mouse
-movements, mouse button presses, and keyboard key presses. [#]_
+movements, mouse button presses, and keyboard key presses.
 The statement::
 
    >>> x = np.arange(-2*np.pi, 2*np.pi, 0.01)
@@ -192,8 +192,8 @@ takes a snapshot of the plot widget and saves it into a file:
 Getting help
 ============
 
-PyQwt and PyQwt3D have a low volume mailing list to answer questions
-on installation problems and how to use the more advanced features.
+PyQwt has a low volume mailing list to answer questions on
+installation problems and how to use the more advanced features.
 In particular, many of the more advanced examples using object
 oriented programming have been written to answer questions.
 Most questions help to improve PyQwt!
@@ -205,7 +205,7 @@ to the mailing list before posting on the
 
 The mailing list is a subscribers only list and mail from
 non-subscribers is deferred to filter spam (more than 95 % of the mail
-by non-subscribers is spam and mail by non-subscribers is rejected).
+by non-subscribers is spam and mail by non-subscribers is rejected). 
 
 The mailing list is configured to garantee anonimity as much as
 possible. 
@@ -217,6 +217,3 @@ possible.
        and
        `Numeric <http://numpy.scipy.org/>`_
        are deprecated.
-
-.. [#] PyQt-4.3.x and later support displaying Qt widgets from the
-       Python command line interpreter.

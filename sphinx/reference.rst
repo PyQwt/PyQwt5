@@ -52,22 +52,22 @@ Class reference
 
 .. class:: QwtArrayDouble
 
-   FIXME.
+   is fully implemented. See :ref:`template-reference-label`.
 
 
 .. class:: QwtArrayInt
 
-   FIXME.
+   is fully implemented. See :ref:`template-reference-label`.
 
 
 .. class:: QwtArrayQwtDoubleInterval
 
-   FIXME.
+   is fully implemented. See :ref:`template-reference-label`.
 
 
 .. class:: QwtArrayQwtDoublePoint
 
-   FIXME.
+   is fully implemented. See :ref:`template-reference-label`.
 
 
 .. class:: QwtArrowButton
@@ -208,7 +208,7 @@ Class reference
    is fully implemented, but only available when PyQt wraps Qt-3.
 
    When PyQt wraps Qt-4, replace this class with `QRectF`
-   except in signals: see :class:`QwtDoublePoint`.
+   except in signals: see :class:`.QwtDoublePoint`.
 
 
 .. class:: QwtDoubleSize
@@ -216,7 +216,7 @@ Class reference
    is fully implemented, but only available when PyQt wraps Qt-3.
 
    When PyQt wraps Qt-4, replace this class with `QSizeF`
-   except in signals: see :class:`QwtDoublePoint`.
+   except in signals: see :class:`.QwtDoublePoint`.
 
 
 .. class:: QwtDynGridLayout
@@ -231,7 +231,7 @@ Class reference
 
 .. class:: QwtIntervalData
 
-   FIXME
+   is fully implemented.
 
 
 .. class:: QwtKnob
@@ -338,13 +338,13 @@ Class reference
 
    is fully implemented, but:
 
-   .. cfunction:: void print(QPrinter &printer, const QwtPlotPrintFilter &filter) 
+   .. cpp:function:: void QwtPlot::print(QPrinter &printer, const QwtPlotPrintFilter &filter)
 
       is implemented as::
 
          plot.print_(printer, filter)
 
-   .. cfunction::  void print(QPainter *painter, const QRect &rect, const QwtPlotPrintFilter &filter)
+   .. cpp:function::  void QwtPlot::print(QPainter *painter, const QRect &rect, const QwtPlotPrintFilter &filter)
 
       is implemented as::
 
@@ -360,7 +360,7 @@ Class reference
 
    is fully implemented, but:
 
-   .. cfunction:: void setData(double *x, double *y, int size)
+   .. cpp:function:: void QwtPlotCurve::setData(double *x, double *y, int size)
    
       is implemented as::
 
@@ -369,7 +369,7 @@ Class reference
       where `x` and `y` can be any combination of lists, tuples and
       Numerical Python arrays.  The data is copied to C++ data types.
 
-   .. cfunction:: void setRawData(double *x, double *y, int size)
+   .. cpp:function:: void QwtPlotCurve::setRawData(double *x, double *y, int size)
 
       is not Pythonic.
 
@@ -413,14 +413,14 @@ Class reference
 
    is fully implemented, but:
 
-   .. cfunction:: QwtText trackerText(QwtDoublePoint &point)
+   .. cpp:function:: QwtText QwtPlotPicker::trackerText(QwtDoublePoint &point)
 
       is implemented as::
 
-         qwtText = plotPicker.trackerTextF(point)
+         qwtText = plotPicker.trackerText(point)
 
-      where `point` is a `QwtDoublePoint` when PyQt wraps Qt-3 or a
-      `QPointF` when PyQt wraps Qt-4.
+      where `point` is a :class:`.QwtDoublePoint` when PyQt wraps Qt-3
+      or a :class:`QPointF` when PyQt wraps Qt-4.
 
 
 .. class:: QwtPlotPrintFilter
@@ -440,7 +440,15 @@ Class reference
 
 .. class:: QwtPlotSpectrogram
 
-   FIXME: protected methods.
+   The protected member functions
+
+   .. cpp:function:: QMap<double,QPolygonF> QwtPlotSpectogram::renderContourLines(const QwtDoubleRect&, const QSize&) const
+
+   and
+
+   .. cpp:function:: void QwtPlotSpectogram::drawContourLines(QPainter*, const QwtScaleMap&, const QwtScaleMap&, const QMap<double,QPolygonF>&) const
+
+   are not yet implemented.
 
 
 .. class:: QwtPlotSvgItem
@@ -494,14 +502,14 @@ Class reference
 
 .. class:: QwtScaleDiv
 
-   .. cfunction:: QwtScaleDiv(const QwtDoubleInterval&, QwtValueList[NTickList])
+   .. cpp:function:: QwtScaleDiv::QwtScaleDiv(const QwtDoubleInterval&, QwtValueList*)
 
       is implemented as::
 
         scaleDiv = QwtScaleDiv(
             qwtDoubleInterval, majorTicks, mediumTicks, minorTicks)
 
-   .. cfunction:: QwtScaleDiv(double, double, QwtTickList[NTickList])
+   .. cpp:function:: QwtScaleDiv::QwtScaleDiv(double, double, QwtTickList*)
 
       is implemented as::
 
@@ -523,7 +531,7 @@ Class reference
 
    is fully implemented.
 
-   .. cfunction:: QwtScaleMap(int, int, double, double)
+   .. cpp:function:: QwtScaleMap::QwtScaleMap(int, int, double, double)
 
       does not exist in C++, but is provided by PyQwt.
 
@@ -628,6 +636,8 @@ Function reference
 
    Deprecated. Use :func:`toNumeric`.
 
+
+.. _template-reference-label:
 
 Template reference
 ------------------

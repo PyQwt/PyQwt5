@@ -9,17 +9,18 @@ Build Prerequisites
 
 Recommended build prerequisites for PyQwt-|release| are: 
 
-#. `Python <http://www.python.org>`_, version 2.6.x and 2.5.x are
-   supported.  
-#. `Qt <http://trolltech.com/products/qt>`_, version 4.5.x, 4.4.x,
-   4.3.x, and 3.3.x  are supported.
+#. `Python <http://www.python.org>`_, version 3.1.x, 2.7.x, 2.6.x, and
+   2.5.x are supported.  
+#. `Qt <http://trolltech.com/products/qt>`_, version 4.6.x, 4.5.x,
+   4.4.x, and 3.3.x  are supported.
 #. `SIP <http://www.riverbankcomputing.co.uk/software/sip/intro>`_,
-   version 4.8.x and 4.7.x (x > 3) are supported. 
+   version 4.10.x is supported. 
 #. `PyQt <http://www.riverbankcomputing.co.uk/software/pyqt/intro>`_
-   for Mac OS X, Windows, and/or X11, version 4.5.x, 4.4.x, 4.3.x,
-   3.18.x, and 3.17.x are supported.
-#. optionally `NumPy <http://www.scipy.org/NumPy>`_, version 1.3.x,
-   1.2.x, and 1.1.x are supported.
+   for Mac OS X, Windows, and/or X11, version 4.7.x, and 3.18.x are
+   supported. 
+#. optionally `NumPy <http://www.scipy.org/NumPy>`_, version 1.4.x, 1.3.x,
+   and 1.2.x are supported.  You will need to check out NumPy from
+   subversion when you want to use NumPy with Python-3.x.
 #. optionally `Qwt <http://qwt.sourceforge.net>`_, version 5.2.x,
    5.1.x, and 5.0.x are supported. 
 
@@ -27,7 +28,7 @@ The source package
 `PyQwt-5.2.1.tar.gz
 <http://prdownloads.sourceforge.net/pyqwt/PyQwt-5.2.1.tar.gz>`_
 contains a snapshot of the Qwt-5.2 subversion bug fix branch which may
-fix some bugs in Qwt-5.2.0. 
+fix some bugs in Qwt-5.2.1. 
 I recommend to compile and link the bug fix branch statically into PyQwt.
 
 To exploit the full power of PyQwt, you should install at least one of
@@ -125,18 +126,19 @@ Troubleshooting and getting help
    :ref:`getting-help`.
 
 
-Windows Binary Installer
-========================
+..
+   Windows Binary Installer
+   ========================
 
-Make sure that you have installed:
+   Make sure that you have installed:
 
-#. `python-2.6.3.msi
-   <http://www.python.org/ftp/python/2.6.3/python-2.6.3.msi>`_ 
-#. `numpy-1.3.0-win32-superpack-python2.6.exe
-   <http://prdownloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.6.exe>`_ 
-#. `PyQt-Py2.6-gpl-4.6.1-1.exe
-   <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.6.1-1.exe>`_
+   #. `python-2.6.3.msi
+       <http://www.python.org/ftp/python/2.6.3/python-2.6.3.msi>`_ 
+   #. `numpy-1.3.0-win32-superpack-python2.6.exe
+       <http://prdownloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.6.exe>`_ 
+   #. `PyQt-Py2.6-gpl-4.6.1-1.exe
+       <http://pyqwt.sourceforge.net/support/PyQt-Py2.6-gpl-4.6.1-1.exe>`_
 
-before installing
-`PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe
-<http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe>`_.
+   before installing
+   `PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe
+    <http://prdownloads.sourceforge.net/pyqwt/PyQwt5.2.1-Python2.6-PyQt4.6.1-NumPy1.3.0-1.exe>`_.
